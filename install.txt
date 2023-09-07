@@ -1,5 +1,13 @@
 --- 1. install ---
 
+- npm
+    - Node.js letöltés, jön vele
+
+- Android studio
+    - Android studio letöltése a netről
+
+- projekt
+
 1. clone repo
 2. temp folder (név mind1)
 3. react install a temp folder-be: npx create-react-app my-app
