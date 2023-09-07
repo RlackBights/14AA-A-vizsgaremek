@@ -1,0 +1,26 @@
+--- 1. install ---
+
+1. clone repo
+2. temp folder (név mind1)
+3. react install a temp folder-be: npx create-react-app my-app
+4. be a temp projekt mappába: cd my-app
+5. capacitor install: 
+    - npm install @capacitor/core @capacitor/cli
+    - npx cap init my-app com.example.myapp --web-dir=build
+    - npm i @capacitor/android
+    - npx cap add android
+
+6. a node-modules mappa másolása a vizsgaremek mappába
+
+--- 2. test ---
+
+szerver futtatása: npm run start
+
+--- 3. build app ---
+
+1. npm run build
+2. npx cap open android
+3. android studio-ban fenn
+    - Build > Make Project
+    - Build > Build Bundle(s) / APK(s) > Build APK(s)
+4. a build a vizsgaremek\android\app\build\outputs\apk\debug mappában lesz
