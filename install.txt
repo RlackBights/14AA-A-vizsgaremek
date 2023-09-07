@@ -17,6 +17,7 @@
     - npx cap init my-app com.example.myapp --web-dir=build
     - npm i @capacitor/android
     - npx cap add android
+    - npm i @capacitor-community/electron
 
 6. a node-modules mappa másolása a vizsgaremek mappába
 
@@ -32,3 +33,13 @@ szerver futtatása: npm run start
     - Build > Make Project
     - Build > Build Bundle(s) / APK(s) > Build APK(s)
 4. a build a vizsgaremek\android\app\build\outputs\apk\debug mappában lesz
+
+--- 4. build pc ---
+
+1. npm run build
+2. npx cap add @capacitor-community/electron
+3. cd electron
+(-) npm install --save-dev @electron-forge/cli (csak egyszer!)
+4. npx electron-forge import
+5. npx electron-forge package
+6. npx electron-forge make

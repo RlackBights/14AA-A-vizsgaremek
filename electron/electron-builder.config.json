@@ -9,12 +9,17 @@
     "capacitor.config.*",
     "app/**/*"
   ],
+  "publish": {
+    "provider": "github"
+  },
+  "nsis": {
+    "allowElevation": true,
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true
+  },
   "win": {
-    "target": "",
-    "icon": "assets/appIcon.ico",  
-    "publish": {
-      "provider": "github"
-    }
+    "target": "nsis",
+    "icon": "assets/appIcon.ico"
   },
   "mac": {
     "category": "your.app.category.type",
