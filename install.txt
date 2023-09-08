@@ -37,9 +37,10 @@ szerver futtatása: npm run start
 --- 4. build pc ---
 
 1. npm run build
-2. npx cap add @capacitor-community/electron
+(-) npx cap add @capacitor-community/electron (csak egyszer!)
+2. npx cap copy @capacitor-community/electron
 3. cd electron
 (-) npm install --save-dev @electron-forge/cli (csak egyszer!)
-4. npx electron-forge import
-5. npx electron-forge package
-6. npx electron-forge make
+(-) npx electron-forge import (csak egyszer!)
+4. npx electron-forge package
+5. npx electron-forge make

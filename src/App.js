@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import logo from "./logo.svg";
 import "./App.css";
 
