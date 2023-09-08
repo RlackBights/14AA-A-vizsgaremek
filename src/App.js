@@ -1,6 +1,7 @@
 /* eslint-disable default-case */
 import logo from "./logo.svg";
 import "./App.css";
+import { useState } from "react";
 
 class saveFile {
   constructor(lvl, money, hours, minutes, seconds, cpu, gpu, ram, stg) {
@@ -14,12 +15,19 @@ class saveFile {
     this.ram = ram;
     this.stg = stg;
   }
+
+  getlvl() {
+    return this.lvl;
+  }
+
 }
 
 function App() {
+  const [key, setKey] = useState(0);
+
   let cleanSave = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
 
-  let save1 = new saveFile(
+  let save1data = new saveFile(
     3,
     12500,
     1,
@@ -31,10 +39,16 @@ function App() {
     "250GB HDD"
   );
 
-  let save2 = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-  let save3 = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+  let save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+  let save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
 
   let currentState = "MainMenu";
+
+  const [save1, setSave1] = useState(0);
+  const [save2, setSave2] = useState(1);
+  const [save3, setSave3] = useState(2);
+
+  
 
   switch (currentState) {
     case "MainMenu":
@@ -51,6 +65,10 @@ function App() {
                   )[0].style.display = "flex";
                   document.getElementById("save-back-button").style.display =
                     "unset";
+                  
+                  setSave1((save1) => save1data);
+                  setSave2((save2) => save2data);
+                  setSave3((save3) => save3data);
                 }}
               >
                 Continue
@@ -96,13 +114,16 @@ function App() {
                 </div>
               </div>
               <div class="grid-item save-bottom">
-                <p>LvL: {save1.lvl}</p>
-                <p>{save1.money}$</p>
+                <p>LvL: { save1.lvl }</p>
+                <p>{ save1.money }$</p>
                 <p id="playtime">
                   {save1.hours}:{save1.minutes}:{save1.seconds}
                 </p>
               </div>
-              <button>Delete</button>
+              <button onClick={() => {
+                save1data = new saveFile(0, 0, 0, 0, 0, "", "", "", "");
+                setSave1((save1) => save1data)
+              }}>Delete</button>
             </div>
             <div class="save-item" id="save-item2">
               <div class="grid-item save-top">
