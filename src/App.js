@@ -71,7 +71,9 @@ function App() {
                 New Game
               </button>
               <button>Options</button>
-              <button>Quit Game</button>
+              <button onClick={() => {
+                window.close();
+              }}>Quit Game</button>
             </div>
             <div id="darken-bg"></div>
           </div>
