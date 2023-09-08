@@ -39,8 +39,8 @@ function App() {
     "250GB HDD"
   );
 
-  let save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-  let save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+  let save2data = cleanSave;
+  let save3data = cleanSave;
 
   let currentState = "MainMenu";
 
@@ -120,8 +120,8 @@ function App() {
                   {save1.hours}:{save1.minutes}:{save1.seconds}
                 </p>
               </div>
-              <button onClick={() => {
-                save1data = new saveFile(0, 0, 0, 0, 0, "", "", "", "");
+              <button class="delete-button" onClick={() => {
+                save1data = cleanSave;
                 setSave1((save1) => save1data)
               }}>Delete</button>
             </div>
@@ -146,6 +146,10 @@ function App() {
                   {save2.hours}:{save2.minutes}:{save2.seconds}
                 </p>
               </div>
+              <button class="delete-button" onClick={() => {
+                save2data = cleanSave;
+                setSave2((save2) => save2data)
+              }}>Delete</button>
             </div>
             <div class="save-item" id="save-item3">
               <div class="grid-item save-top">
@@ -168,6 +172,10 @@ function App() {
                   {save3.hours}:{save3.minutes}:{save3.seconds}
                 </p>
               </div>
+              <button class="delete-button" onClick={() => {
+                save3data = cleanSave;
+                setSave3((save3) => save3data)
+              }}>Delete</button>
             </div>
           </div>
           <button
