@@ -91,6 +91,8 @@ export class ElectronCapacitorApp {
     return this.customScheme;
   }
 
+  
+
   async init(): Promise<void> {
     const icon = nativeImage.createFromPath(
       join(app.getAppPath(), 'assets', process.platform === 'win32' ? 'appIcon.ico' : 'appIcon.png')
@@ -100,14 +102,20 @@ export class ElectronCapacitorApp {
       defaultHeight: 800,
     });
     // Setup preload script path and construct our main window.
+    const electron = require('electron');
+
+    const screen = electron.screen;
     const preloadPath = join(app.getAppPath(), 'build', 'src', 'preload.js');
     this.MainWindow = new BrowserWindow({
       icon,
       show: false,
       x: this.mainWindowState.x,
       y: this.mainWindowState.y,
-      width: this.mainWindowState.width,
-      height: this.mainWindowState.height,
+      width: screen.getPrimaryDisplay().size.width,
+      height: screen.getPrimaryDisplay().size.height,
+      resizable: true,
+      fullscreen: true,
+      fullscreenable: true,
       webPreferences: {
         nodeIntegration: true,
         contextIsolation: true,
@@ -115,7 +123,6 @@ export class ElectronCapacitorApp {
         // preload: join(app.getAppPath(), "node_modules", "@capacitor-community", "electron", "dist", "runtime", "electron-rt.js"),
         preload: preloadPath,
         devTools: false,
-
       },
     });
     this.mainWindowState.manage(this.MainWindow);
