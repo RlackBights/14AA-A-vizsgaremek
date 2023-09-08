@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100%;
+  width: 100%;
 }
 
 .App-logo {
@@ -35,4 +37,207 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.main-menu {
+  height: 100%;
+  background-image: url("assets/bg.jpg");
+}
+
+.main-menu h1 {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  font-size: 5rem;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  padding-top: 3rem;
+  letter-spacing: 2px;
+}
+
+.main-menu button {
+  z-index: 1;
+  width: 15rem;
+  border: 4px solid #fff;
+  border-left: none;
+  border-top-right-radius: 5rem;
+  border-bottom-right-radius: 5rem;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  color: white;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0.5rem 0 0.5rem -4rem;
+  text-align: right;
+  transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s;
+  font-family: "Pixel Font" !important;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+#darken-bg {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 0;
+  position: absolute;
+  top: 0;
+}
+.main-menu button:hover {
+  margin-left: -1rem;
+}
+
+.save-container {
+  z-index: 10;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 5rem;
+  align-items: center;
+}
+
+.save-item {
+  width: 22%;
+  height: 35rem;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border-radius: 1.25rem;
+  border: 5px solid black;
+  margin-bottom: 10rem;
+  color: #fff;
+}
+
+#save-item1 {
+  background: #a59265;
+}
+
+#save-item2 {
+  background: #74caa6;
+}
+
+#save-item3 {
+  background: #716ccb;
+}
+
+.grid-item {
+  width: 90%;
+  border: black 3px solid;
+  border-radius: 1.25rem;
+  margin: auto;
+  height: 85%;
+}
+
+.save-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.save-bottom p {
+  font-size: 2rem;
+  margin: 0;
+}
+
+#save-item1 .save-bottom {
+  border-color: #e6cd92;
+}
+
+#save-item1 .save-top {
+  border-color: #e6cd92;
+}
+
+#playtime {
+  color: lightgray;
+  font-size: 1.5rem;
+  padding-top: 2rem;
+}
+
+.save-top {
+  display: flex;
+}
+
+#langs {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 3rem;
+  padding: 0;
+  border-right: 3px solid #e6cd92;
+}
+
+#langs p {
+  margin: 0;
+}
+
+#config {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+#config p {
+  margin: 0;
+}
+
+#html {
+  color: gray;
+}
+
+#css {
+  color: gray;
+}
+
+#js {
+  color: gray;
+}
+
+#save-back-button {
+  position: absolute;
+  bottom: 4rem;
+  transform: translateX(-50%);
+  left: 50%;
+  z-index: 11;
+  width: 10rem;
+  border: 4px solid #fff;
+  border-radius: 5rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 1rem;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0.5rem 0 0.5rem;
+  font-family: "Pixel Font" !important;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+#save-back-button:hover {
+  color: #c1c1c1;
+  border: 4px solid #c1c1c1;
 }
