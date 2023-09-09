@@ -241,3 +241,35 @@
   color: #c1c1c1;
   border: 4px solid #c1c1c1;
 }
+
+.empty-save {
+  display: block;
+}
+
+.empty-save-base {
+  display: none;
+}
+
+.empty-save > * {
+  display: none;
+}
+
+.empty-save .empty-save-base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 4rem;
+  flex-direction: column;
+  text-wrap: nowrap;
+}
+
+.empty-save .empty-save-base p {
+  margin: 2rem 0;
+}
+
+.empty-save .empty-save-base p:last-child {
+  color: #c1c1c1;
+}

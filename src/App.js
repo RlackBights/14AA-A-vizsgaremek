@@ -22,10 +22,8 @@ class saveFile {
 
 }
 
-function App() {
-  const [key, setKey] = useState(0);
-
-  let cleanSave = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+let cleanSave = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+  
 
   let save1data = new saveFile(
     3,
@@ -39,16 +37,28 @@ function App() {
     "250GB HDD"
   );
 
-  let save2data = cleanSave;
+  let save2data = new saveFile(
+    3,
+    12500,
+    1,
+    22,
+    36,
+    "Z3",
+    "GHD 720",
+    "8GB",
+    "250GB HDD"
+  );
+
   let save3data = cleanSave;
+
+function App() {
 
   let currentState = "MainMenu";
 
-  const [save1, setSave1] = useState(0);
-  const [save2, setSave2] = useState(1);
-  const [save3, setSave3] = useState(2);
-
   
+  const [save1, setSave1] = useState(save1data);
+  const [save2, setSave2] = useState(save2data);
+  const [save3, setSave3] = useState(save3data);
 
   switch (currentState) {
     case "MainMenu":
@@ -60,22 +70,54 @@ function App() {
             <div class="button-container">
               <button
                 onClick={() => {
+
                   document.getElementsByClassName(
                     "save-container"
                   )[0].style.display = "flex";
                   document.getElementById("save-back-button").style.display =
                     "unset";
                   
-                  setSave1((save1) => save1data);
-                  setSave2((save2) => save2data);
-                  setSave3((save3) => save3data);
+
+                  let saveSlot1 = document.getElementById("save-item1");
+                  let saveSlot2 = document.getElementById("save-item2");
+                  let saveSlot3 = document.getElementById("save-item3");
+                  
+                  setSave1((save1) => save1data)
+                  setSave2((save2) => save2data)
+                  setSave3((save3) => save3data)
+
+                  if (save1.lvl === -1) {
+                    if (!saveSlot1.classList.contains("empty-save")) {
+                      saveSlot1.classList.add("empty-save");
+                    }
+                  } else {
+                    if (saveSlot1.classList.contains("empty-save")) {
+                      saveSlot1.classList.remove("empty-save");
+                    }
+                  }
+
+                  if (save2.lvl === -1) {
+                    if (!saveSlot2.classList.contains("empty-save")) {
+                      saveSlot2.classList.add("empty-save");
+                  }
+                  } else {
+                    if (saveSlot2.classList.contains("empty-save")) {
+                      saveSlot2.classList.remove("empty-save");
+                  }
+                  }
+
+                  if (save3.lvl === -1) {
+                    saveSlot3.classList.add("empty-save");
+                  } else {
+                    saveSlot3.classList.remove("empty-save");
+                  }
                 }}
               >
                 Continue
               </button>
               <button
                 onClick={() => {
-                  if (save1.lvl == -1 || save2.lvl == -1 || save3.lvl == -1) {
+                  if (save1.lvl === -1 || save2.lvl === -1 || save3.lvl === -1) {
                     console.log("start game");
                   } else {
                     document.getElementsByClassName(
@@ -98,8 +140,12 @@ function App() {
 
           {/* Save Menu */}
 
-          <div class="save-container" style={{ display: "none" }}>
+          <div class="save-container" style={{display: "none"}}>
             <div class="save-item" id="save-item1">
+              <div class="empty-save-base">
+                <p>Empty save</p>
+                <p><i>-- slot 1 --</i></p>
+              </div>
               <div class="grid-item save-top">
                 <div id="langs">
                   <p id="html">HTML</p>
@@ -122,10 +168,15 @@ function App() {
               </div>
               <button class="delete-button" onClick={() => {
                 save1data = cleanSave;
-                setSave1((save1) => save1data)
+                setSave1((save1) => save1data);
+                document.getElementById("save-item1").classList.add("empty-save");
               }}>Delete</button>
             </div>
             <div class="save-item" id="save-item2">
+              <div class="empty-save-base">
+                <p>Empty save</p>
+                <p><i>-- slot 1 --</i></p>
+              </div>
               <div class="grid-item save-top">
                 <div id="langs">
                   <p id="html">HTML</p>
@@ -148,10 +199,15 @@ function App() {
               </div>
               <button class="delete-button" onClick={() => {
                 save2data = cleanSave;
-                setSave2((save2) => save2data)
+                setSave2((save2) => save2data);
+                document.getElementById("save-item2").classList.add("empty-save");
               }}>Delete</button>
             </div>
             <div class="save-item" id="save-item3">
+            <div class="empty-save-base">
+                <p>Empty save</p>
+                <p><i>-- slot 1 --</i></p>
+              </div>
               <div class="grid-item save-top">
                 <div id="langs">
                   <p id="html">HTML</p>
@@ -174,7 +230,8 @@ function App() {
               </div>
               <button class="delete-button" onClick={() => {
                 save3data = cleanSave;
-                setSave3((save3) => save3data)
+                setSave3((save3) => save3data);
+                document.getElementById("save-item3").classList.add("empty-save");
               }}>Delete</button>
             </div>
           </div>
