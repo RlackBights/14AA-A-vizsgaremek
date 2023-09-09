@@ -2,6 +2,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import deleteSave from "./assets/delete-button.png"; 
 
 class saveFile {
   constructor(lvl, money, hours, minutes, seconds, cpu, gpu, ram, stg) {
@@ -161,12 +162,12 @@ function App() {
                 save1data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
                 setSave1((save1) => save1data);
                 document.getElementById("save-item1").classList.add("empty-save");
-              }}>Delete</button>
+              }}><img src={deleteSave} alt=""></img></button>
             </div>
             <div class="save-item" id="save-item2">
               <div class="empty-save-base">
                 <p>Empty save</p>
-                <p><i>-- slot 1 --</i></p>
+                <p><i>-- slot 2 --</i></p>
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
@@ -192,12 +193,12 @@ function App() {
                 save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
                 setSave2((save2) => save2data);
                 document.getElementById("save-item2").classList.add("empty-save");
-              }}>Delete</button>
+              }}><img src={deleteSave} alt=""></img></button>
             </div>
             <div class="save-item" id="save-item3">
             <div class="empty-save-base">
                 <p>Empty save</p>
-                <p><i>-- slot 1 --</i></p>
+                <p><i>-- slot 3 --</i></p>
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
@@ -223,8 +224,10 @@ function App() {
                 save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
                 setSave3((save3) => save3data);
                 document.getElementById("save-item3").classList.add("empty-save");
-              }}>Delete</button>
+              }}><img src={deleteSave} alt=""></img>
+            </button>
             </div>
+            
           </div>
           <button
             onClick={() => {
