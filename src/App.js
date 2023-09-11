@@ -59,13 +59,12 @@ function App() {
       })
       .then(function(myJson) {
         save1data = convertSave(myJson.data[0]);
-        console.log(save1data);
         setSave1((save1) => save1data);
+
         save2data = convertSave(myJson.data[1]);
-        console.log(save2data);
         setSave2((save2) => save2data);
+
         save3data = convertSave(myJson.data[2]);
-        console.log(save3data);
         setSave3((save3) => save3data);
       });
       setKey((key) => key + 1);

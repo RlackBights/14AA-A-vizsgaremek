@@ -79,9 +79,9 @@ INSERT INTO LearnTheBasics.stg (hardwareId, name) VALUES
 
 
 INSERT INTO LearnTheBasics.savedata (saveId, lvl, money, time, cpu, gpu, ram, stg) VALUES
-(1, 4, 0, 0, 1, 1, 1, 1),
-(2, 2, 0, 0, 1, 1, 1, 1),
-(3, 0, 0, 0, 1, 1, 1, 1);
+(1, -1, 0, 0, 1, 1, 1, 1),
+(2, -1, 0, 0, 1, 1, 1, 1),
+(3, -1, 0, 0, 1, 1, 1, 1);
 
 /*ALTER*/
 ALTER TABLE learnthebasics.savedata
