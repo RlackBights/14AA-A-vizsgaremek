@@ -7,9 +7,9 @@ import deleteSave from "./assets/delete-button.png";
 /*
 let a = 3779;
 
-let h = Math.floor(a / 3600);
-let m = Math.floor((a % 3600) / 60);
-let s = Math.floor((a % 3600) % 60);
+let h = Math.floor(time / 3600);
+let m = Math.floor((time % 3600) / 60);
+let s = Math.floor((time % 3600) % 60);
 
 console.log( h + ":" + m + ":" + s);
 */
@@ -17,7 +17,9 @@ class saveFile {
   constructor(lvl, money, time, cpu, gpu, ram, stg) {
     this.lvl = lvl;
     this.money = money;
-    this.time = time;
+    this.hours = Math.floor(time / 3600);
+    this.minutes = Math.floor((time % 3600) / 60);
+    this.seconds = Math.floor((time % 3600) % 60);
     this.cpu = cpu;
     this.gpu = gpu;
     this.ram = ram;
@@ -160,11 +162,7 @@ function App() {
                 <p>LvL: {save1.lvl}</p>
                 <p>{save1.money}$</p>
                 <p id="playtime">
-                  {(save1.time - (save1.time % 3600)) / 3600}:
-                  {save1.time -
-                    (save1.time % 3600) -
-                    ((save1.time - (save1.time % 3600)) % 60) / 60}
-                  :{save1.seconds}
+                  {save1.hours}:{save1.minutes}:{save1.seconds}
                 </p>
               </div>
               <button
