@@ -31,6 +31,11 @@ CREATE TABLE learnthebasics.cpu (
 )
 ENGINE = INNODB;
 
+INSERT INTO LearnTheBasics.cpu (hardwareId, name) VALUES
+(1, "Z3"),
+(2, ""),
+(3, "");
+
 /*GPU*/
 CREATE TABLE learnthebasics.gpu (
   hardwareId tinyint(4) NOT NULL,
@@ -38,6 +43,12 @@ CREATE TABLE learnthebasics.gpu (
   PRIMARY KEY (hardwareId)
 )
 ENGINE = INNODB;
+
+INSERT INTO LearnTheBasics.gpu (hardwareId, name) VALUES
+(1, "TB 720"),
+(2, ""),
+(3, "");
+
 
 /*RAM*/
 CREATE TABLE learnthebasics.ram (
@@ -47,6 +58,12 @@ CREATE TABLE learnthebasics.ram (
 )
 ENGINE = INNODB;
 
+INSERT INTO LearnTheBasics.ram (hardwareId, name) VALUES
+(1, "8GB DDR5"),
+(2, "16GB DDR5"),
+(3, "32GB DDR5");
+
+
 /*STG*/
 CREATE TABLE learnthebasics.stg (
   hardwareId tinyint(4) NOT NULL,
@@ -54,6 +71,17 @@ CREATE TABLE learnthebasics.stg (
   PRIMARY KEY (hardwareId)
 )
 ENGINE = INNODB;
+
+INSERT INTO LearnTheBasics.stg (hardwareId, name) VALUES
+(1, "256GB HDD"),
+(2, "512GB HDD"),
+(3, "1TB SSD");
+
+
+INSERT INTO LearnTheBasics.savedata (saveId, lvl, money, time, cpu, gpu, ram, stg) VALUES
+(1, 0, 0, 0, 1, 1, 1, 1),
+(2, -1, 0, 0, 1, 1, 1, 1),
+(3, -1, 0, 0, 1, 1, 1, 1);
 
 /*ALTER*/
 ALTER TABLE learnthebasics.savedata
