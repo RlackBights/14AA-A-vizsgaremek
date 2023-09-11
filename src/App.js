@@ -2,6 +2,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
+import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 
 /*
@@ -13,6 +14,7 @@ let s = Math.floor((time % 3600) % 60);
 
 console.log( h + ":" + m + ":" + s);
 */
+
 class saveFile {
   constructor(lvl, money, time, cpu, gpu, ram, stg) {
     this.lvl = lvl;
@@ -36,6 +38,16 @@ let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 
 function App() {
+  const [message, setMessage] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/savedata")
+      .then((res) => res.json())
+      .then((json) => (save123456677 = json.data));
+  }, []);
+
+  console.log(save123456677);
+
   let currentState = "MainMenu";
 
   const [key, setKey] = useState(0);
@@ -49,7 +61,7 @@ function App() {
         <div className="App">
           {/* Main Menu */}
           <div class="main-menu">
-            <h1>LearnTheBasics.it</h1>
+            <h1>LearnTheBasics.it{message}</h1>
             <div class="button-container">
               <button
                 onClick={() => {
@@ -159,7 +171,7 @@ function App() {
                 </div>
               </div>
               <div class="grid-item save-bottom">
-                <p>LvL: {save1.lvl}</p>
+                ü<p>LvL: {save1.lvl}</p>
                 <p>{save1.money}$</p>
                 <p id="playtime">
                   {save1.hours}:{save1.minutes}:{save1.seconds}
