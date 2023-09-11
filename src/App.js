@@ -2,15 +2,22 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
-import deleteSave from "./assets/delete-button.png"; 
+import deleteSave from "./assets/delete-button.png";
 
+/*
+let a = 3779;
+
+let h = Math.floor(a / 3600);
+let m = Math.floor((a % 3600) / 60);
+let s = Math.floor((a % 3600) % 60);
+
+console.log( h + ":" + m + ":" + s);
+*/
 class saveFile {
-  constructor(lvl, money, hours, minutes, seconds, cpu, gpu, ram, stg) {
+  constructor(lvl, money, time, cpu, gpu, ram, stg) {
     this.lvl = lvl;
     this.money = money;
-    this.hours = hours;
-    this.minutes = minutes;
-    this.seconds = seconds;
+    this.time = time;
     this.cpu = cpu;
     this.gpu = gpu;
     this.ram = ram;
@@ -20,17 +27,15 @@ class saveFile {
   getlvl() {
     return this.lvl;
   }
-
 }
 
-  let save1data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-  let save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-  let save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+let save1data = new saveFile(-1, 0, 0, "", "", "", "");
+let save2data = new saveFile(-1, 0, 0, "", "", "", "");
+let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 
 function App() {
-
   let currentState = "MainMenu";
-  
+
   const [key, setKey] = useState(0);
   const [save1, setSave1] = useState(save1data);
   const [save2, setSave2] = useState(save2data);
@@ -46,20 +51,18 @@ function App() {
             <div class="button-container">
               <button
                 onClick={() => {
-                  setKey((key) => (key + 1));
+                  setKey((key) => key + 1);
 
                   document.getElementsByClassName(
                     "save-container"
                   )[0].style.top = "0vh";
                   document.getElementById("save-back-button").style.display =
-                  "unset";
-                  
+                    "unset";
 
                   let saveSlot1 = document.getElementById("save-item1");
                   let saveSlot2 = document.getElementById("save-item2");
                   let saveSlot3 = document.getElementById("save-item3");
-                  
-                  
+
                   if (save1.lvl === -1) {
                     if (!saveSlot1.classList.contains("empty-save")) {
                       console.log("added empty-save");
@@ -74,11 +77,11 @@ function App() {
                   if (save2.lvl === -1) {
                     if (!saveSlot2.classList.contains("empty-save")) {
                       saveSlot2.classList.add("empty-save");
-                  }
+                    }
                   } else {
                     if (saveSlot2.classList.contains("empty-save")) {
                       saveSlot2.classList.remove("empty-save");
-                  }
+                    }
                   }
 
                   if (save3.lvl === -1) {
@@ -86,16 +89,13 @@ function App() {
                   } else {
                     saveSlot3.classList.remove("empty-save");
                   }
-
-                  
-  
                 }}
               >
                 Continue
               </button>
               <button
                 onClick={() => {
-
+                  setKey((key) => key + 1);
                   if (save1.lvl === -1) {
                     console.log("Save 1 empty, setting level");
                     save1data.lvl = 0;
@@ -112,31 +112,36 @@ function App() {
                     console.log("No empty save found, open menu");
                     document.getElementsByClassName(
                       "save-container"
-                    )[0].style.display = "flex";
+                    )[0].style.top = "0vh";
                     document.getElementById("save-back-button").style.display =
                       "unset";
                   }
-
                 }}
               >
                 New Game
               </button>
               <button>Options</button>
-              <button onClick={() => {
-                window.close();
-              }}>Quit Game</button>
+              <button
+                onClick={() => {
+                  window.close();
+                }}
+              >
+                Quit Game
+              </button>
             </div>
             <div id="darken-bg"></div>
           </div>
 
           {/* Save Menu */}
 
-          <div class="save-container" style={{top: "100vh"}}>
-            <div style={{display: "none"}} key={key}></div>
+          <div class="save-container" style={{ top: "100vh" }}>
+            <div style={{ display: "none" }} key={key}></div>
             <div class="save-item" id="save-item1">
               <div class="empty-save-base">
                 <p>Empty save</p>
-                <p><i>-- slot 1 --</i></p>
+                <p>
+                  <i>-- slot 1 --</i>
+                </p>
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
@@ -152,22 +157,35 @@ function App() {
                 </div>
               </div>
               <div class="grid-item save-bottom">
-                <p>LvL: { save1.lvl }</p>
-                <p>{ save1.money }$</p>
+                <p>LvL: {save1.lvl}</p>
+                <p>{save1.money}$</p>
                 <p id="playtime">
-                  {save1.hours}:{save1.minutes}:{save1.seconds}
+                  {(save1.time - (save1.time % 3600)) / 3600}:
+                  {save1.time -
+                    (save1.time % 3600) -
+                    ((save1.time - (save1.time % 3600)) % 60) / 60}
+                  :{save1.seconds}
                 </p>
               </div>
-              <button class="delete-button" onClick={() => {
-                save1data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-                setSave1((save1) => save1data);
-                document.getElementById("save-item1").classList.add("empty-save");
-              }}><img src={deleteSave} alt=""></img></button>
+              <button
+                class="delete-button"
+                onClick={() => {
+                  save1data = new saveFile(-1, 0, 0, "", "", "", "");
+                  setSave1((save1) => save1data);
+                  document
+                    .getElementById("save-item1")
+                    .classList.add("empty-save");
+                }}
+              >
+                <img src={deleteSave} alt=""></img>
+              </button>
             </div>
             <div class="save-item" id="save-item2">
               <div class="empty-save-base">
                 <p>Empty save</p>
-                <p><i>-- slot 2 --</i></p>
+                <p>
+                  <i>-- slot 2 --</i>
+                </p>
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
@@ -189,16 +207,25 @@ function App() {
                   {save2.hours}:{save2.minutes}:{save2.seconds}
                 </p>
               </div>
-              <button class="delete-button" onClick={() => {
-                save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-                setSave2((save2) => save2data);
-                document.getElementById("save-item2").classList.add("empty-save");
-              }}><img src={deleteSave} alt=""></img></button>
+              <button
+                class="delete-button"
+                onClick={() => {
+                  save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+                  setSave2((save2) => save2data);
+                  document
+                    .getElementById("save-item2")
+                    .classList.add("empty-save");
+                }}
+              >
+                <img src={deleteSave} alt=""></img>
+              </button>
             </div>
             <div class="save-item" id="save-item3">
-            <div class="empty-save-base">
+              <div class="empty-save-base">
                 <p>Empty save</p>
-                <p><i>-- slot 3 --</i></p>
+                <p>
+                  <i>-- slot 3 --</i>
+                </p>
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
@@ -220,25 +247,30 @@ function App() {
                   {save3.hours}:{save3.minutes}:{save3.seconds}
                 </p>
               </div>
-              <button class="delete-button" onClick={() => {
-                save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-                setSave3((save3) => save3data);
-                document.getElementById("save-item3").classList.add("empty-save");
-              }}><img src={deleteSave} alt=""></img>
-            </button>
+              <button
+                class="delete-button"
+                onClick={() => {
+                  save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+                  setSave3((save3) => save3data);
+                  document
+                    .getElementById("save-item3")
+                    .classList.add("empty-save");
+                }}
+              >
+                <img src={deleteSave} alt=""></img>
+              </button>
             </div>
-            
           </div>
           <button
             onClick={() => {
-              document.getElementsByClassName(
-                "save-container"
-              )[0].style.top = "100vh";
+              document.getElementsByClassName("save-container")[0].style.top =
+                "100vh";
               document.getElementById("save-back-button").style.display =
                 "none";
-              }}
-              id="save-back-button"
-              style={{ display: "none" }}>
+            }}
+            id="save-back-button"
+            style={{ display: "none" }}
+          >
             Back
           </button>
         </div>

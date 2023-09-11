@@ -267,7 +267,6 @@
   text-align: center;
   font-size: 4rem;
   flex-direction: column;
-  text-wrap: nowrap;
 }
 
 .empty-save .empty-save-base p {
