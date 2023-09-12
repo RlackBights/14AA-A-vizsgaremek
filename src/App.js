@@ -38,6 +38,7 @@ function App() {
   const getData = () => {
     fetch('http://127.0.0.1:8000/savedata'
       , {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

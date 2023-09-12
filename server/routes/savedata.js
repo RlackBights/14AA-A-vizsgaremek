@@ -12,4 +12,13 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+router.post("/", async function (data, saveId, next) {
+  try {
+    await savedata.postData(data, saveId);
+  } catch (err) {
+    console.err('Error while posting save data ', err.message);
+    next(err);
+  }
+})
+
 module.exports = router;
