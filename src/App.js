@@ -263,6 +263,30 @@ function App() {
     setKey((key) => key + 1);
   };
 
+
+  function changeToGame() {
+    currentState = "Game";
+    console.log(currentState);
+    document.getElementsByClassName("save-container")[0].style.top = "100vh";
+    document.getElementById("save-back-button").style.display = "none";
+    setTimeout(() => {
+      document.getElementById("title-text").classList.add("slide-up");
+      setTimeout(() => {
+        document.getElementsByClassName("button-container")[0].childNodes.forEach(btn => {
+        btn.classList.add("slide-left");
+        });
+        setTimeout(() => {
+          document.getElementById("darken-bg").style.transition = 'opacity 1s';
+          document.getElementById("darken-bg").style.opacity = 0;
+          setTimeout(() => {
+            setKey((key) => key + 1);
+          }, 2000)
+        }, 1000);
+      }, 500);
+    }, 500);
+  }
+
+
   useEffect(() => {
     getData();
   }, [x === 0]);
@@ -277,7 +301,7 @@ function App() {
         <div className="App">
           {/* Main Menu */}
           <div className="main-menu">
-            <h1>LearnTheBasics.it</h1>
+            <h1 id="title-text" className="">LearnTheBasics.it</h1>
             <div className="button-container">
               <button
                 onClick={() => {
@@ -372,6 +396,7 @@ function App() {
                     currentState = "Game";
                     activeSaveSlot = 1;
                     console.log(currentState);
+                    document.getElementById("title-text").className.concat("slide-up");
                   } else if (save2.lvl === -1) {
                     console.log("Added save to slot 2");
                     setData(2, 0);
@@ -380,6 +405,7 @@ function App() {
                     currentState = "Game";
                     activeSaveSlot = 2;
                     console.log(currentState);
+                    document.getElementById("title-text").className.concat("slide-up");
                   } else if (save3.lvl === -1) {
                     console.log("Added save to slot 3");
                     setData(3, 0);
@@ -388,6 +414,7 @@ function App() {
                     currentState = "Game";
                     activeSaveSlot = 3;
                     console.log(currentState);
+                    document.getElementById("title-text").className.concat("slide-up");
                   } else {
                     console.log("No more saves, open menu");
                     document.getElementsByClassName(
@@ -421,10 +448,8 @@ function App() {
               id="save-item1"
               onClick={() => {
                 if (save1.lvl != -1) {
-                  currentState = "Game";
                   activeSaveSlot = 1;
-                  console.log(currentState);
-                  setKey((key) => key + 1);
+                  changeToGame();
                 }
               }}
             >
@@ -480,10 +505,8 @@ function App() {
               id="save-item2"
               onClick={() => {
                 if (save2.lvl != -1) {
-                  currentState = "Game";
                   activeSaveSlot = 2;
-                  console.log(currentState);
-                  setKey((key) => key + 1);
+                  changeToGame()
                 }
               }}
             >
@@ -539,10 +562,8 @@ function App() {
               id="save-item3"
               onClick={() => {
                 if (save3.lvl != -1) {
-                  currentState = "Game";
                   activeSaveSlot = 3;
-                  console.log(currentState);
-                  setKey((key) => key + 1);
+                  changeToGame();
                 }
               }}
             >
