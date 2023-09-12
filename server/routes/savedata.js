@@ -11,7 +11,7 @@ router.get("/", async function (req, res, next) {
     next(err);
   }
 });
-
+/*
 router.post("/", async function (data, saveId, next) {
   try {
     await savedata.postData(data, saveId);
@@ -20,5 +20,5 @@ router.post("/", async function (data, saveId, next) {
     next(err);
   }
 })
-
+*/
 module.exports = router;

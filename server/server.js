@@ -3,6 +3,7 @@ const app = express();
 const port = 8000;
 const cors = require('cors');
 const savedataRouter = require("./routes/savedata");
+const db = require('./services/db');
 
 
 app.use(cors({
@@ -20,7 +21,19 @@ app.use(
 );
 app.use("/savedata", savedataRouter);
 
+function changeData(req, myParam) {
+  //console.log(req.param("lvl"));
+  console.log(req.query.lvl);
+  test(req.query);
+}
 
+app.use("/changedata", changeData);
+
+
+async function test(data) {
+  let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpu = ' + data.cpu + ', gpu = ' + data.gpu + ', ram = ' + data.ram + ', stg = ' + data.stg + ' WHERE saveId = ' + data.saveId);
+  console.log(x);
+}
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

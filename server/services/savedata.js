@@ -13,13 +13,12 @@ async function getMultiple(page = 1) {
     meta,
   };
 }
-
+/*
 async function postData(data, saveId) {
   const response = await db.query("UPDATE savedata SET lvl = " + data.lvl + ", money = " + data.money + ", time = " + data.time + ", cpu = " + data.cpu + ", gpu = " + data.gpu + ", ram = " + data.ram + ", stg = " + data.stg + " WHERE saveId = " + saveId);
   console.log(response);
 }
-
+*/
 module.exports = {
-  getMultiple,
-  postData,
+  getMultiple
 };

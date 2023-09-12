@@ -35,6 +35,27 @@ function App() {
   const [save3, setSave3] = useState(save3data);
   let x = 0;
 
+  const setData = (saveId, lvl, money, time, cpu, gpu, ram, stg) => {
+    if (saveId != 1 && saveId != 2 && saveId != 3) {
+      console.error("TE IDIÓTA NINCS RENDES SAVE ID TE HÜLYE BUTA HASZONTALAN SZEMÉT :3");
+    } else {
+      switch(saveId)
+      {
+        case 1:
+          lvl = (lvl != null) ? lvl : save1.lvl;
+          money = (money != null) ? money : save1.money;
+          time = (time != null) ? time : save1.time;
+          cpu = (cpu != null) ? cpu : save1.cpu;
+          gpu = (gpu != null) ? gpu : save1.gpu;
+          ram = (ram != null) ? ram : save1.ram;
+          stg = (stg != null) ? stg : save1.stg;
+          break;
+      }
+
+      fetch('http://127.0.0.1:8000/changedata?saveId='+saveId+'&lvl='+lvl+'&money='+money+'&time'+time+'&cpu'+cpu+'&gpu'+gpu+'&ram='+ram+'&stg='+stg);
+    }
+  }
+
   const getData = () => {
     fetch('http://127.0.0.1:8000/savedata'
       , {
@@ -49,7 +70,6 @@ function App() {
         return response.json();
       })
       .then(function (myJson) {
-        console.log(myJson.data);
 
         save1data = convertSave(myJson.data[0]);
         setSave1((save1) => save1data);
@@ -122,28 +142,29 @@ function App() {
                   } else {
                     saveSlot3.classList.remove("empty-save");
                   }
+                  x++;
                 }}
               >
                 Continue
               </button>
               <button
                 onClick={() => {
+                  x++;
                   getData();
                   setKey((key) => key + 1);
                   if (save1.lvl === -1) {
-                    console.log("Save 1 empty, setting level");
+                    setData(1, 0);
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
                   } else if (save2.lvl === -1) {
-                    console.log("Save 2 empty, setting level");
                     save2data.lvl = 0;
+                    setData(2, 0);
                     setSave2((save2) => save2data);
                   } else if (save3.lvl === -1) {
-                    console.log("Save 3 empty, setting level");
                     save3data.lvl = 0;
+                    setData(3, 0);
                     setSave3((save3) => save3data);
                   } else {
-                    console.log("No empty save found, open menu");
                     document.getElementsByClassName(
                       "save-container"
                     )[0].style.top = "0vh";
