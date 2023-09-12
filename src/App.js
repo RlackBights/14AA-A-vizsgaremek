@@ -17,10 +17,138 @@ class saveFile {
     this.ram = ram;
     this.stg = stg;
   }
+
+  getSaveTime()
+  {
+    return ((this.hours * 3600) + (this.minutes * 60) + this.seconds);
+  }
+
+  getCpu()
+  {
+    switch (this.cpu)
+    {
+      default:
+        return 0;
+      case "Z5":
+        return 1;
+      case "Z7":
+        return 2;
+      case "Z9":
+        return 3;
+    }
+  }
+
+  getGpu()
+  {
+    switch (this.gpu)
+    {
+      default:
+        return 0;
+      case "DTX 1150":
+        return 1;
+      case "ETX 2260":
+        return 2;
+      case "ETX 4490":
+        return 3;
+    }
+  }
+
+  getRam()
+  {
+    switch (this.ram)
+    {
+      default:
+        return 0;
+      case "16GB":
+        return 1;
+      case "32GB":
+        return 2;
+      case "64GB":
+        return 3;
+    }
+  }
+
+  getStg()
+  {
+    switch (this.stg)
+    {
+      default:
+        return 0;
+      case "500GB HDD":
+        return 1;
+      case "500GB SSD":
+        return 2;
+      case "1TB SSD":
+        return 3;
+    }
+  }
+
+  
+
 }
 
+  function setCpu(cpu)
+  {
+    switch (cpu)
+    {
+      default:
+        return "Z3";
+      case 1:
+        return "Z5";
+      case 2:
+        return "Z7";
+      case 3:
+        return "Z9";
+    }
+  }
+
+  function setGpu(gpu)
+  {
+    switch (gpu)
+    {
+      default: 
+        return "DT 620";
+      case 1:
+        return "DTX 1150";
+      case 2:
+        return "ETX 2260";
+      case 3:
+        return "ETX 4490";
+    }
+  }
+
+  function setRam(ram)
+  {
+    switch (ram)
+    {
+      default:
+        return "8GB";
+      case 1:
+        return "16GB";
+      case 2:
+        return "32GB";
+      case 3:
+        return "64GB";
+    }
+  }
+
+  function setStg(stg)
+  {
+    switch (stg)
+    {
+      default:
+        return "250GB HDD";
+      case 1:
+        return "500GB HDD";
+      case 2:
+        return "500GB SSD";
+      case 3:
+        return "1TB SSD";
+    }
+  }
+
 function convertSave(savedata) {
-  return new saveFile(savedata.lvl, savedata.money, savedata.time, savedata.cpu, savedata.gpu, savedata.ram, savedata.stg);
+  return new saveFile(savedata.lvl, savedata.money, savedata.time, setCpu(savedata.cpu), setGpu(savedata.gpu), setRam(savedata.ram), setStg(savedata.stg));
 }
 
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
@@ -42,17 +170,35 @@ function App() {
       switch(saveId)
       {
         case 1:
-          lvl = (lvl != null) ? lvl : save1.lvl;
-          money = (money != null) ? money : save1.money;
-          time = (time != null) ? time : save1.time;
-          cpu = (cpu != null) ? cpu : save1.cpu;
-          gpu = (gpu != null) ? gpu : save1.gpu;
-          ram = (ram != null) ? ram : save1.ram;
-          stg = (stg != null) ? stg : save1.stg;
+          lvl = (lvl != undefined) ? lvl : save1.lvl;
+          money = (money != undefined) ? money : save1.money;
+          time = (time != undefined) ? time : save1.getSaveTime();
+          cpu = (cpu != undefined) ? cpu : save1.getCpu();
+          gpu = (gpu != undefined) ? gpu : save1.getGpu();
+          ram = (ram != undefined) ? ram : save1.getRam();
+          stg = (stg != undefined) ? stg : save1.getStg();
+          break;
+        case 2:
+          lvl = (lvl != undefined) ? lvl : save2.lvl;
+          money = (money != undefined) ? money : save2.money;
+          time = (time != undefined) ? time : save2.getSaveTime();
+          cpu = (cpu != undefined) ? cpu : save2.getCpu();
+          gpu = (gpu != undefined) ? gpu : save2.getGpu();
+          ram = (ram != undefined) ? ram : save2.getRam();
+          stg = (stg != undefined) ? stg : save2.getStg();
+          break;
+        case 3:
+          lvl = (lvl != undefined) ? lvl : save3.lvl;
+          money = (money != undefined) ? money : save3.money;
+          time = (time != undefined) ? time : save3.getSaveTime();
+          cpu = (cpu != undefined) ? cpu : save3.getCpu();
+          gpu = (gpu != undefined) ? gpu : save3.getGpu();
+          ram = (ram != undefined) ? ram : save3.getRam();
+          stg = (stg != undefined) ? stg : save3.getStg();
           break;
       }
 
-      fetch('http://127.0.0.1:8000/changedata?saveId='+saveId+'&lvl='+lvl+'&money='+money+'&time'+time+'&cpu'+cpu+'&gpu'+gpu+'&ram='+ram+'&stg='+stg);
+      fetch('http://127.0.0.1:8000/changedata?saveId='+saveId+'&lvl='+lvl+'&money='+money+'&time='+time+'&cpu='+cpu+'&gpu='+gpu+'&ram='+ram+'&stg='+stg);
     }
   }
 
@@ -105,6 +251,7 @@ function App() {
               <button
                 onClick={() => {
                   getData();
+                  x++;
 
                   document.getElementsByClassName(
                     "save-container"
@@ -142,35 +289,44 @@ function App() {
                   } else {
                     saveSlot3.classList.remove("empty-save");
                   }
-                  x++;
+                  setKey((key) => key + 1);
                 }}
               >
                 Continue
               </button>
               <button
                 onClick={() => {
-                  x++;
                   getData();
+                  x++;
                   setKey((key) => key + 1);
+                  setSave1((save1) => save1data);
+                  setSave2((save2) => save2data);
+                  setSave3((save3) => save3data);
                   if (save1.lvl === -1) {
+                    console.log('Added save to slot 1');
                     setData(1, 0);
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
                   } else if (save2.lvl === -1) {
+                    console.log('Added save to slot 2');
                     save2data.lvl = 0;
                     setData(2, 0);
                     setSave2((save2) => save2data);
                   } else if (save3.lvl === -1) {
+                    console.log('Added save to slot 3');
                     save3data.lvl = 0;
                     setData(3, 0);
                     setSave3((save3) => save3data);
                   } else {
+                    console.log('No more saves, open menu');
                     document.getElementsByClassName(
                       "save-container"
                     )[0].style.top = "0vh";
                     document.getElementById("save-back-button").style.display =
                       "unset";
                   }
+                  setKey((key) => key + 1);
+
                 }}
               >
                 New Game
@@ -221,6 +377,7 @@ function App() {
               <button
                 class="delete-button"
                 onClick={() => {
+                  setData(1, -1, 0, 0, 0, 0, 0, 0);
                   save1data = new saveFile(-1, 0, 0, "", "", "", "");
                   setSave1((save1) => save1data);
                   document
@@ -261,6 +418,7 @@ function App() {
               <button
                 class="delete-button"
                 onClick={() => {
+                  setData(2, -1, 0, 0, 0, 0, 0, 0);
                   save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
                   setSave2((save2) => save2data);
                   document
@@ -301,6 +459,7 @@ function App() {
               <button
                 class="delete-button"
                 onClick={() => {
+                  setData(3, -1, 0, 0, 0, 0, 0, 0);
                   save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
                   setSave3((save3) => save3data);
                   document

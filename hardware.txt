@@ -21,7 +21,7 @@ RAM:
 
 STG:
 
-0: SeeGait Bermuda 256GB 5400rpm HDD
+0: SeeGait Bermuda 250GB 5400rpm HDD
 1: SeeGait Bermuda 500GB 7200rpm HDD
 2: DanTsung 710Evolution 500GB 200MB/s SSD
 3: DanTsung 820Evolution 1TB 520MB/s SSD
