@@ -23,19 +23,7 @@ ENGINE = INNODB,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_hungarian_ci;
 
-/*ALTER*/
-ALTER TABLE learnthebasics.savedata
-ADD CONSTRAINT FK_cpu FOREIGN KEY (cpu)
-REFERENCES learnthebasics.cpu (hardwareId) ON DELETE NO ACTION;
-
-ALTER TABLE learnthebasics.savedata
-ADD CONSTRAINT FK_gpu FOREIGN KEY (gpu)
-REFERENCES learnthebasics.gpu (hardwareId) ON DELETE NO ACTION;
-
-ALTER TABLE learnthebasics.savedata
-ADD CONSTRAINT FK_ram FOREIGN KEY (ram)
-REFERENCES learnthebasics.ram (hardwareId) ON DELETE NO ACTION;
-
-ALTER TABLE learnthebasics.savedata
-ADD CONSTRAINT FK_stg FOREIGN KEY (stg)
-REFERENCES learnthebasics.stg (hardwareId) ON DELETE NO ACTION;
+INSERT INTO savedata VALUES
+(1, -1, 0, 0, 0, 0, 0, 0),
+(2, -1, 0, 0, 0, 0, 0, 0),
+(3, -1, 0, 0, 0, 0, 0, 0);

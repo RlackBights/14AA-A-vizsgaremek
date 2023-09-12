@@ -1,8 +1,17 @@
 const express = require("express");
 const app = express();
 const port = 8000;
+const cors = require('cors');
 const savedata = require("./routes/savedata");
 const savedataRouter = require("./routes/savedata");
+
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  allowedHeaders: '*',
+
+}));
 
 app.use(express.json());
 app.use(
@@ -10,10 +19,8 @@ app.use(
     extended: true,
   })
 );
-app.get("/", (req, res) => {
-  res.json({ message: "ok" });
-});
 app.use("/savedata", savedataRouter);
+
 /* Error handler middleware */
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

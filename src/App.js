@@ -5,16 +5,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 
-/*
-let a = 3779;
-
-let h = Math.floor(time / 3600);
-let m = Math.floor((time % 3600) / 60);
-let s = Math.floor((time % 3600) % 60);
-
-console.log( h + ":" + m + ":" + s);
-*/
-
 class saveFile {
   constructor(lvl, money, time, cpu, gpu, ram, stg) {
     this.lvl = lvl;
@@ -27,45 +17,73 @@ class saveFile {
     this.ram = ram;
     this.stg = stg;
   }
+}
 
-  getlvl() {
-    return this.lvl;
-  }
+function convertSave(savedata) {
+  return new saveFile(savedata.lvl, savedata.money, savedata.time, savedata.cpu, savedata.gpu, savedata.ram, savedata.stg);
 }
 
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 
+
 function App() {
-  const [message, setMessage] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:8000/savedata")
-      .then((res) => res.json())
-      .then((json) => (save123456677 = json.data));
-  }, []);
-
-  console.log(save123456677);
-
-  let currentState = "MainMenu";
-
   const [key, setKey] = useState(0);
   const [save1, setSave1] = useState(save1data);
   const [save2, setSave2] = useState(save2data);
   const [save3, setSave3] = useState(save3data);
+  let x = 0;
+
+  const getData = () => {
+    fetch('http://127.0.0.1:8000/savedata'
+      , {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (myJson) {
+        console.log(myJson.data);
+
+        save1data = convertSave(myJson.data[0]);
+        setSave1((save1) => save1data);
+
+        save2data = convertSave(myJson.data[1]);
+        setSave2((save2) => save2data);
+
+        save3data = convertSave(myJson.data[2]);
+        setSave3((save3) => save3data);
+      });
+    setKey((key) => key + 1);
+  }
+
+  useEffect(() => {
+    getData();
+  }, [x])
+
+  if (x === 0) {
+    x++;
+  }
+
+  let currentState = "MainMenu";
+
 
   switch (currentState) {
     case "MainMenu":
       return (
         <div className="App">
           {/* Main Menu */}
-          <div class="main-menu">
-            <h1>LearnTheBasics.it{message}</h1>
-            <div class="button-container">
+          <div className="main-menu">
+            <h1>LearnTheBasics.it</h1>
+            <div className="button-container">
               <button
                 onClick={() => {
-                  setKey((key) => key + 1);
+                  getData();
 
                   document.getElementsByClassName(
                     "save-container"
@@ -109,6 +127,7 @@ function App() {
               </button>
               <button
                 onClick={() => {
+                  getData();
                   setKey((key) => key + 1);
                   if (save1.lvl === -1) {
                     console.log("Save 1 empty, setting level");
@@ -171,7 +190,7 @@ function App() {
                 </div>
               </div>
               <div class="grid-item save-bottom">
-                ü<p>LvL: {save1.lvl}</p>
+                <p>LvL: {save1.lvl}</p>
                 <p>{save1.money}$</p>
                 <p id="playtime">
                   {save1.hours}:{save1.minutes}:{save1.seconds}
