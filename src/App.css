@@ -209,15 +209,19 @@
 }
 
 #html {
-  color: gray;
+  color: orange;
 }
 
 #css {
-  color: gray;
+  color: blue;
 }
 
 #js {
-  color: gray;
+  color: yellow;
+}
+
+.locked-lang {
+  color: gray !important;
 }
 
 #save-back-button {
@@ -278,9 +282,8 @@
 }
 
 .delete-button {
+  top: 5rem;
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
   width: 3rem;
   aspect-ratio: 1/1;
   background: none;
@@ -291,4 +294,17 @@
   width: 100%;
   height: 100%;
   cursor: pointer;
+  z-index: 1;
+}
+
+#delete-button1 {
+  left: 12rem;
+}
+
+#delete-button2 {
+  left: 44rem;
+}
+
+#delete-button3 {
+  left: 76rem;
 }

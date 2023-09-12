@@ -1,17 +1,17 @@
 const express = require("express");
 const app = express();
 const port = 8000;
-const cors = require('cors');
+const cors = require("cors");
 const savedataRouter = require("./routes/savedata");
-const db = require('./services/db');
+const db = require("./services/db");
 
-
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-  allowedHeaders: '*',
-
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    allowedHeaders: "*",
+  })
+);
 
 app.use(express.json());
 app.use(
@@ -29,9 +29,25 @@ function changeData(req, myParam) {
 
 app.use("/changedata", changeData);
 
-
 async function test(data) {
-  let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpu = ' + data.cpu + ', gpu = ' + data.gpu + ', ram = ' + data.ram + ', stg = ' + data.stg + ' WHERE saveId = ' + data.saveId);
+  let x = await db.query(
+    "UPDATE savedata SET lvl = " +
+      data.lvl +
+      ", money = " +
+      data.money +
+      ", time = " +
+      data.time +
+      ", cpu = " +
+      data.cpu +
+      ", gpu = " +
+      data.gpu +
+      ", ram = " +
+      data.ram +
+      ", stg = " +
+      data.stg +
+      " WHERE saveId = " +
+      data.saveId
+  );
   console.log(x);
 }
 

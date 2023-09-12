@@ -1,9 +1,10 @@
 /* eslint-disable default-case */
-import logo from "./logo.svg";
+import cursor from "./assets/circle-heat.svg";
 import "./App.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
+import userEvent from "@testing-library/user-event";
 
 class saveFile {
   constructor(lvl, money, time, cpu, gpu, ram, stg) {
@@ -18,15 +19,24 @@ class saveFile {
     this.stg = stg;
   }
 
-  getSaveTime()
-  {
-    return ((this.hours * 3600) + (this.minutes * 60) + this.seconds);
+  addTime() {
+    this.seconds++;
+    if (this.seconds >= 60) {
+      this.seconds -= 60;
+      this.minutes++;
+    }
+    if (this.minutes >= 60) {
+      this.minutes -= 60;
+      this.hours++;
+    }
   }
 
-  getCpu()
-  {
-    switch (this.cpu)
-    {
+  getSaveTime() {
+    return this.hours * 3600 + this.minutes * 60 + this.seconds;
+  }
+
+  getCpu() {
+    switch (this.cpu) {
       default:
         return 0;
       case "Z5":
@@ -38,10 +48,8 @@ class saveFile {
     }
   }
 
-  getGpu()
-  {
-    switch (this.gpu)
-    {
+  getGpu() {
+    switch (this.gpu) {
       default:
         return 0;
       case "DTX 1150":
@@ -53,10 +61,8 @@ class saveFile {
     }
   }
 
-  getRam()
-  {
-    switch (this.ram)
-    {
+  getRam() {
+    switch (this.ram) {
       default:
         return 0;
       case "16GB":
@@ -68,10 +74,8 @@ class saveFile {
     }
   }
 
-  getStg()
-  {
-    switch (this.stg)
-    {
+  getStg() {
+    switch (this.stg) {
       default:
         return 0;
       case "500GB HDD":
@@ -82,79 +86,94 @@ class saveFile {
         return 3;
     }
   }
-
-  
-
 }
 
-  function setCpu(cpu)
-  {
-    switch (cpu)
-    {
-      default:
-        return "Z3";
-      case 1:
-        return "Z5";
-      case 2:
-        return "Z7";
-      case 3:
-        return "Z9";
-    }
+function setCpu(cpu) {
+  switch (cpu) {
+    default:
+      return "Z3";
+    case 1:
+      return "Z5";
+    case 2:
+      return "Z7";
+    case 3:
+      return "Z9";
   }
+}
 
-  function setGpu(gpu)
-  {
-    switch (gpu)
-    {
-      default: 
-        return "DT 620";
-      case 1:
-        return "DTX 1150";
-      case 2:
-        return "ETX 2260";
-      case 3:
-        return "ETX 4490";
-    }
+function setGpu(gpu) {
+  switch (gpu) {
+    default:
+      return "DT 620";
+    case 1:
+      return "DTX 1150";
+    case 2:
+      return "ETX 2260";
+    case 3:
+      return "ETX 4490";
   }
+}
 
-  function setRam(ram)
-  {
-    switch (ram)
-    {
-      default:
-        return "8GB";
-      case 1:
-        return "16GB";
-      case 2:
-        return "32GB";
-      case 3:
-        return "64GB";
-    }
+function setRam(ram) {
+  switch (ram) {
+    default:
+      return "8GB";
+    case 1:
+      return "16GB";
+    case 2:
+      return "32GB";
+    case 3:
+      return "64GB";
   }
+}
 
-  function setStg(stg)
-  {
-    switch (stg)
-    {
-      default:
-        return "250GB HDD";
-      case 1:
-        return "500GB HDD";
-      case 2:
-        return "500GB SSD";
-      case 3:
-        return "1TB SSD";
-    }
+function setStg(stg) {
+  switch (stg) {
+    default:
+      return "250GB HDD";
+    case 1:
+      return "500GB HDD";
+    case 2:
+      return "500GB SSD";
+    case 3:
+      return "1TB SSD";
   }
+}
 
 function convertSave(savedata) {
-  return new saveFile(savedata.lvl, savedata.money, savedata.time, setCpu(savedata.cpu), setGpu(savedata.gpu), setRam(savedata.ram), setStg(savedata.stg));
+  return new saveFile(
+    savedata.lvl,
+    savedata.money,
+    savedata.time,
+    setCpu(savedata.cpu),
+    setGpu(savedata.gpu),
+    setRam(savedata.ram),
+    setStg(savedata.stg)
+  );
 }
 
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 
+let currentState = "MainMenu";
+let activeSaveSlot = 1;
+
+setInterval(() => {
+  if (currentState === "Game") {
+    switch (activeSaveSlot) {
+      case 1:
+        save1data.addTime();
+        break;
+      case 2:
+        save2data.addTime();
+        break;
+      case 3:
+        save3data.addTime();
+        break;
+    }
+  }
+}, 1000);
 
 function App() {
   const [key, setKey] = useState(0);
@@ -164,59 +183,74 @@ function App() {
   let x = 0;
 
   const setData = (saveId, lvl, money, time, cpu, gpu, ram, stg) => {
-    if (saveId != 1 && saveId != 2 && saveId != 3) {
-      console.error("TE IDIÓTA NINCS RENDES SAVE ID TE HÜLYE BUTA HASZONTALAN SZEMÉT :3");
+    if (saveId !== 1 && saveId !== 2 && saveId !== 3) {
+      console.error(
+        "TE IDIÓTA NINCS RENDES SAVE ID TE HÜLYE BUTA HASZONTALAN SZEMÉT :3"
+      );
     } else {
-      switch(saveId)
-      {
+      switch (saveId) {
         case 1:
-          lvl = (lvl != undefined) ? lvl : save1.lvl;
-          money = (money != undefined) ? money : save1.money;
-          time = (time != undefined) ? time : save1.getSaveTime();
-          cpu = (cpu != undefined) ? cpu : save1.getCpu();
-          gpu = (gpu != undefined) ? gpu : save1.getGpu();
-          ram = (ram != undefined) ? ram : save1.getRam();
-          stg = (stg != undefined) ? stg : save1.getStg();
+          lvl = lvl !== undefined ? lvl : save1.lvl;
+          money = money !== undefined ? money : save1.money;
+          time = time !== undefined ? time : save1.getSaveTime();
+          cpu = cpu !== undefined ? cpu : save1.getCpu();
+          gpu = gpu !== undefined ? gpu : save1.getGpu();
+          ram = ram !== undefined ? ram : save1.getRam();
+          stg = stg !== undefined ? stg : save1.getStg();
           break;
         case 2:
-          lvl = (lvl != undefined) ? lvl : save2.lvl;
-          money = (money != undefined) ? money : save2.money;
-          time = (time != undefined) ? time : save2.getSaveTime();
-          cpu = (cpu != undefined) ? cpu : save2.getCpu();
-          gpu = (gpu != undefined) ? gpu : save2.getGpu();
-          ram = (ram != undefined) ? ram : save2.getRam();
-          stg = (stg != undefined) ? stg : save2.getStg();
+          lvl = lvl !== undefined ? lvl : save2.lvl;
+          money = money !== undefined ? money : save2.money;
+          time = time !== undefined ? time : save2.getSaveTime();
+          cpu = cpu !== undefined ? cpu : save2.getCpu();
+          gpu = gpu !== undefined ? gpu : save2.getGpu();
+          ram = ram !== undefined ? ram : save2.getRam();
+          stg = stg !== undefined ? stg : save2.getStg();
           break;
         case 3:
-          lvl = (lvl != undefined) ? lvl : save3.lvl;
-          money = (money != undefined) ? money : save3.money;
-          time = (time != undefined) ? time : save3.getSaveTime();
-          cpu = (cpu != undefined) ? cpu : save3.getCpu();
-          gpu = (gpu != undefined) ? gpu : save3.getGpu();
-          ram = (ram != undefined) ? ram : save3.getRam();
-          stg = (stg != undefined) ? stg : save3.getStg();
+          lvl = lvl !== undefined ? lvl : save3.lvl;
+          money = money !== undefined ? money : save3.money;
+          time = time !== undefined ? time : save3.getSaveTime();
+          cpu = cpu !== undefined ? cpu : save3.getCpu();
+          gpu = gpu !== undefined ? gpu : save3.getGpu();
+          ram = ram !== undefined ? ram : save3.getRam();
+          stg = stg !== undefined ? stg : save3.getStg();
           break;
       }
       setKey((key) => key + 1);
-      fetch('http://127.0.0.1:8000/changedata?saveId='+saveId+'&lvl='+lvl+'&money='+money+'&time='+time+'&cpu='+cpu+'&gpu='+gpu+'&ram='+ram+'&stg='+stg);
+      fetch(
+        "http://127.0.0.1:8000/changedata?saveId=" +
+          saveId +
+          "&lvl=" +
+          lvl +
+          "&money=" +
+          money +
+          "&time=" +
+          time +
+          "&cpu=" +
+          cpu +
+          "&gpu=" +
+          gpu +
+          "&ram=" +
+          ram +
+          "&stg=" +
+          stg
+      );
     }
-  }
+  };
 
   const getData = () => {
-    fetch('http://127.0.0.1:8000/savedata'
-      , {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      }
-    )
+    fetch("http://127.0.0.1:8000/savedata", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
       .then(function (response) {
         return response.json();
       })
       .then(function (myJson) {
-
         save1data = convertSave(myJson.data[0]);
         setSave1((save1) => save1data);
 
@@ -227,18 +261,15 @@ function App() {
         setSave3((save3) => save3data);
       });
     setKey((key) => key + 1);
-  }
+  };
 
   useEffect(() => {
     getData();
-  }, [x])
+  }, [x === 0]);
 
   if (x === 0) {
     x++;
   }
-
-  let currentState = "MainMenu";
-
 
   switch (currentState) {
     case "MainMenu":
@@ -250,8 +281,8 @@ function App() {
             <div className="button-container">
               <button
                 onClick={() => {
+                  x = 0;
                   getData();
-                  x++;
 
                   document.getElementsByClassName(
                     "save-container"
@@ -296,35 +327,75 @@ function App() {
               </button>
               <button
                 onClick={() => {
+                  x = 0;
                   getData();
-                  x++;
                   setKey((key) => key + 1);
-                  
+
+                  let saveSlot1 = document.getElementById("save-item1");
+                  let saveSlot2 = document.getElementById("save-item2");
+                  let saveSlot3 = document.getElementById("save-item3");
+
                   if (save1.lvl === -1) {
-                    console.log('Added save to slot 1');
+                    if (!saveSlot1.classList.contains("empty-save")) {
+                      console.log("added empty-save");
+                      saveSlot1.classList.add("empty-save");
+                    }
+                  } else {
+                    if (saveSlot1.classList.contains("empty-save")) {
+                      saveSlot1.classList.remove("empty-save");
+                    }
+                  }
+
+                  if (save2.lvl === -1) {
+                    if (!saveSlot2.classList.contains("empty-save")) {
+                      saveSlot2.classList.add("empty-save");
+                    }
+                  } else {
+                    if (saveSlot2.classList.contains("empty-save")) {
+                      saveSlot2.classList.remove("empty-save");
+                    }
+                  }
+
+                  if (save3.lvl === -1) {
+                    saveSlot3.classList.add("empty-save");
+                  } else {
+                    saveSlot3.classList.remove("empty-save");
+                  }
+
+                  setKey((key) => key + 1);
+
+                  if (save1.lvl === -1) {
+                    console.log("Added save to slot 1");
                     setData(1, 0);
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
+                    currentState = "Game";
+                    activeSaveSlot = 1;
+                    console.log(currentState);
                   } else if (save2.lvl === -1) {
-                    console.log('Added save to slot 2');
-                    save2data.lvl = 0;
+                    console.log("Added save to slot 2");
                     setData(2, 0);
+                    save2data.lvl = 0;
                     setSave2((save2) => save2data);
+                    currentState = "Game";
+                    activeSaveSlot = 2;
+                    console.log(currentState);
                   } else if (save3.lvl === -1) {
-                    console.log('Added save to slot 3');
-                    save3data.lvl = 0;
+                    console.log("Added save to slot 3");
                     setData(3, 0);
+                    save3data.lvl = 0;
                     setSave3((save3) => save3data);
+                    currentState = "Game";
+                    activeSaveSlot = 3;
+                    console.log(currentState);
                   } else {
-                    console.log('No more saves, open menu');
+                    console.log("No more saves, open menu");
                     document.getElementsByClassName(
                       "save-container"
                     )[0].style.top = "0vh";
                     document.getElementById("save-back-button").style.display =
                       "unset";
                   }
-                  setKey((key) => key + 1);
-
                 }}
               >
                 New Game
@@ -345,7 +416,18 @@ function App() {
 
           <div class="save-container" style={{ top: "100vh" }}>
             <div style={{ display: "none" }} key={key}></div>
-            <div class="save-item" id="save-item1">
+            <div
+              class="save-item"
+              id="save-item1"
+              onClick={() => {
+                if (save1.lvl != -1) {
+                  currentState = "Game";
+                  activeSaveSlot = 1;
+                  console.log(currentState);
+                  setKey((key) => key + 1);
+                }
+              }}
+            >
               <div class="empty-save-base">
                 <p>Empty save</p>
                 <p>
@@ -354,9 +436,15 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p id="html">HTML</p>
-                  <p id="css">CSS</p>
-                  <p id="js">JS</p>
+                  <p class="locked-lang" id="html">
+                    HTML
+                  </p>
+                  <p class="locked-lang" id="css">
+                    CSS
+                  </p>
+                  <p class="locked-lang" id="js">
+                    JS
+                  </p>
                 </div>
                 <div id="config">
                   <p>CPU: {save1.cpu}</p>
@@ -372,21 +460,33 @@ function App() {
                   {save1.hours}:{save1.minutes}:{save1.seconds}
                 </p>
               </div>
-              <button
-                class="delete-button"
-                onClick={() => {
-                  setData(1, -1, 0, 0, 0, 0, 0, 0);
-                  save1data = new saveFile(-1, 0, 0, "", "", "", "");
-                  setSave1((save1) => save1data);
-                  document
-                    .getElementById("save-item1")
-                    .classList.add("empty-save");
-                }}
-              >
-                <img src={deleteSave} alt=""></img>
-              </button>
             </div>
-            <div class="save-item" id="save-item2">
+            <button
+              class="delete-button"
+              id="delete-button1"
+              onClick={() => {
+                setData(1, -1, 0, 0, 0, 0, 0, 0);
+                save1data = new saveFile(-1, 0, 0, "", "", "", "");
+                setSave1((save1) => save1data);
+                document
+                  .getElementById("save-item1")
+                  .classList.add("empty-save");
+              }}
+            >
+              <img src={deleteSave} alt=""></img>
+            </button>
+            <div
+              class="save-item"
+              id="save-item2"
+              onClick={() => {
+                if (save2.lvl != -1) {
+                  currentState = "Game";
+                  activeSaveSlot = 2;
+                  console.log(currentState);
+                  setKey((key) => key + 1);
+                }
+              }}
+            >
               <div class="empty-save-base">
                 <p>Empty save</p>
                 <p>
@@ -395,9 +495,15 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p id="html">HTML</p>
-                  <p id="css">CSS</p>
-                  <p id="js">JS</p>
+                  <p class="locked-lang" id="html">
+                    HTML
+                  </p>
+                  <p class="locked-lang" id="css">
+                    CSS
+                  </p>
+                  <p class="locked-lang" id="js">
+                    JS
+                  </p>
                 </div>
                 <div id="config">
                   <p>CPU: {save2.cpu}</p>
@@ -413,21 +519,33 @@ function App() {
                   {save2.hours}:{save2.minutes}:{save2.seconds}
                 </p>
               </div>
-              <button
-                class="delete-button"
-                onClick={() => {
-                  setData(2, -1, 0, 0, 0, 0, 0, 0);
-                  save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-                  setSave2((save2) => save2data);
-                  document
-                    .getElementById("save-item2")
-                    .classList.add("empty-save");
-                }}
-              >
-                <img src={deleteSave} alt=""></img>
-              </button>
             </div>
-            <div class="save-item" id="save-item3">
+            <button
+              class="delete-button"
+              id="delete-button2"
+              onClick={() => {
+                setData(2, -1, 0, 0, 0, 0, 0, 0);
+                save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+                setSave2((save2) => save2data);
+                document
+                  .getElementById("save-item2")
+                  .classList.add("empty-save");
+              }}
+            >
+              <img src={deleteSave} alt=""></img>
+            </button>
+            <div
+              class="save-item"
+              id="save-item3"
+              onClick={() => {
+                if (save3.lvl != -1) {
+                  currentState = "Game";
+                  activeSaveSlot = 3;
+                  console.log(currentState);
+                  setKey((key) => key + 1);
+                }
+              }}
+            >
               <div class="empty-save-base">
                 <p>Empty save</p>
                 <p>
@@ -436,9 +554,15 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p id="html">HTML</p>
-                  <p id="css">CSS</p>
-                  <p id="js">JS</p>
+                  <p class="locked-lang" id="html">
+                    HTML
+                  </p>
+                  <p class="locked-lang" id="css">
+                    CSS
+                  </p>
+                  <p class="locked-lang" id="js">
+                    JS
+                  </p>
                 </div>
                 <div id="config">
                   <p>CPU: {save3.cpu}</p>
@@ -468,6 +592,20 @@ function App() {
                 <img src={deleteSave} alt=""></img>
               </button>
             </div>
+            <button
+              class="delete-button"
+              id="delete-button3"
+              onClick={() => {
+                setData(3, -1, 0, 0, 0, 0, 0, 0);
+                save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
+                setSave3((save3) => save3data);
+                document
+                  .getElementById("save-item3")
+                  .classList.add("empty-save");
+              }}
+            >
+              <img src={deleteSave} alt=""></img>
+            </button>
           </div>
           <button
             onClick={() => {
@@ -483,6 +621,10 @@ function App() {
           </button>
         </div>
       );
+    case "Game":
+      return <div className="App">
+        <div class="main-menu"></div>
+      </div>;
   }
 }
 
