@@ -5,16 +5,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 
-/*
-let a = 3779;
-
-let h = Math.floor(time / 3600);
-let m = Math.floor((time % 3600) / 60);
-let s = Math.floor((time % 3600) % 60);
-
-console.log( h + ":" + m + ":" + s);
-*/
-
 class saveFile {
   constructor(lvl, money, time, cpu, gpu, ram, stg) {
     this.lvl = lvl;
@@ -45,19 +35,21 @@ function App() {
   const [save3, setSave3] = useState(save3data);
   let x = 0;
 
-  const getData=()=>{
+  const getData = () => {
     fetch('http://127.0.0.1:8000/savedata'
-    ,{
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    }
+      , {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      }
     )
-      .then(function(response){
+      .then(function (response) {
         return response.json();
       })
-      .then(function(myJson) {
+      .then(function (myJson) {
+        console.log(myJson.data);
+
         save1data = convertSave(myJson.data[0]);
         setSave1((save1) => save1data);
 
@@ -67,7 +59,7 @@ function App() {
         save3data = convertSave(myJson.data[2]);
         setSave3((save3) => save3data);
       });
-      setKey((key) => key + 1);
+    setKey((key) => key + 1);
   }
 
   useEffect(() => {
@@ -130,7 +122,7 @@ function App() {
                     saveSlot3.classList.remove("empty-save");
                   }
                 }}
-              > 
+              >
                 Continue
               </button>
               <button
@@ -198,7 +190,7 @@ function App() {
                 </div>
               </div>
               <div class="grid-item save-bottom">
-                ü<p>LvL: {save1.lvl}</p>
+                <p>LvL: {save1.lvl}</p>
                 <p>{save1.money}$</p>
                 <p id="playtime">
                   {save1.hours}:{save1.minutes}:{save1.seconds}

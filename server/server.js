@@ -1,11 +1,17 @@
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const port = 8000;
+const cors = require('cors');
 const savedata = require("./routes/savedata");
 const savedataRouter = require("./routes/savedata");
 
-app.use(cors());
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+  allowedHeaders: '*',
+
+}));
 
 app.use(express.json());
 app.use(
