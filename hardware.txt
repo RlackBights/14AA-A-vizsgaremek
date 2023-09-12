@@ -1,0 +1,27 @@
+CPU:
+
+0: InkWell Z3 3400 3.1GHz 2core
+1: InkWell Z5 6500 2.8GHz 4core/4thread
+2: InkWell Z7 9800P 3.8GHz 8core/16thread
+3: InkWell Z9 12990P 4.9GHz 16core/32thread
+
+GPU:
+
+0: MediaVideo DT 620 1GB GDDR3
+1: MediaVideo DTX 1150 2GB GDDR4
+2: MediaVideo ETX 2260 6GB GDDR5
+3: MediaVideo ETX 4490 24GB GDDR6
+
+RAM:
+
+0: Tungsten Curie 8GB DDR4 1600MHz
+1: Tungsten Curie 16GB DDR4 2133MHz
+2: Tungsten Curie 32GB DDR4 2666MHz
+3: Tungsten Curie 64GB DDR4 3200MHz
+
+STG:
+
+0: SeeGait Bermuda 256GB 5400rpm HDD
+1: SeeGait Bermuda 500GB 7200rpm HDD
+2: DanTsung 710Evolution 500GB 200MB/s SSD
+3: DanTsung 820Evolution 1TB 520MB/s SSD

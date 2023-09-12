@@ -23,38 +23,6 @@ ENGINE = INNODB,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_hungarian_ci;
 
-/*CPU*/
-CREATE TABLE learnthebasics.cpu (
-  hardwareId tinyint(4) NOT NULL,
-  name varchar(50) DEFAULT NULL,
-  PRIMARY KEY (hardwareId)
-)
-ENGINE = INNODB;
-
-/*GPU*/
-CREATE TABLE learnthebasics.gpu (
-  hardwareId tinyint(4) NOT NULL,
-  name varchar(50) DEFAULT NULL,
-  PRIMARY KEY (hardwareId)
-)
-ENGINE = INNODB;
-
-/*RAM*/
-CREATE TABLE learnthebasics.ram (
-  hardwareId tinyint(4) NOT NULL,
-  name varchar(50) DEFAULT NULL,
-  PRIMARY KEY (hardwareId)
-)
-ENGINE = INNODB;
-
-/*STG*/
-CREATE TABLE learnthebasics.stg (
-  hardwareId tinyint(4) NOT NULL,
-  name varchar(50) DEFAULT NULL,
-  PRIMARY KEY (hardwareId)
-)
-ENGINE = INNODB;
-
 /*ALTER*/
 ALTER TABLE learnthebasics.savedata
 ADD CONSTRAINT FK_cpu FOREIGN KEY (cpu)
