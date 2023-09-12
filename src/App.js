@@ -197,7 +197,7 @@ function App() {
           stg = (stg != undefined) ? stg : save3.getStg();
           break;
       }
-
+      setKey((key) => key + 1);
       fetch('http://127.0.0.1:8000/changedata?saveId='+saveId+'&lvl='+lvl+'&money='+money+'&time='+time+'&cpu='+cpu+'&gpu='+gpu+'&ram='+ram+'&stg='+stg);
     }
   }
@@ -299,9 +299,7 @@ function App() {
                   getData();
                   x++;
                   setKey((key) => key + 1);
-                  setSave1((save1) => save1data);
-                  setSave2((save2) => save2data);
-                  setSave3((save3) => save3data);
+                  
                   if (save1.lvl === -1) {
                     console.log('Added save to slot 1');
                     setData(1, 0);
