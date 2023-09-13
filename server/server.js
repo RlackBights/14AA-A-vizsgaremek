@@ -19,13 +19,13 @@ app.use(
   })
 );
 
-async function queryData(res) { res.json(await db.query('SELECT * FROM savedata')) }
+async function queryData(res) { res.json(await db.query("SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cputbl c ON savedata.cpuId = c.hardwareId INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId")) }
 function getData(req, res) { queryData(res) }
 
 app.use("/savedata", getData);
 
 async function updateDB(data) {
-  let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpu = ' + data.cpu + ', gpu = ' + data.gpu + ', ram = ' + data.ram + ', stg = ' + data.stg + ' WHERE saveId = ' + data.saveId);
+  let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpuId = ' + data.cpu + ', gpuId = ' + data.gpu + ', ramId = ' + data.ram + ', stgId = ' + data.stg + ' WHERE saveId = ' + data.saveId);
   console.log(x);
 }
 function changeData(req) { updateDB(req.query) }

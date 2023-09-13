@@ -1,3 +1,7 @@
+:root {
+  --mobile-vis: unset;
+}
+
 .App {
   text-align: center;
   height: 100%;
@@ -13,6 +17,10 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.mobile {
+  display: var(--mobile-vis);
 }
 
 .App-header {
@@ -351,6 +359,27 @@
   }
 }
 
+/*
+
+GAME
+
+*/
+
+#exit-game-button {
+  transition: none;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: none;
+  color: black;
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+}
+
+#exit-game-button:hover {
+  margin: 0;
+}
 
 
 
@@ -362,7 +391,8 @@ Save items float up (staggered)
  - save files appear
  - back button slides up
 
-
+On load
+ - title and buttosn slide in
 
 
 */

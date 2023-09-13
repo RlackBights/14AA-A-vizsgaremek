@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 import {convertSave, saveFile} from "./components/savefile_management";
+import { Icon } from "@iconify/react";
 
 // Base variables
 
@@ -17,6 +18,7 @@ let x = 0;
 
 setInterval(() => {
   if (currentState === "Game") {
+    console.log("Tick");
     switch (activeSaveSlot) {
       case 1:
         save1data.addTime();
@@ -39,7 +41,7 @@ function App() {
   const [save2, setSave2] = useState(save2data);
   const [save3, setSave3] = useState(save3data);
 
-  const setData = (saveId, lvl, money, time, cpu, gpu, ram, stg) => {
+  const setData = (saveId, lvl = undefined, money = undefined, time = undefined, cpu = undefined, gpu = undefined, ram = undefined, stg = undefined) => {
     if (saveId !== 1 && saveId !== 2 && saveId !== 3) {
       console.error(
         "TE IDIÓTA NINCS RENDES SAVE ID TE HÜLYE BUTA HASZONTALAN SZEMÉT :3"
@@ -443,19 +445,6 @@ function App() {
                   {save3.hours}:{save3.minutes}:{save3.seconds}
                 </p>
               </div>
-              <button
-                class="delete-button"
-                onClick={() => {
-                  setData(3, -1, 0, 0, 0, 0, 0, 0);
-                  save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-                  setSave3((save3) => save3data);
-                  document
-                    .getElementById("save-item3")
-                    .classList.add("empty-save");
-                }}
-              >
-                <img src={deleteSave} alt=""></img>
-              </button>
             </div>
             <button
               class="delete-button"
@@ -488,7 +477,34 @@ function App() {
       );
     case "Game":
       return <div className="App">
-        <div class="main-menu"></div>
+        <div class="main-menu">
+            <button className="mobile" id="exit-game-button" onClick={() => {
+              
+              currentState = "MainMenu";
+
+              switch (activeSaveSlot) {
+                case 1:
+                  activeSaveSlot = null;
+                  setSave1((save1) => save1data);
+                  setData(1, undefined, undefined, save1.time)
+                  break;
+                case 2:
+                  activeSaveSlot = null;
+                  setSave2((save2) => save2data);
+                  setData(2, undefined, undefined, save1.time)
+                  break;
+                case 3:
+                  activeSaveSlot = null;
+                  setSave3((save3) => save3data);
+                  setData(3, undefined, undefined, save1.time)
+                  break;
+              
+                default:
+                  break;
+              }
+
+            }}><Icon icon="uil:bars" /></button>
+        </div>
       </div>;
   }
 }

@@ -13,6 +13,7 @@
 3. react install a temp folder-be: npx create-react-app my-app
 4. be a temp projekt mappába: cd my-app
 5. capacitor install: 
+    - npm install --save-dev @iconify/react
     - npm install @capacitor/core @capacitor/cli
     - npx cap init my-app com.example.myapp --web-dir=build
     - npm i @capacitor/android
