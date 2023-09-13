@@ -50,13 +50,11 @@ CREATE TABLE savedata (
   ramId tinyint(4) DEFAULT NULL,
   stgId tinyint(4) DEFAULT NULL,
   PRIMARY KEY (saveId),
-  FOREIGN KEY (cpuId) REFERENCES cpuTbl(hardwareId)
+  FOREIGN KEY (cpuId) REFERENCES cpuTbl(hardwareId),
+  FOREIGN KEY (gpuId) REFERENCES gpuTbl(hardwareId),
+  FOREIGN KEY (ramId) REFERENCES ramTbl(hardwareId),
+  FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId)
 )ENGINE = INNODB;
-
-INSERT INTO savedata VALUES
-(1, -1, 0, 0, 0, 0, 0, 0),
-(2, -1, 0, 0, 0, 0, 0, 0),
-(3, -1, 0, 0, 0, 0, 0, 0);
 
 
 INSERT INTO cpuTbl VALUES
@@ -82,3 +80,9 @@ INSERT INTO stgTbl VALUES
 (1, '500GB HDD', '7200rpm', 'SeeGait Bermuda'),
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
+
+
+INSERT INTO savedata VALUES
+(1, -1, 0, 0, 0, 0, 0, 0),
+(2, -1, 0, 0, 0, 0, 0, 0),
+(3, -1, 0, 0, 0, 0, 0, 0);
