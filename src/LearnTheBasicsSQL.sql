@@ -7,21 +7,50 @@ COLLATE utf8mb4_hungarian_ci;
 USE LearnTheBasics;
 
 
+CREATE TABLE cpuTbl (
+  hardwareId tinyint(4) DEFAULT NULL,
+  name varchar(50) DEFAULT NULL,
+  description varchar(255) DEFAULT NULL,
+  company varchar(50) DEFAULT NULL
+)ENGINE = INNODB;
+
+CREATE TABLE gpuTbl (
+  hardwareId tinyint(4) DEFAULT NULL,
+  name varchar(50) DEFAULT NULL,
+  description varchar(255) DEFAULT NULL,
+  company varchar(50) DEFAULT NULL
+)ENGINE = INNODB;
+
+CREATE TABLE ramTbl (
+  hardwareId tinyint(4) DEFAULT NULL,
+  name varchar(50) DEFAULT NULL,
+  description varchar(255) DEFAULT NULL,
+  company varchar(50) DEFAULT NULL
+)ENGINE = INNODB;
+
+CREATE TABLE stgTbl (
+  hardwareId tinyint(4) DEFAULT NULL,
+  name varchar(50) DEFAULT NULL,
+  description varchar(255) DEFAULT NULL,
+  company varchar(50) DEFAULT NULL
+)ENGINE = INNODB;
+
+
+INSERT INTO cpuTbl VALUES
+(0, 'Z3', '3400 3.1GHz 2core', 'InkWell' );
+
 /*Savedata*/
-CREATE TABLE learnthebasics.savedata (
-  saveId tinyint(4) NOT NULL,
-  lvl tinyint(4) DEFAULT NULL,
-  money int(11) DEFAULT NULL,
-  time int(11) DEFAULT NULL,
-  cpu tinyint(4) DEFAULT NULL,
-  gpu tinyint(4) DEFAULT NULL,
-  ram tinyint(4) DEFAULT NULL,
-  stg tinyint(4) DEFAULT NULL,
+CREATE TABLE savedata (
+  saveId tinyint(4) AUTO_INCREMENT,
+  lvl tinyint(4) DEFAULT -1,
+  money int(11) DEFAULT 0,
+  time int(11) DEFAULT 0,
+  cpu tinyint(4) DEFAULT 0,
+  gpu tinyint(4) DEFAULT 0,
+  ram tinyint(4) DEFAULT 0,
+  stg tinyint(4) DEFAULT 0,
   PRIMARY KEY (saveId)
-)
-ENGINE = INNODB,
-CHARACTER SET utf8mb4,
-COLLATE utf8mb4_hungarian_ci;
+)ENGINE = INNODB;
 
 INSERT INTO savedata VALUES
 (1, -1, 0, 0, 0, 0, 0, 0),
