@@ -1,163 +1,19 @@
-/* eslint-disable default-case */
-import cursor from "./assets/circle-heat.svg";
 import "./App.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
-import userEvent from "@testing-library/user-event";
+import {convertSave, saveFile} from "./components/savefile_management";
 
-class saveFile {
-  constructor(lvl, money, time, cpu, gpu, ram, stg) {
-    this.lvl = lvl;
-    this.money = money;
-    this.hours = Math.floor(time / 3600);
-    this.minutes = Math.floor((time % 3600) / 60);
-    this.seconds = Math.floor((time % 3600) % 60);
-    this.cpu = cpu;
-    this.gpu = gpu;
-    this.ram = ram;
-    this.stg = stg;
-  }
-
-  addTime() {
-    this.seconds++;
-    if (this.seconds >= 60) {
-      this.seconds -= 60;
-      this.minutes++;
-    }
-    if (this.minutes >= 60) {
-      this.minutes -= 60;
-      this.hours++;
-    }
-  }
-
-  getSaveTime() {
-    return this.hours * 3600 + this.minutes * 60 + this.seconds;
-  }
-
-  getCpu() {
-    switch (this.cpu) {
-      default:
-        return 0;
-      case "Z5":
-        return 1;
-      case "Z7":
-        return 2;
-      case "Z9":
-        return 3;
-    }
-  }
-
-  getGpu() {
-    switch (this.gpu) {
-      default:
-        return 0;
-      case "DTX 1150":
-        return 1;
-      case "ETX 2260":
-        return 2;
-      case "ETX 4490":
-        return 3;
-    }
-  }
-
-  getRam() {
-    switch (this.ram) {
-      default:
-        return 0;
-      case "16GB":
-        return 1;
-      case "32GB":
-        return 2;
-      case "64GB":
-        return 3;
-    }
-  }
-
-  getStg() {
-    switch (this.stg) {
-      default:
-        return 0;
-      case "500GB HDD":
-        return 1;
-      case "500GB SSD":
-        return 2;
-      case "1TB SSD":
-        return 3;
-    }
-  }
-}
-
-function setCpu(cpu) {
-  switch (cpu) {
-    default:
-      return "Z3";
-    case 1:
-      return "Z5";
-    case 2:
-      return "Z7";
-    case 3:
-      return "Z9";
-  }
-}
-
-function setGpu(gpu) {
-  switch (gpu) {
-    default:
-      return "DT 620";
-    case 1:
-      return "DTX 1150";
-    case 2:
-      return "ETX 2260";
-    case 3:
-      return "ETX 4490";
-  }
-}
-
-function setRam(ram) {
-  switch (ram) {
-    default:
-      return "8GB";
-    case 1:
-      return "16GB";
-    case 2:
-      return "32GB";
-    case 3:
-      return "64GB";
-  }
-}
-
-function setStg(stg) {
-  switch (stg) {
-    default:
-      return "250GB HDD";
-    case 1:
-      return "500GB HDD";
-    case 2:
-      return "500GB SSD";
-    case 3:
-      return "1TB SSD";
-  }
-}
-
-function convertSave(savedata) {
-  return new saveFile(
-    savedata.lvl,
-    savedata.money,
-    savedata.time,
-    setCpu(savedata.cpu),
-    setGpu(savedata.gpu),
-    setRam(savedata.ram),
-    setStg(savedata.stg)
-  );
-}
+// Base variables
 
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
-
 let currentState = "MainMenu";
 let activeSaveSlot = 1;
+let x = 0;
+
+// Time increment
 
 setInterval(() => {
   if (currentState === "Game") {
@@ -171,6 +27,8 @@ setInterval(() => {
       case 3:
         save3data.addTime();
         break;
+      default:
+        break;
     }
   }
 }, 1000);
@@ -180,7 +38,6 @@ function App() {
   const [save1, setSave1] = useState(save1data);
   const [save2, setSave2] = useState(save2data);
   const [save3, setSave3] = useState(save3data);
-  let x = 0;
 
   const setData = (saveId, lvl, money, time, cpu, gpu, ram, stg) => {
     if (saveId !== 1 && saveId !== 2 && saveId !== 3) {
@@ -216,25 +73,15 @@ function App() {
           ram = ram !== undefined ? ram : save3.getRam();
           stg = stg !== undefined ? stg : save3.getStg();
           break;
+        default:
+          break;
       }
       setKey((key) => key + 1);
+
       fetch(
-        "http://127.0.0.1:8000/changedata?saveId=" +
-          saveId +
-          "&lvl=" +
-          lvl +
-          "&money=" +
-          money +
-          "&time=" +
-          time +
-          "&cpu=" +
-          cpu +
-          "&gpu=" +
-          gpu +
-          "&ram=" +
-          ram +
-          "&stg=" +
-          stg
+        "http://127.0.0.1:8000/changedata?saveId=" + saveId + 
+          "&lvl=" + lvl + "&money=" + money + "&time=" + time +
+          "&cpu=" + cpu + "&gpu=" + gpu + "&ram=" + ram + "&stg=" + stg
       );
     }
   };
@@ -263,7 +110,6 @@ function App() {
     setKey((key) => key + 1);
   };
 
-
   function changeToGame() {
     currentState = "Game";
     console.log(currentState);
@@ -286,160 +132,158 @@ function App() {
     }, 500);
   }
 
-
   useEffect(() => {
     getData();
-  }, [x === 0]);
-
-  if (x === 0) {
     x++;
-  }
+  }, [x === 0]);
 
   switch (currentState) {
     case "MainMenu":
       return (
         <div className="App">
-          {/* Main Menu */}
+
+          {/*Main Menu*/}
+
           <div className="main-menu">
-            <h1 id="title-text" className="">LearnTheBasics.it</h1>
-            <div className="button-container">
-              <button
-                onClick={() => {
-                  x = 0;
-                  getData();
+    <h1 id="title-text" className="">LearnTheBasics.it</h1>
+    <div className="button-container">
+      <button
+        onClick={() => {
+          x = 0;
+          getData();
 
-                  document.getElementsByClassName(
-                    "save-container"
-                  )[0].style.top = "0vh";
-                  document.getElementById("save-back-button").style.display =
-                    "unset";
+          document.getElementsByClassName(
+            "save-container"
+          )[0].style.top = "0vh";
+          document.getElementById("save-back-button").style.display =
+            "unset";
 
-                  let saveSlot1 = document.getElementById("save-item1");
-                  let saveSlot2 = document.getElementById("save-item2");
-                  let saveSlot3 = document.getElementById("save-item3");
+          let saveSlot1 = document.getElementById("save-item1");
+          let saveSlot2 = document.getElementById("save-item2");
+          let saveSlot3 = document.getElementById("save-item3");
 
-                  if (save1.lvl === -1) {
-                    if (!saveSlot1.classList.contains("empty-save")) {
-                      console.log("added empty-save");
-                      saveSlot1.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot1.classList.contains("empty-save")) {
-                      saveSlot1.classList.remove("empty-save");
-                    }
-                  }
+          if (save1.lvl === -1) {
+            if (!saveSlot1.classList.contains("empty-save")) {
+              console.log("added empty-save");
+              saveSlot1.classList.add("empty-save");
+            }
+          } else {
+            if (saveSlot1.classList.contains("empty-save")) {
+              saveSlot1.classList.remove("empty-save");
+            }
+          }
 
-                  if (save2.lvl === -1) {
-                    if (!saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.remove("empty-save");
-                    }
-                  }
+          if (save2.lvl === -1) {
+            if (!saveSlot2.classList.contains("empty-save")) {
+              saveSlot2.classList.add("empty-save");
+            }
+          } else {
+            if (saveSlot2.classList.contains("empty-save")) {
+              saveSlot2.classList.remove("empty-save");
+            }
+          }
 
-                  if (save3.lvl === -1) {
-                    saveSlot3.classList.add("empty-save");
-                  } else {
-                    saveSlot3.classList.remove("empty-save");
-                  }
-                  setKey((key) => key + 1);
-                }}
-              >
-                Continue
-              </button>
-              <button
-                onClick={() => {
-                  x = 0;
-                  getData();
-                  setKey((key) => key + 1);
+          if (save3.lvl === -1) {
+            saveSlot3.classList.add("empty-save");
+          } else {
+            saveSlot3.classList.remove("empty-save");
+          }
+          setKey((key) => key + 1);
+        }}
+      >
+        Continue
+      </button>
+      <button
+        onClick={() => {
+          x = 0;
+          getData();
+          setKey((key) => key + 1);
 
-                  let saveSlot1 = document.getElementById("save-item1");
-                  let saveSlot2 = document.getElementById("save-item2");
-                  let saveSlot3 = document.getElementById("save-item3");
+          let saveSlot1 = document.getElementById("save-item1");
+          let saveSlot2 = document.getElementById("save-item2");
+          let saveSlot3 = document.getElementById("save-item3");
 
-                  if (save1.lvl === -1) {
-                    if (!saveSlot1.classList.contains("empty-save")) {
-                      console.log("added empty-save");
-                      saveSlot1.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot1.classList.contains("empty-save")) {
-                      saveSlot1.classList.remove("empty-save");
-                    }
-                  }
+          if (save1.lvl === -1) {
+            if (!saveSlot1.classList.contains("empty-save")) {
+              console.log("added empty-save");
+              saveSlot1.classList.add("empty-save");
+            }
+          } else {
+            if (saveSlot1.classList.contains("empty-save")) {
+              saveSlot1.classList.remove("empty-save");
+            }
+          }
 
-                  if (save2.lvl === -1) {
-                    if (!saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.remove("empty-save");
-                    }
-                  }
+          if (save2.lvl === -1) {
+            if (!saveSlot2.classList.contains("empty-save")) {
+              saveSlot2.classList.add("empty-save");
+            }
+          } else {
+            if (saveSlot2.classList.contains("empty-save")) {
+              saveSlot2.classList.remove("empty-save");
+            }
+          }
 
-                  if (save3.lvl === -1) {
-                    saveSlot3.classList.add("empty-save");
-                  } else {
-                    saveSlot3.classList.remove("empty-save");
-                  }
+          if (save3.lvl === -1) {
+            saveSlot3.classList.add("empty-save");
+          } else {
+            saveSlot3.classList.remove("empty-save");
+          }
 
-                  setKey((key) => key + 1);
+          setKey((key) => key + 1);
 
-                  if (save1.lvl === -1) {
-                    console.log("Added save to slot 1");
-                    setData(1, 0);
-                    save1data.lvl = 0;
-                    setSave1((save1) => save1data);
-                    currentState = "Game";
-                    activeSaveSlot = 1;
-                    console.log(currentState);
-                    document.getElementById("title-text").className.concat("slide-up");
-                  } else if (save2.lvl === -1) {
-                    console.log("Added save to slot 2");
-                    setData(2, 0);
-                    save2data.lvl = 0;
-                    setSave2((save2) => save2data);
-                    currentState = "Game";
-                    activeSaveSlot = 2;
-                    console.log(currentState);
-                    document.getElementById("title-text").className.concat("slide-up");
-                  } else if (save3.lvl === -1) {
-                    console.log("Added save to slot 3");
-                    setData(3, 0);
-                    save3data.lvl = 0;
-                    setSave3((save3) => save3data);
-                    currentState = "Game";
-                    activeSaveSlot = 3;
-                    console.log(currentState);
-                    document.getElementById("title-text").className.concat("slide-up");
-                  } else {
-                    console.log("No more saves, open menu");
-                    document.getElementsByClassName(
-                      "save-container"
-                    )[0].style.top = "0vh";
-                    document.getElementById("save-back-button").style.display =
-                      "unset";
-                  }
-                }}
-              >
-                New Game
-              </button>
-              <button>Options</button>
-              <button
-                onClick={() => {
-                  window.close();
-                }}
-              >
-                Quit Game
-              </button>
-            </div>
-            <div id="darken-bg"></div>
-          </div>
+          if (save1.lvl === -1) {
+            console.log("Added save to slot 1");
+            setData(1, 0);
+            save1data.lvl = 0;
+            setSave1((save1) => save1data);
+            currentState = "Game";
+            activeSaveSlot = 1;
+            console.log(currentState);
+            document.getElementById("title-text").className.concat("slide-up");
+          } else if (save2.lvl === -1) {
+            console.log("Added save to slot 2");
+            setData(2, 0);
+            save2data.lvl = 0;
+            setSave2((save2) => save2data);
+            currentState = "Game";
+            activeSaveSlot = 2;
+            console.log(currentState);
+            document.getElementById("title-text").className.concat("slide-up");
+          } else if (save3.lvl === -1) {
+            console.log("Added save to slot 3");
+            setData(3, 0);
+            save3data.lvl = 0;
+            setSave3((save3) => save3data);
+            currentState = "Game";
+            activeSaveSlot = 3;
+            console.log(currentState);
+            document.getElementById("title-text").className.concat("slide-up");
+          } else {
+            console.log("No more saves, open menu");
+            document.getElementsByClassName(
+              "save-container"
+            )[0].style.top = "0vh";
+            document.getElementById("save-back-button").style.display =
+              "unset";
+          }
+        }}
+      >
+        New Game
+      </button>
+      <button>Options</button>
+      <button
+        onClick={() => {
+          window.close();
+        }}
+      >
+        Quit Game
+      </button>
+    </div>
+    <div id="darken-bg"></div>
+  </div>
 
-          {/* Save Menu */}
+          {/*Save Container*/}
 
           <div class="save-container" style={{ top: "100vh" }}>
             <div style={{ display: "none" }} key={key}></div>
@@ -447,7 +291,7 @@ function App() {
               class="save-item"
               id="save-item1"
               onClick={() => {
-                if (save1.lvl != -1) {
+                if (save1.lvl !==-1) {
                   activeSaveSlot = 1;
                   changeToGame();
                 }
@@ -504,7 +348,7 @@ function App() {
               class="save-item"
               id="save-item2"
               onClick={() => {
-                if (save2.lvl != -1) {
+                if (save2.lvl !==-1) {
                   activeSaveSlot = 2;
                   changeToGame()
                 }
@@ -561,7 +405,7 @@ function App() {
               class="save-item"
               id="save-item3"
               onClick={() => {
-                if (save3.lvl != -1) {
+                if (save3.lvl !==-1) {
                   activeSaveSlot = 3;
                   changeToGame();
                 }
