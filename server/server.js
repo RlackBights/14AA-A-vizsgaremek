@@ -4,13 +4,13 @@ const port = 8000;
 const cors = require('cors');
 const db = require('./db');
 
-
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
-  allowedHeaders: '*',
-
-}));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
+    allowedHeaders: "*",
+  })
+);
 
 app.use(express.json());
 app.use(
@@ -31,7 +31,6 @@ async function updateDB(data) {
 function changeData(req) { updateDB(req.query) }
 
 app.use("/changedata", changeData);
-
 
 
 /* Error handler middleware */
