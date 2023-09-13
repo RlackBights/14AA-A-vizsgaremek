@@ -216,14 +216,13 @@ function App() {
         return response.json();
       })
       .then(function (myJson) {
-
-        save1data = convertSave(myJson.data[0]);
+        save1data = convertSave(myJson[0]);
         setSave1((save1) => save1data);
 
-        save2data = convertSave(myJson.data[1]);
+        save2data = convertSave(myJson[1]);
         setSave2((save2) => save2data);
 
-        save3data = convertSave(myJson.data[2]);
+        save3data = convertSave(myJson[2]);
         setSave3((save3) => save3data);
       });
     setKey((key) => key + 1);
