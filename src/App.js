@@ -239,30 +239,21 @@ function App() {
             setData(1, 0);
             save1data.lvl = 0;
             setSave1((save1) => save1data);
-            currentState = "Game";
             activeSaveSlot = 1;
-            console.log(currentState);
-            document.getElementById("title-text").className.concat("slide-up");
+            changeToGame();
           } else if (save2.lvl === -1) {
-            console.log("Added save to slot 2");
             setData(2, 0);
             save2data.lvl = 0;
             setSave2((save2) => save2data);
-            currentState = "Game";
             activeSaveSlot = 2;
-            console.log(currentState);
-            document.getElementById("title-text").className.concat("slide-up");
+            changeToGame();
           } else if (save3.lvl === -1) {
-            console.log("Added save to slot 3");
             setData(3, 0);
             save3data.lvl = 0;
             setSave3((save3) => save3data);
-            currentState = "Game";
             activeSaveSlot = 3;
-            console.log(currentState);
-            document.getElementById("title-text").className.concat("slide-up");
+            changeToGame();
           } else {
-            console.log("No more saves, open menu");
             document.getElementsByClassName(
               "save-container"
             )[0].style.top = "0vh";
