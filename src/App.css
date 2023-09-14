@@ -361,7 +361,7 @@
 
 /*
 
-GAME
+Room
 
 */
 
@@ -381,6 +381,34 @@ GAME
   margin: 0;
 }
 
+#monitor {
+  position: absolute;
+  top: 12rem;
+  left: 34rem;
+  width: 38.5rem;
+  height: 23.5rem;
+}
+
+#monitor:hover {
+  border: 5px dashed black;
+}
+
+/*
+
+Computer
+
+*/
+
+#desktop {
+  background-image: url('./assets/bg.png');
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: -31rem -14rem;
+  background-size: 222rem;
+}
+
+
 
 
 /*
@@ -394,5 +422,6 @@ Save items float up (staggered)
 On load
  - title and buttosn slide in
 
+ Monitor zoom
 
 */

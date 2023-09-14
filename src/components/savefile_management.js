@@ -139,9 +139,9 @@ export class saveFile {
       savedata.lvl,
       savedata.money,
       savedata.time,
-      setCpu(savedata.cpu),
-      setGpu(savedata.gpu),
-      setRam(savedata.ram),
-      setStg(savedata.stg)
+      savedata.cpu,
+      savedata.gpu,
+      savedata.ram,
+      savedata.stg
     );
   }
