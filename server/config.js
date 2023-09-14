@@ -1,6 +1,8 @@
+
+// Itt elég egyértelmű minden hogy mit csinál, csak a beállítások hogy elérje az adatbázist, ennyi
+
 const config = {
   db: {
-    /* don't expose password or any sensitive info, done only for demo */
     host: "localhost",
     user: "root",
     password: "",

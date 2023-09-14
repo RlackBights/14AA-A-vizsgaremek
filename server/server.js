@@ -1,42 +1,41 @@
-const express = require("express");
-const app = express();
-const port = 8000;
-const cors = require('cors');
-const db = require('./db');
+const express = require("express"); // csak egy backend library a node.js mellé hogy segítse a cuccokat
+const app = express(); // inicializálja az object-et amivel lehet az adatbázissal kommunikálni
+const port = 8000; // backend port
+const cors = require('cors'); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
+const db = require('./db'); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"],
-    allowedHeaders: "*",
+    origin: "*", // honnan jöhetnek kérések
+    methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"], // milyen kérések jöhetnek
+    allowedHeaders: "*", // kell-e kötelező header hogy elfogadja a kérést, majd ennél kell kiokoskodni a biztonsági részt
   })
 );
 
-app.use(express.json());
+app.use(express.json()); // hozzáadja az express json fordítóját
 app.use(
-  express.urlencoded({
+  express.urlencoded({ // URL encoding? idk, ezt nem tudom hogy működik
     extended: true,
   })
 );
 
-async function queryData(res) { res.json(await db.query("SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cputbl c ON savedata.cpuId = c.hardwareId INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId")) }
-function getData(req, res) { queryData(res) }
+// lekérések
 
-app.use("/savedata", getData);
+// sima SQL lekérés, a db.query paranccsal
+async function getData(req, res) { res.json(await db.query("SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cputbl c ON savedata.cpuId = c.hardwareId INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId")) }
+app.use("/savedata", getData); // A "getData" átmeneti function-nel küld lekérést
 
+
+// Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 async function openAdminPage(req, res) { express.static(__dirname + '/admin/style.css'); res.sendFile(__dirname + '/admin/admin.html'); }
+app.use("/admin", openAdminPage); // betölti az admin oldalt
 
-app.use("/admin", openAdminPage);
 
-async function updateDB(data) {
-  let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpuId = ' + data.cpu + ', gpuId = ' + data.gpu + ', ramId = ' + data.ram + ', stgId = ' + data.stg + ' WHERE saveId = ' + data.saveId);
-  console.log(x);
-}
-function changeData(req) { updateDB(req.query) }
-
+// szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
+async function changeData(req) { await db.query('UPDATE savedata SET lvl = ' + req.query.lvl + ', money = ' + req.query.money + ', time = ' + req.query.time + ', cpuId = ' + req.query.cpu + ', gpuId = ' + req.query.gpu + ', ramId = ' + req.query.ram + ', stgId = ' + req.query.stg + ' WHERE saveId = ' + req.query.saveId); }
 app.use("/changedata", changeData);
 
-/* Error handler middleware */
+// Error handler
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
@@ -44,6 +43,7 @@ app.use((err, req, res, next) => {
   return;
 });
 
+// Ez indítja a szervert
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
