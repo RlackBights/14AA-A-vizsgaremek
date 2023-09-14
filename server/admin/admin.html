@@ -28,24 +28,36 @@
         .monitor:hover {
             cursor: pointer;
         }
+        .close button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3rem;
+            aspect-ratio: 1/1;
+            cursor: pointer;
+            background: red;
+        }
     </style>
     
     
     <title>Document</title>
 </head>
 <body>
-    <h1>ADMIN FELÜLET</h1>
-
-    <div class="monitor" onclick="zoom()">
-
-    </div>
+    <h1 id="title">ADMIN FELÜLET</h1>
+    <div class="close"><button onclick="close()"></button></div>
+    <div class="monitor" onclick="zoom()"></div>
     <script>
-        let password = "valami";
-        let html = document.getElementsByName('body')[0];
+        const h1 = document.getElementById('title');
+        let html = document.documentElement;
 
         function zoom (){
-            html.style.backgroundSize = '150%';
-            console.log('zoom')
+            html.style.backgroundSize = '125%';
+            h1.style.display = 'none';
+        }
+        
+        function close (){
+            html.style.backgroundSize = '500%';
+            h1.style.display = 'block';
         }
     </script>
 </body>
