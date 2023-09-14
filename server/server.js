@@ -24,9 +24,9 @@ function getData(req, res) { queryData(res) }
 
 app.use("/savedata", getData);
 
-async function openAdminPage(req, res) { res.sendFile(__dirname + '/admin/admin.html'); }
+async function openAdminPage(req, res) { express.static(__dirname + '/admin/style.css'); res.sendFile(__dirname + '/admin/admin.html'); }
 
-app.get("/admin", openAdminPage);
+app.use("/admin", openAdminPage);
 
 async function updateDB(data) {
   let x = await db.query('UPDATE savedata SET lvl = ' + data.lvl + ', money = ' + data.money + ', time = ' + data.time + ', cpuId = ' + data.cpu + ', gpuId = ' + data.gpu + ', ramId = ' + data.ram + ', stgId = ' + data.stg + ' WHERE saveId = ' + data.saveId);

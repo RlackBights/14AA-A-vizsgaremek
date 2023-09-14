@@ -4,9 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <style>
+        html {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: url("./bg.png") no-repeat;
+            background-position: center;
+            background-size: 50%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 6vmin;
+        }
+        .monitor {
+            position: absolute;
+            width: 27%;
+            height: 33%;
+            margin-left: 50%;
+            transform: translateX(-68%) translateY(15%);
+        }
+        .monitor:hover {
+            cursor: pointer;
+        }
+    </style>
+    
+    
     <title>Document</title>
 </head>
 <body>
     <h1>ADMIN FELÜLET</h1>
+
+    <div class="monitor" onclick="zoom()">
+
+    </div>
+    <script>
+        let password = "valami";
+        let html = document.getElementsByName('body')[0];
+
+        function zoom (){
+            html.style.backgroundSize = '150%';
+            console.log('zoom')
+        }
+    </script>
 </body>
 </html>
