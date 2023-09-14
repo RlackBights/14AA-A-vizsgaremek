@@ -78,6 +78,7 @@ function App() {
         default:
           break;
       }
+      
       setKey((key) => key + 1);
 
       fetch(
@@ -240,19 +241,22 @@ function App() {
             save1data.lvl = 0;
             setSave1((save1) => save1data);
             activeSaveSlot = 1;
-            changeToGame();
+            currentState = "Game";
+            setKey((key) => key + 1);
           } else if (save2.lvl === -1) {
             setData(2, 0);
             save2data.lvl = 0;
             setSave2((save2) => save2data);
             activeSaveSlot = 2;
-            changeToGame();
+            currentState = "Game";
+            setKey((key) => key + 1);
           } else if (save3.lvl === -1) {
             setData(3, 0);
             save3data.lvl = 0;
             setSave3((save3) => save3data);
             activeSaveSlot = 3;
-            changeToGame();
+            currentState = "Game";
+            setKey((key) => key + 1);
           } else {
             document.getElementsByClassName(
               "save-container"
