@@ -1,0 +1,6 @@
+*+html {
+	overflow:auto;
+}
+.soc-icons a:hover img {
+	filter:alpha(opacity=70);
+}
