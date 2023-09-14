@@ -56,7 +56,7 @@
             bottom: 0;
             width: 100%;
             height: 4rem;
-            background: #08004ca5;
+            background: #0082ced8;
             z-index: 4;
         }
         .closeBtn {
@@ -77,6 +77,21 @@
         .closeBtn:hover {
             filter: brightness(60%);
         }
+        .login-container {
+            width: fit-content;
+            margin: auto;
+            text-align: center;
+            color: #fff;
+            margin-top: 10%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 2rem 5rem 5rem 5rem;
+        }
+        .login-container h1{
+            margin-bottom: 5rem;
+        }
+        .login input {
+            height: 1500%;
+        }
     </style>
     
     
@@ -85,6 +100,15 @@
 <body>
         <h1 id="title">ADMIN FELÜLET</h1>
         <div class="desktop">
+            <div class="login-container">
+                <h1>Login</h1>
+                <div class="login">
+                    <h2>Username</h2>
+                    <input type="text">
+                    <h2>Password</h2>
+                    <input type="text">
+                </div>
+            </div>
             <div class="taskbar">
                 <div class="closeBtn" onclick="closeAdmin()"><span class="iconify" data-icon="game-icons:ouroboros" style="color: white;" data-width="45" data-height="45"></span></div>
             </div>
