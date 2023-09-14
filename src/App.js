@@ -3,15 +3,15 @@ import { useState } from "react";
 import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 import {convertSave, saveFile} from "./components/savefile_management";
-import { Icon } from "@iconify/react";
+import { Icon, disableCache } from "@iconify/react";
 
 // Base variables
 
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
-let currentState = "MainMenu";
-let activeSaveSlot = 1;
+let currentState = "Computer";
+let activeSaveSlot = null;
 let x = 0;
 
 // Time increment
@@ -78,7 +78,7 @@ function App() {
         default:
           break;
       }
-      
+
       setKey((key) => key + 1);
 
       fetch(
@@ -471,36 +471,50 @@ function App() {
         </div>
       );
     case "Game":
-      return <div className="App">
-        <div class="main-menu">
-            <button className="mobile" id="exit-game-button" onClick={() => {
-              
-              currentState = "MainMenu";
+      return(
+        <div className="App" key={key}>
+          <div class="main-menu">
+              <button className="mobile" id="exit-game-button" onClick={() => {
+                
+                currentState = "MainMenu";
 
-              switch (activeSaveSlot) {
-                case 1:
-                  activeSaveSlot = null;
-                  setSave1((save1) => save1data);
-                  setData(1, undefined, undefined, save1.time)
-                  break;
-                case 2:
-                  activeSaveSlot = null;
-                  setSave2((save2) => save2data);
-                  setData(2, undefined, undefined, save1.time)
-                  break;
-                case 3:
-                  activeSaveSlot = null;
-                  setSave3((save3) => save3data);
-                  setData(3, undefined, undefined, save1.time)
-                  break;
-              
-                default:
-                  break;
-              }
+                switch (activeSaveSlot) {
+                  case 1:
+                    activeSaveSlot = null;
+                    setSave1((save1) => save1data);
+                    setData(1, undefined, undefined, save1.time)
+                    break;
+                  case 2:
+                    activeSaveSlot = null;
+                    setSave2((save2) => save2data);
+                    setData(2, undefined, undefined, save1.time)
+                    break;
+                  case 3:
+                    activeSaveSlot = null;
+                    setSave3((save3) => save3data);
+                    setData(3, undefined, undefined, save1.time)
+                    break;
+                
+                  default:
+                    break;
+                }
 
-            }}><Icon icon="uil:bars" /></button>
+              }}><Icon icon="uil:bars" /></button>
+              <div id="monitor" onClick={() => {
+                currentState = "Computer";
+                setKey((key) => key + 1);
+              }}></div>
+          </div>
         </div>
-      </div>;
+      );
+    case "Computer":
+      return (
+        <div className="App" key={key}>
+          <div id="desktop">
+
+          </div>
+        </div>
+      );
   }
 }
 
