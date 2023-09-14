@@ -10,14 +10,31 @@ import { Icon, disableCache } from "@iconify/react";
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
-let currentState = "Computer";
+let currentState = "MainMenu";
 let activeSaveSlot = null;
 let x = 0;
+
+// Save Menu
+
+function openSaves() {
+  document.getElementsByClassName(
+    "save-container"
+  )[0].style.display = "flex";
+  document.getElementById("save-back-button").style.display =
+    "unset";
+}
+
+function closeSaves() {
+  document.getElementsByClassName("save-container")[0].style.display =
+  "none";
+document.getElementById("save-back-button").style.display =
+  "none";
+}
 
 // Time increment
 
 setInterval(() => {
-  if (currentState === "Game") {
+  if (currentState !== "MainMenu") {
     console.log("Tick");
     switch (activeSaveSlot) {
       case 1:
@@ -155,11 +172,7 @@ function App() {
           x = 0;
           getData();
 
-          document.getElementsByClassName(
-            "save-container"
-          )[0].style.top = "0vh";
-          document.getElementById("save-back-button").style.display =
-            "unset";
+          openSaves();
 
           let saveSlot1 = document.getElementById("save-item1");
           let saveSlot2 = document.getElementById("save-item2");
@@ -191,6 +204,7 @@ function App() {
           } else {
             saveSlot3.classList.remove("empty-save");
           }
+
           setKey((key) => key + 1);
         }}
       >
@@ -258,11 +272,7 @@ function App() {
             currentState = "Game";
             setKey((key) => key + 1);
           } else {
-            document.getElementsByClassName(
-              "save-container"
-            )[0].style.top = "0vh";
-            document.getElementById("save-back-button").style.display =
-              "unset";
+            openSaves();
           }
         }}
       >
@@ -282,7 +292,7 @@ function App() {
 
           {/*Save Container*/}
 
-          <div class="save-container" style={{ top: "100vh" }}>
+          <div class="save-container" style={{ display: "none" }}>
             <div style={{ display: "none" }} key={key}></div>
             <div
               class="save-item"
@@ -302,13 +312,13 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p class="locked-lang" id="html">
+                  <p class={(save1.getCpu() >= 0) ? "" : "locked-lang"} id="html">
                     HTML
                   </p>
-                  <p class="locked-lang" id="css">
+                  <p class={(save1.getCpu() >= 1) ? "" : "locked-lang"} id="css">
                     CSS
                   </p>
-                  <p class="locked-lang" id="js">
+                  <p class={(save1.getCpu() >= 2) ? "" : "locked-lang"} id="js">
                     JS
                   </p>
                 </div>
@@ -359,13 +369,13 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p class="locked-lang" id="html">
+                  <p class={(save2.getCpu() >= 0) ? "" : "locked-lang"} id="html">
                     HTML
                   </p>
-                  <p class="locked-lang" id="css">
+                  <p class={(save2.getCpu() >= 1) ? "" : "locked-lang"} id="css">
                     CSS
                   </p>
-                  <p class="locked-lang" id="js">
+                  <p class={(save2.getCpu() >= 2) ? "" : "locked-lang"} id="js">
                     JS
                   </p>
                 </div>
@@ -416,13 +426,13 @@ function App() {
               </div>
               <div class="grid-item save-top">
                 <div id="langs">
-                  <p class="locked-lang" id="html">
+                  <p class={(save3.getCpu() >= 0) ? "" : "locked-lang"} id="html">
                     HTML
                   </p>
-                  <p class="locked-lang" id="css">
+                  <p class={(save3.getCpu() >= 1) ? "" : "locked-lang"} id="css">
                     CSS
                   </p>
-                  <p class="locked-lang" id="js">
+                  <p class={(save3.getCpu() >= 2) ? "" : "locked-lang"} id="js">
                     JS
                   </p>
                 </div>
@@ -458,10 +468,7 @@ function App() {
           </div>
           <button
             onClick={() => {
-              document.getElementsByClassName("save-container")[0].style.top =
-                "100vh";
-              document.getElementById("save-back-button").style.display =
-                "none";
+              closeSaves();
             }}
             id="save-back-button"
             style={{ display: "none" }}
@@ -511,7 +518,31 @@ function App() {
       return (
         <div className="App" key={key}>
           <div id="desktop">
+            <button className="mobile" id="exit-game-button" onClick={() => {
+                
+                currentState = "Computer";
 
+                switch (activeSaveSlot) {
+                  case 1:
+                    setSave1((save1) => save1data);
+                    setData(1, undefined, undefined, save1.time)
+                    break;
+                  case 2:
+                    setSave2((save2) => save2data);
+                    setData(2, undefined, undefined, save1.time)
+                    break;
+                  case 3:
+                    setSave3((save3) => save3data);
+                    setData(3, undefined, undefined, save1.time)
+                    break;
+                
+                  default:
+                    break;
+                }
+
+                setKey((key) => key + 1);
+
+              }}><Icon icon="uil:bars" /></button>
           </div>
         </div>
       );
