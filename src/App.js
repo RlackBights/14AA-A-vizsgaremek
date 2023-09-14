@@ -28,7 +28,7 @@ function closeSaves() {
   document.getElementsByClassName("save-container")[0].style.display =
   "none";
 document.getElementById("save-back-button").style.display =
-  "none";
+  "none";      
 }
 
 // Time increment
