@@ -82,58 +82,6 @@ export class saveFile {
     }
   }
   
-  function setCpu(cpu) {
-    switch (cpu) {
-      default:
-        return "Z3";
-      case 1:
-        return "Z5";
-      case 2:
-        return "Z7";
-      case 3:
-        return "Z9";
-    }
-  }
-  
-  function setGpu(gpu) {
-    switch (gpu) {
-      default:
-        return "DT 620";
-      case 1:
-        return "DTX 1150";
-      case 2:
-        return "ETX 2260";
-      case 3:
-        return "ETX 4490";
-    }
-  }
-  
-  function setRam(ram) {
-    switch (ram) {
-      default:
-        return "8GB";
-      case 1:
-        return "16GB";
-      case 2:
-        return "32GB";
-      case 3:
-        return "64GB";
-    }
-  }
-  
-  function setStg(stg) {
-    switch (stg) {
-      default:
-        return "250GB HDD";
-      case 1:
-        return "500GB HDD";
-      case 2:
-        return "500GB SSD";
-      case 3:
-        return "1TB SSD";
-    }
-  }
-  
   export function convertSave(savedata) {
     return new saveFile(
       savedata.lvl,

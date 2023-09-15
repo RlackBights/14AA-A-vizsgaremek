@@ -27,8 +27,7 @@ app.use("/savedata", getData); // A "getData" átmeneti function-nel küld leké
 
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
-async function openAdminPage(req, res) { express.static(__dirname + '/admin/style.css'); res.sendFile(__dirname + '/admin/admin.html'); }
-app.use("/admin", openAdminPage); // betölti az admin oldalt
+app.use("/admin", express.static(__dirname + '/admin')); // betölti az admin oldalt
 
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
