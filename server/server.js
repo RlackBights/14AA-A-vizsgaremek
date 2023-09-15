@@ -25,6 +25,9 @@ app.use(
 async function getData(req, res) { res.json(await db.query("SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cputbl c ON savedata.cpuId = c.hardwareId INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId")) }
 app.use("/savedata", getData); // A "getData" átmeneti function-nel küld lekérést
 
+async function checkData(req, res) {res.json(await db.query("SELECT password FROM login WHERE username = '" + req.body.username + "'"))}//admin page login
+app.use("/admin/checkData", checkData);
+
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + '/admin')); // betölti az admin oldalt

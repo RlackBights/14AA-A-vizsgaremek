@@ -65,6 +65,14 @@ CREATE TABLE userTbl (
   PRIMARY KEY (uid)
 )ENGINE = INNODB;
 
+CREATE TABLE login (
+  id int(11) AUTO_INCREMENT NOT NULL,
+  username varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE = INNODB;
+
+
 INSERT INTO cpuTbl VALUES
 (0, 'Z3', '3400 3.1GHz 2core', 'InkWell' ),
 (1, 'Z5', '6500 2.8GHz 4core/4thread', 'InkWell'),
@@ -88,3 +96,12 @@ INSERT INTO stgTbl VALUES
 (1, '500GB HDD', '7200rpm', 'SeeGait Bermuda'),
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
+
+
+INSERT INTO savedata VALUES
+(1, -1, 0, 0, 0, 0, 0, 0),
+(2, -1, 0, 0, 0, 0, 0, 0),
+(3, -1, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO login (username, password) VALUES
+('adminUSR', 'adminPASSWD');
