@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <style>
+        @font-face {
+            font-family: "admin-font";
+            src: url("Neon\ Rave.ttf");
+        }
+
         html {
             height: 100vh;
             width: 100vw;
@@ -13,7 +19,10 @@
             background: url("./bg.png") no-repeat;
             background-position: center;
             background-size: 50%;
+            font-family: 'admin-font';
+            letter-spacing: 3px;
         }
+
         .container {
             pointer-events: none;
             position: absolute;
@@ -27,19 +36,22 @@
             display: none;
             z-index: 10;
         }
+
         h1 {
             text-align: center;
             font-size: 6vmin;
         }
+
         .monitor {
             position: absolute;
             width: 27%;
             height: 33%;
             margin-left: 50%;
             transform: translateX(-68%) translateY(15%);
-            
+
             cursor: pointer;
         }
+
         .desktop {
             position: absolute;
             top: 2%;
@@ -49,7 +61,12 @@
             background: url(desktopbg.jpg);
             z-index: 5;
             display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
         }
+
         .taskbar {
             position: absolute;
             display: none;
@@ -59,6 +76,7 @@
             background: #0082ced8;
             z-index: 4;
         }
+
         .closeBtn {
             position: relative;
             width: 4rem;
@@ -70,51 +88,94 @@
             padding-top: 0.5rem;
             margin-left: 0.5rem;
         }
+
         .closeBtn span {
             height: 100%;
             width: 100%;
         }
+
         .closeBtn:hover {
             filter: brightness(60%);
         }
+
         .login-container {
-            width: fit-content;
-            margin: auto;
             text-align: center;
             color: #fff;
-            margin-top: 10%;
             background: rgba(0, 0, 0, 0.9);
-            padding: 2rem 5rem 5rem 5rem;
+            width: fit-content;
+            padding: 0 1rem 1rem 1rem;
+            height: fit-content;
         }
-        .login-container h1{
-            margin-bottom: 5rem;
+
+        .login-container h1 {
+            font-size: 5vmin;
+            font-weight: normal;
+            margin-top: 0;
+            color: #0082ce;
         }
+
+        .login-container h2 {
+            font-size: 3vmin;
+            font-weight: lighter;
+        }
+
         .login input {
-            height: 1500%;
+            outline: none;
+            border: 1px solid #fff;
+            border-radius: 0.5rem;
+            background: none;
+            padding: 0.5rem;
+            font-size: 1rem;
+            font-family: 'admin-font';
+            color: #fff;
+        }
+
+        .login input:focus {
+            border: 1px solid #0082ce;
+            color: #0082ce;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            font-size: 2rem;
+            margin-top: 1rem;
+            border-radius: 1rem;
+            background-color: #000;
+            cursor: pointer;
+            outline: none;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+
+        button:hover {
+            border: 2px solid #0082ce;
+            color: #0082ce;
         }
     </style>
-    
-    
+
+
     <title>Document</title>
 </head>
+
 <body>
-        <h1 id="title">ADMIN FELÜLET</h1>
-        <div class="desktop">
-            <div class="login-container">
-                <h1>Login</h1>
-                <div class="login">
-                    <h2>Username</h2>
-                    <input type="text">
-                    <h2>Password</h2>
-                    <input type="text">
-                </div>
-            </div>
-            <div class="taskbar">
-                <div class="closeBtn" onclick="closeAdmin()"><span class="iconify" data-icon="game-icons:ouroboros" style="color: white;" data-width="45" data-height="45"></span></div>
+    <h1 id="title">ADMIN FELÜLET</h1>
+    <div class="desktop">
+        <div class="login-container">
+            <h1>Login</h1>
+            <div class="login">
+                <h2>Username</h2>
+                <input type="text">
+                <h2>Password</h2>
+                <input type="password">
             </div>
         </div>
-        <div class="monitor" onclick="zoom()"></div>
-        <div class="container"></div>
+        <button>Login</button>
+        <div class="taskbar">
+            <div class="closeBtn" onclick="closeAdmin()"><span class="iconify" data-icon="game-icons:ouroboros" style="color: white;" data-width="45" data-height="45"></span></div>
+        </div>
+    </div>
+    <div class="monitor" onclick="zoom()"></div>
+    <div class="container"></div>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script>
         const h1 = document.getElementById('title');
@@ -123,15 +184,15 @@
         const taskbar = document.getElementsByClassName('taskbar')[0];
         const desktop = document.getElementsByClassName('desktop')[0];
 
-        function zoom (){
+        function zoom() {
             container.style.display = 'block';
             closeBtn.style.display = 'block';
             taskbar.style.display = 'block';
-            desktop.style.display = 'block';
+            desktop.style.display = 'flex';
             h1.style.display = 'none';
         }
-        
-        function closeAdmin (){
+
+        function closeAdmin() {
             container.style.display = 'none';
             closeBtn.style.display = 'none';
             taskbar.style.display = 'none';
@@ -140,4 +201,5 @@
         }
     </script>
 </body>
+
 </html>
