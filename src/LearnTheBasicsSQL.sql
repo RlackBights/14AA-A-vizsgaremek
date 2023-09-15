@@ -56,6 +56,14 @@ CREATE TABLE savedata (
   FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId)
 )ENGINE = INNODB;
 
+CREATE TABLE login (
+  id int(11) AUTO_INCREMENT NOT NULL,
+  username varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  role varchar(50) NOT NULL,
+  PRIMARY KEY (id)
+)ENGINE = INNODB;
+
 
 INSERT INTO cpuTbl VALUES
 (0, 'Z3', '3400 3.1GHz 2core', 'InkWell' ),
@@ -86,3 +94,6 @@ INSERT INTO savedata VALUES
 (1, -1, 0, 0, 0, 0, 0, 0),
 (2, -1, 0, 0, 0, 0, 0, 0),
 (3, -1, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO login (username, password, role) VALUES
+('adminUSR', 'adminPASSWD', 'admin');

@@ -21,5 +21,24 @@ function closeAdmin() {
 }
 
 function loginPressed() {
-    // login logic
+    let usernameLogin = document.getElementById('username').value;
+    let passwordLogin = document.getElementById('password').value;
+    fetch(
+        "http://127.0.0.1:8000/admin/checkData"
+    ,{
+    method: 'POST',
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({username: usernameLogin}),
+}).then(function (response) {
+    return response.json();
+}).then(function (pwd) {
+    if(pwd[0].password == passwordLogin){
+        console.log("SIKERES BEJELENTKEZÉS")
+    }
+
+})
 }
+
+
