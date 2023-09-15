@@ -14,7 +14,7 @@ app.use(
 
 app.use(express.json()); // hozzáadja az express json fordítóját
 app.use(
-  express.urlencoded({ // URL encoding? idk, ezt nem tudom hogy működik
+  express.urlencoded({ // Kitaláltam, body aprsing a POST request-ekre
     extended: true,
   })
 );
@@ -31,7 +31,7 @@ app.use("/admin", express.static(__dirname + '/admin')); // betölti az admin ol
 
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
-async function changeData(req) { await db.query('UPDATE savedata SET lvl = ' + req.query.lvl + ', money = ' + req.query.money + ', time = ' + req.query.time + ', cpuId = ' + req.query.cpu + ', gpuId = ' + req.query.gpu + ', ramId = ' + req.query.ram + ', stgId = ' + req.query.stg + ' WHERE saveId = ' + req.query.saveId); }
+async function changeData(req, res) { await db.query('UPDATE savedata SET lvl = ' + req.body.lvl + ', money = ' + req.body.money + ', time = ' + req.body.time + ', cpuId = ' + req.body.cpu + ', gpuId = ' + req.body.gpu + ', ramId = ' + req.body.ram + ', stgId = ' + req.body.stg + ' WHERE saveId = ' + req.body.saveId); }
 app.use("/changedata", changeData);
 
 // Error handler

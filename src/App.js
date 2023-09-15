@@ -102,6 +102,7 @@ function App() {
 
       setKey((key) => key + 1);
 
+      /*
       fetch(
         "http://127.0.0.1:8000/changedata?saveId=" +
           saveId +
@@ -119,6 +120,18 @@ function App() {
           ram +
           "&stg=" +
           stg
+      );
+      */
+
+      // await db.query('UPDATE savedata SET lvl = ' + req.query.lvl + ', money = ' + req.query.money + ', time = ' + req.query.time + ', cpuId = ' + req.query.cpu + ', gpuId = ' + req.query.gpu + ', ramId = ' + req.query.ram + ', stgId = ' + req.query.stg + ' WHERE saveId = ' + req.query.saveId);
+
+      const pushSaveData = {
+        method: 'PUT',
+        headers: {"Content-Type": "application/json",},
+        body: JSON.stringify({saveId: saveId, lvl: lvl, money: money, time: time, cpu: cpu, gpu: gpu, ram: ram, stg: stg})
+      }
+      fetch(
+        "http://127.0.0.1:8000/changedata", pushSaveData
       );
     }
   };

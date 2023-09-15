@@ -41,21 +41,29 @@ CREATE TABLE stgTbl (
 
 /*Savedata*/
 CREATE TABLE savedata (
+  id int NOT NULL AUTO_INCREMENT,
+  userId int NOT NULL,
   saveId tinyint(4) NOT NULL,
-  lvl tinyint(4) DEFAULT NULL,
-  money int(11) DEFAULT NULL,
-  time int(11) DEFAULT NULL,
-  cpuId tinyint(4) DEFAULT NULL,
-  gpuId tinyint(4) DEFAULT NULL,
-  ramId tinyint(4) DEFAULT NULL,
-  stgId tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (saveId),
+  lvl tinyint(4) DEFAULT -1,
+  money int(11) DEFAULT 0,
+  time int(11) DEFAULT 0,
+  cpuId tinyint(4) DEFAULT 0,
+  gpuId tinyint(4) DEFAULT 0,
+  ramId tinyint(4) DEFAULT 0,
+  stgId tinyint(4) DEFAULT 0,
+  PRIMARY KEY (id),
   FOREIGN KEY (cpuId) REFERENCES cpuTbl(hardwareId),
   FOREIGN KEY (gpuId) REFERENCES gpuTbl(hardwareId),
   FOREIGN KEY (ramId) REFERENCES ramTbl(hardwareId),
   FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId)
 )ENGINE = INNODB;
 
+CREATE TABLE userTbl (
+  uid int NOT NULL AUTO_INCREMENT,
+  name varchar(25) NOT NULL,
+  password varchar(25) NOT NULL,
+  PRIMARY KEY (uid)
+)ENGINE = INNODB;
 
 INSERT INTO cpuTbl VALUES
 (0, 'Z3', '3400 3.1GHz 2core', 'InkWell' ),
@@ -80,9 +88,3 @@ INSERT INTO stgTbl VALUES
 (1, '500GB HDD', '7200rpm', 'SeeGait Bermuda'),
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
-
-
-INSERT INTO savedata VALUES
-(1, -1, 0, 0, 0, 0, 0, 0),
-(2, -1, 0, 0, 0, 0, 0, 0),
-(3, -1, 0, 0, 0, 0, 0, 0);
