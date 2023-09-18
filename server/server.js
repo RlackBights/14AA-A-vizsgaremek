@@ -41,6 +41,11 @@ async function checkData(req, res) {
 } //admin page login
 app.use("/admin/checkData", checkData);
 
+async function getFields(req, res) {console.log(res.json(await db.query("SELECT * FROM saveData")))}
+app.use("/admin/getFields", getFields);
+
+
+
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
 

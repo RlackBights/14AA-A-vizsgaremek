@@ -126,7 +126,7 @@ h1 {
     color: #0082ce;
 }
 
-button {
+.login-container button {
     padding: 0.5rem 1rem;
     font-size: 2rem;
     margin-top: 1rem;
@@ -141,4 +141,102 @@ button {
 button:hover {
     border: 2px solid #0082ce;
     color: #0082ce;
+}
+
+.admin-container {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: none;
+    color: #fff;
+}
+
+.admin-tabs {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.admin-tabs ul {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    list-style: none;
+}
+
+.admin-tabs ul li {
+    cursor: pointer;
+    width: 20%;
+    height: 100%;
+    text-align: center;
+    border-bottom: 5px solid transparent;
+}
+
+.admin-tabs ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.admin-tabs ul li:hover {
+    border-bottom: 5px solid #0082ce;
+}
+
+.admin-tabs ul li:hover > a {
+    color: #0082ce;
+}
+
+.add-data {
+    width: 100%;
+    height: 100%;
+    padding: 0.5% 1.5% ;
+}
+
+.add-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-container button {
+    margin-top: 5%;
+    padding: 1%;
+    background: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 1px solid #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.add-container button:hover {
+    color: #0082ce;
+    border-color: #0082ce;
+}
+
+.tbl-title {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    background-color: aqua;
+}
+
+.tbl-input {
+    width: 90%;
+    height: 10%;
+    display: flex;
+    background-color: greenyellow;
+}
+
+.edit-data {
+    width: 100%;
+    height: 100%;
+}
+
+.list-data {
+    width: 100%;
+    height: 100%;
 }
