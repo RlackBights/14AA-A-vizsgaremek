@@ -45,6 +45,27 @@ app.use("/admin/checkData", checkData);
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
 
+async function loginAttempt(req, res) {
+  const answer = await db.query("SELECT password FROM userTbl WHERE name = '" + req.body.username + "'");
+  const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex').slice(0, 25);
+
+  if (answer.length == 0) {
+    console.log("fail!");
+    res.status(400).json({message: "Login failed!"});
+    return;
+  }
+
+  if (answer[0].password === userPassword) {
+    console.log("Successful login!");
+    res.status(200).json({message: "Login success!", loginAuthCode: (req.body.username + "&" + userPassword)});
+  } else {
+    console.log("Login failed!");
+    res.status(400).json({message: "Login failed!"});
+  }
+}
+
+app.use("/login", loginAttempt)
+
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
   await db.query(

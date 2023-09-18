@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 import { convertSave, saveFile } from "./components/savefile_management";
 import { Icon, disableCache } from "@iconify/react";
-import { LoginPage } from "./loginPage";
+import { loginAuthCode, LoginPage } from "./loginPage";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 // Base variables
 
@@ -14,6 +15,8 @@ let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 let currentState = "MainMenu";
 let activeSaveSlot = null;
 let x = 0;
+
+
 
 // Save Menu
 
@@ -49,10 +52,16 @@ setInterval(() => {
 }, 1000);
 
 function App() {
+  const [cookies, setCookies, getCookies] = useCookies(["user"])
   const [key, setKey] = useState(0);
   const [save1, setSave1] = useState(save1data);
   const [save2, setSave2] = useState(save2data);
   const [save3, setSave3] = useState(save3data);
+
+  console.log(cookies.user);
+
+  const checkValidData = () => {
+  }
 
   const setData = (
     saveId,

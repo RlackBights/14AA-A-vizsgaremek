@@ -430,6 +430,11 @@ Room
   align-items: center;
 }
 
+#login-btn:hover, #register-btn:hover {
+  color: var(--theme-color);
+  cursor: pointer;
+}
+
 #form-container {
   width: 15%;
   height: fit-content;
@@ -476,13 +481,6 @@ Room
   border: 2px solid var(--theme-color);
 }
 
-#button-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
 #form-container .form-btn {
   background: rgba(0, 0, 0, 0.4);
   border: 2px solid #fff;
@@ -499,6 +497,39 @@ Room
 #form-container .form-btn:hover {
   border: 2px solid var(--theme-color);
   color: var(--theme-color);
+}
+
+#button-container p {
+  font-size: 1rem !important;
+}
+
+#error-message {
+  position: absolute;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  background-color: rgba(255, 0, 0, 0.6);
+  border: 1px solid white;
+  border-radius: 1rem;
+  color: white;
+  font-size: 3vmin;
+}
+
+.show-error {
+  animation-name: showErrorMessage;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showErrorMessage {
+  0% {top: -5rem;}
+  10% {top: 0}
+  90% {top: 0;}
+  100% {top: -5rem;}
 }
 
 /*
