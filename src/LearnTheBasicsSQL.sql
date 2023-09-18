@@ -97,11 +97,13 @@ INSERT INTO stgTbl VALUES
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
 
+INSERT INTO userTbl (uid, name, password)
+  VALUES (0, 'admin', 'admin');
 
 INSERT INTO savedata VALUES
-(1, -1, 0, 0, 0, 0, 0, 0),
-(2, -1, 0, 0, 0, 0, 0, 0),
-(3, -1, 0, 0, 0, 0, 0, 0);
+  (0, 0, 1, -1, 0, 0, 0, 0, 0, 0),
+  (0, 0, 2, -1, 0, 0, 0, 0, 0, 0),
+  (0, 0, 3, -1, 0, 0, 0, 0, 0, 0);
 
 INSERT INTO login (username, password) VALUES
 ('adminUSR', 'adminPASSWD');
