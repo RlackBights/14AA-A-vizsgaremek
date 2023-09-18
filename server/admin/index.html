@@ -1,36 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
 
     <title>Admin Page</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1 id="title">ADMIN FELÜLET</h1>
     <div class="desktop">
-        <div class="login-container">
-            <h1>Login</h1>
-            <div class="login">
-                <h2>Username</h2>
-                <input type="text" id="username">
-                <h2>Password</h2>
-                <input type="password" id="password">
-            </div>
+      <div class="login-container">
+        <h1>Login</h1>
+        <div class="login">
+          <h2>Username</h2>
+          <input type="text" id="username" />
+          <h2>Password</h2>
+          <input type="password" id="password" />
         </div>
         <button onclick="loginPressed()">Login</button>
-        <div class="taskbar">
-            <div class="closeBtn" onclick="closeAdmin()"><span class="iconify" data-icon="game-icons:ouroboros" style="color: white;" data-width="45" data-height="45"></span></div>
+      </div>
+      <div class="admin-container">
+        <div class="admin-tabs">
+          <ul>
+            <li onclick="openPage('add')"><a>Add Data</a></li>
+            <li onclick="openPage('edit')"><a>Edit Data</a></li>
+            <li onclick="openPage('list')"><a>List Data</a></li>
+            <li onclick="logOut()"><a>Log out</a></li>
+          </ul>
         </div>
+        <div class="add-data">
+            <p>Table: <select name="" id="">
+                <option value="">saveData</option>
+                <option value="">login</option>
+                <option value="">userTbl</option>
+                <option value="">cpuTbl</option>
+                <option value="">gpuTbl</option>
+                <option value="">ramTbl</option>
+                <option value="">stgTbl</option>
+            </select></p>
+            <div class="add-container">
+                <div class="tbl-title">
+                    <ul>
+
+                    </ul>
+                </div>
+                <div class="tbl-input">
+                    <ul>
+
+                    </ul>
+                </div>
+                <button>Submit</button>
+            </div>
+        </div>
+        <div class="edit-data"></div>
+        <div class="list-data"></div>
+      </div>
+      <div class="taskbar">
+        <div class="closeBtn" onclick="closeAdmin()">
+          <span
+            class="iconify"
+            data-icon="game-icons:ouroboros"
+            style="color: white"
+            data-width="45"
+            data-height="45"
+          ></span>
+        </div>
+      </div>
     </div>
     <div class="monitor" onclick="zoom()"></div>
     <div class="container"></div>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>
