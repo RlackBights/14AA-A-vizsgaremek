@@ -9,6 +9,7 @@ const addData = document.getElementsByClassName("add-data")[0];
 const editData = document.getElementsByClassName("edit-data")[0];
 const listData = document.getElementsByClassName("list-data")[0];
 
+
 function zoom() {
   container.style.display = "block";
   closeBtn.style.display = "block";
@@ -29,7 +30,7 @@ function loginPressed() {
   /*let usernameLogin = document.getElementById('username').value;
     let passwordLogin = document.getElementById('password').value;
     fetch(
-        "http://127.0.0.1:8000/admin/checkData"
+        root + "checkData"
     ,{
     method: 'POST',
     headers: {
@@ -47,6 +48,24 @@ function loginPressed() {
 
   login.style.display = "none";
   adminPage.style.display = "block";
+}
+
+function loadSelect() {
+  var loadSelect = document.getElementById("add-dataSelect");
+  fetch("http://127.0.0.1:8000/admin/getTableNames", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+    .then(function (response) {
+      return response.json();
+    }).then(function (tables) {
+      for (let index = 0; index < tables.length; index++) {
+        loadSelect.add(new Option(tables[index].table_name));
+      }
+    });
 }
 
 function logOut() {
@@ -72,28 +91,27 @@ function openPage(pageName) {
   }
 }
 
-function selectOptionChanged() {
-  fetch("http://127.0.0.1:8000/admin/getFields", {
-      method: "GET",
+function selectOptionChanged(selectedTable) {
+
+  var tableNames = document.getElementById("tableTitles");
+
+  fetch(
+    "http://127.0.0.1:8000/admin/getFields"
+    , {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        "Content-Type": "application/json"
       },
-    })
-      .then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        for (let index = 0; index < data.length; index++) {
-            console.log(data[index].COLUMN_NAME)
-        }
-      });
+      body: JSON.stringify({ table: selectedTable }),
+    }).then(function (response) {
+      return response.json();
+    }).then(function (table) {
+      for (let index = 0; index < table.length; index++) {
+        console.log(table[index].column_name)
+
+      }
+    });
+
 }
 
-function loadSelect(){
-    var select = document.getElementById("add-dataSelect");
-    var option = document.createElement("option");
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        
-    }
-}
+

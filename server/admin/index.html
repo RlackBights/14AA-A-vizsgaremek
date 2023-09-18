@@ -9,7 +9,7 @@
     <title>Admin Page</title>
   </head>
 
-  <body>
+  <body onload="loadSelect()">
     <h1 id="title">ADMIN FELÜLET</h1>
     <div class="desktop">
       <div class="login-container">
@@ -32,19 +32,13 @@
           </ul>
         </div>
         <div class="add-data">
-            <p>Table: <select name="" id="add-dataSelect" onchange="selectOptionChanged()">
-                <option value="saveData">saveData</option>
-                <option value="login">login</option>
-                <option value="userTbl">userTbl</option>
-                <option value="cpuTbl">cpuTbl</option>
-                <option value="gpuTbl">gpuTbl</option>
-                <option value="ramTbl">ramTbl</option>
-                <option value="stgTbl">stgTbl</option>
+            <p>Table: <select name="" id="add-dataSelect" onchange="selectOptionChanged(this.value)">
+              <option value="none" selected disabled hidden>Select an Option</option>
             </select></p>
             <div class="add-container">
                 <div class="tbl-title">
-                    <ul>
-
+                    <ul id="tableTitles">
+                      
                     </ul>
                 </div>
                 <div class="tbl-input">
