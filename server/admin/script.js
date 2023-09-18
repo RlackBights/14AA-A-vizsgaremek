@@ -83,6 +83,17 @@ function selectOptionChanged() {
       .then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data[1])
+        for (let index = 0; index < data.length; index++) {
+            console.log(data[index].COLUMN_NAME)
+        }
       });
+}
+
+function loadSelect(){
+    var select = document.getElementById("add-dataSelect");
+    var option = document.createElement("option");
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        
+    }
 }
