@@ -41,7 +41,7 @@ async function checkData(req, res) {
 } //admin page login
 app.use("/admin/checkData", checkData);
 
-async function getFields(req, res) {console.log(res.json(await db.query("SELECT * FROM saveData")))}
+async function getFields(req, res) {console.log(res.json(await db.query("SELECT DISTINCT(COLUMN_NAME) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= 'saveData'")))}
 app.use("/admin/getFields", getFields);
 
 
