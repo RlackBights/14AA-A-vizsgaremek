@@ -112,33 +112,11 @@ function App() {
 
       setKey((key) => key + 1);
 
-      /*
-      fetch(
-        "http://127.0.0.1:8000/changedata?saveId=" +
-          saveId +
-          "&lvl=" +
-          lvl +
-          "&money=" +
-          money +
-          "&time=" +
-          time +
-          "&cpu=" +
-          cpu +
-          "&gpu=" +
-          gpu +
-          "&ram=" +
-          ram +
-          "&stg=" +
-          stg
-      );
-      */
-
-      // await db.query('UPDATE savedata SET lvl = ' + req.query.lvl + ', money = ' + req.query.money + ', time = ' + req.query.time + ', cpuId = ' + req.query.cpu + ', gpuId = ' + req.query.gpu + ', ramId = ' + req.query.ram + ', stgId = ' + req.query.stg + ' WHERE saveId = ' + req.query.saveId);
-
       const pushSaveData = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          userAuthCode: cookies.user,
           saveId: saveId,
           lvl: lvl,
           money: money,
@@ -154,7 +132,7 @@ function App() {
   };
 
   const getData = () => {
-    fetch("http://127.0.0.1:8000/savedata", {
+    fetch(`http://127.0.0.1:8000/savedata?userAuthCode=${cookies.user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -165,6 +143,9 @@ function App() {
         return response.json();
       })
       .then(function (myJson) {
+        console.log("save data of " + cookies.user.split('$')[0])
+        console.log(myJson);
+
         save1data = convertSave(myJson[0]);
         setSave1((save1) => save1data);
 
@@ -202,7 +183,9 @@ function App() {
   }
 
   useEffect(() => {
-    getData();
+    if (cookies.user != '') {
+      getData();
+    }
     x++;
   }, [x === 0]);
 
@@ -313,7 +296,7 @@ function App() {
 
                   if (save1.lvl === -1) {
                     console.log("Added save to slot 1");
-                    setData(1, 0);
+                    setData(1, 0)
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
                     activeSaveSlot = 1;
@@ -558,12 +541,12 @@ function App() {
                   case 2:
                     activeSaveSlot = null;
                     setSave2((save2) => save2data);
-                    setData(2, undefined, undefined, save1.time);
+                    setData(2, undefined, undefined, save2.time);
                     break;
                   case 3:
                     activeSaveSlot = null;
                     setSave3((save3) => save3data);
-                    setData(3, undefined, undefined, save1.time);
+                    setData(3, undefined, undefined, save3.time);
                     break;
 
                   default:
@@ -600,11 +583,11 @@ function App() {
                     break;
                   case 2:
                     setSave2((save2) => save2data);
-                    setData(2, undefined, undefined, save1.time);
+                    setData(2, undefined, undefined, save2.time);
                     break;
                   case 3:
                     setSave3((save3) => save3data);
-                    setData(3, undefined, undefined, save1.time);
+                    setData(3, undefined, undefined, save3.time);
                     break;
 
                   default:

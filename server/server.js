@@ -25,10 +25,12 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
-  console.log(req.query.userAuthCode);
   res.json(
     await db.query(
-      "SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cpuTbl c ON savedata.cpuId = c.hardwareId INNER JOIN gpuTbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramTbl r ON savedata.ramId = r.hardwareId INNER JOIN stgTbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId"
+      "SELECT saveId, lvl, time, money, cpuId AS 'cpu', gpuId AS 'gpu', ramId AS 'ram', stgId AS 'stg' FROM usertbl " +
+      "INNER JOIN savedata ON " +
+      "savedata.userId = usertbl.uid " +
+      `WHERE userTbl.name = '${req.query.userAuthCode.split('$')[0]}' AND userTbl.password = '${req.query.userAuthCode.split('$')[1]}'`
     )
   );
 }
@@ -51,16 +53,13 @@ async function loginAttempt(req, res) {
   const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex').slice(0, 25);
 
   if (answer.length == 0) {
-    console.log("fail!");
     res.status(400).json({message: "Login failed!"});
     return;
   }
 
   if (answer[0].password === userPassword) {
-    console.log("Successful login!");
     res.status(200).json({message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword)});
   } else {
-    console.log("Login failed!");
     res.status(400).json({message: "Login failed!"});
   }
 }
@@ -69,23 +68,11 @@ app.use("/login", loginAttempt)
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
+  console.log(req.body.userAuthCode)
   await db.query(
-    "UPDATE savedata SET lvl = " +
-      req.body.lvl +
-      ", money = " +
-      req.body.money +
-      ", time = " +
-      req.body.time +
-      ", cpuId = " +
-      req.body.cpu +
-      ", gpuId = " +
-      req.body.gpu +
-      ", ramId = " +
-      req.body.ram +
-      ", stgId = " +
-      req.body.stg +
-      " WHERE saveId = " +
-      req.body.saveId
+    "UPDATE savedata SET " +
+    `lvl = ${req.body.lvl}, money = ${req.body.money}, time = ${req.body.time}, cpuId = ${req.body.cpu}, gpuId = ${req.body.gpu}, ramId = ${req.body.ram}, stgId = ${req.body.stg} ` +
+    `WHERE saveId = '${req.body.saveId}' AND userId = (SELECT uid FROM usertbl WHERE name = '${req.body.userAuthCode.split('$')[0]}' AND password = '${req.body.userAuthCode.split('$')[1]}' LIMIT 1)`
   );
 }
 app.use("/changedata", changeData);
