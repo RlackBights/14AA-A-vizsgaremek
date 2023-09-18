@@ -3,6 +3,7 @@ const app = express(); // inicializálja az object-et amivel lehet az adatbázis
 const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
+const crypto = require("crypto");
 
 app.use(
   cors({
@@ -15,7 +16,7 @@ app.use(
 app.use(express.json()); // hozzáadja az express json fordítóját
 app.use(
   express.urlencoded({
-    // Kitaláltam, body aprsing a POST request-ekre
+    // Kitaláltam, body parsing a POST request-ekre
     extended: true,
   })
 );

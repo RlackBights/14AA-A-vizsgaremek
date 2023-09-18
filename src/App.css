@@ -72,9 +72,29 @@
   margin: 0;
   padding-top: 3rem;
   letter-spacing: 2px;
+  pointer-events: none;
+}
+
+#user-icon {
+  background: none;
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  left: 2rem;
+  top: 1.5rem;
+  border: 3px solid white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 100%;
 }
 
 .main-menu button {
+  cursor: pointer;
   z-index: 1;
   width: 15rem;
   border: 4px solid #fff;
@@ -317,17 +337,9 @@
   left: 76rem;
 }
 
-
-
-
-
-
-
-
 .slide-left {
   animation: slideLeft 1s ease-in-out forwards;
 }
-
 
 @keyframes slideLeft {
   0% {
@@ -338,17 +350,9 @@
   }
 }
 
-
-
-
-
-
-
-
 .slide-up {
   animation: slideUp 1s ease-in-out forwards;
 }
-
 
 @keyframes slideUp {
   0% {
@@ -400,16 +404,13 @@ Computer
 */
 
 #desktop {
-  background-image: url('./assets/bg.png');
+  background-image: url("./assets/bg.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-position: -31rem -14rem;
   background-size: 222rem;
 }
-
-
-
 
 /*
 POLISH IDEAS:

@@ -62,6 +62,7 @@ CREATE TABLE userTbl (
   uid int NOT NULL AUTO_INCREMENT,
   name varchar(25) NOT NULL,
   password varchar(25) NOT NULL,
+  isAdmin boolean DEFAULT FALSE,
   PRIMARY KEY (uid)
 )ENGINE = INNODB;
 
@@ -97,8 +98,8 @@ INSERT INTO stgTbl VALUES
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
 
-INSERT INTO userTbl (uid, name, password)
-  VALUES (0, 'admin', 'admin');
+INSERT INTO userTbl (uid, name, password, isAdmin)
+  VALUES (0, 'admin', 'admin', TRUE);
 
 INSERT INTO savedata VALUES
   (0, 0, 1, -1, 0, 0, 0, 0, 0, 0),
