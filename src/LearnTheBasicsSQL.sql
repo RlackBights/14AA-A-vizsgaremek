@@ -39,6 +39,14 @@ CREATE TABLE stgTbl (
   PRIMARY KEY (hardwareId)
 )ENGINE = INNODB;
 
+CREATE TABLE userTbl (
+  uid int NOT NULL AUTO_INCREMENT,
+  name varchar(25) NOT NULL,
+  password varchar(25) NOT NULL,
+  isAdmin boolean DEFAULT FALSE,
+  PRIMARY KEY (uid)
+)ENGINE = INNODB;
+
 /*Savedata*/
 CREATE TABLE savedata (
   id int NOT NULL AUTO_INCREMENT,
@@ -55,15 +63,8 @@ CREATE TABLE savedata (
   FOREIGN KEY (cpuId) REFERENCES cpuTbl(hardwareId),
   FOREIGN KEY (gpuId) REFERENCES gpuTbl(hardwareId),
   FOREIGN KEY (ramId) REFERENCES ramTbl(hardwareId),
-  FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId)
-)ENGINE = INNODB;
-
-CREATE TABLE userTbl (
-  uid int NOT NULL AUTO_INCREMENT,
-  name varchar(25) NOT NULL,
-  password varchar(25) NOT NULL,
-  isAdmin boolean DEFAULT FALSE,
-  PRIMARY KEY (uid)
+  FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId),
+  FOREIGN KEY (userId) REFERENCES userTbl(uid)
 )ENGINE = INNODB;
 
 INSERT INTO cpuTbl VALUES
@@ -97,4 +98,7 @@ INSERT INTO userTbl VALUES
 INSERT INTO savedata VALUES
   (0, 1, 1, -1, 0, 0, 0, 0, 0, 0),
   (0, 1, 2, -1, 0, 0, 0, 0, 0, 0),
-  (0, 1, 3, -1, 0, 0, 0, 0, 0, 0);
+  (0, 1, 3, -1, 0, 0, 0, 0, 0, 0),
+  (0, 2, 1, -1, 0, 0, 0, 0, 0, 0),
+  (0, 2, 2, -1, 0, 0, 0, 0, 0, 0),
+  (0, 2, 3, -1, 0, 0, 0, 0, 0, 0);

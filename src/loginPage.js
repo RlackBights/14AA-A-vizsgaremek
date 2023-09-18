@@ -21,7 +21,7 @@ export function LoginPage ()
                         }
                     }}>
                     <Icon icon="uil:user" />
-                    <p>{cookies.user.split('&')[0]}</p>
+                    <p>{(cookies.user != null) ? cookies.user.split('$')[0] : "[Log in to play]"}</p>
                 </button>
 
 

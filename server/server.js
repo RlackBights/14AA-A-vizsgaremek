@@ -25,6 +25,7 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
+  console.log(req.query.userAuthCode);
   res.json(
     await db.query(
       "SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cpuTbl c ON savedata.cpuId = c.hardwareId INNER JOIN gpuTbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramTbl r ON savedata.ramId = r.hardwareId INNER JOIN stgTbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId"
@@ -57,7 +58,7 @@ async function loginAttempt(req, res) {
 
   if (answer[0].password === userPassword) {
     console.log("Successful login!");
-    res.status(200).json({message: "Login success!", loginAuthCode: (req.body.username + "&" + userPassword)});
+    res.status(200).json({message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword)});
   } else {
     console.log("Login failed!");
     res.status(400).json({message: "Login failed!"});

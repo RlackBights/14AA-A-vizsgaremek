@@ -221,6 +221,11 @@ function App() {
             <div className="button-container">
               <button
                 onClick={() => {
+
+                  if (cookies.user == null) {
+                    return;
+                  }
+
                   x = 0;
                   getData();
 
@@ -264,6 +269,11 @@ function App() {
               </button>
               <button
                 onClick={() => {
+                  
+                  if (cookies.user == null) {
+                    return;
+                  }
+
                   x = 0;
                   getData();
                   setKey((key) => key + 1);
