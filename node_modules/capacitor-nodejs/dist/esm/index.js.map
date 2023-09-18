@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../src/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,UAAU,CAAC;AAElC,cAAc,eAAe,CAAC;AAC9B,OAAO,EAAE,MAAM,EAAE,CAAC","sourcesContent":["import { NodeJS } from './NodeJS';\n\nexport * from './definitions';\nexport { NodeJS };\n"]}
