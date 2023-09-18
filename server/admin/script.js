@@ -93,7 +93,9 @@ function openPage(pageName) {
 
 function selectOptionChanged(selectedTable) {
 
-  var tableNames = document.getElementById("tableTitles");
+  const columnNames =  [];
+  var tableTitles = document.getElementById("tableTitles");
+  tableTitles.innerHTML = '';
 
   fetch(
     "http://127.0.0.1:8000/admin/getFields"
@@ -106,12 +108,14 @@ function selectOptionChanged(selectedTable) {
     }).then(function (response) {
       return response.json();
     }).then(function (table) {
-      for (let index = 0; index < table.length; index++) {
-        console.log(table[index].column_name)
-
+      for (let i = 0; i < table.length; i++) {
+        let li = document.createElement('li');
+        columnNames[i] = table[i].column_name;
+        li.innerText = columnNames[i];
+        tableTitles.appendChild(li);
       }
     });
-
+    
 }
 
 
