@@ -41,11 +41,13 @@ async function checkData(req, res) {
 } //admin page login
 app.use("/admin/checkData", checkData);
 
+//tábla nevek lekérése az admin page-hez
+async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
+app.use("/admin/getTableNames", getTableNames);
+
+//tábla column name lekérése admin page-hez
 async function getFields(req, res) {console.log(res.json(await db.query("SELECT DISTINCT(column_name) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'")))}
 app.use("/admin/getFields", getFields);
-
-async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
-app.use("/admin/getTableNames", getTableNames)
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
