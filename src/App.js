@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 import { convertSave, saveFile } from "./components/savefile_management";
 import { Icon, disableCache } from "@iconify/react";
-import { loginPage } from "./loginPage";
+import { LoginPage } from "./loginPage";
 
 // Base variables
 
@@ -201,14 +201,11 @@ function App() {
     case "MainMenu":
       return (
         <div className="App">
+          
           {/*Main Menu*/}
 
           <div className="main-menu">
-            <button id="user-icon" onClick={() => {
-              console.log('User Login');
-            }}>
-              <Icon icon="uil:user" />
-            </button>
+            <LoginPage/>
             <h1 id="title-text" className="">
               LearnTheBasics.it
             </h1>
