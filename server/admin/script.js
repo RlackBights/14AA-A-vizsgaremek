@@ -71,3 +71,18 @@ function openPage(pageName) {
       break;
   }
 }
+
+function selectOptionChanged() {
+  fetch("http://127.0.0.1:8000/admin/getFields", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data[1])
+      });
+}
