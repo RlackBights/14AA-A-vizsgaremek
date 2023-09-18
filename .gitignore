@@ -4,6 +4,7 @@
 /my-app-win32-x64
 /.pnp
 .pnp.js
+/node_modules/.cache
 
 # testing
 /coverage
