@@ -1,5 +1,6 @@
 :root {
   --mobile-vis: unset;
+  --theme-color: #4b43ee;
 }
 
 .App {
@@ -72,9 +73,43 @@
   margin: 0;
   padding-top: 3rem;
   letter-spacing: 2px;
+  pointer-events: none;
+}
+
+#user-icon {
+  pointer-events: all !important;
+  background: none;
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  column-gap: 0.5rem;
+  height: 2.5rem;
+  left: 2rem;
+  top: 1.5rem;
+  background-color: none;
+  border: none;
+}
+
+#user-icon svg {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px solid white;
+  border-radius: 100%;
+}
+
+#user-icon p {
+  font-style: italic;
+  letter-spacing: 1px;
+  font-weight: 100;
+  color: black;
 }
 
 .main-menu button {
+  cursor: pointer;
   z-index: 1;
   width: 15rem;
   border: 4px solid #fff;
@@ -317,17 +352,9 @@
   left: 76rem;
 }
 
-
-
-
-
-
-
-
 .slide-left {
   animation: slideLeft 1s ease-in-out forwards;
 }
-
 
 @keyframes slideLeft {
   0% {
@@ -338,17 +365,9 @@
   }
 }
 
-
-
-
-
-
-
-
 .slide-up {
   animation: slideUp 1s ease-in-out forwards;
 }
-
 
 @keyframes slideUp {
   0% {
@@ -393,6 +412,142 @@ Room
   border: 5px dashed black;
 }
 
+#login-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+#login-page, #register-page {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-btn, #register-btn {
+  text-decoration: underline;
+}
+
+#login-btn:hover, #register-btn:hover {
+  color: var(--theme-color);
+  cursor: pointer;
+}
+
+#form-container {
+  width: 15%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  row-gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: 2px solid var(--theme-color);
+  border-radius: 1rem;
+  padding: 1% 0;
+}
+
+#form-container h1 {
+  font-size: 8vmin;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1px;
+  color: var(--theme-color);
+}
+
+#form-container p {
+  margin: 0;
+  padding: 0;
+  font-size: 3.5vmin;
+}
+
+#form-container input {
+  width: 80%;
+  height: 5%;
+  color: white;
+  background: none;
+  outline: none;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 2vmin;
+}
+
+#form-container input:focus {
+  border: 2px solid var(--theme-color);
+}
+
+#form-container .form-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  width: fit-content;
+  height: 2rem;
+  text-align: center;
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+
+#form-container .form-btn:hover {
+  border: 2px solid var(--theme-color);
+  color: var(--theme-color);
+}
+
+#button-container p {
+  font-size: 1rem !important;
+}
+
+#error-message {
+  position: absolute;
+  width: fit-content;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  background-color: rgba(255, 0, 0, 0.6);
+  border: 1px solid white;
+  border-radius: 1rem;
+  color: white;
+  font-size: 3vmin;
+}
+
+.show-error {
+  animation-name: showErrorMessage;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showErrorMessage {
+  0% {top: -5rem}
+  10% {top: 2rem}
+  90% {top: 2rem}
+  100% {top: -5rem}
+}
+
+.close-image {
+  position: absolute;
+  cursor: pointer;
+  top: 25%;
+  right: 40%;
+  margin: 0;
+  padding: 0;
+  width: 4vmin;
+  aspect-ratio: 1/1;
+}
+
 /*
 
 Computer
@@ -400,16 +555,13 @@ Computer
 */
 
 #desktop {
-  background-image: url('./assets/bg.png');
+  background-image: url("./assets/bg.png");
   width: 100%;
   height: 100%;
   background-repeat: no-repeat;
   background-position: -31rem -14rem;
   background-size: 222rem;
 }
-
-
-
 
 /*
 POLISH IDEAS:

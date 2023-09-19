@@ -3,6 +3,7 @@ const app = express(); // inicializálja az object-et amivel lehet az adatbázis
 const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
+const crypto = require("crypto");
 
 app.use(
   cors({
@@ -15,7 +16,7 @@ app.use(
 app.use(express.json()); // hozzáadja az express json fordítóját
 app.use(
   express.urlencoded({
-    // Kitaláltam, body aprsing a POST request-ekre
+    // Kitaláltam, body parsing a POST request-ekre
     extended: true,
   })
 );
@@ -26,7 +27,10 @@ app.use(
 async function getData(req, res) {
   res.json(
     await db.query(
-      "SELECT saveId, lvl, money, time, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM learnthebasics.savedata INNER JOIN cpuTbl c ON savedata.cpuId = c.hardwareId INNER JOIN gpuTbl g ON savedata.gpuId = g.hardwareId INNER JOIN ramTbl r ON savedata.ramId = r.hardwareId INNER JOIN stgTbl s ON savedata.stgId = s.hardwareId ORDER BY savedata.saveId"
+      "SELECT saveId, lvl, time, money, cpuId AS 'cpu', gpuId AS 'gpu', ramId AS 'ram', stgId AS 'stg' FROM usertbl " +
+      "INNER JOIN savedata ON " +
+      "savedata.userId = usertbl.uid " +
+      `WHERE userTbl.name = '${req.query.userAuthCode.split('$')[0]}' AND userTbl.password = '${req.query.userAuthCode.split('$')[1]}'`
     )
   );
 }
@@ -52,25 +56,54 @@ app.use("/admin/getFields", getFields);
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
 
+async function loginAttempt(req, res) {
+  const answer = await db.query("SELECT password FROM userTbl WHERE name = '" + req.body.username + "'");
+  const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex');
+
+  if (answer.length == 0) {
+    res.status(400).json({ message: "Login failed!" });
+    return;
+  }
+
+  if (answer[0].password === userPassword) {
+    res.status(200).json({ message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword) });
+  } else {
+    res.status(400).json({ message: "Login failed!" });
+  }
+}
+
+app.use("/login", loginAttempt)
+
+async function registerAttempt(req, res) {
+  let existsError = false;
+  let names = await db.query(`SELECT name FROM userTbl`);
+  names.forEach(element => {
+    if (req.body.username == element.name) {
+      res.status(401).json({message: "A user with htis name already exists!"});
+      existsError = true;
+    }
+  })
+
+  if (existsError) return;
+    await db.query("INSERT INTO userTbl VALUES " +
+                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), FALSE);")
+
+    await db.query("INSERT INTO savedata VALUES " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 1, -1, 0, 0, 0, 0, 0, 0), " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 2, -1, 0, 0, 0, 0, 0, 0), " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 3, -1, 0, 0, 0, 0, 0, 0); ")
+
+    res.status(200).json({message: "Successful registration!"})
+}
+
+app.use("/register", registerAttempt)
+
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
   await db.query(
-    "UPDATE savedata SET lvl = " +
-      req.body.lvl +
-      ", money = " +
-      req.body.money +
-      ", time = " +
-      req.body.time +
-      ", cpuId = " +
-      req.body.cpu +
-      ", gpuId = " +
-      req.body.gpu +
-      ", ramId = " +
-      req.body.ram +
-      ", stgId = " +
-      req.body.stg +
-      " WHERE saveId = " +
-      req.body.saveId
+    "UPDATE savedata SET " +
+    `lvl = ${req.body.lvl}, money = ${req.body.money}, time = ${req.body.time}, cpuId = ${req.body.cpu}, gpuId = ${req.body.gpu}, ramId = ${req.body.ram}, stgId = ${req.body.stg} ` +
+    `WHERE saveId = '${req.body.saveId}' AND userId = (SELECT uid FROM usertbl WHERE name = '${req.body.userAuthCode.split('$')[0]}' AND password = '${req.body.userAuthCode.split('$')[1]}' LIMIT 1)`
   );
 }
 app.use("/changedata", changeData);

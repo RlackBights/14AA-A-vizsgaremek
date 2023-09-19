@@ -39,6 +39,14 @@ CREATE TABLE stgTbl (
   PRIMARY KEY (hardwareId)
 )ENGINE = INNODB;
 
+CREATE TABLE userTbl (
+  uid int NOT NULL AUTO_INCREMENT,
+  name varchar(25) NOT NULL,
+  password varchar(50) NOT NULL,
+  isAdmin boolean DEFAULT FALSE,
+  PRIMARY KEY (uid)
+)ENGINE = INNODB;
+
 /*Savedata*/
 CREATE TABLE savedata (
   id int NOT NULL AUTO_INCREMENT,
@@ -55,23 +63,9 @@ CREATE TABLE savedata (
   FOREIGN KEY (cpuId) REFERENCES cpuTbl(hardwareId),
   FOREIGN KEY (gpuId) REFERENCES gpuTbl(hardwareId),
   FOREIGN KEY (ramId) REFERENCES ramTbl(hardwareId),
-  FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId)
+  FOREIGN KEY (stgId) REFERENCES stgTbl(hardwareId),
+  FOREIGN KEY (userId) REFERENCES userTbl(uid)
 )ENGINE = INNODB;
-
-CREATE TABLE userTbl (
-  uid int NOT NULL AUTO_INCREMENT,
-  name varchar(25) NOT NULL,
-  password varchar(25) NOT NULL,
-  PRIMARY KEY (uid)
-)ENGINE = INNODB;
-
-CREATE TABLE login (
-  id int(11) AUTO_INCREMENT NOT NULL,
-  username varchar(50) NOT NULL,
-  password varchar(50) NOT NULL,
-  PRIMARY KEY (id)
-)ENGINE = INNODB;
-
 
 INSERT INTO cpuTbl VALUES
 (0, 'Z3', '3400 3.1GHz 2core', 'InkWell' ),
@@ -97,13 +91,14 @@ INSERT INTO stgTbl VALUES
 (2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
 (3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
 
-INSERT INTO userTbl (uid, name, password)
-  VALUES (0, 'admin', 'admin');
+INSERT INTO userTbl VALUES
+  (0, 'admin', MD5("admin"), TRUE),
+  (0, 'josef', MD5("hello"), FALSE);
 
 INSERT INTO savedata VALUES
-  (0, 0, 1, -1, 0, 0, 0, 0, 0, 0),
-  (0, 0, 2, -1, 0, 0, 0, 0, 0, 0),
-  (0, 0, 3, -1, 0, 0, 0, 0, 0, 0);
-
-INSERT INTO login (username, password) VALUES
-('adminUSR', 'adminPASSWD');
+  (0, 1, 1, 10, 5012, 0, 0, 0, 0, 0),
+  (0, 1, 2, -1, 0, 0, 0, 0, 0, 0),
+  (0, 1, 3, -1, 0, 0, 0, 0, 0, 0),
+  (0, 2, 1, -1, 0, 0, 0, 0, 0, 0),
+  (0, 2, 2, 2, 210, 0, 0, 0, 0, 0),
+  (0, 2, 3, -1, 0, 0, 0, 0, 0, 0);
