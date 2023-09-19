@@ -15,6 +15,9 @@ const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
 
+function isDecimal(number){
+  return (number % 1);
+}
 
 function zoom() {
   container.style.display = "block";
@@ -190,8 +193,9 @@ function insertData(){
   let arrayLength = tableTitles.childElementCount;
   for (let x = 0; x < arrayLength; x++) {
     allTitles[x] = insertList[x].innerText;
-    
-    if (document.getElementsByClassName("insertDatas-input")[x].hasAttribute('min')) {
+    if (insertInput[x].type === 'number' && isDecimal(insertInput[x].value)) {
+      alert("Decimal numbers are not acceptable!!!!");
+    }else if (insertInput[x].hasAttribute('min')) {
       if (insertInput[x].value < 0) {
         alert("The input value for" + allTitles[x] + "should be between 0 and 1!");
         break;
