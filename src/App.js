@@ -6,9 +6,6 @@ import { convertSave, saveFile } from "./components/savefile_management";
 import { Icon, disableCache } from "@iconify/react";
 import { loginAuthCode, LoginPage } from "./components/loginPage";
 import { CookiesProvider, useCookies } from "react-cookie";
-import { save1 } from "./components/reactStates";
-
-console.log(save1)
 
 // Base variables
 
@@ -86,6 +83,11 @@ function refreshSaves(save1, save2, save3) {
 }
 
 function App() {
+  const [cookies, setCookies, getCookies] = useCookies(["user"])
+    const [key, setKey] = useState(0);
+    const [save1, setSave1] = useState(save1data);
+    const [save2, setSave2] = useState(save2data);
+    const [save3, setSave3] = useState(save3data);
 
   console.log(cookies.user);
 
