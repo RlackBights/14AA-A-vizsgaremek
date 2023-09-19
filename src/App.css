@@ -71,7 +71,7 @@
   width: 100%;
   padding: 0;
   margin: 0;
-  padding-top: 3rem;
+  padding-top: 3vmin;
   letter-spacing: 2px;
   pointer-events: none;
 }
@@ -155,20 +155,16 @@
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  column-gap: 5rem;
   align-items: center;
 }
 
 .save-item {
-  position: relative;
-  width: 22%;
-  height: 35rem;
+  width: 70%;
+  height: 70%;
   display: grid;
   grid-template-rows: 1fr 1fr;
   border-radius: 1.25rem;
   border: 5px solid black;
-  margin-bottom: 10rem;
   color: #fff;
 }
 
@@ -269,19 +265,15 @@
 
 #save-back-button {
   position: absolute;
-  bottom: 4rem;
-  transform: translateX(-50%);
-  left: 50%;
+  top: 2%;
+  right: 2%;
   z-index: 11;
-  width: 10rem;
+  padding: 0.5% 1%;
   border: 4px solid #fff;
-  border-radius: 5rem;
+  border-radius: 1rem;
   background: rgba(0, 0, 0, 0.6);
   color: white;
-  padding: 1rem;
   font-size: 2rem;
-  font-weight: 900;
-  margin: 0.5rem 0 0.5rem;
   font-family: "Pixel Font" !important;
   letter-spacing: 1px;
   cursor: pointer;
@@ -325,8 +317,7 @@
 }
 
 .delete-button {
-  top: 5rem;
-  position: absolute;
+  align-self: center;
   width: 3rem;
   aspect-ratio: 1/1;
   background: none;
@@ -340,16 +331,28 @@
   z-index: 1;
 }
 
+.save-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
 #delete-button1 {
-  left: 12rem;
+  position: relative;
 }
 
 #delete-button2 {
-  left: 44rem;
+  position: relative;
 }
 
 #delete-button3 {
-  left: 76rem;
+  position: relative;
 }
 
 .slide-left {
