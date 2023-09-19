@@ -126,9 +126,9 @@ function addDataOption(selectedTable) {
     document.getElementsByClassName("class-tableSelect")[0].value = 'base';
     tableTitles.innerHTML = '';
   }else{
+
   const columnNames =  [];
   
-  var tableInput = document.getElementById("tableInput");
   tableTitles.innerHTML = '';
 
   fetch(
@@ -145,11 +145,21 @@ function addDataOption(selectedTable) {
       for (let i = 1; i < table.length; i++) {
         let li = document.createElement('li');
         let input = document.createElement('input');
-        input.className = "insertDatas";
+        li.className = "insertDatas-list";
+        input.className = "insertDatas-input";
         columnNames[i] = table[i].column_name;
         li.innerText = columnNames[i];
         tableTitles.appendChild(li);
-        li.appendChild(input)
+        li.appendChild(input);
+        if (table[i].COLUMN_TYPE.includes("int")) {
+          input.type = 'number';
+          if (table[i].COLUMN_TYPE.includes("(1)")) {
+            input.min = 0;
+            input.max = 1;
+          }
+        }else if (table[i].COLUMN_TYPE.includes("varchar")) {
+          input.type = 'text';
+        }
       }
     });
   }
@@ -173,5 +183,29 @@ function checkTime(i) {
 }
 
 function insertData(){
-
+  const allTitles = [];
+  const allInputData = [];
+  var insertList = document.getElementsByClassName('insertDatas-list');
+  var insertInput = document.getElementsByClassName("insertDatas-input");
+  let arrayLength = tableTitles.childElementCount;
+  for (let x = 0; x < arrayLength; x++) {
+    allTitles[x] = insertList[x].innerText;
+    
+    if (document.getElementsByClassName("insertDatas-input")[x].hasAttribute('min')) {
+      if (insertInput[x].value < 0) {
+        alert("The input value for" + allTitles[x] + "should be between 0 and 1!");
+        break;
+      }else if (insertInput[x].value > 1) {
+        alert("The input value for" + allTitles[x] + "should be between 0 and 1!");
+        break;
+      }
+      else {
+        allInputData[x] = insertInput[x].value;
+      }
+    }else {
+      allInputData[x] = insertInput[x].value;
+    }
+  }
+  console.log(allTitles);
+  console.log(allInputData);
 }

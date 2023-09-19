@@ -50,7 +50,7 @@ async function getTableNames(req, res) {res.json(await db.query("SELECT table_na
 app.use("/admin/getTableNames", getTableNames);
 
 //tábla column name lekérése admin page-hez
-async function getFields(req, res) {console.log(res.json(await db.query("SELECT DISTINCT(column_name) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'")))}
+async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(column_name), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
 app.use("/admin/getFields", getFields);
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
