@@ -8,7 +8,7 @@ USE LearnTheBasics;
 
 
 CREATE TABLE cpuTbl (
-  hardwareId tinyint(4) NOT NULL AUTO_INCREMENT,
+  hardwareId tinyint(4) DEFAULT NULL,
   name varchar(50) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
   company varchar(50) DEFAULT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE cpuTbl (
 )ENGINE = INNODB;
 
 CREATE TABLE gpuTbl (
-  hardwareId tinyint(4) NOT NULL AUTO_INCREMENT,
+  hardwareId tinyint(4) DEFAULT NULL,
   name varchar(50) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
   company varchar(50) DEFAULT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE gpuTbl (
 )ENGINE = INNODB;
 
 CREATE TABLE ramTbl (
-  hardwareId tinyint(4) NOT NULL AUTO_INCREMENT,
+  hardwareId tinyint(4) DEFAULT NULL,
   name varchar(50) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
   company varchar(50) DEFAULT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE ramTbl (
 )ENGINE = INNODB;
 
 CREATE TABLE stgTbl (
-  hardwareId tinyint(4) NOT NULL AUTO_INCREMENT,
+  hardwareId tinyint(4) DEFAULT NULL,
   name varchar(50) DEFAULT NULL,
   description varchar(255) DEFAULT NULL,
   company varchar(50) DEFAULT NULL,
@@ -73,37 +73,37 @@ CREATE TABLE login (
 )ENGINE = INNODB;
 
 
-INSERT INTO cpuTbl (name, description, company) VALUES
-('Z3', '3400 3.1GHz 2core', 'InkWell' ),
-('Z5', '6500 2.8GHz 4core/4thread', 'InkWell'),
-('Z7', '9800P 3.8GHz 8core/16thread', 'InkWell'),
-('Z9', '12990P 4.9GHz 16core/32thread', 'InkWell');
+INSERT INTO cpuTbl VALUES
+(0, 'Z3', '3400 3.1GHz 2core', 'InkWell' ),
+(1, 'Z5', '6500 2.8GHz 4core/4thread', 'InkWell'),
+(2, 'Z7', '9800P 3.8GHz 8core/16thread', 'InkWell'),
+(3, 'Z9', '12990P 4.9GHz 16core/32thread', 'InkWell');
 
-INSERT INTO gpuTbl (name, description, company) VALUES
-('DT', '620 1GB GDDR3', 'MediaVideo' ),
-('DTX', '1150 2GB GDDR4', 'MediaVideo'),
-('ETX', '2260 6GB GDDR5', 'MediaVideo'),
-('ETX', '12990P 4.9GHz 16core/32thread', 'MediaVideo');
+INSERT INTO gpuTbl VALUES
+(0, 'DT', '620 1GB GDDR3', 'MediaVideo' ),
+(1, 'DTX', '1150 2GB GDDR4', 'MediaVideo'),
+(2, 'ETX', '2260 6GB GDDR5', 'MediaVideo'),
+(3, 'ETX', '12990P 4.9GHz 16core/32thread', 'MediaVideo');
 
-INSERT INTO ramTbl (name, description, company) VALUES
-('8GB', 'DDR4 1600MHz', 'Tungsten Curie' ),
-('16GB', 'DDR4 2133MHz', 'Tungsten Curie'),
-('32GB', 'DDR4 2666MHz', 'Tungsten Curie'),
-('64GB', 'DDR4 3200MHz', 'Tungsten Curie');
+INSERT INTO ramTbl VALUES
+(0, '8GB', 'DDR4 1600MHz', 'Tungsten Curie' ),
+(1, '16GB', 'DDR4 2133MHz', 'Tungsten Curie'),
+(2, '32GB', 'DDR4 2666MHz', 'Tungsten Curie'),
+(3, '64GB', 'DDR4 3200MHz', 'Tungsten Curie');
 
-INSERT INTO stgTbl (name, description, company) VALUES
-('250GB HDD', '5400rpm', 'SeeGait Bermuda' ),
-('500GB HDD', '7200rpm', 'SeeGait Bermuda'),
-('500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
-('1TB SSD', '520MB/s', 'DanTsung 710Evolution');
+INSERT INTO stgTbl VALUES
+(0, '250GB HDD', '5400rpm', 'SeeGait Bermuda' ),
+(1, '500GB HDD', '7200rpm', 'SeeGait Bermuda'),
+(2, '500GB SSD', '200MB/s', 'DanTsung 710Evolution'),
+(3, '1TB SSD', '520MB/s', 'DanTsung 710Evolution');
 
 INSERT INTO userTbl (uid, name, password)
   VALUES (0, 'admin', 'admin');
 
-INSERT INTO savedata (userId, saveId, lvl, money, time, cpuId, gpuId, ramId, stgId) VALUES
-  (0, 1, -1, 0, 0, 1, 1, 1, 1),
-  (0, 2, -1, 0, 0, 1, 1, 1, 1),
-  (0, 3, -1, 0, 0, 1, 1, 1, 1);
+INSERT INTO savedata VALUES
+  (0, 0, 1, -1, 0, 0, 0, 0, 0, 0),
+  (0, 0, 2, -1, 0, 0, 0, 0, 0, 0),
+  (0, 0, 3, -1, 0, 0, 0, 0, 0, 0);
 
 INSERT INTO login (username, password) VALUES
 ('adminUSR', 'adminPASSWD');
