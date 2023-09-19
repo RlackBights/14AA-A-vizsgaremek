@@ -138,10 +138,12 @@ function selectOptionChanged(selectedTable) {
     }).then(function (table) {
       for (let i = 1; i < table.length; i++) {
         let li = document.createElement('li');
+        let input = document.createElement('input');
+        input.className = "insertDatas";
         columnNames[i] = table[i].column_name;
         li.innerText = columnNames[i];
         tableTitles.appendChild(li);
-        li.appendChild(document.createElement('input'))
+        li.appendChild(input)
       }
     });
     
@@ -161,6 +163,14 @@ function startTime() {
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
   return i;
+function insertData(){
+
+  const dataToInsert = [];
+  const allInputs = document.querySelectorAll('.insertDatas');
+  for (let x = 0; x < allInputs.length; x++) {
+    console.log(allInputs[x]);
+    
+  }
 }
 
-
+}
