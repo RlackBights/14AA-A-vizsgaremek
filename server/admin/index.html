@@ -61,18 +61,15 @@
           </div>
         </div>
         <div class="edit-data">
-          <p>
-            Table:
-            <select
-              name=""
-              class="class-tableSelect"
-              onchange="selectOptionChanged(this.value)"
-            >
-              <option value="none" selected disabled hidden>
-                Select an Option
-              </option>
-            </select>
-          </p>
+          <div class="filter">
+            <p>Table:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="none" selected disabled hidden>Select an Option</option></select></p>
+            <p>Attribute:<select name="" class=""><option value="none" selected disabled hidden>Select an Option</option></select></p>
+            <p>Searched attribute: <input type="text"></p>
+            <button>Search</button>
+          </div>
+          <div class="edit-content">
+            
+          </div>
         </div>
         <div class="delete-data">
           <p>
