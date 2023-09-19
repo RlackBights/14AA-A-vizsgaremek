@@ -8,6 +8,11 @@ const adminPage = document.getElementsByClassName("admin-container")[0];
 const addData = document.getElementsByClassName("add-data")[0];
 const editData = document.getElementsByClassName("edit-data")[0];
 const listData = document.getElementsByClassName("list-data")[0];
+const deleteData = document.getElementsByClassName("delete-data")[0];
+const adminNav1 = document.getElementsByClassName("admin-nav")[0];
+const adminNav2 = document.getElementsByClassName("admin-nav")[1];
+const adminNav3 = document.getElementsByClassName("admin-nav")[2];
+const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 
 
 function zoom() {
@@ -51,7 +56,7 @@ function loginPressed() {
 }
 
 function loadSelect() {
-  var loadSelect = document.getElementById("add-dataSelect");
+  var loadSelect = document.getElementsByClassName("class-tableSelect");
   fetch("http://127.0.0.1:8000/admin/getTableNames", {
     method: "GET",
     headers: {
@@ -63,7 +68,9 @@ function loadSelect() {
       return response.json();
     }).then(function (tables) {
       for (let index = 0; index < tables.length; index++) {
-        loadSelect.add(new Option(tables[index].table_name));
+        for (let i = 0; i < loadSelect.length; i++) {
+          loadSelect[i].add(new Option(tables[index].table_name));          
+        }
       }
     });
 }
@@ -77,16 +84,36 @@ function openPage(pageName) {
   addData.style.display = "none";
   editData.style.display = "none";
   listData.style.display = "none";
+  deleteData.style.display = "none";
 
   switch (pageName) {
     case "add":
       addData.style.display = "block";
+      adminNav1.classList.add('adminActive');
+      adminNav2.classList.remove('adminActive');
+      adminNav3.classList.remove('adminActive');
+      adminNav4.classList.remove('adminActive');
       break;
     case "edit":
       editData.style.display = "block";
+      adminNav1.classList.remove('adminActive');
+      adminNav2.classList.add('adminActive');
+      adminNav3.classList.remove('adminActive');
+      adminNav4.classList.remove('adminActive');
+      break;
+    case "delete":
+      deleteData.style.display = "block";
+      adminNav1.classList.remove('adminActive');
+      adminNav2.classList.remove('adminActive');
+      adminNav3.classList.add('adminActive');
+      adminNav4.classList.remove('adminActive');
       break;
     case "list":
       listData.style.display = "block";
+      adminNav1.classList.remove('adminActive');
+      adminNav2.classList.remove('adminActive');
+      adminNav3.classList.remove('adminActive');
+      adminNav4.classList.add('adminActive');
       break;
   }
 }
@@ -95,6 +122,7 @@ function selectOptionChanged(selectedTable) {
 
   const columnNames =  [];
   var tableTitles = document.getElementById("tableTitles");
+  var tableInput = document.getElementById("tableInput");
   tableTitles.innerHTML = '';
 
   fetch(
@@ -113,6 +141,7 @@ function selectOptionChanged(selectedTable) {
         columnNames[i] = table[i].column_name;
         li.innerText = columnNames[i];
         tableTitles.appendChild(li);
+        li.appendChild(document.createElement('input'))
       }
     });
     

@@ -1,72 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
 
-    <title>Admin Page</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 
-  <body onload="loadSelect()">
-    <h1 id="title">ADMIN FELÜLET</h1>
-    <div class="desktop">
-      <div class="login-container">
-        <h1>Login</h1>
-        <div class="login">
-          <h2>Username</h2>
-          <input type="text" id="username" />
-          <h2>Password</h2>
-          <input type="password" id="password" />
-        </div>
-        <button onclick="loginPressed()">Login</button>
+  <title>Admin Page</title>
+</head>
+
+<body onload="loadSelect()">
+  <h1 id="title">ADMIN FELÜLET</h1>
+  <div class="desktop">
+    <div class="login-container">
+      <h1>Login</h1>
+      <div class="login">
+        <h2>Username</h2>
+        <input type="text" id="username" />
+        <h2>Password</h2>
+        <input type="password" id="password" />
       </div>
-      <div class="admin-container">
-        <div class="admin-tabs">
-          <ul>
-            <li onclick="openPage('add')"><a>Add Data</a></li>
-            <li onclick="openPage('edit')"><a>Edit Data</a></li>
-            <li onclick="openPage('list')"><a>List Data</a></li>
-            <li onclick="logOut()"><a>Log out</a></li>
-          </ul>
-        </div>
-        <div class="add-data">
-            <p>Table: <select name="" id="add-dataSelect" onchange="selectOptionChanged(this.value)">
-              <option value="none" selected disabled hidden>Select an Option</option>
-            </select></p>
-            <div class="add-container">
-                <div class="tbl-title">
-                    <ul id="tableTitles">
-                      
-                    </ul>
-                </div>
-                <div class="tbl-input">
-                    <ul>
-
-                    </ul>
-                </div>
-                <button>Submit</button>
-            </div>
-        </div>
-        <div class="edit-data"></div>
-        <div class="list-data"></div>
+      <button onclick="loginPressed()">Login</button>
+    </div>
+    <div class="admin-container">
+      <div class="admin-tabs">
+        <ul>
+          <li class="admin-nav adminActive" onclick="openPage('add')"><a>Insert Data</a></li>
+          <li class="admin-nav" onclick="openPage('edit')"><a>Update Data</a></li>
+          <li class="admin-nav" onclick="openPage('delete')"><a>Delete Data</a></li>
+          <li class="admin-nav" onclick="openPage('list')"><a>List Data</a></li>
+          <li onclick="logOut()"><a>Log out</a></li>
+        </ul>
       </div>
-      <div class="taskbar">
-        <div class="closeBtn" onclick="closeAdmin()">
-          <span
-            class="iconify"
-            data-icon="game-icons:ouroboros"
-            style="color: white"
-            data-width="45"
-            data-height="45"
-          ></span>
+      <div class="add-data">
+        <p>Table: <select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)">
+            <option value="none" selected disabled hidden>Select an Option</option>
+          </select></p>
+        <div class="add-container">
+          <div class="tbl-add">
+            <ul id="tableTitles"></ul>
+          </div>
+          <button>Submit</button>
         </div>
+      </div>
+      <div class="edit-data">
+        <p>Table: <select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)">
+            <option value="none" selected disabled hidden>Select an Option</option>
+          </select></p>
+      </div>
+      <div class="delete-data">
+        <p>Table: <select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)">
+          <option value="none" selected disabled hidden>Select an Option</option>
+        </select></p>
+      </div>
+      <div class="list-data">
+        <p>Table: <select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)">
+          <option value="none" selected disabled hidden>Select an Option</option>
+        </select></p>
       </div>
     </div>
-    <div class="monitor" onclick="zoom()"></div>
-    <div class="container"></div>
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+    <div class="taskbar">
+      <div class="closeBtn" onclick="closeAdmin()">
+        <span class="iconify" data-icon="game-icons:ouroboros" style="color: white" data-width="45" data-height="45"></span>
+      </div>
+    </div>
+  </div>
+  <div class="monitor" onclick="zoom()"></div>
+  <div class="container"></div>
+  <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
