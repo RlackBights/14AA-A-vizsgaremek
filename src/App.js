@@ -136,8 +136,6 @@ function App() {
           break;
       }
 
-      setKey((key) => key + 1);
-
       const pushSaveData = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -181,6 +179,8 @@ function App() {
 
         save3data = convertSave(myJson[2]);
         setSave3((save3) => save3data);
+
+        refreshSaves(save1, save2, save3);
       });
     setKey((key) => key + 1);
   };
@@ -237,12 +237,8 @@ function App() {
 
                   x = 0;
                   getData();
-
-                  openSaves();
-
                   refreshSaves(save1, save2, save3);
-
-                  setKey((key) => key + 1);
+                  openSaves();
                 }}
               >
                 Continue
@@ -256,9 +252,6 @@ function App() {
 
                   x = 0;
                   getData();
-                  setKey((key) => key + 1);
-
-                  refreshSaves(save1, save2, save3);
 
                   setKey((key) => key + 1);
 

@@ -21,6 +21,7 @@ export function LoginPage() {
                     registerPage.style.display = 'none';
                     container.style.pointerEvents = 'none';
                 }
+                setKey((key) => key + 1);
             }}>
                 <Icon icon="uil:user" />
                 <p>{(cookies.user != null) ? cookies.user.split('$')[0] : "[Log in to play]"}</p>
@@ -30,7 +31,15 @@ export function LoginPage() {
             <p id="error-message">ERROR PLACEHOLDER</p>
             <div id="login-page" style={{ display: 'none' }}>
                 <div id="form-container">
-                    <img className="close-image" src={exitImage}></img>
+                    <img className="close-image" onClick={() => {
+                        const loginPage = document.getElementById('login-page');
+                        const registerPage = document.getElementById('register-page');
+                        const container = document.getElementById('login-container');
+                        loginPage.style.display = 'none';
+                        registerPage.style.display = 'none';
+                        container.style.pointerEvents = 'none';
+                        setKey((key) => key + 1);
+                    }} src={exitImage}></img>
                     <h1>Login</h1>
                     <p>Username</p>
                     <input type="text" id="name-input" ></input>
@@ -81,6 +90,7 @@ export function LoginPage() {
                                     container.style.pointerEvents = 'none';
                                     usernameInput.value = "";
                                     passwordInput.value = "";
+                                    window.location.reload();
                                 } else {
                                     errorMessage.innerHTML = "Wrong username/password!";
                                     errorMessage.className = "show-error"
@@ -99,6 +109,7 @@ export function LoginPage() {
 
                             loginPage.style.display = 'none';
                             registerPage.style.display = 'flex';
+                            setKey((key) => key + 1);
 
                         }}>
                             Register here!</a></p>
@@ -108,7 +119,14 @@ export function LoginPage() {
             </div>
             <div id="register-page" style={{ display: 'none' }}>
                 <div id="form-container">
-                    <img className="close-image" src={exitImage}></img>
+                    <img className="close-image" onClick={() => {
+                        const loginPage = document.getElementById('login-page');
+                        const registerPage = document.getElementById('register-page');
+                        const container = document.getElementById('login-container');
+                        loginPage.style.display = 'none';
+                        registerPage.style.display = 'none';
+                        container.style.pointerEvents = 'none';
+                    }} src={exitImage}></img>
                     <h1>Register</h1>
                     <p>Username</p>
                     <input type="text" id="name2-input" ></input>
@@ -186,6 +204,7 @@ export function LoginPage() {
                                             registerName.value = "";
                                             registerPassword1.value = "";
                                             registerPassword2.value = "";
+                                            window.location.reload();
                                         } else {
                                             errorMessage.innerHTML = "Wrong username/password!";
                                             errorMessage.className = "show-error"

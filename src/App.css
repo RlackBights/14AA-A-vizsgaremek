@@ -510,6 +510,7 @@ Room
 #error-message {
   position: absolute;
   width: fit-content;
+  margin: 0;
   padding: 0.5rem 1rem;
   top: -5rem;
   left: 50%;
@@ -530,14 +531,15 @@ Room
 }
 
 @keyframes showErrorMessage {
-  0% {top: -5rem;}
-  10% {top: 0}
-  90% {top: 0;}
-  100% {top: -5rem;}
+  0% {top: -5rem}
+  10% {top: 2rem}
+  90% {top: 2rem}
+  100% {top: -5rem}
 }
 
 .close-image {
   position: absolute;
+  cursor: pointer;
   top: 25%;
   right: 40%;
   margin: 0;
