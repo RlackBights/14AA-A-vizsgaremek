@@ -25,6 +25,7 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
+  console.log(req.query.userAuthCode);
   res.json(
     await db.query(
       "SELECT saveId, lvl, time, money, cpuId AS 'cpu', gpuId AS 'gpu', ramId AS 'ram', stgId AS 'stg' FROM usertbl " +
@@ -50,17 +51,17 @@ app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin ol
 
 async function loginAttempt(req, res) {
   const answer = await db.query("SELECT password FROM userTbl WHERE name = '" + req.body.username + "'");
-  const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex').slice(0, 25);
+  const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex');
 
   if (answer.length == 0) {
-    res.status(400).json({message: "Login failed!"});
+    res.status(400).json({ message: "Login failed!" });
     return;
   }
 
   if (answer[0].password === userPassword) {
-    res.status(200).json({message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword)});
+    res.status(200).json({ message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword) });
   } else {
-    res.status(400).json({message: "Login failed!"});
+    res.status(400).json({ message: "Login failed!" });
   }
 }
 

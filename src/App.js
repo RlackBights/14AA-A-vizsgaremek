@@ -4,8 +4,11 @@ import { useEffect } from "react";
 import deleteSave from "./assets/delete-button.png";
 import { convertSave, saveFile } from "./components/savefile_management";
 import { Icon, disableCache } from "@iconify/react";
-import { loginAuthCode, LoginPage } from "./loginPage";
+import { loginAuthCode, LoginPage } from "./components/loginPage";
 import { CookiesProvider, useCookies } from "react-cookie";
+import { save1 } from "./components/reactStates";
+
+console.log(save1)
 
 // Base variables
 
@@ -34,7 +37,6 @@ function closeSaves() {
 
 setInterval(() => {
   if (currentState !== "MainMenu") {
-    console.log("Tick");
     switch (activeSaveSlot) {
       case 1:
         save1data.addTime();
@@ -51,17 +53,41 @@ setInterval(() => {
   }
 }, 1000);
 
+function refreshSaves(save1, save2, save3) {
+  let saveSlot1 = document.getElementById("save-item1");
+  let saveSlot2 = document.getElementById("save-item2");
+  let saveSlot3 = document.getElementById("save-item3");
+
+  if (save1.lvl === -1) {
+    if (!saveSlot1.classList.contains("empty-save")) {
+      saveSlot1.classList.add("empty-save");
+    }
+  } else {
+    if (saveSlot1.classList.contains("empty-save")) {
+      saveSlot1.classList.remove("empty-save");
+    }
+  }
+
+  if (save2.lvl === -1) {
+    if (!saveSlot2.classList.contains("empty-save")) {
+      saveSlot2.classList.add("empty-save");
+    }
+  } else {
+    if (saveSlot2.classList.contains("empty-save")) {
+      saveSlot2.classList.remove("empty-save");
+    }
+  }
+
+  if (save3.lvl === -1) {
+    saveSlot3.classList.add("empty-save");
+  } else {
+    saveSlot3.classList.remove("empty-save");
+  }
+}
+
 function App() {
-  const [cookies, setCookies, getCookies] = useCookies(["user"])
-  const [key, setKey] = useState(0);
-  const [save1, setSave1] = useState(save1data);
-  const [save2, setSave2] = useState(save2data);
-  const [save3, setSave3] = useState(save3data);
 
   console.log(cookies.user);
-
-  const checkValidData = () => {
-  }
 
   const setData = (
     saveId,
@@ -75,7 +101,7 @@ function App() {
   ) => {
     if (saveId !== 1 && saveId !== 2 && saveId !== 3) {
       console.error(
-        "TE IDIÓTA NINCS RENDES SAVE ID TE HÜLYE BUTA HASZONTALAN SZEMÉT :3"
+        "Wrong saveId provided"
       );
     } else {
       switch (saveId) {
@@ -132,6 +158,9 @@ function App() {
   };
 
   const getData = () => {
+    if (cookies.user == null) {
+      return;
+    }
     fetch(`http://127.0.0.1:8000/savedata?userAuthCode=${cookies.user}`, {
       method: "GET",
       headers: {
@@ -160,7 +189,6 @@ function App() {
 
   function changeToGame() {
     currentState = "Game";
-    console.log(currentState);
     document.getElementsByClassName("save-container")[0].style.top = "100vh";
     document.getElementById("save-back-button").style.display = "none";
     setTimeout(() => {
@@ -193,11 +221,11 @@ function App() {
     case "MainMenu":
       return (
         <div className="App">
-          
+
           {/*Main Menu*/}
 
           <div className="main-menu">
-            <LoginPage/>
+            <LoginPage />
             <h1 id="title-text" className="">
               LearnTheBasics.it
             </h1>
@@ -214,36 +242,7 @@ function App() {
 
                   openSaves();
 
-                  let saveSlot1 = document.getElementById("save-item1");
-                  let saveSlot2 = document.getElementById("save-item2");
-                  let saveSlot3 = document.getElementById("save-item3");
-
-                  if (save1.lvl === -1) {
-                    if (!saveSlot1.classList.contains("empty-save")) {
-                      console.log("added empty-save");
-                      saveSlot1.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot1.classList.contains("empty-save")) {
-                      saveSlot1.classList.remove("empty-save");
-                    }
-                  }
-
-                  if (save2.lvl === -1) {
-                    if (!saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.remove("empty-save");
-                    }
-                  }
-
-                  if (save3.lvl === -1) {
-                    saveSlot3.classList.add("empty-save");
-                  } else {
-                    saveSlot3.classList.remove("empty-save");
-                  }
+                  refreshSaves(save1, save2, save3);
 
                   setKey((key) => key + 1);
                 }}
@@ -252,7 +251,7 @@ function App() {
               </button>
               <button
                 onClick={() => {
-                  
+
                   if (cookies.user == null) {
                     return;
                   }
@@ -261,41 +260,11 @@ function App() {
                   getData();
                   setKey((key) => key + 1);
 
-                  let saveSlot1 = document.getElementById("save-item1");
-                  let saveSlot2 = document.getElementById("save-item2");
-                  let saveSlot3 = document.getElementById("save-item3");
-
-                  if (save1.lvl === -1) {
-                    if (!saveSlot1.classList.contains("empty-save")) {
-                      console.log("added empty-save");
-                      saveSlot1.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot1.classList.contains("empty-save")) {
-                      saveSlot1.classList.remove("empty-save");
-                    }
-                  }
-
-                  if (save2.lvl === -1) {
-                    if (!saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.add("empty-save");
-                    }
-                  } else {
-                    if (saveSlot2.classList.contains("empty-save")) {
-                      saveSlot2.classList.remove("empty-save");
-                    }
-                  }
-
-                  if (save3.lvl === -1) {
-                    saveSlot3.classList.add("empty-save");
-                  } else {
-                    saveSlot3.classList.remove("empty-save");
-                  }
+                  refreshSaves(save1, save2, save3);
 
                   setKey((key) => key + 1);
 
                   if (save1.lvl === -1) {
-                    console.log("Added save to slot 1");
                     setData(1, 0)
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);

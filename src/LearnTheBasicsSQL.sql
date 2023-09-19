@@ -42,7 +42,7 @@ CREATE TABLE stgTbl (
 CREATE TABLE userTbl (
   uid int NOT NULL AUTO_INCREMENT,
   name varchar(25) NOT NULL,
-  password varchar(25) NOT NULL,
+  password varchar(50) NOT NULL,
   isAdmin boolean DEFAULT FALSE,
   PRIMARY KEY (uid)
 )ENGINE = INNODB;
