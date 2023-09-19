@@ -18,7 +18,7 @@ const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 function zoom() {
   container.style.display = "block";
   closeBtn.style.display = "block";
-  taskbar.style.display = "block";
+  taskbar.style.display = "flex";
   desktop.style.display = "flex";
   h1.style.display = "none";
 }
@@ -145,6 +145,22 @@ function selectOptionChanged(selectedTable) {
       }
     });
     
+}
+
+function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  let s = today.getSeconds();
+  m = checkTime(m);
+  s = checkTime(s);
+  document.getElementById('clock').innerHTML =  h + ":" + m;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
 }
 
 

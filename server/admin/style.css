@@ -1,304 +1,313 @@
 @font-face {
-    font-family: "admin-font";
-    src: url("Neon\ Rave.ttf");
+  font-family: "admin-font";
+  src: url("Neon\ Rave.ttf");
 }
 
 html {
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    background: url("./bg.png") no-repeat;
-    background-position: center;
-    background-size: 50%;
-    font-family: 'admin-font';
-    letter-spacing: 3px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: url("./bg.png") no-repeat;
+  background-position: center;
+  background-size: 50%;
+  font-family: "admin-font";
+  letter-spacing: 3px;
 }
 
 .container {
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url(monitor.png) no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
-    display: none;
-    z-index: 10;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(monitor.png) no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  display: none;
+  z-index: 10;
 }
 
 h1 {
-    text-align: center;
-    font-size: 6vmin;
+  text-align: center;
+  font-size: 6vmin;
 }
 
 .monitor {
-    position: absolute;
-    width: 27%;
-    height: 33%;
-    margin-left: 50%;
-    transform: translateX(-68%) translateY(15%);
+  position: absolute;
+  width: 27%;
+  height: 33%;
+  margin-left: 50%;
+  transform: translateX(-68%) translateY(15%);
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .desktop {
-    position: absolute;
-    top: 2%;
-    left: 1%;
-    width: 98%;
-    height: 96%;
-    background: url(desktopbg.jpg);
-    z-index: 5;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
+  position: absolute;
+  top: 2%;
+  left: 1%;
+  width: 98%;
+  height: 96%;
+  background: url(desktopbg.jpg);
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .taskbar {
-    position: absolute;
-    display: none;
-    bottom: 0;
-    width: 100%;
-    height: 4rem;
-    background: #0082ced8;
-    z-index: 4;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem;
+  background: #0082ced8;
+  z-index: 4;
+}
+
+#clock {
+  width: 4rem;
+  height: 4rem;
+  z-index: 4;
+  color: #fff;
+  position: absolute;
+  right: 1%;
+  text-align: center;
+  line-height: 3;
 }
 
 .closeBtn {
-    position: relative;
-    width: 4rem;
-    height: 4rem;
-    cursor: pointer;
-    display: none;
-    z-index: 4;
-    text-align: center;
-    padding-top: 0.5rem;
-    margin-left: 0.5rem;
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  display: none;
+  z-index: 4;
+  text-align: center;
+  padding-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .closeBtn span {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .closeBtn:hover {
-    filter: brightness(60%);
+  filter: brightness(60%);
 }
 
 #logout {
-    background-color: #003d60;
+  background-color: #003d60;
 }
 
 .login-container {
-    text-align: center;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.9);
-    width: fit-content;
-    padding: 0 1rem 1rem 1rem;
-    height: fit-content;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.9);
+  width: fit-content;
+  padding: 0 1rem 1rem 1rem;
+  height: fit-content;
 }
 
 .login-container h1 {
-    font-size: 5vmin;
-    font-weight: normal;
-    margin-top: 0;
-    color: #0082ce;
+  font-size: 5vmin;
+  font-weight: normal;
+  margin-top: 0;
+  color: #0082ce;
 }
 
 .login-container h2 {
-    font-size: 3vmin;
-    font-weight: lighter;
+  font-size: 3vmin;
+  font-weight: lighter;
 }
 
 .login input {
-    outline: none;
-    border: 1px solid #fff;
-    border-radius: 0.5rem;
-    background: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-    font-family: 'admin-font';
-    color: #fff;
+  outline: none;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  background: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: "admin-font";
+  color: #fff;
 }
 
 .login input:focus {
-    border: 1px solid #0082ce;
-    color: #0082ce;
+  border: 1px solid #0082ce;
+  color: #0082ce;
 }
 
 .login-container button {
-    padding: 0.5rem 1rem;
-    font-size: 2rem;
-    margin-top: 1rem;
-    border-radius: 1rem;
-    background-color: #000;
-    cursor: pointer;
-    outline: none;
-    color: #fff;
-    border: 2px solid #fff;
+  padding: 0.5rem 1rem;
+  font-size: 2rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  background-color: #000;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  border: 2px solid #fff;
 }
 
 button:hover {
-    border: 2px solid #0082ce;
-    color: #0082ce;
+  border: 2px solid #0082ce;
+  color: #0082ce;
 }
 
 .admin-container {
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    display: none;
-    color: #fff;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: none;
+  color: #fff;
 }
 
 .adminActive {
-    border-bottom: 5px solid #0082ce !important;
+  border-bottom: 5px solid #0082ce !important;
 }
 
 .admin-tabs {
-    width: 100%;
+  width: 100%;
 }
 
 .admin-tabs ul {
-    display: flex;
-    justify-content: space-evenly center;
-    width: 100%;
-    height: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  justify-content: space-evenly center;
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .admin-tabs ul li {
-    cursor: pointer;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    border-bottom: 5px solid transparent;
-    padding-top: 1%;
+  cursor: pointer;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  border-bottom: 5px solid transparent;
+  padding-top: 1%;
 }
 
 .admin-tabs ul li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.5rem;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
 .admin-tabs ul li:hover {
-    border-bottom: 5px solid #0082ce;
+  border-bottom: 5px solid #0082ce;
 }
 
 .admin-tabs ul li:hover > a {
-    color: #0082ce;
+  color: #0082ce;
 }
 
 .add-data {
-    width: 100%;
-    height: 100%;
-    padding: 0.5% 1.5% ;
+  width: 100%;
+  height: 100%;
+  padding: 0.5% 1.5%;
 }
 
 .add-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .add-container button {
-    margin-top: 5%;
-    padding: 1%;
-    background: none;
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border: 1px solid #fff;
-    border-radius: 0.5rem;
-    cursor: pointer;
+  margin-top: 5%;
+  padding: 1%;
+  background: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .add-container button:hover {
-    color: #0082ce;
-    border-color: #0082ce;
+  color: #0082ce;
+  border-color: #0082ce;
 }
 
 .tbl-add {
-    width: 90%;
-    height: 10%;
+  width: 90%;
+  height: 10%;
 }
 
 #tableTitles {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-    list-style-type: none;
-    border: 3px solid #0082ce;
-    border-radius: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  list-style-type: none;
+  border: 3px solid #0082ce;
+  border-radius: 1rem;
 }
 
 #tableTitles li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #tableTitles li input {
-    background: none;
-    outline: none;
-    border: 3px solid #fff;
-    color: #fff;
-    border-radius: 1rem;
-    padding: 3%;
-    font-size: 1rem;
-    font-weight: bold;
-    width: 75%;
+  background: none;
+  outline: none;
+  border: 3px solid #fff;
+  color: #fff;
+  border-radius: 1rem;
+  padding: 3%;
+  font-size: 1rem;
+  font-weight: bold;
+  width: 75%;
 }
 
 #tableTitles li input:focus {
-    border: 3px solid #0082ce;
-    color: #0082ce;
+  border: 3px solid #0082ce;
+  color: #0082ce;
 }
 
 select {
-    background: none;
-    color: #0082ce;
-    border: 2px solid #0082ce;
-    outline: none;
-    font-family: admin-font;
-    font-weight: 100;
-    letter-spacing: 1px;
-    cursor: pointer;
-    font-size: 1rem;
+  background: none;
+  color: #0082ce;
+  border: 2px solid #0082ce;
+  outline: none;
+  font-family: admin-font;
+  font-weight: 100;
+  letter-spacing: 1px;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
 option {
-    background-color: #000;
-    font-size: 1rem;
+  background-color: #000;
+  font-size: 1rem;
 }
 
 .edit-data {
-    width: 100%;
-    height: 100%;
-    padding: 0.5% 1.5% ;
+  width: 100%;
+  height: 100%;
+  padding: 0.5% 1.5%;
 }
 
 .delete-data {
-    width: 100%;
-    height: 100%;
-    padding: 0.5% 1.5% ;
+  width: 100%;
+  height: 100%;
+  padding: 0.5% 1.5%;
 }
 
 .list-data {
-    width: 100%;
-    height: 100%;
-    padding: 0.5% 1.5% ;
+  width: 100%;
+  height: 100%;
+  padding: 0.5% 1.5%;
 }
