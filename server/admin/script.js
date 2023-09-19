@@ -136,7 +136,7 @@ function selectOptionChanged(selectedTable) {
     }).then(function (response) {
       return response.json();
     }).then(function (table) {
-      for (let i = 0; i < table.length; i++) {
+      for (let i = 1; i < table.length; i++) {
         let li = document.createElement('li');
         columnNames[i] = table[i].column_name;
         li.innerText = columnNames[i];

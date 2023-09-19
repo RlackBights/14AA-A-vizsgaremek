@@ -42,7 +42,7 @@ async function checkData(req, res) {
 app.use("/admin/checkData", checkData);
 
 //tábla nevek lekérése az admin page-hez
-async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
+async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics' AND table_name NOT LIKE '%save%'"))}
 app.use("/admin/getTableNames", getTableNames);
 
 //tábla column name lekérése admin page-hez
