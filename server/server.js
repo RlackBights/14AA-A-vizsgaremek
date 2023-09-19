@@ -25,7 +25,6 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
-  console.log(req.query.userAuthCode);
   res.json(
     await db.query(
       "SELECT saveId, lvl, time, money, cpuId AS 'cpu', gpuId AS 'gpu', ramId AS 'ram', stgId AS 'stg' FROM usertbl " +
@@ -67,9 +66,32 @@ async function loginAttempt(req, res) {
 
 app.use("/login", loginAttempt)
 
+async function registerAttempt(req, res) {
+  let existsError = false;
+  let names = await db.query(`SELECT name FROM userTbl`);
+  names.forEach(element => {
+    if (req.body.username == element.name) {
+      res.status(401).json({message: "A user with htis name already exists!"});
+      existsError = true;
+    }
+  })
+
+  if (existsError) return;
+    await db.query("INSERT INTO userTbl VALUES " +
+                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), FALSE);")
+
+    await db.query("INSERT INTO savedata VALUES " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 1, -1, 0, 0, 0, 0, 0, 0), " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 2, -1, 0, 0, 0, 0, 0, 0), " +
+    "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 3, -1, 0, 0, 0, 0, 0, 0); ")
+
+    res.status(200).json({message: "Successful registration!"})
+}
+
+app.use("/register", registerAttempt)
+
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
-  console.log(req.body.userAuthCode)
   await db.query(
     "UPDATE savedata SET " +
     `lvl = ${req.body.lvl}, money = ${req.body.money}, time = ${req.body.time}, cpuId = ${req.body.cpu}, gpuId = ${req.body.gpu}, ramId = ${req.body.ram}, stgId = ${req.body.stg} ` +

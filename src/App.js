@@ -84,12 +84,10 @@ function refreshSaves(save1, save2, save3) {
 
 function App() {
   const [cookies, setCookies, getCookies] = useCookies(["user"])
-    const [key, setKey] = useState(0);
-    const [save1, setSave1] = useState(save1data);
-    const [save2, setSave2] = useState(save2data);
-    const [save3, setSave3] = useState(save3data);
-
-  console.log(cookies.user);
+  const [key, setKey] = useState(0);
+  const [save1, setSave1] = useState(save1data);
+  const [save2, setSave2] = useState(save2data);
+  const [save3, setSave3] = useState(save3data);
 
   const setData = (
     saveId,
@@ -174,8 +172,6 @@ function App() {
         return response.json();
       })
       .then(function (myJson) {
-        console.log("save data of " + cookies.user.split('$')[0])
-        console.log(myJson);
 
         save1data = convertSave(myJson[0]);
         setSave1((save1) => save1data);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 import { Icon } from "@iconify/react";
 import { CookiesProvider, useCookies } from "react-cookie";
+import exitImage from '../assets/delete-button.png'
 
 export function LoginPage() {
     const [key, setKey] = useState(0);
@@ -9,13 +10,15 @@ export function LoginPage() {
     return (
         <div id="login-container" style={{ pointerEvents: 'none' }}>
             <button id="user-icon" onClick={() => {
-                const page = document.getElementById('login-page');
+                const loginPage = document.getElementById('login-page');
+                const registerPage = document.getElementById('register-page');
                 const container = document.getElementById('login-container');
-                if (page.style.display == 'none') {
-                    page.style.display = 'flex';
+                if (loginPage.style.display == 'none' && registerPage.style.display == 'none') {
+                    loginPage.style.display = 'flex';
                     container.style.pointerEvents = 'all';
                 } else {
-                    page.style.display = 'none';
+                    loginPage.style.display = 'none';
+                    registerPage.style.display = 'none';
                     container.style.pointerEvents = 'none';
                 }
             }}>
@@ -24,9 +27,10 @@ export function LoginPage() {
             </button>
 
 
+            <p id="error-message">ERROR PLACEHOLDER</p>
             <div id="login-page" style={{ display: 'none' }}>
-                <p id="error-message">ERASDEASD</p>
                 <div id="form-container">
+                    <img className="close-image" src={exitImage}></img>
                     <h1>Login</h1>
                     <p>Username</p>
                     <input type="text" id="name-input" ></input>
@@ -34,7 +38,7 @@ export function LoginPage() {
                     <input type="password" id="password-input" ></input>
                     <div id="button-container">
 
-                        <button className="form-btn" id="login-btn" onClick={() => {
+                        <button className="form-btn" id="" onClick={() => {
 
                             const usernameInput = document.getElementById('name-input');
                             const passwordInput = document.getElementById('password-input');
@@ -71,7 +75,12 @@ export function LoginPage() {
 
                                 if (response.status == 200) {
                                     response.json().then((json) => { setCookie("user", json.loginAuthCode) });
-
+                                    const page = document.getElementById('login-page');
+                                    const container = document.getElementById('login-container');
+                                    page.style.display = 'none';
+                                    container.style.pointerEvents = 'none';
+                                    usernameInput.value = "";
+                                    passwordInput.value = "";
                                 } else {
                                     errorMessage.innerHTML = "Wrong username/password!";
                                     errorMessage.className = "show-error"
@@ -99,6 +108,7 @@ export function LoginPage() {
             </div>
             <div id="register-page" style={{ display: 'none' }}>
                 <div id="form-container">
+                    <img className="close-image" src={exitImage}></img>
                     <h1>Register</h1>
                     <p>Username</p>
                     <input type="text" id="name2-input" ></input>
@@ -107,7 +117,96 @@ export function LoginPage() {
                     <p>Confirm password</p>
                     <input type="password" id="password3-input" ></input>
                     <div id="button-container">
-                        <button className="form-btn" id="register-btn">Register</button>
+                        <button className="form-btn" id="" onClick={() => {
+                            const registerName = document.getElementById('name2-input');
+                            const registerPassword1 = document.getElementById('password2-input');
+                            const registerPassword2 = document.getElementById('password3-input');
+                            const errorMessage = document.getElementById('error-message');
+                            const regex = /\W/;
+                            errorMessage.className = ""
+
+                            if (registerName.value == '' || registerPassword1.value == '' || registerPassword2.value == '' ) {
+                                errorMessage.innerHTML = "One or more required fields are missing!";
+                                errorMessage.className = "show-error"
+                                setTimeout(() => {
+                                    errorMessage.className = "";
+                                }, 4000)
+                                return;
+                            }
+
+                            if (regex.test(registerName.value) || regex.test(registerPassword1.value) || regex.test(registerPassword2.value)) {
+                                errorMessage.innerHTML = "One or more fields contain unallowed characters!";
+                                errorMessage.className = "show-error"
+                                setTimeout(() => {
+                                    errorMessage.className = "";
+                                }, 4000)
+                                return;
+                            }
+
+                            if (registerPassword1.value != registerPassword2.value) {
+                                errorMessage.innerHTML = "The passwords don't match!";
+                                errorMessage.className = "show-error"
+                                setTimeout(() => {
+                                    errorMessage.className = "";
+                                }, 4000)
+                                return;
+                            }
+
+
+                            const fetchParams = {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    username: registerName.value,
+                                    password: registerPassword1.value
+                                }),
+                            }
+                            fetch('http://127.0.0.1:8000/register', fetchParams)
+                            .then(function (response) {
+
+                                if (response.status == 200) {
+
+                                    const fetchParams = {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({
+                                            username: registerName.value,
+                                            password: registerPassword1.value
+                                        }),
+                                    }
+                                    fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
+        
+                                        if (response.status == 200) {
+                                            response.json().then((json) => { setCookie("user", json.loginAuthCode) });
+
+                                            const page = document.getElementById('register-page');
+                                            const container = document.getElementById('login-container');
+                                            page.style.display = 'none';
+                                            container.style.pointerEvents = 'none';
+                                            registerName.value = "";
+                                            registerPassword1.value = "";
+                                            registerPassword2.value = "";
+                                        } else {
+                                            errorMessage.innerHTML = "Wrong username/password!";
+                                            errorMessage.className = "show-error"
+                                            setTimeout(() => {
+                                                errorMessage.className = "";
+                                            }, 4000)
+                                        }
+        
+                                    })
+                                } else if (response.status == 401) {
+                                    errorMessage.innerHTML = "This user already exists!";
+                                    errorMessage.className = "show-error"
+                                    setTimeout(() => {
+                                        errorMessage.className = "";
+                                    }, 4000)
+                                }
+                            });
+
+
+
+                        }}>Register</button>
                         <p><br />Already have an account?
                             <a id="login-btn" onClick={() => {
                                 const loginPage = document.getElementById('login-page');

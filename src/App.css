@@ -430,6 +430,10 @@ Room
   align-items: center;
 }
 
+#login-btn, #register-btn {
+  text-decoration: underline;
+}
+
 #login-btn:hover, #register-btn:hover {
   color: var(--theme-color);
   cursor: pointer;
@@ -530,6 +534,16 @@ Room
   10% {top: 0}
   90% {top: 0;}
   100% {top: -5rem;}
+}
+
+.close-image {
+  position: absolute;
+  top: 25%;
+  right: 40%;
+  margin: 0;
+  padding: 0;
+  width: 4vmin;
+  aspect-ratio: 1/1;
 }
 
 /*
