@@ -12,11 +12,24 @@ import { CookiesProvider, useCookies } from "react-cookie";
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
-let currentState = "MainMenu";
 let activeSaveSlot = null;
 let x = 0;
 
-
+function getJSCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
 
 // Save Menu
 
@@ -33,7 +46,7 @@ function closeSaves() {
 // Time increment
 
 setInterval(() => {
-  if (currentState !== "MainMenu") {
+  if (getJSCookie("gameState") != "MainMenu") {
     switch (activeSaveSlot) {
       case 1:
         save1data.addTime();
@@ -55,31 +68,36 @@ function refreshSaves(save1, save2, save3) {
   let saveSlot2 = document.getElementById("save-item2");
   let saveSlot3 = document.getElementById("save-item3");
 
-  if (save1.lvl === -1) {
-    if (!saveSlot1.classList.contains("empty-save")) {
-      saveSlot1.classList.add("empty-save");
+  try {
+    if (save1.lvl === -1) {
+      if (!saveSlot1.classList.contains("empty-save")) {
+        saveSlot1.classList.add("empty-save");
+      }
+    } else {
+      if (saveSlot1.classList.contains("empty-save")) {
+        saveSlot1.classList.remove("empty-save");
+      }
     }
-  } else {
-    if (saveSlot1.classList.contains("empty-save")) {
-      saveSlot1.classList.remove("empty-save");
+  
+    if (save2.lvl === -1) {
+      if (!saveSlot2.classList.contains("empty-save")) {
+        saveSlot2.classList.add("empty-save");
+      }
+    } else {
+      if (saveSlot2.classList.contains("empty-save")) {
+        saveSlot2.classList.remove("empty-save");
+      }
     }
+  
+    if (save3.lvl === -1) {
+      saveSlot3.classList.add("empty-save");
+    } else {
+      saveSlot3.classList.remove("empty-save");
+    }
+  } catch {
+    return;
   }
-
-  if (save2.lvl === -1) {
-    if (!saveSlot2.classList.contains("empty-save")) {
-      saveSlot2.classList.add("empty-save");
-    }
-  } else {
-    if (saveSlot2.classList.contains("empty-save")) {
-      saveSlot2.classList.remove("empty-save");
-    }
-  }
-
-  if (save3.lvl === -1) {
-    saveSlot3.classList.add("empty-save");
-  } else {
-    saveSlot3.classList.remove("empty-save");
-  }
+  
 }
 
 function App() {
@@ -136,6 +154,10 @@ function App() {
           break;
       }
 
+      if (cookies.user == null) {
+        return;
+      }
+
       const pushSaveData = {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -156,6 +178,11 @@ function App() {
   };
 
   const getData = () => {
+    if (cookies.gameState == null) {
+      setCookies("gameState", "MainMenu");
+      setData(1, undefined, undefined, save1.time);
+      window.location.reload();
+    }
     if (cookies.user == null) {
       return;
     }
@@ -186,7 +213,7 @@ function App() {
   };
 
   function changeToGame() {
-    currentState = "Game";
+    setCookies("gameState", "Game");
     document.getElementsByClassName("save-container")[0].style.top = "100vh";
     document.getElementById("save-back-button").style.display = "none";
     setTimeout(() => {
@@ -201,7 +228,7 @@ function App() {
           document.getElementById("darken-bg").style.transition = "opacity 1s";
           document.getElementById("darken-bg").style.opacity = 0;
           setTimeout(() => {
-            setKey((key) => key + 1);
+            window.location.reload();
           }, 2000);
         }, 1000);
       }, 500);
@@ -215,7 +242,7 @@ function App() {
     x++;
   }, [x === 0]);
 
-  switch (currentState) {
+  switch (cookies.gameState) {
     case "MainMenu":
       return (
         <div className="App">
@@ -260,21 +287,24 @@ function App() {
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
                     activeSaveSlot = 1;
-                    currentState = "Game";
+                    setCookies("gameState", "Game");
+                    window.location.reload();
                     setKey((key) => key + 1);
                   } else if (save2.lvl === -1) {
                     setData(2, 0);
                     save2data.lvl = 0;
                     setSave2((save2) => save2data);
                     activeSaveSlot = 2;
-                    currentState = "Game";
+                    setCookies("gameState", "Game");
+                    window.location.reload();
                     setKey((key) => key + 1);
                   } else if (save3.lvl === -1) {
                     setData(3, 0);
                     save3data.lvl = 0;
                     setSave3((save3) => save3data);
                     activeSaveSlot = 3;
-                    currentState = "Game";
+                    setCookies("gameState", "Game");
+                    window.location.reload();
                     setKey((key) => key + 1);
                   } else {
                     openSaves();
@@ -298,9 +328,9 @@ function App() {
           {/*Save Container*/}
 
           <div class="save-container" style={{ display: "none" }}>
-            <div style={{ display: "none" }} key={key}></div>
+            <div style={{ display: "block" }} key={key}></div>
             <div
-              class="save-item"
+              className="save-item"
               id="save-item1"
               onClick={() => {
                 if (save1.lvl !== -1) {
@@ -490,7 +520,8 @@ function App() {
               className="mobile"
               id="exit-game-button"
               onClick={() => {
-                currentState = "MainMenu";
+                setCookies("gameState", "MainMenu");
+                setData(1, undefined, undefined, save1.time);
 
                 switch (activeSaveSlot) {
                   case 1:
@@ -512,6 +543,7 @@ function App() {
                   default:
                     break;
                 }
+                window.location.reload();
               }}
             >
               <Icon icon="uil:bars" />
@@ -519,7 +551,8 @@ function App() {
             <div
               id="monitor"
               onClick={() => {
-                currentState = "Computer";
+                setCookies("gameState", "Computer");
+                window.location.reload();
                 setKey((key) => key + 1);
               }}
             ></div>
@@ -534,7 +567,7 @@ function App() {
               className="mobile"
               id="exit-game-button"
               onClick={() => {
-                currentState = "Computer";
+                setCookies("gameState", "Game")
 
                 switch (activeSaveSlot) {
                   case 1:
@@ -554,7 +587,7 @@ function App() {
                     break;
                 }
 
-                setKey((key) => key + 1);
+                window.location.reload();
               }}
             >
               <Icon icon="uil:bars" />
