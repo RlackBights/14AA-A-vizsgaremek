@@ -9,7 +9,7 @@
     <title>Admin Page</title>
   </head>
 
-  <body onload="loadSelect(); startTime();">
+  <body onload="loadOptions(); startTime();">
     <h1 id="title">ADMIN FELÜLET</h1>
     <div class="desktop">
       <div class="login-container">
@@ -46,9 +46,9 @@
             <select
               name=""
               class="class-tableSelect"
-              onchange="selectOptionChanged(this.value)"
+              onchange="addDataOption(this.value)"
             >
-              <option value="none" selected disabled hidden>
+              <option value="base" selected disabled hidden>
                 Select an Option
               </option>
             </select>
@@ -62,8 +62,8 @@
         </div>
         <div class="edit-data">
           <div class="filter">
-            <p>Table:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="none" selected disabled hidden>Select an Option</option></select></p>
-            <p>Attribute:<select name="" class=""><option value="none" selected disabled hidden>Select an Option</option></select></p>
+            <p>Table:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="base" selected disabled hidden>Select an Option</option></select></p>
+            <p>Attribute:<select name="" class=""><option value="base" selected disabled hidden>Select an Option</option></select></p>
             <p>Searched attribute: <input type="text"></p>
             <button>Search</button>
           </div>
@@ -79,7 +79,7 @@
               class="class-tableSelect"
               onchange="selectOptionChanged(this.value)"
             >
-              <option value="none" selected disabled hidden>
+              <option value="base" selected disabled hidden>
                 Select an Option
               </option>
             </select>
@@ -93,7 +93,7 @@
               class="class-tableSelect"
               onchange="selectOptionChanged(this.value)"
             >
-              <option value="none" selected disabled hidden>
+              <option value="base" selected disabled hidden>
                 Select an Option
               </option>
             </select>

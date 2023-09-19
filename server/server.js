@@ -46,7 +46,7 @@ async function checkData(req, res) {
 app.use("/admin/checkData", checkData);
 
 //tábla nevek lekérése az admin page-hez
-async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics' AND table_name NOT LIKE '%save%'"))}
+async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
 app.use("/admin/getTableNames", getTableNames);
 
 //tábla column name lekérése admin page-hez
@@ -79,7 +79,7 @@ async function registerAttempt(req, res) {
   let names = await db.query(`SELECT name FROM userTbl`);
   names.forEach(element => {
     if (req.body.username == element.name) {
-      res.status(401).json({message: "A user with htis name already exists!"});
+      res.status(401).json({message: "A user with this name already exists!"});
       existsError = true;
     }
   })

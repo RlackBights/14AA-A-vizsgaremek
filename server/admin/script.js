@@ -13,6 +13,7 @@ const adminNav1 = document.getElementsByClassName("admin-nav")[0];
 const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
+const tableTitles = document.getElementById("tableTitles");
 
 
 function zoom() {
@@ -55,7 +56,7 @@ function loginPressed() {
   adminPage.style.display = "block";
 }
 
-function loadSelect() {
+function loadOptions() {
   var loadSelect = document.getElementsByClassName("class-tableSelect");
   fetch("http://127.0.0.1:8000/admin/getTableNames", {
     method: "GET",
@@ -118,10 +119,15 @@ function openPage(pageName) {
   }
 }
 
-function selectOptionChanged(selectedTable) {
+function addDataOption(selectedTable) {
 
+  if (selectedTable.includes("save")) {
+    alert("You can't add data to this table");
+    document.getElementsByClassName("class-tableSelect")[0].value = 'base';
+    tableTitles.innerHTML = '';
+  }else{
   const columnNames =  [];
-  var tableTitles = document.getElementById("tableTitles");
+  
   var tableInput = document.getElementById("tableInput");
   tableTitles.innerHTML = '';
 
@@ -146,7 +152,7 @@ function selectOptionChanged(selectedTable) {
         li.appendChild(input)
       }
     });
-    
+  }
 }
 
 function startTime() {
@@ -163,14 +169,9 @@ function startTime() {
 function checkTime(i) {
   if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
   return i;
-function insertData(){
 
-  const dataToInsert = [];
-  const allInputs = document.querySelectorAll('.insertDatas');
-  for (let x = 0; x < allInputs.length; x++) {
-    console.log(allInputs[x]);
-    
-  }
 }
+
+function insertData(){
 
 }
