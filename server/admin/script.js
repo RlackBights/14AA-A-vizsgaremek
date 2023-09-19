@@ -60,7 +60,7 @@ function loginPressed() {
 }
 
 function loadOptions() {
-  var loadSelect = document.getElementsByClassName("class-tableSelect");
+  var loadSelect = document.getElementsByClassName("tableSelect");
   fetch("http://127.0.0.1:8000/admin/getTableNames", {
     method: "GET",
     headers: {
@@ -126,7 +126,7 @@ function addDataOption(selectedTable) {
 
   if (selectedTable.includes("save")) {
     alert("You can't add data to this table");
-    document.getElementsByClassName("class-tableSelect")[0].value = 'base';
+    document.getElementsByClassName("tableSelect")[0].value = 'base';
     tableTitles.innerHTML = '';
   }else{
 
@@ -188,6 +188,7 @@ function checkTime(i) {
 function insertData(){
   const allTitles = [];
   const allInputData = [];
+  var tableName = document.getElementsByClassName('tableSelect')[0].value;
   var insertList = document.getElementsByClassName('insertDatas-list');
   var insertInput = document.getElementsByClassName("insertDatas-input");
   let arrayLength = tableTitles.childElementCount;
@@ -212,4 +213,5 @@ function insertData(){
   }
   console.log(allTitles);
   console.log(allInputData);
+  console.log(tableName);
 }
