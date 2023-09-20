@@ -185,33 +185,57 @@ function checkTime(i) {
 
 }
 
+function insertDataFetch(allInputs){
+  fetch(
+    "http://127.0.0.1:8000/admin/insertIntoTables"
+    , {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ list: allInputs }),
+    }).then(function (response) {
+      return response.json();
+    })
+}
+
 function insertData(){
-  const allTitles = [];
-  const allInputData = [];
+  var allInputs = new Map();
   var tableName = document.getElementsByClassName('tableSelect')[0].value;
+
+  allInputs.set("title", tableName);
+
   var insertList = document.getElementsByClassName('insertDatas-list');
   var insertInput = document.getElementsByClassName("insertDatas-input");
   let arrayLength = tableTitles.childElementCount;
+
   for (let x = 0; x < arrayLength; x++) {
-    allTitles[x] = insertList[x].innerText;
+
+    allInputs.set(insertList[x].innerText, insertInput[x].value);
+
     if (insertInput[x].type === 'number' && isDecimal(insertInput[x].value)) {
       alert("Decimal numbers are not acceptable!!!!");
     }else if (insertInput[x].hasAttribute('min')) {
       if (insertInput[x].value < 0) {
-        alert("The input value for" + allTitles[x] + "should be between 0 and 1!");
-        break;
+        alert("The input value for " + allInputs[x] + " should be 0 or 1!");
+        allInputs = [];
+        return;
       }else if (insertInput[x].value > 1) {
-        alert("The input value for" + allTitles[x] + "should be between 0 and 1!");
-        break;
+        alert("The input value for " + allInputs[x] + " should be 0 or 1!");
+        allInputs = [];
+        return;
       }
       else {
-        allInputData[x] = insertInput[x].value;
+        allInputs.set(insertList[x].innerText, insertInput[x].value);
       }
     }else {
-      allInputData[x] = insertInput[x].value;
+      allInputs.set(insertList[x].innerText, insertInput[x].value);
     }
   }
-  console.log(allTitles);
-  console.log(allInputData);
-  console.log(tableName);
+  array.forEach(element => {
+    for (let x = 0; x < array.length; x++) {
+      const element = array[x];
+      
+    }
+  });
 }

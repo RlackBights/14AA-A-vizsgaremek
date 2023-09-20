@@ -53,6 +53,12 @@ app.use("/admin/getTableNames", getTableNames);
 async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(column_name), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
 app.use("/admin/getFields", getFields);
 
+//insertInto query
+async function insertIntoTables(req, res) {
+  db.query("INSERT INTO " + req.body.list[0].keys() + " (" + req.body.list.slice(1).keys() + ") VALUES")
+}
+app.use("/admin/insertIntoTables", insertIntoTables);
+
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
 
