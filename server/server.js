@@ -27,9 +27,13 @@ app.use(
 async function getData(req, res) {
   res.json(
     await db.query(
-      "SELECT saveId, lvl, time, money, cpuId AS 'cpu', gpuId AS 'gpu', ramId AS 'ram', stgId AS 'stg' FROM usertbl " +
+      "SELECT saveId, lvl, time, money, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM usertbl " +
       "INNER JOIN savedata ON " +
       "savedata.userId = usertbl.uid " +
+      "INNER JOIN cputbl c ON savedata.cpuId = c.hardwareId " +
+      "INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId " +
+      "INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId " +
+      "INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId " +
       `WHERE userTbl.name = '${req.query.userAuthCode.split('$')[0]}' AND userTbl.password = '${req.query.userAuthCode.split('$')[1]}'`
     )
   );

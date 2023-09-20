@@ -12,7 +12,8 @@ import { CookiesProvider, useCookies } from "react-cookie";
 let save1data = new saveFile(-1, 0, 0, "", "", "", "");
 let save2data = new saveFile(-1, 0, 0, "", "", "", "");
 let save3data = new saveFile(-1, 0, 0, "", "", "", "");
-let activeSaveSlot = null;
+document.cookie = (getJSCookie("activeSaveSlot") == null) ? "activeSaveSlot = null;" : ("activeSaveSlot = " + getJSCookie("activeSaveSlot"));
+let timerAllowed = 0;
 let x = 0;
 
 function getJSCookie(cname) {
@@ -36,6 +37,7 @@ function getJSCookie(cname) {
 function openSaves() {
   document.getElementsByClassName("save-container")[0].style.display = "flex";
   document.getElementById("save-back-button").style.display = "unset";
+  document.getElementById("login-container").style.pointerEvents = "none";
 }
 
 function closeSaves() {
@@ -45,23 +47,7 @@ function closeSaves() {
 
 // Time increment
 
-setInterval(() => {
-  if (getJSCookie("gameState") != "MainMenu") {
-    switch (activeSaveSlot) {
-      case 1:
-        save1data.addTime();
-        break;
-      case 2:
-        save2data.addTime();
-        break;
-      case 3:
-        save3data.addTime();
-        break;
-      default:
-        break;
-    }
-  }
-}, 1000);
+
 
 function refreshSaves(save1, save2, save3) {
   let saveSlot1 = document.getElementById("save-item1");
@@ -106,6 +92,28 @@ function App() {
   const [save1, setSave1] = useState(save1data);
   const [save2, setSave2] = useState(save2data);
   const [save3, setSave3] = useState(save3data);
+
+    if (timerAllowed == 0) {
+      timerAllowed++;
+      setInterval(() => {
+        if (getJSCookie("gameState") != "MainMenu") {
+          switch (getJSCookie("activeSaveSlot")) {
+            case "1":
+              save1data.addTime();
+              break;
+            case "2":
+              save2data.addTime();
+              break;
+            case "3":
+              save3data.addTime();
+              break;
+            default:
+              break;
+          }
+        }
+      }, 1000);
+    }
+  
 
   const setData = (
     saveId,
@@ -180,7 +188,7 @@ function App() {
   const getData = () => {
     if (cookies.gameState == null) {
       setCookies("gameState", "MainMenu");
-      setData(1, undefined, undefined, save1.time);
+      setCookies("activeSaveSlot", null);
       window.location.reload();
     }
     if (cookies.user == null) {
@@ -213,7 +221,6 @@ function App() {
   };
 
   function changeToGame() {
-    setCookies("gameState", "Game");
     document.getElementsByClassName("save-container")[0].style.top = "100vh";
     document.getElementById("save-back-button").style.display = "none";
     document.getElementById("user-icon").style.display = "none";
@@ -229,6 +236,7 @@ function App() {
           document.getElementById("darken-bg").style.transition = "opacity 1s";
           document.getElementById("darken-bg").style.opacity = 0;
           setTimeout(() => {
+            setCookies("gameState", "Game");
             window.location.reload();
           }, 2000);
         }, 1000);
@@ -287,26 +295,20 @@ function App() {
                     setData(1, 0)
                     save1data.lvl = 0;
                     setSave1((save1) => save1data);
-                    activeSaveSlot = 1;
-                    setCookies("gameState", "Game");
-                    window.location.reload();
-                    setKey((key) => key + 1);
+                    setCookies("activeSaveSlot", 1);
+                    changeToGame();
                   } else if (save2.lvl === -1) {
                     setData(2, 0);
                     save2data.lvl = 0;
                     setSave2((save2) => save2data);
-                    activeSaveSlot = 2;
-                    setCookies("gameState", "Game");
-                    window.location.reload();
-                    setKey((key) => key + 1);
+                    setCookies("activeSaveSlot", 2);
+                    changeToGame();
                   } else if (save3.lvl === -1) {
                     setData(3, 0);
                     save3data.lvl = 0;
                     setSave3((save3) => save3data);
-                    activeSaveSlot = 3;
-                    setCookies("gameState", "Game");
-                    window.location.reload();
-                    setKey((key) => key + 1);
+                    setCookies("activeSaveSlot", 3);
+                    changeToGame();
                   } else {
                     openSaves();
                   }
@@ -336,7 +338,7 @@ function App() {
                 id="save-item1"
                 onClick={() => {
                   if (save1.lvl !== -1) {
-                    activeSaveSlot = 1;
+                    setCookies("activeSaveSlot", 1);
                     changeToGame();
                   }
                 }}
@@ -395,7 +397,7 @@ function App() {
                 id="save-item2"
                 onClick={() => {
                   if (save2.lvl !== -1) {
-                    activeSaveSlot = 2;
+                    setCookies("activeSaveSlot", 2);
                     changeToGame();
                   }
                 }}
@@ -454,7 +456,7 @@ function App() {
                 id="save-item3"
                 onClick={() => {
                   if (save3.lvl !== -1) {
-                    activeSaveSlot = 3;
+                    setCookies("activeSaveSlot", 3);
                     changeToGame();
                   }
                 }}
@@ -528,21 +530,17 @@ function App() {
               id="exit-game-button"
               onClick={() => {
                 setCookies("gameState", "MainMenu");
-                setData(1, undefined, undefined, save1.time);
 
-                switch (activeSaveSlot) {
-                  case 1:
-                    activeSaveSlot = null;
+                switch (getJSCookie("activeSaveSlot")) {
+                  case "1":
                     setSave1((save1) => save1data);
                     setData(1, undefined, undefined, save1.time);
                     break;
-                  case 2:
-                    activeSaveSlot = null;
+                  case "2":
                     setSave2((save2) => save2data);
                     setData(2, undefined, undefined, save2.time);
                     break;
-                  case 3:
-                    activeSaveSlot = null;
+                  case "3":
                     setSave3((save3) => save3data);
                     setData(3, undefined, undefined, save3.time);
                     break;
@@ -550,6 +548,7 @@ function App() {
                   default:
                     break;
                 }
+                setCookies("activeSaveSlot", null);
                 window.location.reload();
               }}
             >
@@ -576,7 +575,7 @@ function App() {
               onClick={() => {
                 setCookies("gameState", "Game")
 
-                switch (activeSaveSlot) {
+                switch (cookies.activeSaveSlot) {
                   case 1:
                     setSave1((save1) => save1data);
                     setData(1, undefined, undefined, save1.time);
