@@ -15,7 +15,16 @@ const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
 
-function isDecimal(number){
+function regex(text) {
+  /* /^[a-zA-Z0-9áéóőúűöüßäÁÉÓŐÖÜÚŰÄ_.!]*$/g */
+
+  var acceptableChars = new RegExp('^[a-zA-Z0-9áéóőúűöüßäÁÉÓŐÖÜÚŰÄ_.!]*$', 'g');
+
+  return acceptableChars.test(text)
+
+}
+
+function isDecimal(number) {
   return (number % 1);
 }
 
@@ -73,7 +82,7 @@ function loadOptions() {
     }).then(function (tables) {
       for (let index = 0; index < tables.length; index++) {
         for (let i = 0; i < loadSelect.length; i++) {
-          loadSelect[i].add(new Option(tables[index].table_name));          
+          loadSelect[i].add(new Option(tables[index].table_name));
         }
       }
     });
@@ -128,43 +137,43 @@ function addDataOption(selectedTable) {
     alert("You can't add data to this table");
     document.getElementsByClassName("tableSelect")[0].value = 'base';
     tableTitles.innerHTML = '';
-  }else{
+  } else {
 
-  const columnNames =  [];
-  
-  tableTitles.innerHTML = '';
+    const columnNames = [];
 
-  fetch(
-    "http://127.0.0.1:8000/admin/getFields"
-    , {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ table: selectedTable }),
-    }).then(function (response) {
-      return response.json();
-    }).then(function (table) {
-      for (let i = 1; i < table.length; i++) {
-        let li = document.createElement('li');
-        let input = document.createElement('input');
-        li.className = "insertDatas-list";
-        input.className = "insertDatas-input";
-        columnNames[i] = table[i].column_name;
-        li.innerText = columnNames[i];
-        tableTitles.appendChild(li);
-        li.appendChild(input);
-        if (table[i].COLUMN_TYPE.includes("int")) {
-          input.type = 'number';
-          if (table[i].COLUMN_TYPE.includes("(1)")) {
-            input.min = 0;
-            input.max = 1;
+    tableTitles.innerHTML = '';
+
+    fetch(
+      "http://127.0.0.1:8000/admin/getFields"
+      , {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ table: selectedTable }),
+      }).then(function (response) {
+        return response.json();
+      }).then(function (table) {
+        for (let i = 1; i < table.length; i++) {
+          let li = document.createElement('li');
+          let input = document.createElement('input');
+          li.className = "insertDatas-list";
+          input.className = "insertDatas-input";
+          columnNames[i] = table[i].column_name;
+          li.innerText = columnNames[i];
+          tableTitles.appendChild(li);
+          li.appendChild(input);
+          if (table[i].COLUMN_TYPE.includes("int")) {
+            input.type = 'number';
+            if (table[i].COLUMN_TYPE.includes("(1)")) {
+              input.min = 0;
+              input.max = 1;
+            }
+          } else if (table[i].COLUMN_TYPE.includes("varchar")) {
+            input.type = 'text';
           }
-        }else if (table[i].COLUMN_TYPE.includes("varchar")) {
-          input.type = 'text';
         }
-      }
-    });
+      });
   }
 }
 
@@ -175,17 +184,17 @@ function startTime() {
   let s = today.getSeconds();
   m = checkTime(m);
   s = checkTime(s);
-  document.getElementById('clock').innerHTML =  h + ":" + m;
+  document.getElementById('clock').innerHTML = h + ":" + m;
   setTimeout(startTime, 1000);
 }
 
 function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
   return i;
 
 }
 
-function insertDataFetch(allInputs){
+function insertDataFetch(allInputs) {
   fetch(
     "http://127.0.0.1:8000/admin/insertIntoTables"
     , {
@@ -199,7 +208,7 @@ function insertDataFetch(allInputs){
     })
 }
 
-function insertData(){
+function insertData() {
   var allInputs = new Map();
   var tableName = document.getElementsByClassName('tableSelect')[0].value;
 
@@ -210,32 +219,34 @@ function insertData(){
   let arrayLength = tableTitles.childElementCount;
 
   for (let x = 0; x < arrayLength; x++) {
+    if (!regex(insertInput[x].value)) {
+      alert('Only letters, numbers and "_ . !" symbols!!!');
+      allInputs = '';
+      break;
+    } else {
+      allInputs.set(insertList[x].innerText, insertInput[x].value);
 
-    allInputs.set(insertList[x].innerText, insertInput[x].value);
-
-    if (insertInput[x].type === 'number' && isDecimal(insertInput[x].value)) {
-      alert("Decimal numbers are not acceptable!!!!");
-    }else if (insertInput[x].hasAttribute('min')) {
-      if (insertInput[x].value < 0) {
-        alert("The input value for " + allInputs[x] + " should be 0 or 1!");
-        allInputs = [];
-        return;
-      }else if (insertInput[x].value > 1) {
-        alert("The input value for " + allInputs[x] + " should be 0 or 1!");
-        allInputs = [];
-        return;
-      }
-      else {
+      if (insertInput[x].type === 'number' && isDecimal(insertInput[x].value)) {
+        alert("Decimal numbers are not acceptable!!!!");
+      } else if (insertInput[x].hasAttribute('min')) {
+        if (insertInput[x].value < 0) {
+          alert("The input value for " + allInputs[x] + " should be 0 or 1!");
+          allInputs = [];
+          return;
+        } else if (insertInput[x].value > 1) {
+          alert("The input value for " + allInputs[x] + " should be 0 or 1!");
+          allInputs = [];
+          return;
+        }
+        else {
+          allInputs.set(insertList[x].innerText, insertInput[x].value);
+        }
+      } else {
         allInputs.set(insertList[x].innerText, insertInput[x].value);
       }
-    }else {
-      allInputs.set(insertList[x].innerText, insertInput[x].value);
+
     }
   }
-  array.forEach(element => {
-    for (let x = 0; x < array.length; x++) {
-      const element = array[x];
-      
-    }
-  });
+  console.log(allInputs);
 }
+
