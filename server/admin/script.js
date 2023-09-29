@@ -14,6 +14,9 @@ const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
+var on = 1;
+var off = 0;
+
 
 function regex(text) {
   /* /^[a-zA-Z0-9áéóőúűöüßäÁÉÓŐÖÜÚŰÄ_.!]*$/g */
@@ -22,6 +25,14 @@ function regex(text) {
 
   return acceptableChars.test(text)
 
+}
+
+function checkBox(cb) {
+  if (cb == true) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 function isDecimal(number) {
@@ -166,8 +177,7 @@ function addDataOption(selectedTable) {
           if (table[i].COLUMN_TYPE.includes("int")) {
             input.type = 'number';
             if (table[i].COLUMN_TYPE.includes("(1)")) {
-              input.min = 0;
-              input.max = 1;
+              input.type = 'checkbox'
             }
           } else if (table[i].COLUMN_TYPE.includes("varchar")) {
             input.type = 'text';
@@ -226,25 +236,13 @@ function insertData() {
     } else {
       allInputs.set(insertList[x].innerText, insertInput[x].value);
 
-      if (insertInput[x].type === 'number' && isDecimal(insertInput[x].value)) {
-        alert("Decimal numbers are not acceptable!!!!");
-      } else if (insertInput[x].hasAttribute('min')) {
-        if (insertInput[x].value < 0) {
-          alert("The input value for " + allInputs[x] + " should be 0 or 1!");
-          allInputs = [];
-          return;
-        } else if (insertInput[x].value > 1) {
-          alert("The input value for " + allInputs[x] + " should be 0 or 1!");
-          allInputs = [];
-          return;
+      if (insertInput[x].type === 'checkbox') {
+        if (insertInput[x].checked == true) {
+          allInputs.set(insertList[x].innerText, checkBox(insertInput[x].value))
+        } else {
+          allInputs.set(insertList[x].innerText, checkBox(insertInput[x].value))
         }
-        else {
-          allInputs.set(insertList[x].innerText, insertInput[x].value);
-        }
-      } else {
-        allInputs.set(insertList[x].innerText, insertInput[x].value);
       }
-
     }
   }
   console.log(allInputs);
