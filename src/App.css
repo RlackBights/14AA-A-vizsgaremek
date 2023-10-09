@@ -3,25 +3,35 @@
   --theme-color: #4b43ee;
 }
 
+/*
+888b     d888  .d88888b.  888888b.  8888888 888      8888888888 
+8888b   d8888 d88P" "Y88b 888  "88b   888   888      888        
+88888b.d88888 888     888 888  .88P   888   888      888        
+888Y88888P888 888     888 8888888K.   888   888      8888888    
+888 Y888P 888 888     888 888  "Y88b  888   888      888        
+888  Y8P  888 888     888 888    888  888   888      888        
+888   "   888 Y88b. .d88P 888   d88P  888   888      888        
+888       888  "Y88888P"  8888888P" 8888888 88888888 8888888888
+*/
+
+.mobile {
+  display: var(--mobile-vis);
+}
+
+/*
+8888888b.  8888888888 .d8888b.  888    d8P 88888888888 .d88888b.  8888888b.  
+888  "Y88b 888       d88P  Y88b 888   d8P      888    d88P" "Y88b 888   Y88b 
+888    888 888       Y88b.      888  d8P       888    888     888 888    888 
+888    888 8888888    "Y888b.   888d88K        888    888     888 888   d88P 
+888    888 888           "Y88b. 8888888b       888    888     888 8888888P"  
+888    888 888             "888 888  Y88b      888    888     888 888        
+888  .d88P 888       Y88b  d88P 888   Y88b     888    Y88b. .d88P 888        
+8888888P"  8888888888 "Y8888P"  888    Y88b    888     "Y88888P"  888        
+*/
 .App {
   text-align: center;
   height: 100%;
   width: 100%;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.mobile {
-  display: var(--mobile-vis);
 }
 
 .App-header {
@@ -33,19 +43,6 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .button-container {
@@ -76,37 +73,6 @@
   pointer-events: none;
 }
 
-#user-icon {
-  pointer-events: all !important;
-  background: none;
-  color: white;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-  width: fit-content;
-  column-gap: 0.5rem;
-  height: 2.5rem;
-  left: 2rem;
-  top: 1.5rem;
-  background-color: none;
-  border: none;
-}
-
-#user-icon svg {
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 3px solid white;
-  border-radius: 100%;
-}
-
-#user-icon p {
-  font-style: italic;
-  letter-spacing: 1px;
-  font-weight: 100;
-  color: black;
-}
 
 .main-menu button {
   cursor: pointer;
@@ -144,6 +110,182 @@
 .main-menu button:hover {
   margin-left: -1rem;
 }
+
+
+/*
+888      .d88888b.   .d8888b.  8888888 888b    888 
+888     d88P" "Y88b d88P  Y88b   888   8888b   888 
+888     888     888 888    888   888   88888b  888 
+888     888     888 888          888   888Y88b 888 
+888     888     888 888  88888   888   888 Y88b888 
+888     888     888 888    888   888   888  Y88888 
+888     Y88b. .d88P Y88b  d88P   888   888   Y8888 
+88888888 "Y88888P"   "Y8888P88 8888888 888    Y888
+*/
+#user-icon {
+  pointer-events: all !important;
+  background: none;
+  color: white;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: fit-content;
+  column-gap: 0.5rem;
+  height: 2.5rem;
+  left: 2rem;
+  top: 1.5rem;
+  background-color: none;
+  border: none;
+}
+
+#user-icon svg {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 3px solid white;
+  border-radius: 100%;
+}
+
+#user-icon p {
+  font-style: italic;
+  letter-spacing: 1px;
+  font-weight: 100;
+  color: black;
+}
+
+#login-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+#login-page, #register-page {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-btn, #register-btn {
+  text-decoration: underline;
+}
+
+#login-btn:hover, #register-btn:hover {
+  color: var(--theme-color);
+  cursor: pointer;
+}
+
+#form-container {
+  width: 15%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  row-gap: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: 2px solid var(--theme-color);
+  border-radius: 1rem;
+  padding: 1% 0;
+}
+
+#form-container h1 {
+  font-size: 8vmin;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 1px;
+  color: var(--theme-color);
+}
+
+#form-container p {
+  margin: 0;
+  padding: 0;
+  font-size: 3.5vmin;
+}
+
+#form-container input {
+  width: 80%;
+  height: 5%;
+  color: white;
+  background: none;
+  outline: none;
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 2vmin;
+}
+
+#form-container input:focus {
+  border: 2px solid var(--theme-color);
+}
+
+#form-container .form-btn {
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #fff;
+  border-radius: 0.5rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  width: fit-content;
+  height: 2rem;
+  text-align: center;
+  font-weight: 100;
+  font-size: 1.5rem;
+}
+
+#form-container .form-btn:hover {
+  border: 2px solid var(--theme-color);
+  color: var(--theme-color);
+}
+
+#button-container p {
+  font-size: 1rem !important;
+}
+
+#error-message {
+  position: absolute;
+  width: fit-content;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  background-color: rgba(255, 0, 0, 0.6);
+  border: 1px solid white;
+  border-radius: 1rem;
+  color: white;
+  font-size: 3vmin;
+}
+
+.close-image {
+  position: absolute;
+  cursor: pointer;
+  top: 25%;
+  right: 40%;
+  margin: 0;
+  padding: 0;
+  width: 4vmin;
+  aspect-ratio: 1/1;
+}
+
+/*
+ .d8888b.        d8888 888     888 8888888888 .d8888b.        d8888 8888888b.  8888888b.   .d8888b.  
+d88P  Y88b      d88888 888     888 888       d88P  Y88b      d88888 888   Y88b 888  "Y88b d88P  Y88b 
+Y88b.          d88P888 888     888 888       888    888     d88P888 888    888 888    888 Y88b.      
+ "Y888b.      d88P 888 Y88b   d88P 8888888   888           d88P 888 888   d88P 888    888  "Y888b.   
+    "Y88b.   d88P  888  Y88b d88P  888       888          d88P  888 8888888P"  888    888     "Y88b. 
+      "888  d88P   888   Y88o88P   888       888    888  d88P   888 888 T88b   888    888       "888 
+Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  888  .d88P Y88b  d88P 
+ "Y8888P" d88P     888     Y8P     8888888888 "Y8888P" d88P     888 888   T88b 8888888P"   "Y8888P"  
+*/
 
 .save-container {
   z-index: 10;
@@ -355,6 +497,17 @@
   position: relative;
 }
 
+/*
+       d8888 888b    888 8888888 888b     d888        d8888 88888888888 8888888 .d88888b.  888b    888  .d8888b.  
+      d88888 8888b   888   888   8888b   d8888       d88888     888       888  d88P" "Y88b 8888b   888 d88P  Y88b 
+     d88P888 88888b  888   888   88888b.d88888      d88P888     888       888  888     888 88888b  888 Y88b.      
+    d88P 888 888Y88b 888   888   888Y88888P888     d88P 888     888       888  888     888 888Y88b 888  "Y888b.   
+   d88P  888 888 Y88b888   888   888 Y888P 888    d88P  888     888       888  888     888 888 Y88b888     "Y88b. 
+  d88P   888 888  Y88888   888   888  Y8P  888   d88P   888     888       888  888     888 888  Y88888       "888 
+ d8888888888 888   Y8888   888   888   "   888  d8888888888     888       888  Y88b. .d88P 888   Y8888 Y88b  d88P 
+d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 "Y88888P"  888    Y888  "Y8888P"
+*/
+
 .slide-left {
   animation: slideLeft 1s ease-in-out forwards;
 }
@@ -381,10 +534,29 @@
   }
 }
 
+.show-error {
+  animation-name: showErrorMessage;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showErrorMessage {
+  0% {top: -5rem}
+  10% {top: 2rem}
+  90% {top: 2rem}
+  100% {top: -5rem}
+}
+
 /*
-
-Room
-
+8888888b.   .d88888b.   .d88888b.  888b     d888 
+888   Y88b d88P" "Y88b d88P" "Y88b 8888b   d8888 
+888    888 888     888 888     888 88888b.d88888 
+888   d88P 888     888 888     888 888Y88888P888 
+8888888P"  888     888 888     888 888 Y888P 888 
+888 T88b   888     888 888     888 888  Y8P  888 
+888  T88b  Y88b. .d88P Y88b. .d88P 888   "   888 
+888   T88b  "Y88888P"   "Y88888P"  888       888 
 */
 
 #exit-game-button {
@@ -415,146 +587,15 @@ Room
   border: 5px dashed black;
 }
 
-#login-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-}
-
-#login-page, #register-page {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#login-btn, #register-btn {
-  text-decoration: underline;
-}
-
-#login-btn:hover, #register-btn:hover {
-  color: var(--theme-color);
-  cursor: pointer;
-}
-
-#form-container {
-  width: 15%;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  row-gap: 1rem;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  border: 2px solid var(--theme-color);
-  border-radius: 1rem;
-  padding: 1% 0;
-}
-
-#form-container h1 {
-  font-size: 8vmin;
-  margin: 0;
-  padding: 0;
-  letter-spacing: 1px;
-  color: var(--theme-color);
-}
-
-#form-container p {
-  margin: 0;
-  padding: 0;
-  font-size: 3.5vmin;
-}
-
-#form-container input {
-  width: 80%;
-  height: 5%;
-  color: white;
-  background: none;
-  outline: none;
-  border: 2px solid #fff;
-  border-radius: 0.5rem;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  font-size: 2vmin;
-}
-
-#form-container input:focus {
-  border: 2px solid var(--theme-color);
-}
-
-#form-container .form-btn {
-  background: rgba(0, 0, 0, 0.4);
-  border: 2px solid #fff;
-  border-radius: 0.5rem;
-  margin: 0;
-  padding: 0 0.5rem;
-  width: fit-content;
-  height: 2rem;
-  text-align: center;
-  font-weight: 100;
-  font-size: 1.5rem;
-}
-
-#form-container .form-btn:hover {
-  border: 2px solid var(--theme-color);
-  color: var(--theme-color);
-}
-
-#button-container p {
-  font-size: 1rem !important;
-}
-
-#error-message {
-  position: absolute;
-  width: fit-content;
-  margin: 0;
-  padding: 0.5rem 1rem;
-  top: -5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: block;
-  background-color: rgba(255, 0, 0, 0.6);
-  border: 1px solid white;
-  border-radius: 1rem;
-  color: white;
-  font-size: 3vmin;
-}
-
-.show-error {
-  animation-name: showErrorMessage;
-  animation-duration: 4s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-}
-
-@keyframes showErrorMessage {
-  0% {top: -5rem}
-  10% {top: 2rem}
-  90% {top: 2rem}
-  100% {top: -5rem}
-}
-
-.close-image {
-  position: absolute;
-  cursor: pointer;
-  top: 25%;
-  right: 40%;
-  margin: 0;
-  padding: 0;
-  width: 4vmin;
-  aspect-ratio: 1/1;
-}
-
 /*
-
-Computer
-
+888b     d888  .d88888b.  888b    888 8888888 88888888888 .d88888b.  8888888b.  
+8888b   d8888 d88P" "Y88b 8888b   888   888       888    d88P" "Y88b 888   Y88b 
+88888b.d88888 888     888 88888b  888   888       888    888     888 888    888 
+888Y88888P888 888     888 888Y88b 888   888       888    888     888 888   d88P 
+888 Y888P 888 888     888 888 Y88b888   888       888    888     888 8888888P"  
+888  Y8P  888 888     888 888  Y88888   888       888    888     888 888 T88b   
+888   "   888 Y88b. .d88P 888   Y8888   888       888    Y88b. .d88P 888  T88b  
+888       888  "Y88888P"  888    Y888 8888888     888     "Y88888P"  888   T88b
 */
 
 #desktop {
