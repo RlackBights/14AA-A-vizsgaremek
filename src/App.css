@@ -1,6 +1,7 @@
 :root {
   --mobile-vis: unset;
-  --theme-color: #4b43ee;
+  --theme-color: #420690;
+  --accent-color: #9700dd;
 }
 
 /*
@@ -74,11 +75,11 @@
 }
 
 
-.main-menu button {
+.button-container button {
   cursor: pointer;
   z-index: 1;
   width: 15rem;
-  border: 4px solid #fff;
+  border: 5px solid #fff;
   border-left: none;
   border-top-right-radius: 5rem;
   border-bottom-right-radius: 5rem;
@@ -93,7 +94,7 @@
   font-weight: 900;
   margin: 0.5rem 0 0.5rem -4rem;
   text-align: right;
-  transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s;
+  transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s, border 0.5s, box-shadow 0.5s;
   font-family: "Pixel Font" !important;
   letter-spacing: 1px;
   cursor: pointer;
@@ -107,8 +108,10 @@
   position: absolute;
   top: 0;
 }
-.main-menu button:hover {
+.button-container button:hover {
   margin-left: -1rem;
+  border: 5px solid var(--theme-color);
+  box-shadow: 10px 10px 10px rgb(100, 100, 100);
 }
 
 
@@ -123,27 +126,34 @@
 88888888 "Y88888P"   "Y8888P88 8888888 888    Y888
 */
 #user-icon {
+  font-family: "Pixel Font" !important;
   pointer-events: all !important;
   background: none;
-  color: white;
   position: absolute;
+  color: #fff;
   display: flex;
+  column-gap: 0.5rem;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  margin: 0;
-  width: fit-content;
-  column-gap: 0.5rem;
-  height: 2.5rem;
-  left: 2rem;
-  top: 1.5rem;
+  padding: 0.5rem;
+  margin: 1%;
+  cursor: pointer;
   background-color: none;
-  border: none;
+  font-size: 2.5vmin;
+  border-radius: 5rem;
+  border: 4px solid transparent;
+}
+
+#user-icon:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border: 4px solid var(--theme-color);
+  transition: all 0.5s;
+  box-shadow: 10px 5px 10px rgb(100, 100, 100);
 }
 
 #user-icon svg {
   background-color: rgba(0, 0, 0, 0.5);
-  border: 3px solid white;
+  border: 2px solid white;
   border-radius: 100%;
 }
 
@@ -151,7 +161,7 @@
   font-style: italic;
   letter-spacing: 1px;
   font-weight: 100;
-  color: black;
+  margin: 0;
 }
 
 #login-container {
@@ -238,6 +248,7 @@
   text-align: center;
   font-weight: 100;
   font-size: 1.5rem;
+  color: #fff;
 }
 
 #form-container .form-btn:hover {
@@ -307,19 +318,20 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   grid-template-rows: 1fr 1fr;
   border-radius: 1.25rem;
   border: 5px solid black;
-  color: #fff;
+  color: var(--accent-color);
+  background: linear-gradient(
+    rgb(0, 0, 0) 0%,
+    var(--theme-color) 100%
+  );
 }
 
 #save-item1 {
-  background: #a59265;
 }
 
 #save-item2 {
-  background: #74caa6;
 }
 
 #save-item3 {
-  background: #716ccb;
 }
 
 .grid-item {
@@ -389,20 +401,16 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
 }
 
-#html {
-  color: orange;
+#config p span{
+  color: #fff;
 }
 
-#css {
-  color: blue;
-}
-
-#js {
-  color: yellow;
+#html,#css,#js {
+  color: var(--accent-color);
 }
 
 .locked-lang {
-  color: gray !important;
+  color: #696969 !important;
 }
 
 #save-back-button {
@@ -455,7 +463,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 .empty-save .empty-save-base p:last-child {
-  color: #c1c1c1;
+  color: #696969;
 }
 
 .delete-button {

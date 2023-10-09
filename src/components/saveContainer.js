@@ -55,10 +55,10 @@ export function SaveContainer() {
                 </p>
             </div>
             <div id="config">
-                <p>CPU: {save1.cpu}</p>
-                <p>GPU: {save1.gpu}</p>
-                <p>RAM: {save1.ram}</p>
-                <p>STG: {save1.stg}</p>
+                <p>CPU: <span>{save1.cpu}</span></p>
+                <p>GPU: <span>{save1.gpu}</span></p>
+                <p>RAM: <span>{save1.ram}</span></p>
+                <p>STG: <span>{save1.stg}</span></p>
             </div>
             </div>
             <div class="grid-item save-bottom">
@@ -114,10 +114,10 @@ export function SaveContainer() {
                 </p>
             </div>
             <div id="config">
-                <p>CPU: {save2.cpu}</p>
-                <p>GPU: {save2.gpu}</p>
-                <p>RAM: {save2.ram}</p>
-                <p>STG: {save2.stg}</p>
+                <p>CPU: <span>{save2.cpu}</span></p>
+                <p>GPU: <span>{save2.gpu}</span></p>
+                <p>RAM: <span>{save2.ram}</span></p>
+                <p>STG: <span>{save2.stg}</span></p>
             </div>
             </div>
             <div class="grid-item save-bottom">
@@ -173,10 +173,10 @@ export function SaveContainer() {
                 </p>
             </div>
             <div id="config">
-                <p>CPU: {save3.cpu}</p>
-                <p>GPU: {save3.gpu}</p>
-                <p>RAM: {save3.ram}</p>
-                <p>STG: {save3.stg}</p>
+                <p>CPU: <span>{save3.cpu}</span></p>
+                <p>GPU: <span>{save3.gpu}</span></p>
+                <p>RAM: <span>{save3.ram}</span></p>
+                <p>STG: <span>{save3.stg}</span></p>
             </div>
             </div>
             <div class="grid-item save-bottom">

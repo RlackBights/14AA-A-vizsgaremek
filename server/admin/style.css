@@ -39,8 +39,12 @@ h1 {
   height: 33%;
   margin-left: 50%;
   transform: translateX(-68%) translateY(15%);
-
   cursor: pointer;
+}
+
+.monitor:hover {
+  border: 5px dashed black;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .desktop {
