@@ -1,30 +1,29 @@
 import "./App.css";
 import { useState, createContext } from "react";
-import { saveFile } from "./components/savefile_management";
 import { cookie } from "./components/cookie";
 import { MainMenu } from "./components/mainMenu";
 import { SaveContainer } from "./components/saveContainer";
 import { Room } from "./components/room";
 import { Desktop } from "./components/desktop";
 import { Taskbar } from "./components/taskbar";
+import { getData, setData } from "./components/saveCommHandler";
+import { convertSave, saveFile } from "./components/saveFileManagement";
 
 // Base variables
 
-let save1data = new saveFile(-1, 0, 0, "", "", "", "");
-let save2data = new saveFile(-1, 0, 0, "", "", "", "");
-let save3data = new saveFile(-1, 0, 0, "", "", "", "");
 document.cookie = (cookie.get("activeSaveSlot") == null) ? "activeSaveSlot = null;" : ("activeSaveSlot = " + cookie.get("activeSaveSlot"));
-let timerAllowed = 0;
+let timerAllowed = false;
+let counter;
 
 // Contexts
 
 let updateData = async () => {};
 let saves = [[], [], []];
 
-
-
 export const updateDataContext = createContext(updateData);
-export let saveContext = createContext(saves);
+export let saveContext = createContext<Array>(saves);
+
+
 
 // Entry point
 
@@ -32,29 +31,28 @@ function App() {
 
   // States
 
-  const [save1, setSave1] = useState(save1data);
-  const [save2, setSave2] = useState(save2data);
-  const [save3, setSave3] = useState(save3data);
+  const [save1, setSave1] = useState();
+  const [save2, setSave2] = useState();
+  const [save3, setSave3] = useState();
 
   // Context value
-
-  saves = [[save1, save1data, setSave1], [save2, save2data, setSave2], [save3, save3data, setSave3]];
+  saves = [[save1, setSave1], [save2, setSave2], [save3, setSave3]];
 
   // Timing function
 
-  if (timerAllowed == 0) {
-    timerAllowed++;
+  if (!timerAllowed) {
+    timerAllowed = true;
     setInterval(() => {
       if (cookie.get("gameState") != "MainMenu") {
         switch (cookie.get("activeSaveSlot")) {
           case "1":
-            save1data.addTime();
+            setData(save1, 1, undefined, undefined, save1.time + 1);
             break;
           case "2":
-            save2data.addTime();
+            setData(save2, 2, undefined, undefined, save2.time + 1);
             break;
           case "3":
-            save3data.addTime();
+            setData(save3, 3, undefined, undefined, save3.time + 1);
             break;
           default:
             break;
@@ -62,6 +60,8 @@ function App() {
       }
     }, 1000);
   }
+
+
 
   // State logic
 

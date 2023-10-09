@@ -12,8 +12,6 @@ export const setData = (
     stg = undefined
   ) => {
 
-    console.log(currSave.getSaveTime());
-
     lvl = lvl !== undefined ? lvl : currSave.lvl;
     money = money !== undefined ? money : currSave.money;
     time = time !== undefined ? time : currSave.getSaveTime();

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { saveContext } from "../App";
 import { cookie } from "./cookie";
 import { changeToGame } from "./mainMenu";
-import { saveFile } from "./savefile_management";
+import { saveFile } from "./saveFileManagement";
 import { setData } from "./saveCommHandler";
 import deleteSave from "../assets/delete-button.png";
 import { closeSaves } from "./saveMenuManager";
@@ -12,20 +12,17 @@ import '../App.css'
 export function SaveContainer() {
 
     const save1 = useContext(saveContext)[0][0];
-    const save1data = useContext(saveContext)[0][1];
-    const setSave1 = useContext(saveContext)[0][2];
+    const setSave1 = useContext(saveContext)[0][1];
     const save2 = useContext(saveContext)[1][0];
-    const save2data = useContext(saveContext)[1][1];
-    const setSave2 = useContext(saveContext)[1][2];
+    const setSave2 = useContext(saveContext)[1][1];
     const save3 = useContext(saveContext)[2][0];
-    const save3data = useContext(saveContext)[2][1];
-    const setSave3 = useContext(saveContext)[2][2];
+    const setSave3 = useContext(saveContext)[2][1];
 
     return (
     <>
-        <div class="save-container" style={{ display: "none" }}>
+        <div className="save-container" style={{ display: "none" }}>
         <div style={{ display: "block" }}></div>
-        <div class="save-item-container">
+        <div className="save-item-container">
         <div
             className="save-item"
             id="save-item1"
@@ -36,21 +33,21 @@ export function SaveContainer() {
             }
             }}
         >
-            <div class="empty-save-base">
+            <div className="empty-save-base">
             <p>Empty save</p>
             <p>
                 <i>-- slot 1 --</i>
             </p>
             </div>
-            <div class="grid-item save-top">
+            <div className="grid-item save-top">
             <div id="langs">
-                <p class={save1.getCpu() >= 0 ? "" : "locked-lang"} id="html">
+                <p className={save1.getCpu() >= 0 ? "" : "locked-lang"} id="html">
                 HTML
                 </p>
-                <p class={save1.getCpu() >= 1 ? "" : "locked-lang"} id="css">
+                <p className={save1.getCpu() >= 1 ? "" : "locked-lang"} id="css">
                 CSS
                 </p>
-                <p class={save1.getCpu() >= 2 ? "" : "locked-lang"} id="js">
+                <p className={save1.getCpu() >= 2 ? "" : "locked-lang"} id="js">
                 JS
                 </p>
             </div>
@@ -61,7 +58,7 @@ export function SaveContainer() {
                 <p>STG: {save1.stg}</p>
             </div>
             </div>
-            <div class="grid-item save-bottom">
+            <div className="grid-item save-bottom">
             <p>LvL: {save1.lvl}</p>
             <p>{save1.money}$</p>
             <p id="playtime">
@@ -70,12 +67,11 @@ export function SaveContainer() {
             </div>
         </div>
         <button
-            class="delete-button"
+            className="delete-button"
             id="delete-button1"
             onClick={() => {
             setData(save1, 1, -1, 0, 0, 0, 0, 0, 0);
-            save1data = new saveFile(-1, 0, 0, "", "", "", "");
-            setSave1((save1) => save1data);
+            setSave1((save1) => new saveFile(-1, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item1")
                 .classList.add("empty-save");
@@ -84,9 +80,9 @@ export function SaveContainer() {
             <img src={deleteSave} alt=""></img>
         </button>
         </div>
-        <div class="save-item-container">
+        <div className="save-item-container">
         <div
-            class="save-item"
+            className="save-item"
             id="save-item2"
             onClick={() => {
             if (save2.lvl !== -1) {
@@ -95,21 +91,21 @@ export function SaveContainer() {
             }
             }}
         >
-            <div class="empty-save-base">
+            <div className="empty-save-base">
             <p>Empty save</p>
             <p>
                 <i>-- slot 2 --</i>
             </p>
             </div>
-            <div class="grid-item save-top">
+            <div className="grid-item save-top">
             <div id="langs">
-                <p class={save2.getCpu() >= 0 ? "" : "locked-lang"} id="html">
+                <p className={save2.getCpu() >= 0 ? "" : "locked-lang"} id="html">
                 HTML
                 </p>
-                <p class={save2.getCpu() >= 1 ? "" : "locked-lang"} id="css">
+                <p className={save2.getCpu() >= 1 ? "" : "locked-lang"} id="css">
                 CSS
                 </p>
-                <p class={save2.getCpu() >= 2 ? "" : "locked-lang"} id="js">
+                <p className={save2.getCpu() >= 2 ? "" : "locked-lang"} id="js">
                 JS
                 </p>
             </div>
@@ -120,7 +116,7 @@ export function SaveContainer() {
                 <p>STG: {save2.stg}</p>
             </div>
             </div>
-            <div class="grid-item save-bottom">
+            <div className="grid-item save-bottom">
             <p>LvL: {save2.lvl}</p>
             <p>{save2.money}$</p>
             <p id="playtime">
@@ -129,12 +125,11 @@ export function SaveContainer() {
             </div>
         </div>
         <button
-            class="delete-button"
+            className="delete-button"
             id="delete-button2"
             onClick={() => {
             setData(save2, 2, -1, 0, 0, 0, 0, 0, 0);
-            save2data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-            setSave2((save2) => save2data);
+            setSave2((save2) => new saveFile(-1, 0, 0, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item2")
                 .classList.add("empty-save");
@@ -143,9 +138,9 @@ export function SaveContainer() {
             <img src={deleteSave} alt=""></img>
         </button>
         </div>
-        <div class="save-item-container">
+        <div className="save-item-container">
         <div
-            class="save-item"
+            className="save-item"
             id="save-item3"
             onClick={() => {
             if (save3.lvl !== -1) {
@@ -154,21 +149,21 @@ export function SaveContainer() {
             }
             }}
         >
-            <div class="empty-save-base">
+            <div className="empty-save-base">
             <p>Empty save</p>
             <p>
                 <i>-- slot 3 --</i>
             </p>
             </div>
-            <div class="grid-item save-top">
+            <div className="grid-item save-top">
             <div id="langs">
-                <p class={save3.getCpu() >= 0 ? "" : "locked-lang"} id="html">
+                <p className={save3.getCpu() >= 0 ? "" : "locked-lang"} id="html">
                 HTML
                 </p>
-                <p class={save3.getCpu() >= 1 ? "" : "locked-lang"} id="css">
+                <p className={save3.getCpu() >= 1 ? "" : "locked-lang"} id="css">
                 CSS
                 </p>
-                <p class={save3.getCpu() >= 2 ? "" : "locked-lang"} id="js">
+                <p className={save3.getCpu() >= 2 ? "" : "locked-lang"} id="js">
                 JS
                 </p>
             </div>
@@ -179,7 +174,7 @@ export function SaveContainer() {
                 <p>STG: {save3.stg}</p>
             </div>
             </div>
-            <div class="grid-item save-bottom">
+            <div className="grid-item save-bottom">
             <p>LvL: {save3.lvl}</p>
             <p>{save3.money}$</p>
             <p id="playtime">
@@ -188,12 +183,11 @@ export function SaveContainer() {
             </div>
         </div>
         <button
-            class="delete-button"
+            className="delete-button"
             id="delete-button3"
             onClick={() => {
             setData(save3, 3, -1, 0, 0, 0, 0, 0, 0);
-            save3data = new saveFile(-1, 0, 0, 0, 0, "", "", "", "");
-            setSave3((save3) => save3data);
+            setSave3((save3) => new saveFile(-1, 0, 0, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item3")
                 .classList.add("empty-save");
