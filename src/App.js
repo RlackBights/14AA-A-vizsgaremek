@@ -20,6 +20,9 @@ let timerAllowed = 0;
 
 let updateData = async () => {};
 let saves = [[], [], []];
+
+
+
 export const updateDataContext = createContext(updateData);
 export let saveContext = createContext(saves);
 
@@ -63,7 +66,7 @@ function App() {
   // State logic
 
   switch (cookie.get("gameState")) {
-    case "MainMenu":
+    default:
       return (
         <div className="App">
           <saveContext.Provider value={saves}>
