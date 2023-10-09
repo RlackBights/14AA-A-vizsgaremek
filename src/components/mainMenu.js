@@ -5,7 +5,7 @@ import { saveContext } from "../App";
 import { refreshSaves, openSaves } from "./saveMenuManager";
 import { getData, setData } from "./saveCommHandler";
 import '../App.css';
-import { convertSave } from "./savefile_management";
+import { convertSave } from "./saveFileManagement";
 
 
 export function changeToGame() {
@@ -39,26 +39,18 @@ export function MainMenu() {
           return value;
         });
     
-        save1data = convertSave(myJson[0]);
-        setSave1((save1) => save1data);
-    
-        save2data = convertSave(myJson[1]);
-        setSave2((save2) => save2data);
-    
-        save3data = convertSave(myJson[2]);
-        setSave3((save3) => save3data);
+        setSave1((save1) => convertSave(myJson[0]));
+        setSave2((save2) => convertSave(myJson[1]));
+        setSave3((save3) => convertSave(myJson[2]));
     
         refreshSaves(save1, save2, save3);
     }
 
     const save1 = useContext(saveContext)[0][0];
-    let save1data = useContext(saveContext)[0][1];
     const setSave1 = useContext(saveContext)[0][2];
     const save2 = useContext(saveContext)[1][0];
-    let save2data = useContext(saveContext)[1][1];
     const setSave2 = useContext(saveContext)[1][2];
     const save3 = useContext(saveContext)[2][0];
-    let save3data = useContext(saveContext)[2][1];
     const setSave3 = useContext(saveContext)[2][2];
 
     return (
@@ -93,20 +85,17 @@ export function MainMenu() {
 
                   if (save1.lvl === -1) {
                     setData(save1, 1, 0)
-                    save1data.lvl = 0;
-                    setSave1((save1) => save1data);
+                    setSave1((save1) => {save1.lvl = 0; return save1});
                     cookie.set("activeSaveSlot", 1);
                     changeToGame();
                   } else if (save2.lvl === -1) {
                     setData(save2, 2, 0);
-                    save2data.lvl = 0;
-                    setSave2((save2) => save2data);
+                    setSave2((save2) => {save2.lvl = 0; return save2});
                     cookie.set("activeSaveSlot", 2);
                     changeToGame();
                   } else if (save3.lvl === -1) {
                     setData(save3, 3, 0);
-                    save3data.lvl = 0;
-                    setSave3((save3) => save3data);
+                    setSave3((save3) => {save3.lvl = 0; return save3});
                     cookie.set("activeSaveSlot", 3);
                     changeToGame();
                   } else {

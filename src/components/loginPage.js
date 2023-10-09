@@ -226,14 +226,14 @@ export function LoginPage() {
 
 
                         }}>Register</button>
-                        <p><br />Already have an account?
+                        <p><br />Already have an account? 
                             <a id="login-btn" onClick={() => {
                                 const loginPage = document.getElementById('login-page');
                                 const registerPage = document.getElementById('register-page');
                                 loginPage.style.display = 'flex';
                                 registerPage.style.display = 'none';
                                 setKey((key) => key + 1);
-                            }}> Log in!</a>
+                            }}>Log in!</a>
                         </p>
                     </div>
                 </div>

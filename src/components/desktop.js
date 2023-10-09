@@ -26,7 +26,6 @@ export function Desktop()
 
                 switch (cookie.get("activeSaveSlot")) {
                   case 1:
-                    setSave1((save1) => save1data);
                     setData(save1, 1, undefined, undefined, save1.time);
                     break;
                   case 2:
