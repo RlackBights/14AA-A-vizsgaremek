@@ -4,6 +4,7 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
+const { resolvePtr } = require("dns");
 
 app.use(
   cors({
@@ -25,6 +26,18 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
+  
+  if(req.query.userAuthCode == undefined) {
+    console.log('ERROR');
+    return;
+  }
+
+  if(!req.query.userAuthCode.includes('$'))
+  {
+    console.log('ERROR')
+    return;
+  }
+
   res.json(
     await db.query(
       "SELECT saveId, lvl, time, money, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM usertbl " +
@@ -37,8 +50,9 @@ async function getData(req, res) {
       `WHERE userTbl.name = '${req.query.userAuthCode.split('$')[0]}' AND userTbl.password = '${req.query.userAuthCode.split('$')[1]}'`
     )
   );
+
 }
-app.use("/savedata", getData); // A "getData" átmeneti function-nel küld lekérést
+app.use("/getdata", getData); // A "getData" átmeneti function-nel küld lekérést
 
 async function checkData(req, res) {
   res.json(
@@ -104,11 +118,14 @@ app.use("/register", registerAttempt)
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
+  console.log(req.body);
   await db.query(
     "UPDATE savedata SET " +
     `lvl = ${req.body.lvl}, money = ${req.body.money}, time = ${req.body.time}, cpuId = ${req.body.cpu}, gpuId = ${req.body.gpu}, ramId = ${req.body.ram}, stgId = ${req.body.stg} ` +
     `WHERE saveId = '${req.body.saveId}' AND userId = (SELECT uid FROM usertbl WHERE name = '${req.body.userAuthCode.split('$')[0]}' AND password = '${req.body.userAuthCode.split('$')[1]}' LIMIT 1)`
-  );
+  ).then((response) => {
+    console.log(response);
+  });
 }
 app.use("/changedata", changeData);
 
