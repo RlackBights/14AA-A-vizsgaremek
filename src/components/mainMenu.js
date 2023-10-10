@@ -3,9 +3,9 @@ import { cookie } from "./cookie";
 import { useContext } from "react";
 import { saveContext } from "../App";
 import { refreshSaves, openSaves } from "./saveMenuManager";
-import { getData, setData } from "./saveCommHandler";
 import '../App.css';
-import { convertSave } from "./saveFileManagement";
+import { convertSave } from "./saveFileManager";
+import { getData, setData } from "./saveCommManager";
 
 
 export function changeToGame() {
@@ -34,17 +34,7 @@ export function changeToGame() {
 
 export function MainMenu() {
 
-    async function updateData () {
-        let myJson = await getData().then((value) => {
-          return value;
-        });
     
-        setSave1((save1) => convertSave(myJson[0]));
-        setSave2((save2) => convertSave(myJson[1]));
-        setSave3((save3) => convertSave(myJson[2]));
-    
-        refreshSaves(save1, save2, save3);
-    }
 
     const save1 = useContext(saveContext)[0][0];
     const setSave1 = useContext(saveContext)[0][2];
@@ -52,6 +42,18 @@ export function MainMenu() {
     const setSave2 = useContext(saveContext)[1][2];
     const save3 = useContext(saveContext)[2][0];
     const setSave3 = useContext(saveContext)[2][2];
+
+    async function updateData () {
+      let myJson = await getData().then((value) => {
+        return value;
+      });
+  
+      setSave1((save1) => convertSave(myJson[0]));
+      setSave2((save2) => convertSave(myJson[1]));
+      setSave3((save3) => convertSave(myJson[2]));
+  
+      refreshSaves(save1, save2, save3);
+  }
 
     return (
         <div className="main-menu">

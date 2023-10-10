@@ -1,12 +1,10 @@
-import React, { useState } from "react";
 import "../App.css";
 import { Icon } from "@iconify/react";
-import { useCookies } from "react-cookie";
 import exitImage from '../assets/delete-button.png'
+import { cookie } from "./cookie";
 
 export function LoginPage() {
-    const [key, setKey] = useState(0);
-    const [cookies, setCookie] = useCookies(["user"]);
+
     return (
         <div id="login-container" style={{ pointerEvents: 'none' }}>
             <button id="user-icon" onClick={() => {
@@ -21,10 +19,9 @@ export function LoginPage() {
                     registerPage.style.display = 'none';
                     container.style.pointerEvents = 'none';
                 }
-                setKey((key) => key + 1);
             }}>
                 <Icon icon="uil:user" />
-                <p>{(cookies.user !== null) ? cookies.user.split('$')[0] : "[Log in to play]"}</p>
+                <p>{(cookie.get("user") !== "") ? cookie.get("user").split('$')[0] : "[Log in to play]"}</p>
             </button>
 
 
@@ -38,7 +35,6 @@ export function LoginPage() {
                         loginPage.style.display = 'none';
                         registerPage.style.display = 'none';
                         container.style.pointerEvents = 'none';
-                        setKey((key) => key + 1);
                     }} src={exitImage}></img>
                     <h1>Login</h1>
                     <p>Username</p>
@@ -80,10 +76,11 @@ export function LoginPage() {
                                     password: passwordInput.value
                                 }),
                             }
+
                             fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
 
                                 if (response.status === 200) {
-                                    response.json().then((json) => { setCookie("user", json.loginAuthCode) });
+                                    response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
                                     const page = document.getElementById('login-page');
                                     const container = document.getElementById('login-container');
                                     page.style.display = 'none';
@@ -109,7 +106,6 @@ export function LoginPage() {
 
                             loginPage.style.display = 'none';
                             registerPage.style.display = 'flex';
-                            setKey((key) => key + 1);
 
                         }}>
                             Register here!</a></p>
@@ -195,7 +191,7 @@ export function LoginPage() {
                                     fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
         
                                         if (response.status === 200) {
-                                            response.json().then((json) => { setCookie("user", json.loginAuthCode) });
+                                            response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
 
                                             const page = document.getElementById('register-page');
                                             const container = document.getElementById('login-container');
@@ -226,14 +222,12 @@ export function LoginPage() {
 
 
                         }}>Register</button>
-                        <p><br />Already have an account? 
-                            <button id="login-btn" onClick={() => {
+                        <p><br />Already have an account? <a id="login-btn" onClick={() => {
                                 const loginPage = document.getElementById('login-page');
                                 const registerPage = document.getElementById('register-page');
                                 loginPage.style.display = 'flex';
                                 registerPage.style.display = 'none';
-                                setKey((key) => key + 1);
-                            }}>Log in!</button>
+                            }}>Log in!</a>
                         </p>
                     </div>
                 </div>

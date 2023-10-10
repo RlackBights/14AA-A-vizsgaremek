@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { saveContext } from "../App";
 import { cookie } from "./cookie";
 import { changeToGame } from "./mainMenu";
-import { saveFile } from "./saveFileManagement";
-import { setData } from "./saveCommHandler";
+import { saveFile } from "./saveFileManager";
 import deleteSave from "../assets/delete-button.png";
 import { closeSaves } from "./saveMenuManager";
+import { setData } from "./saveCommManager";
 import '../App.css'
 
 

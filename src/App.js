@@ -2,11 +2,12 @@ import "./App.css";
 import { useState, createContext } from "react";
 import { cookie } from "./components/cookie";
 import { MainMenu } from "./components/mainMenu";
-import { SaveContainer } from "./components/saveContainer";
 import { Room } from "./components/room";
 import { Desktop } from "./components/desktop";
 import { Taskbar } from "./components/taskbar";
-import { getData, setData } from "./components/saveCommHandler";
+import { getData, setData } from "./components/saveCommManager";
+import { SaveContainer } from "./components/saveContainer";
+import { saveFile } from "./components/saveFileManager";
 
 // Base variables
 
@@ -17,15 +18,9 @@ let runtimes = 0;
 // Contexts
 
 let updateData = async () => {};
-let saves = new Array(new Array());
 
 export const updateDataContext = createContext(updateData);
-export let saveContext = createContext<Array>(saves);
-
-async function updateSaves() {
-  console.log("ASDASSD");
-  console.log(await getData());
-};
+export const saveContext = createContext([[],[],[]]);
 
 // Entry point
 
@@ -33,14 +28,9 @@ function App() {
 
   // States
 
-  const [save1, setSave1] = useState();
-  const [save2, setSave2] = useState();
-  const [save3, setSave3] = useState();
-
-  // Context value
-  updateSaves();
-  
-  saves = [[save1, setSave1], [save2, setSave2], [save3, setSave3]];
+  const [save1, setSave1] = useState(new saveFile(1, -1, 0, 0, 0, 0, 0, 0));
+  const [save2, setSave2] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
+  const [save3, setSave3] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
 
   // Timing function
 
@@ -66,17 +56,19 @@ function App() {
   }
 
 
-
   // State logic
   
   switch (cookie.get("gameState")) {
     default:
       return (
         <div className="App">
-          <saveContext.Provider value={saves}>
+          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
             <updateDataContext.Provider value={updateData}>
               <MainMenu />
-              <SaveContainer />
+              {cookie.get("user").length > 0 &&
+                <SaveContainer />
+              }
+              
             </updateDataContext.Provider>
           </saveContext.Provider>
         </div>
@@ -84,7 +76,7 @@ function App() {
     case "Room":
       return (
         <div className="App">
-          <saveContext.Provider value={saves}>
+          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
             <Room />
           </saveContext.Provider>
         </div>
@@ -92,7 +84,7 @@ function App() {
     case "Desktop":
       return (
         <div className="App">
-          <saveContext.Provider value={saves}>
+          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
             <Desktop />
             <Taskbar />
           </saveContext.Provider>

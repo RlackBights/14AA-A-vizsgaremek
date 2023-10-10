@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { cookie } from "./cookie";
 import { saveContext } from "../App";
-import { setData } from "./saveCommHandler";
 import { Icon } from "@iconify/react";
 
 export function Desktop()
@@ -20,21 +19,6 @@ export function Desktop()
               id="exit-game-button"
               onClick={() => {
                 cookie.set("gameState", "Room")
-
-                switch (cookie.get("activeSaveSlot")) {
-                  case 1:
-                    setData(save1, 1, undefined, undefined, save1.time);
-                    break;
-                  case 2:
-                    setData(save2, 2, undefined, undefined, save2.time);
-                    break;
-                  case 3:
-                    setData(save3, 3, undefined, undefined, save3.time);
-                    break;
-
-                  default:
-                    break;
-                }
 
                 window.location.reload();
               }}
