@@ -14,8 +14,6 @@ const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
-var on = 1;
-var off = 0;
 
 
 function regex(text) {
@@ -25,14 +23,6 @@ function regex(text) {
 
   return acceptableChars.test(text)
 
-}
-
-function checkBox(cb) {
-  if (cb == true) {
-    return 1;
-  } else {
-    return 0;
-  }
 }
 
 function isDecimal(number) {
@@ -178,6 +168,7 @@ function addDataOption(selectedTable) {
             input.type = 'number';
             if (table[i].COLUMN_TYPE.includes("(1)")) {
               input.type = 'checkbox'
+              input.checked = true;
             }
           } else if (table[i].COLUMN_TYPE.includes("varchar")) {
             input.type = 'text';
@@ -219,12 +210,10 @@ function insertDataFetch(allInputs) {
 }
 
 function insertData() {
-  var allInputs = new Map();
+  var allInputs = [];
   var tableName = document.getElementsByClassName('tableSelect')[0].value;
 
-  allInputs.set("title", tableName);
-
-  var insertList = document.getElementsByClassName('insertDatas-list');
+  allInputs.push(tableName);
   var insertInput = document.getElementsByClassName("insertDatas-input");
   let arrayLength = tableTitles.childElementCount;
 
@@ -233,16 +222,22 @@ function insertData() {
       alert('Only letters, numbers and "_ . !" symbols!!!');
       allInputs = '';
       break;
-    } else {
-      allInputs.set(insertList[x].innerText, insertInput[x].value);
-
+    }else if(insertInput[x].value == ""){
+      alert("Please don't leave fields empty!");
+      allInputs = '';
+      break;
+    }else{
       if (insertInput[x].type === 'checkbox') {
         if (insertInput[x].checked == true) {
-          allInputs.set(insertList[x].innerText, checkBox(insertInput[x].value))
+          allInputs.push(1);
+          
         } else {
-          allInputs.set(insertList[x].innerText, checkBox(insertInput[x].value))
+          allInputs.push(0);
         }
+      }else{
+        allInputs.push(insertInput[x].value)
       }
+      
     }
   }
   console.log(allInputs);

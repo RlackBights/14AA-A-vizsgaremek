@@ -4,6 +4,9 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
+var tableName = "";
+var insert = "INSERT INTO " + tableName + " VALUES ?";
+var insertValues = [['null', ]];
 
 app.use(
   cors({
@@ -55,7 +58,12 @@ app.use("/admin/getFields", getFields);
 
 //insertInto query
 async function insertIntoTables(req, res) {
-  db.query("INSERT INTO " + req.body.list[0].keys() + " (" + req.body.list.slice(1).keys() + ") VALUES")
+  req.body.allInputs.slice(1).forEach(element => {
+    insertValues.push(", " + [element]);
+  },
+  tableName = req.body.allInputs.slice(1, 1),
+  res.json(await db.query(insert, [insertValues]))
+  );
 }
 app.use("/admin/insertIntoTables", insertIntoTables);
 
