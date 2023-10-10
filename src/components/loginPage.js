@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../App.css";
 import { Icon } from "@iconify/react";
-import { CookiesProvider, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import exitImage from '../assets/delete-button.png'
 
 export function LoginPage() {
     const [key, setKey] = useState(0);
-    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const [cookies, setCookie] = useCookies(["user"]);
     return (
         <div id="login-container" style={{ pointerEvents: 'none' }}>
             <button id="user-icon" onClick={() => {
                 const loginPage = document.getElementById('login-page');
                 const registerPage = document.getElementById('register-page');
                 const container = document.getElementById('login-container');
-                if (loginPage.style.display == 'none' && registerPage.style.display == 'none') {
+                if (loginPage.style.display === 'none' && registerPage.style.display === 'none') {
                     loginPage.style.display = 'flex';
                     container.style.pointerEvents = 'all';
                 } else {
@@ -24,7 +24,7 @@ export function LoginPage() {
                 setKey((key) => key + 1);
             }}>
                 <Icon icon="uil:user" />
-                <p>{(cookies.user != null) ? cookies.user.split('$')[0] : "[Log in to play]"}</p>
+                <p>{(cookies.user !== null) ? cookies.user.split('$')[0] : "[Log in to play]"}</p>
             </button>
 
 
@@ -54,7 +54,7 @@ export function LoginPage() {
                             const errorMessage = document.getElementById('error-message');
                             const regex = /\W/;
 
-                            if (passwordInput.value == '' || usernameInput.value == '') {
+                            if (passwordInput.value === '' || usernameInput.value === '') {
                                 errorMessage.innerHTML = "One or more required fields are missing!";
                                 errorMessage.className = "show-error"
                                 setTimeout(() => {
@@ -82,7 +82,7 @@ export function LoginPage() {
                             }
                             fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
 
-                                if (response.status == 200) {
+                                if (response.status === 200) {
                                     response.json().then((json) => { setCookie("user", json.loginAuthCode) });
                                     const page = document.getElementById('login-page');
                                     const container = document.getElementById('login-container');
@@ -143,7 +143,7 @@ export function LoginPage() {
                             const regex = /\W/;
                             errorMessage.className = ""
 
-                            if (registerName.value == '' || registerPassword1.value == '' || registerPassword2.value == '' ) {
+                            if (registerName.value === '' || registerPassword1.value === '' || registerPassword2.value === '' ) {
                                 errorMessage.innerHTML = "One or more required fields are missing!";
                                 errorMessage.className = "show-error"
                                 setTimeout(() => {
@@ -161,7 +161,7 @@ export function LoginPage() {
                                 return;
                             }
 
-                            if (registerPassword1.value != registerPassword2.value) {
+                            if (registerPassword1.value !== registerPassword2.value) {
                                 errorMessage.innerHTML = "The passwords don't match!";
                                 errorMessage.className = "show-error"
                                 setTimeout(() => {
@@ -182,7 +182,7 @@ export function LoginPage() {
                             fetch('http://127.0.0.1:8000/register', fetchParams)
                             .then(function (response) {
 
-                                if (response.status == 200) {
+                                if (response.status === 200) {
 
                                     const fetchParams = {
                                         method: "POST",
@@ -194,7 +194,7 @@ export function LoginPage() {
                                     }
                                     fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
         
-                                        if (response.status == 200) {
+                                        if (response.status === 200) {
                                             response.json().then((json) => { setCookie("user", json.loginAuthCode) });
 
                                             const page = document.getElementById('register-page');
@@ -214,7 +214,7 @@ export function LoginPage() {
                                         }
         
                                     })
-                                } else if (response.status == 401) {
+                                } else if (response.status === 401) {
                                     errorMessage.innerHTML = "This user already exists!";
                                     errorMessage.className = "show-error"
                                     setTimeout(() => {
@@ -227,13 +227,13 @@ export function LoginPage() {
 
                         }}>Register</button>
                         <p><br />Already have an account? 
-                            <a id="login-btn" onClick={() => {
+                            <button id="login-btn" onClick={() => {
                                 const loginPage = document.getElementById('login-page');
                                 const registerPage = document.getElementById('register-page');
                                 loginPage.style.display = 'flex';
                                 registerPage.style.display = 'none';
                                 setKey((key) => key + 1);
-                            }}>Log in!</a>
+                            }}>Log in!</button>
                         </p>
                     </div>
                 </div>

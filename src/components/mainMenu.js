@@ -68,7 +68,6 @@ export function MainMenu() {
                   }
 
                   updateData();
-                  refreshSaves(save1, save2, save3);
                   openSaves();
                 }}
               >

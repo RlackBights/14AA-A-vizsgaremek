@@ -1,5 +1,3 @@
-import React from "react";
-
 export class saveFile {
     constructor(lvl, money, time, cpu, gpu, ram, stg) {
       this.lvl = lvl;

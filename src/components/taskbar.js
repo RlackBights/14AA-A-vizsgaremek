@@ -7,7 +7,7 @@ export function Taskbar() {
             <span
                 class="iconify"
                 data-icon="game-icons:ouroboros"
-                style="color: white"
+                style={{color: "white"}}
                 data-width="45"
                 data-height="45"
             ></span>
