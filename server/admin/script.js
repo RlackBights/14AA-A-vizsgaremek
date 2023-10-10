@@ -240,6 +240,7 @@ function insertData() {
       
     }
   }
-  console.log(allInputs);
+  console.log(allInputs.values);
+  insertDataFetch(allInputs);
 }
 

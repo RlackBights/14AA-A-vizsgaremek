@@ -4,9 +4,7 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
-var tableName = "";
-var insert = "INSERT INTO " + tableName + " VALUES ?";
-var insertValues = [['null', ]];
+var insertValues = ["''"];
 
 app.use(
   cors({
@@ -58,14 +56,15 @@ app.use("/admin/getFields", getFields);
 
 //insertInto query
 async function insertIntoTables(req, res) {
-  req.body.allInputs.slice(1).forEach(element => {
-    insertValues.push(", " + [element]);
-  },
-  tableName = req.body.allInputs.slice(1, 1),
-  res.json(await db.query(insert, [insertValues]))
-  );
+  var insert = "INSERT INTO " + req.body.list[0] + " VALUES ";
+  tableName = req.body.list[0];
+  for (let index = 1; index < Object.keys(req.body.list).length; index++) {
+    insertValues.push("'" +req.body.list[index]+ "'");
+  }
+  res.json(await db.query(insert + "("+[insertValues]+")"));
 }
 app.use("/admin/insertIntoTables", insertIntoTables);
+
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
