@@ -58,7 +58,7 @@ app.use("/admin/getFields", getFields);
 async function insertIntoTables(req, res) {
   var insert = "INSERT INTO " + req.body.list[0] + " VALUES ";
   tableName = req.body.list[0];
-  for (let index = 1; index < Object.keys(req.body.list).length; index++) {
+  for (let index = 1; index < req.body.list.length; index++) {
     insertValues.push("'" +req.body.list[index]+ "'");
   }
   res.json(await db.query(insert + "("+[insertValues]+")"));
@@ -100,7 +100,7 @@ async function registerAttempt(req, res) {
 
   if (existsError) return;
     await db.query("INSERT INTO userTbl VALUES " +
-                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), FALSE);")
+                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), "+ (req.body.isAdmin == 1) ? "TRUE" : "FALSE" +");")
 
     await db.query("INSERT INTO savedata VALUES " +
     "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 1, -1, 0, 0, 0, 0, 0, 0), " +
