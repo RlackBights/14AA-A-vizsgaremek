@@ -10,8 +10,8 @@
   </head>
 
   <body onload="loadSelect(); startTime();">
-    <h1 id="title">ADMIN FELÜLET</h1>
     <div class="desktop">
+      <h3 id="title">ADMIN PAGE</h3>
       <div class="login-container">
         <h1>Login</h1>
         <div class="login">
@@ -26,16 +26,16 @@
         <div class="admin-tabs">
           <ul>
             <li class="admin-nav adminActive" onclick="openPage('add')">
-              <a>Insert Data</a>
+              <a>Insert</a>
             </li>
             <li class="admin-nav" onclick="openPage('edit')">
-              <a>Update Data</a>
+              <a>Update</a>
             </li>
             <li class="admin-nav" onclick="openPage('delete')">
-              <a>Delete Data</a>
+              <a>Delete</a>
             </li>
             <li class="admin-nav" onclick="openPage('list')">
-              <a>List Data</a>
+              <a>List</a>
             </li>
             <li id="logout" onclick="logOut()"><a>Log out</a></li>
           </ul>
@@ -62,13 +62,15 @@
         </div>
         <div class="edit-data">
           <div class="filter">
-            <p>Table:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="none" selected disabled hidden>Select an Option</option></select></p>
+            <p>Table name:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="none" selected disabled hidden>Select an Option</option></select></p>
             <p>Attribute:<select name="" class=""><option value="none" selected disabled hidden>Select an Option</option></select></p>
-            <p>Searched attribute: <input type="text"></p>
-            <button>Search</button>
+            <p>Value: <input type="text"></p>
           </div>
-          <div class="edit-content">
-            
+          <button>Search</button>
+          <div class="edit-container">
+            <div class="tbl-edit">
+              
+            </div>
           </div>
         </div>
         <div class="delete-data">
@@ -102,7 +104,7 @@
         </div>
       </div>
       <div class="taskbar">
-        <div class="closeBtn" onclick="closeAdmin()">
+        <div class="closeBtn">
           <span
             class="iconify"
             data-icon="game-icons:ouroboros"
@@ -114,8 +116,6 @@
         <div id="clock"></div>
       </div>
     </div>
-    <div class="monitor" onclick="zoom()"></div>
-    <div class="container"></div>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="script.js"></script>
   </body>

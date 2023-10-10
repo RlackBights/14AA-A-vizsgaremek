@@ -1,6 +1,4 @@
 const h1 = document.getElementById("title");
-const container = document.getElementsByClassName("container")[0];
-const closeBtn = document.getElementsByClassName("closeBtn")[0];
 const taskbar = document.getElementsByClassName("taskbar")[0];
 const desktop = document.getElementsByClassName("desktop")[0];
 const login = document.getElementsByClassName("login-container")[0];
@@ -14,14 +12,6 @@ const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 
-
-function zoom() {
-  container.style.display = "block";
-  closeBtn.style.display = "block";
-  taskbar.style.display = "flex";
-  desktop.style.display = "flex";
-  h1.style.display = "none";
-}
 
 function closeAdmin() {
   container.style.display = "none";
@@ -53,6 +43,7 @@ function loginPressed() {
 
   login.style.display = "none";
   adminPage.style.display = "block";
+  h1.style.display = "none";
 }
 
 function loadSelect() {
@@ -66,10 +57,11 @@ function loadSelect() {
   })
     .then(function (response) {
       return response.json();
-    }).then(function (tables) {
+    })
+    .then(function (tables) {
       for (let index = 0; index < tables.length; index++) {
         for (let i = 0; i < loadSelect.length; i++) {
-          loadSelect[i].add(new Option(tables[index].table_name));          
+          loadSelect[i].add(new Option(tables[index].table_name));
         }
       }
     });
@@ -89,66 +81,63 @@ function openPage(pageName) {
   switch (pageName) {
     case "add":
       addData.style.display = "block";
-      adminNav1.classList.add('adminActive');
-      adminNav2.classList.remove('adminActive');
-      adminNav3.classList.remove('adminActive');
-      adminNav4.classList.remove('adminActive');
+      adminNav1.classList.add("adminActive");
+      adminNav2.classList.remove("adminActive");
+      adminNav3.classList.remove("adminActive");
+      adminNav4.classList.remove("adminActive");
       break;
     case "edit":
       editData.style.display = "block";
-      adminNav1.classList.remove('adminActive');
-      adminNav2.classList.add('adminActive');
-      adminNav3.classList.remove('adminActive');
-      adminNav4.classList.remove('adminActive');
+      adminNav1.classList.remove("adminActive");
+      adminNav2.classList.add("adminActive");
+      adminNav3.classList.remove("adminActive");
+      adminNav4.classList.remove("adminActive");
       break;
     case "delete":
       deleteData.style.display = "block";
-      adminNav1.classList.remove('adminActive');
-      adminNav2.classList.remove('adminActive');
-      adminNav3.classList.add('adminActive');
-      adminNav4.classList.remove('adminActive');
+      adminNav1.classList.remove("adminActive");
+      adminNav2.classList.remove("adminActive");
+      adminNav3.classList.add("adminActive");
+      adminNav4.classList.remove("adminActive");
       break;
     case "list":
       listData.style.display = "block";
-      adminNav1.classList.remove('adminActive');
-      adminNav2.classList.remove('adminActive');
-      adminNav3.classList.remove('adminActive');
-      adminNav4.classList.add('adminActive');
+      adminNav1.classList.remove("adminActive");
+      adminNav2.classList.remove("adminActive");
+      adminNav3.classList.remove("adminActive");
+      adminNav4.classList.add("adminActive");
       break;
   }
 }
 
 function selectOptionChanged(selectedTable) {
-
-  const columnNames =  [];
+  const columnNames = [];
   var tableTitles = document.getElementById("tableTitles");
   var tableInput = document.getElementById("tableInput");
-  tableTitles.innerHTML = '';
+  tableTitles.innerHTML = "";
 
-  fetch(
-    "http://127.0.0.1:8000/admin/getFields"
-    , {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ table: selectedTable }),
-    }).then(function (response) {
+  fetch("http://127.0.0.1:8000/admin/getFields", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ table: selectedTable }),
+  })
+    .then(function (response) {
       return response.json();
-    }).then(function (table) {
+    })
+    .then(function (table) {
       for (let i = 1; i < table.length; i++) {
-        let li = document.createElement('li');
-        let input = document.createElement('input');
+        let li = document.createElement("li");
+        let input = document.createElement("input");
         input.className = "insertDatas";
         columnNames[i] = table[i].column_name;
         li.innerText = columnNames[i];
         tableTitles.appendChild(li);
-        li.appendChild(input)
+        li.appendChild(input);
       }
     });
-    
 }
-
 function startTime() {
   const today = new Date();
   let h = today.getHours();
@@ -156,21 +145,20 @@ function startTime() {
   let s = today.getSeconds();
   m = checkTime(m);
   s = checkTime(s);
-  document.getElementById('clock').innerHTML =  h + ":" + m;
+  document.getElementById("clock").innerHTML = h + ":" + m;
   setTimeout(startTime, 1000);
 }
 
 function checkTime(i) {
-  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  if (i < 10) {
+    i = "0" + i;
+  } // add zero in front of numbers < 10
   return i;
-function insertData(){
-
-  const dataToInsert = [];
-  const allInputs = document.querySelectorAll('.insertDatas');
-  for (let x = 0; x < allInputs.length; x++) {
-    console.log(allInputs[x]);
-    
+  function insertData() {
+    const dataToInsert = [];
+    const allInputs = document.querySelectorAll(".insertDatas");
+    for (let x = 0; x < allInputs.length; x++) {
+      console.log(allInputs[x]);
+    }
   }
-}
-
 }
