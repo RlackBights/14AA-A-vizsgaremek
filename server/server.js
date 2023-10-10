@@ -61,7 +61,7 @@ async function insertIntoTables(req, res) {
   for (let index = 1; index < Object.keys(req.body.list).length; index++) {
     insertValues.push("'" +req.body.list[index]+ "'");
   }
-  res.json(await db.query(insert + "("+[insertValues]+")"));
+  res.json(await db.query(insert + "("+[insertValues]+")").then(insertValues =""));
 }
 app.use("/admin/insertIntoTables", insertIntoTables);
 

@@ -242,5 +242,6 @@ function insertData() {
   }
   console.log(allInputs.values);
   insertDataFetch(allInputs);
+  allInputs = [];
 }
 
