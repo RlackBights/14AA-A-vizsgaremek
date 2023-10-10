@@ -236,12 +236,13 @@ function insertData() {
         }
       }else{
         allInputs.push(insertInput[x].value)
+        insertInput[x].value = "";
       }
       
     }
   }
   console.log(allInputs.values);
   insertDataFetch(allInputs);
-  allInputs = [];
+  allInputs = "";
 }
 
