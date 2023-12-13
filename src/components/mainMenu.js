@@ -59,7 +59,7 @@ export function MainMenu() {
         <div className="main-menu">
             <LoginPage />
             <h1 id="title-text" className="">
-              LearnTheBasics.it
+              Learn<br/>The<br/>Basics
             </h1>
             <div className="button-container">
               <button

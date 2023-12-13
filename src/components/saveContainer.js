@@ -3,7 +3,6 @@ import { saveContext } from "../App";
 import { cookie } from "./cookie";
 import { changeToGame } from "./mainMenu";
 import { saveFile } from "./saveFileManager";
-import deleteSave from "../assets/delete-button.png";
 import { closeSaves } from "./saveMenuManager";
 import { setData } from "./saveCommManager";
 import '../App.css'
@@ -77,7 +76,7 @@ export function SaveContainer() {
                 .classList.add("empty-save");
             }}
         >
-            <img src={deleteSave} alt=""></img>
+            <span>Delete</span>
         </button>
         </div>
         <div className="save-item-container">
@@ -135,7 +134,7 @@ export function SaveContainer() {
                 .classList.add("empty-save");
             }}
         >
-            <img src={deleteSave} alt=""></img>
+            <span>Delete</span>
         </button>
         </div>
         <div className="save-item-container">
@@ -193,7 +192,7 @@ export function SaveContainer() {
                 .classList.add("empty-save");
             }}
         >
-            <img src={deleteSave} alt=""></img>
+            <span>Delete</span>
         </button>
         </div>
     </div>

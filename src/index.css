@@ -22,7 +22,7 @@ body {
 
 @font-face {
   font-family: "Pixel Font";
-  src: url("assets/dpcomic.ttf") format("truetype");
+  src: url("assets/trivial.otf") format("opentype");
 }
 
 #root {

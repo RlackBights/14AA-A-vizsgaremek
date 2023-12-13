@@ -1,7 +1,7 @@
 :root {
   --mobile-vis: unset;
-  --theme-color: #420690;
-  --accent-color: #9700dd;
+  --theme-color: #782b51;
+  --accent-color: #E6C79C;
 }
 
 /*
@@ -55,23 +55,27 @@
 
 .main-menu {
   height: 100%;
-  background-image: url("assets/bg.png");
+  background-image: url("assets/bg.webp");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 60%;
+  background-size: 100%;
 }
 
-.main-menu h1 {
+#title-text {
   text-align: center;
-  position: relative;
+  position: absolute;
   z-index: 1;
   font-size: 5rem;
   width: 100%;
   padding: 0;
   margin: 0;
-  padding-top: 3vmin;
+  top: 32.5%;
+  line-height: 75%;
+  transform: translateY(-50%);
   letter-spacing: 2px;
   pointer-events: none;
+  /*-webkit-text-stroke: 0.5px white;*/
+  color: black;
 }
 
 
@@ -90,7 +94,7 @@
   );
   color: white;
   padding: 1rem;
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 900;
   margin: 0.5rem 0 0.5rem -4rem;
   text-align: right;
@@ -111,7 +115,7 @@
 .button-container button:hover {
   margin-left: -1rem;
   border: 5px solid var(--theme-color);
-  box-shadow: 10px 10px 10px rgb(100, 100, 100);
+  box-shadow: 10px 10px 10px rgb(10, 10, 10);
 }
 
 
@@ -148,7 +152,7 @@
   background: rgba(0, 0, 0, 0.75);
   border: 4px solid var(--theme-color);
   transition: all 0.5s;
-  box-shadow: 10px 5px 10px rgb(100, 100, 100);
+  box-shadow: 10px 5px 10px black;
 }
 
 #user-icon svg {
@@ -415,10 +419,12 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 #save-back-button {
   position: absolute;
+  margin: 0;
+  padding: 0;
   top: 2%;
   right: 2%;
   z-index: 11;
-  padding: 0.5% 1%;
+  height: 10vmin;
   border: 4px solid #fff;
   border-radius: 1rem;
   background: rgba(0, 0, 0, 0.6);
@@ -431,8 +437,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 #save-back-button:hover {
-  color: #c1c1c1;
-  border: 4px solid #c1c1c1;
+  border: 4px solid var(--theme-color);
 }
 
 .empty-save {
@@ -454,7 +459,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   width: 100%;
   height: 100%;
   text-align: center;
-  font-size: 4rem;
+  font-size: 4vmin;
   flex-direction: column;
 }
 
@@ -468,13 +473,17 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 .delete-button {
   align-self: center;
-  width: 3rem;
-  aspect-ratio: 1/1;
+  width: 33%;
   background: none;
+  position: relative;
   border: none;
 }
 
-.delete-button img {
+.delete-button span {
+  color: white;
+  -webkit-text-stroke: 2px black;
+  font-size: 5vmin;
+  font-weight: bold;
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -491,18 +500,6 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
   padding: 0;
   gap: 0;
-}
-
-#delete-button1 {
-  position: relative;
-}
-
-#delete-button2 {
-  position: relative;
-}
-
-#delete-button3 {
-  position: relative;
 }
 
 /*

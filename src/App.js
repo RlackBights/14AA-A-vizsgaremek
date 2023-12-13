@@ -13,7 +13,6 @@ import { saveFile } from "./components/saveFileManager";
 
 document.cookie = (cookie.get("activeSaveSlot") == null) ? "activeSaveSlot = null;" : ("activeSaveSlot = " + cookie.get("activeSaveSlot"));
 let timerAllowed = false;
-let runtimes = 0;
 
 // Contexts
 
@@ -30,7 +29,7 @@ function App() {
 
   const [save1, setSave1] = useState(new saveFile(1, -1, 0, 0, 0, 0, 0, 0));
   const [save2, setSave2] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
-  const [save3, setSave3] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
+  const [save3, setSave3] = useState(new saveFile(3, -1, 0, 0, 0, 0, 0, 0));
 
   // Timing function
 
