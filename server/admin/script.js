@@ -14,6 +14,12 @@ const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
 const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
+const attributeFilter = document.getElementById("attribute");
+const valueFilter = document.getElementById("value");
+let updateHelper = 0;
+attributeFilter.style.display = "none";
+valueFilter.style.display = "none";
+
 
 
 function regex(text) {
@@ -23,6 +29,22 @@ function regex(text) {
 
   return acceptableChars.test(text)
 
+}
+
+function updateAppear(){
+  switch (updateHelper) {
+    case 0:
+      attributeFilter.style.display = "block";
+      break;
+    case 1:
+      valueFilter.style.display = "block";
+      break;
+  }
+}
+
+function addOne(){
+  updateHelper +=1;
+  console.log(updateHelper);
 }
 
 function isDecimal(number) {
@@ -100,6 +122,7 @@ function openPage(pageName) {
   listData.style.display = "none";
   deleteData.style.display = "none";
 
+
   switch (pageName) {
     case "add":
       addData.style.display = "block";
@@ -114,6 +137,7 @@ function openPage(pageName) {
       adminNav2.classList.add('adminActive');
       adminNav3.classList.remove('adminActive');
       adminNav4.classList.remove('adminActive');
+      
       break;
     case "delete":
       deleteData.style.display = "block";
@@ -248,8 +272,11 @@ function insertData() {
 
 
 function attributeSearchLoad(selectedTable){
-  var loadAttributes = document.getElementsByClassName("attributeSearch");
-  
+  var options = document.querySelectorAll('.attributeSearch option');
+  var loadAttributes = document.getElementsByClassName('attributeSearch');
+  for(let i = 1; i < options.length; i++) {
+    options[i].remove();
+  }
   fetch(
     "http://127.0.0.1:8000/admin/getFields"
     , {
@@ -268,4 +295,5 @@ function attributeSearchLoad(selectedTable){
       }
     });
 }
+
 

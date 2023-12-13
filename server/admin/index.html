@@ -62,12 +62,12 @@
         </div>
         <div class="edit-data">
           <div class="filter">
-            <p>Table:<select name="" class="tableSelect" onchange="attributeSearchLoad(this.value)">
+            <p>Table:<select name="" class="tableSelect" onchange="attributeSearchLoad(this.value); updateAppear()">
               <option value="base" selected disabled hidden>Select an Option</option>
             </select>
             </p>
-            <p>Attribute:<select name="" class="attributeSearch"><option value="base" selected disabled hidden>Select an Option</option></select></p>
-            <p>Searched attribute: <input type="text"></p>
+            <p id="attribute">Attribute:<select name="" class="attributeSearch" onchange="addOne(); updateAppear()"><option value="base" selected>Select an Option</option></select></p>
+            <p id="value">Value: <input type="text"></p>
             <button>Search</button>
           </div>
           <div class="edit-content">
