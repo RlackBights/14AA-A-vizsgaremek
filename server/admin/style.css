@@ -342,8 +342,27 @@ option {
 }
 
 .edit-content {
-  width: 100%;
+  width: 90%;
   height: 100%;
-  margin-top: 2%;
   display: grid;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.update-table-container {
+  height: 50%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.update-table {
+  width: 100%;
+  max-height: 50px;
+  margin: auto;
+  background-color: grey;
+  text-align: center;
+}
+
+.table-head {
+  position: sticky;
 }
