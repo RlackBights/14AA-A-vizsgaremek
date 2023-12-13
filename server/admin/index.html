@@ -62,8 +62,11 @@
         </div>
         <div class="edit-data">
           <div class="filter">
-            <p>Table:<select name="" class="class-tableSelect" onchange="selectOptionChanged(this.value)"><option value="base" selected disabled hidden>Select an Option</option></select></p>
-            <p>Attribute:<select name="" class=""><option value="base" selected disabled hidden>Select an Option</option></select></p>
+            <p>Table:<select name="" class="tableSelect" onchange="attributeSearchLoad(this.value)">
+              <option value="base" selected disabled hidden>Select an Option</option>
+            </select>
+            </p>
+            <p>Attribute:<select name="" class="attributeSearch"><option value="base" selected disabled hidden>Select an Option</option></select></p>
             <p>Searched attribute: <input type="text"></p>
             <button>Search</button>
           </div>

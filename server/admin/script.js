@@ -246,3 +246,26 @@ function insertData() {
   allInputs = "";
 }
 
+
+function attributeSearchLoad(selectedTable){
+  var loadAttributes = document.getElementsByClassName("attributeSearch");
+  
+  fetch(
+    "http://127.0.0.1:8000/admin/getFields"
+    , {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ table: selectedTable }),
+    }).then(function (response) {
+      return response.json();
+    }).then(function (table) {
+      for (let index = 0; index < table.length; index++) {
+          for (let i = 0; i < loadAttributes.length; i++) {
+            loadAttributes[i].add(new Option(table[index].column_name))
+          }
+      }
+    });
+}
+

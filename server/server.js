@@ -35,7 +35,7 @@ async function getData(req, res) {
     )
   );
 }
-app.use("/savedata", getData); // A "getData" átmeneti function-nel küld lekérést
+ // A "getData" átmeneti function-nel küld lekérést
 
 async function checkData(req, res) {
   res.json(
@@ -44,15 +44,15 @@ async function checkData(req, res) {
     )
   );
 } //admin page login
-app.use("/admin/checkData", checkData);
+
 
 //tábla nevek lekérése az admin page-hez
 async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
-app.use("/admin/getTableNames", getTableNames);
+
 
 //tábla column name lekérése admin page-hez
 async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(column_name), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
-app.use("/admin/getFields", getFields);
+
 
 //insertInto query
 async function insertIntoTables(req, res) {
@@ -64,7 +64,9 @@ async function insertIntoTables(req, res) {
   res.json(await db.query(insert + "("+[insertValues]+")"));
   insertValues = ["''"];
 }
-app.use("/admin/insertIntoTables", insertIntoTables);
+
+
+
 
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
@@ -86,7 +88,7 @@ async function loginAttempt(req, res) {
   }
 }
 
-app.use("/login", loginAttempt)
+
 
 async function registerAttempt(req, res) {
   let existsError = false;
@@ -110,7 +112,7 @@ async function registerAttempt(req, res) {
     res.status(200).json({message: "Successful registration!"})
 }
 
-app.use("/register", registerAttempt)
+
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
@@ -120,7 +122,7 @@ async function changeData(req, res) {
     `WHERE saveId = '${req.body.saveId}' AND userId = (SELECT uid FROM usertbl WHERE name = '${req.body.userAuthCode.split('$')[0]}' AND password = '${req.body.userAuthCode.split('$')[1]}' LIMIT 1)`
   );
 }
-app.use("/changedata", changeData);
+
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -129,6 +131,16 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
+
+app.use("/savedata", getData);
+app.use("/admin/checkData", checkData);
+app.use("/admin/getTableNames", getTableNames);
+app.use("/admin/getFields", getFields);
+app.use("/admin/insertIntoTables", insertIntoTables);
+app.use("/login", loginAttempt);
+app.use("/register", registerAttempt);
+app.use("/changedata", changeData);
 
 // Ez indítja a szervert
 app.listen(port, () => {
