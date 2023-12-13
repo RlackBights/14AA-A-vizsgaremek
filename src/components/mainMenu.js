@@ -122,7 +122,7 @@ export function MainMenu() {
                 Quit Game
               </button>
             </div>
-            <div id="darken-bg"></div>
+            <div id="darken-bg" className="crt"></div>
           </div>
     )}
 
