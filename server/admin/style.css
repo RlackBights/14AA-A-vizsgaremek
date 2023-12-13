@@ -344,7 +344,6 @@ option {
 .edit-content {
   width: 90%;
   height: 100%;
-  display: grid;
   margin: auto;
   margin-top: 2%;
 }
@@ -357,12 +356,53 @@ option {
 
 .update-table {
   width: 100%;
-  max-height: 50px;
+  height: 5rem;
   margin: auto;
-  background-color: grey;
+  background-color: rgb(69, 69, 69);
   text-align: center;
+  table-layout: fixed;
+}
+
+.update-table,
+th,
+td {
+  border: 2px solid #0082ce;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
 }
 
 .table-head {
-  position: sticky;
+  background-color: rgb(30, 30, 30);
+  color: #0082ce;
+  font-size: 3vmin;
+  align-items: center;
+  justify-content: center;
+  table-layout: fixed;
+  height: 5.5vmin;
+}
+
+.update-table td {
+  height: 3vmin;
+}
+
+.update-table-container::-webkit-scrollbar {
+  width: 0;
+}
+
+.edit-field {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+}
+
+.edit-field ul{
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  width: 100%;
+  height: 100%;
 }

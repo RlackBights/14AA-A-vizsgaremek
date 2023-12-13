@@ -62,36 +62,42 @@
         </div>
         <div class="edit-data">
           <div class="filter">
-            <p>Table:<select name="" class="tableSelect" onchange="attributeSearchLoad(this.value); updateAppear()">
-              <option value="base" selected disabled hidden>Select an Option</option>
-            </select>
+            <p>
+              Table:<select
+                name=""
+                class="tableSelect"
+                onchange="attributeSearchLoad(this.value); updateAppear()"
+              >
+                <option value="base" selected disabled hidden>
+                  Select an Option
+                </option>
+              </select>
             </p>
-            <p id="attribute">Attribute:<select name="" class="attributeSearch" onchange="addOne(); updateAppear()"><option value="base" selected>Select an Option</option></select></p>
-            <p id="value">Value: <input type="text"></p>
+            <p id="attribute">
+              Attribute:<select
+                name=""
+                class="attributeSearch"
+                onchange="addOne(); updateAppear()"
+              >
+                <option value="base" selected>Select an Option</option>
+              </select>
+            </p>
+            <p id="value">Value: <input type="text" /></p>
             <button>Search</button>
           </div>
+          
           <div class="edit-content">
+            <table class="update-table">
+              <tr class="table-head">
+                <th>cpuid</th>
+                <th>name</th>
+                <th>desciption</th>
+                <th>company</th>
+              </tr>
+            </table>
             <div class="update-table-container">
               <table class="update-table">
-                <tr class="table-head">
-                  <th>cpuid</th>
-                  <th>name</th>
-                  <th>desc</th>
-                  <th>company</th>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asdasd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
+                <tr onclick="alert('asdasd')">
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
@@ -107,75 +113,6 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asdasd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asdasd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                </tr>
-                <tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asdasd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -201,16 +138,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -224,16 +156,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -247,16 +174,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -270,16 +192,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -293,16 +210,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -316,16 +228,11 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
-                  <td>asd</td>
                 </tr>
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -339,7 +246,8 @@
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
-                </tr><tr>
+                </tr>
+                <tr>
                   <td>asd</td>
                   <td>asd</td>
                   <td>asd</td>
@@ -348,7 +256,127 @@
                 <tr>
                   <td>asd</td>
                   <td>asd</td>
-                  <td>asdasd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
                   <td>asd</td>
                 </tr>
                 <tr>
@@ -358,6 +386,15 @@
                   <td>asd</td>
                 </tr>
               </table>
+            </div>
+            <div class="edit-field">
+              <ul id="edit-input">
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+              </ul>
+            <button onclick="insertData()">Submit</button>
             </div>
           </div>
         </div>
