@@ -59,6 +59,13 @@ export function MainMenu() {
         <div className="main-menu">
             <LoginPage />
             <h1 id="title-text" className="">
+              {/*}
+              <p className="glitch">
+                <span aria-hidden="true">
+              Learn<br/>The<br/>Basics</span>
+                <span aria-hidden="true">
+              Learn<br/>The<br/>Basics</span>
+    </p>*/}
               Learn<br/>The<br/>Basics
             </h1>
             <div className="button-container">
