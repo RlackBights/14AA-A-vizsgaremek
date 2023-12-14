@@ -394,15 +394,54 @@ td {
   width: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
 }
 
 .edit-field ul{
+  padding: 0;
   list-style-type: none;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  column-gap: 6.9%;
   color: #fff;
   width: 100%;
   height: 100%;
+}
+
+.update-table-container tr {
+  cursor: pointer;
+  user-select: none;
+}
+
+.update-table-container tr:hover {
+  background-color: #0082ce;
+}
+
+.edit-field input {
+  padding: 0.5vmin;
+  background: none;
+  outline: none;
+  border: 2px solid #0082ce;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.edit-field button {
+  width: 10%;
+  padding: 1vmin;
+  margin: auto;
+  background: none;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.edit-field button:hover {
+  color: #0082ce;
+  border: 3px solid #0082ce;
 }
