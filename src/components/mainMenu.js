@@ -58,7 +58,7 @@ export function MainMenu() {
     return (
         <div className="main-menu">
             <LoginPage />
-            <h1 id="title-text" className="">
+            <h1 id="title-text1" data-text="Learn" className="glitch">
               {/*}
               <p className="glitch">
                 <span aria-hidden="true">
@@ -66,7 +66,13 @@ export function MainMenu() {
                 <span aria-hidden="true">
               Learn<br/>The<br/>Basics</span>
     </p>*/}
-              Learn<br/>The<br/>Basics
+              Learn
+            </h1>
+            <h1 id="title-text2" data-text="The" className="glitch">
+              The
+            </h1>
+            <h1 id="title-text3" data-text="Basics" className="glitch">
+              Basics
             </h1>
             <div className="button-container">
               <button
