@@ -30,7 +30,7 @@ function regex(text) {
 
 }
 
-function updateAppear(){
+function updateAppear() {
   switch (updateHelper) {
     case 0:
       attributeFilter.style.display = "block";
@@ -41,8 +41,8 @@ function updateAppear(){
   }
 }
 
-function addOne(){
-  updateHelper +=1;
+function addOne() {
+  updateHelper += 1;
   console.log(updateHelper);
 }
 
@@ -117,7 +117,7 @@ function openPage(pageName) {
       adminNav1.classList.remove('adminActive');
       adminNav2.classList.add('adminActive');
       adminNav3.classList.remove('adminActive');
-      
+
       break;
     case "delete":
       deleteData.style.display = "block";
@@ -205,6 +205,8 @@ function insertDataFetch(allInputs) {
     })
 }
 
+
+
 function insertData() {
   var allInputs = [];
   var tableName = document.getElementsByClassName('tableSelect')[0].value;
@@ -218,23 +220,23 @@ function insertData() {
       alert('Only letters, numbers and "_ . !" symbols!!!');
       allInputs = '';
       break;
-    }else if(insertInput[x].value == ""){
+    } else if (insertInput[x].value == "") {
       alert("Please don't leave fields empty!");
       allInputs = '';
       break;
-    }else{
+    } else {
       if (insertInput[x].type === 'checkbox') {
         if (insertInput[x].checked == true) {
           allInputs.push(1);
-          
+
         } else {
           allInputs.push(0);
         }
-      }else{
+      } else {
         allInputs.push(insertInput[x].value)
         insertInput[x].value = "";
       }
-      
+
     }
   }
   console.log(allInputs.values);
@@ -243,18 +245,18 @@ function insertData() {
 }
 
 
-function attributeSearchLoad(selectedTable){
+function attributeSearchLoad(selectedTable) {
   var options = document.querySelectorAll('.attributeSearch option');
   var loadAttributes = document.getElementsByClassName('attributeSearch');
   var tHead = document.getElementById('update-table-head');
 
   try {
     tHead.deleteRow(0);
-  } catch {}
-  
+  } catch { }
+
   var tRow = tHead.appendChild(document.createElement("tr"));
 
-  for(let i = 0; i < options.length; i++) {
+  for (let i = 0; i < options.length; i++) {
     options[i].remove();
   }
   fetch(
@@ -269,9 +271,9 @@ function attributeSearchLoad(selectedTable){
       return response.json();
     }).then(function (table) {
       for (let index = 0; index < table.length; index++) {
-          for (let i = 0; i < loadAttributes.length; i++) {
-            loadAttributes[i].add(new Option(table[index].column_name))
-          }
+        for (let i = 0; i < loadAttributes.length; i++) {
+          loadAttributes[i].add(new Option(table[index].column_name))
+        }
       }
       for (let i = 0; i < table.length; i++) {
         var th = document.createElement("th");
@@ -282,8 +284,8 @@ function attributeSearchLoad(selectedTable){
     });
 }
 
-function getRowDataUpdate(clickedRow){
- for (let i = 0; i < clickedRow.childElementCount; i++) {
-  console.log(clickedRow.cells[i].innerHTML);
- }
+function getRowDataUpdate(clickedRow) {
+  for (let i = 0; i < clickedRow.childElementCount; i++) {
+    console.log(clickedRow.cells[i].innerHTML);
+  }
 }
