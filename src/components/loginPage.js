@@ -28,14 +28,6 @@ export function LoginPage() {
             <p id="error-message">ERROR PLACEHOLDER</p>
             <div id="login-page" style={{ display: 'none' }}>
                 <div id="form-container">
-                    <img className="close-image" onClick={() => {
-                        const loginPage = document.getElementById('login-page');
-                        const registerPage = document.getElementById('register-page');
-                        const container = document.getElementById('login-container');
-                        loginPage.style.display = 'none';
-                        registerPage.style.display = 'none';
-                        container.style.pointerEvents = 'none';
-                    }} src={exitImage}></img>
                     <h1>Login</h1>
                     <p>Username</p>
                     <input type="text" id="name-input" ></input>
@@ -109,6 +101,15 @@ export function LoginPage() {
 
                         }}>
                             Register here!</a></p>
+
+                            <h3 className="close-image" onClick={() => {
+                        const loginPage = document.getElementById('login-page');
+                        const registerPage = document.getElementById('register-page');
+                        const container = document.getElementById('login-container');
+                        loginPage.style.display = 'none';
+                        registerPage.style.display = 'none';
+                        container.style.pointerEvents = 'none';
+                    }}>Close</h3>
 
                     </div>
                 </div>
