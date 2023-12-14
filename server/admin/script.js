@@ -246,8 +246,15 @@ function insertData() {
 function attributeSearchLoad(selectedTable){
   var options = document.querySelectorAll('.attributeSearch option');
   var loadAttributes = document.getElementsByClassName('attributeSearch');
-  var tHeadNames = document.getElementById('update-table-head');
-  for(let i = 1; i < options.length; i++) {
+  var tHead = document.getElementById('update-table-head');
+
+  try {
+    tHead.deleteRow(0);
+  } catch {}
+  
+  var tRow = tHead.appendChild(document.createElement("tr"));
+
+  for(let i = 0; i < options.length; i++) {
     options[i].remove();
   }
   fetch(
@@ -270,7 +277,7 @@ function attributeSearchLoad(selectedTable){
         var th = document.createElement("th");
         var text = document.createTextNode(table[i].column_name);
         th.appendChild(text)
-        tHeadNames.appendChild(th);
+        tRow.appendChild(th);
       }
     });
 }
