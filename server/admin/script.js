@@ -7,12 +7,10 @@ const login = document.getElementsByClassName("login-container")[0];
 const adminPage = document.getElementsByClassName("admin-container")[0];
 const addData = document.getElementsByClassName("add-data")[0];
 const editData = document.getElementsByClassName("edit-data")[0];
-const listData = document.getElementsByClassName("list-data")[0];
 const deleteData = document.getElementsByClassName("delete-data")[0];
 const adminNav1 = document.getElementsByClassName("admin-nav")[0];
 const adminNav2 = document.getElementsByClassName("admin-nav")[1];
 const adminNav3 = document.getElementsByClassName("admin-nav")[2];
-const adminNav4 = document.getElementsByClassName("admin-nav")[3];
 const tableTitles = document.getElementById("tableTitles");
 const attributeFilter = document.getElementById("attribute");
 const valueFilter = document.getElementById("value");
@@ -119,7 +117,6 @@ function logOut() {
 function openPage(pageName) {
   addData.style.display = "none";
   editData.style.display = "none";
-  listData.style.display = "none";
   deleteData.style.display = "none";
 
 
@@ -129,14 +126,12 @@ function openPage(pageName) {
       adminNav1.classList.add('adminActive');
       adminNav2.classList.remove('adminActive');
       adminNav3.classList.remove('adminActive');
-      adminNav4.classList.remove('adminActive');
       break;
     case "edit":
       editData.style.display = "block";
       adminNav1.classList.remove('adminActive');
       adminNav2.classList.add('adminActive');
       adminNav3.classList.remove('adminActive');
-      adminNav4.classList.remove('adminActive');
       
       break;
     case "delete":
@@ -144,14 +139,6 @@ function openPage(pageName) {
       adminNav1.classList.remove('adminActive');
       adminNav2.classList.remove('adminActive');
       adminNav3.classList.add('adminActive');
-      adminNav4.classList.remove('adminActive');
-      break;
-    case "list":
-      listData.style.display = "block";
-      adminNav1.classList.remove('adminActive');
-      adminNav2.classList.remove('adminActive');
-      adminNav3.classList.remove('adminActive');
-      adminNav4.classList.add('adminActive');
       break;
   }
 }
