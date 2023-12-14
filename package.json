@@ -45,7 +45,8 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "devDependencies": {
-    "@iconify/react": "^4.1.1"
+    "@iconify/react": "^4.1.1",
+    "react-router-dom": "^6.21.0"
   },
   "author": "BNH",
   "license": "ISC"

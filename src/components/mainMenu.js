@@ -68,6 +68,7 @@ export function MainMenu() {
               Basics
             </h1>
             <div className="button-container">
+              {cookie.get("isAdmin")?(<button>Admin Page</button>):("")}
               <button
                 onClick={() => {
 

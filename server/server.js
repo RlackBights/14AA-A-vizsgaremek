@@ -92,7 +92,7 @@ async function insertIntoTables(req, res) {
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
 
 async function loginAttempt(req, res) {
-  const answer = await db.query("SELECT password FROM userTbl WHERE name = '" + req.body.username + "'");
+  const answer = await db.query("SELECT password, isAdmin FROM userTbl WHERE name = '" + req.body.username + "'");
   const userPassword = crypto.createHash('md5').update(req.body.password).digest('hex');
 
   if (answer.length == 0) {
@@ -101,7 +101,7 @@ async function loginAttempt(req, res) {
   }
 
   if (answer[0].password === userPassword) {
-    res.status(200).json({ message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword) });
+    res.status(200).json({ message: "Login success!", loginAuthCode: (req.body.username + "$" + userPassword), isAdmin: answer[0].isAdmin });
   } else {
     res.status(400).json({ message: "Login failed!" });
   }
