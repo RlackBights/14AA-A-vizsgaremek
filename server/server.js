@@ -4,11 +4,7 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
-<<<<<<< HEAD
-const { resolvePtr } = require("dns");
-=======
 var insertValues = ["''"];
->>>>>>> admin-page
 
 app.use(
   cors({
@@ -56,11 +52,7 @@ async function getData(req, res) {
   );
 
 }
-<<<<<<< HEAD
-app.use("/getdata", getData); // A "getData" átmeneti function-nel küld lekérést
-=======
  // A "getData" átmeneti function-nel küld lekérést
->>>>>>> admin-page
 
 async function checkData(req, res) {
   res.json(
