@@ -16,10 +16,10 @@ let timerAllowed = false;
 
 // Contexts
 
-let updateData = async () => {};
+//let updateData = async () => {};
 
-export const updateDataContext = createContext(updateData);
-export const saveContext = createContext([[],[],[]]);
+//export const updateDataContext = createContext(updateData);
+//export const saveContext = createContext([[],[],[]]);
 
 // Entry point
 
@@ -27,12 +27,12 @@ function App() {
 
   // States
 
-  const [save1, setSave1] = useState(new saveFile(1, -1, 0, 0, 0, 0, 0, 0));
-  const [save2, setSave2] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
-  const [save3, setSave3] = useState(new saveFile(3, -1, 0, 0, 0, 0, 0, 0));
+  //const [save1, setSave1] = useState(new saveFile(1, -1, 0, 0, 0, 0, 0, 0));
+  //const [save2, setSave2] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
+  //const [save3, setSave3] = useState(new saveFile(3, -1, 0, 0, 0, 0, 0, 0));
 
   // Timing function
-
+ /*
   if (!timerAllowed) {
     timerAllowed = true;
     setInterval(() => {
@@ -53,7 +53,7 @@ function App() {
       }
     }, 1000);
   }
-
+*/
 
   // State logic
   
@@ -61,32 +61,32 @@ function App() {
     default:
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
-            <updateDataContext.Provider value={updateData}>
+          {/*<saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>*/}
+            {/*<updateDataContext.Provider value={updateData}>*/}
               <MainMenu />
               {cookie.get("user").length > 0 &&
                 <SaveContainer />
               }
               
-            </updateDataContext.Provider>
-          </saveContext.Provider>
+            {/*</updateDataContext.Provider>*/}
+          {/*</saveContext.Provider>*/}
         </div>
       );
     case "Room":
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
+        {/*<saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>*/}
             <Room />
-          </saveContext.Provider>
+          {/*</saveContext.Provider>*/}
         </div>
       );
     case "Desktop":
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
+        {/*<saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>*/}
             <Desktop />
             <Taskbar />
-          </saveContext.Provider>
+          {/*</saveContext.Provider>*/}
         </div>
       );
     case "Taskbar":

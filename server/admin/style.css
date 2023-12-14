@@ -29,22 +29,12 @@ h1 {
   font-size: 6vmin;
 }
 
-.monitor {
-  position: absolute;
-  width: 27%;
-  height: 33%;
-  margin-left: 50%;
-  transform: translateX(-68%) translateY(15%);
-
-  cursor: pointer;
-}
-
 .desktop {
   position: absolute;
-  top: 2%;
-  left: 1%;
-  width: 98%;
-  height: 96%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: url(desktopbg.jpg);
   z-index: 5;
   display: flex;
@@ -71,7 +61,7 @@ h1 {
   position: absolute;
   right: 1%;
   text-align: center;
-  line-height: 3;
+  line-height: 4;
 }
 
 .closeBtn {
@@ -179,7 +169,7 @@ button:hover {
   height: 100%;
   text-align: center;
   border-bottom: 5px solid transparent;
-  padding-top: 1%;
+  padding: 1vmin;
 }
 
 .admin-tabs ul li a {

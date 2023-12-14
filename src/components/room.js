@@ -5,10 +5,6 @@ import { Icon } from "@iconify/react";
 import { saveContext } from "../App";
 
 export function Room() {
-
-    const save1 = useContext(saveContext)[0][0];
-    const save2 = useContext(saveContext)[1][0];
-    const save3 = useContext(saveContext)[2][0];
     return (
         <div className="main-menu">
             <button
@@ -19,13 +15,13 @@ export function Room() {
 
                 switch (cookie.get("activeSaveSlot")) {
                   case "1":
-                    setData(save1, 1, undefined, undefined, save1.time);
+                    //setData(save1, 1, undefined, undefined, save1.time);
                     break;
                   case "2":
-                    setData(save2, 2, undefined, undefined, save2.time);
+                    //setData(save2, 2, undefined, undefined, save2.time);
                     break;
                   case "3":
-                    setData(save3, 3, undefined, undefined, save3.time);
+                    //setData(save3, 3, undefined, undefined, save3.time);
                     break;
 
                   default:
