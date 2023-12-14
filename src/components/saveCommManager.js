@@ -1,5 +1,7 @@
 import { cookie } from "./cookie";
 
+/*
+
 export async function setData(id, lvl, money, time, cpu, gpu, ram, stg)
 {
 
@@ -57,3 +59,4 @@ export async function getData() {
     return data;
     
 };
+*/
