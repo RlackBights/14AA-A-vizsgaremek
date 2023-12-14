@@ -49,22 +49,6 @@ function isDecimal(number) {
   return (number % 1);
 }
 
-function zoom() {
-  container.style.display = "block";
-  closeBtn.style.display = "block";
-  taskbar.style.display = "flex";
-  desktop.style.display = "flex";
-  h1.style.display = "none";
-}
-
-function closeAdmin() {
-  container.style.display = "none";
-  closeBtn.style.display = "none";
-  taskbar.style.display = "none";
-  desktop.style.display = "none";
-  h1.style.display = "block";
-}
-
 function loginPressed() {
   /*let usernameLogin = document.getElementById('username').value;
     let passwordLogin = document.getElementById('password').value;
