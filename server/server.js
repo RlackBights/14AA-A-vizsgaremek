@@ -4,7 +4,11 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
+<<<<<<< HEAD
 const { resolvePtr } = require("dns");
+=======
+var insertValues = ["''"];
+>>>>>>> admin-page
 
 app.use(
   cors({
@@ -52,7 +56,11 @@ async function getData(req, res) {
   );
 
 }
+<<<<<<< HEAD
 app.use("/getdata", getData); // A "getData" átmeneti function-nel küld lekérést
+=======
+ // A "getData" átmeneti function-nel küld lekérést
+>>>>>>> admin-page
 
 async function checkData(req, res) {
   res.json(
@@ -61,15 +69,30 @@ async function checkData(req, res) {
     )
   );
 } //admin page login
-app.use("/admin/checkData", checkData);
+
 
 //tábla nevek lekérése az admin page-hez
-async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics' AND table_name NOT LIKE '%save%'"))}
-app.use("/admin/getTableNames", getTableNames);
+async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
+
 
 //tábla column name lekérése admin page-hez
-async function getFields(req, res) {console.log(res.json(await db.query("SELECT DISTINCT(column_name) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'")))}
-app.use("/admin/getFields", getFields);
+async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(column_name), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
+
+
+//insertInto query
+async function insertIntoTables(req, res) {
+  var insert = "INSERT INTO " + req.body.list[0] + " VALUES ";
+  tableName = req.body.list[0];
+  for (let index = 1; index < req.body.list.length; index++) {
+    insertValues.push("'" +req.body.list[index]+ "'");
+  }
+  res.json(await db.query(insert + "("+[insertValues]+")"));
+  insertValues = ["''"];
+}
+
+
+
+
 
 // Admin page betöltése, a CSS része nem működik, jó lenne kitalálni hogy ne cask egy fájlba lehessen dolgozni
 app.use("/admin", express.static(__dirname + "/admin")); // betölti az admin oldalt
@@ -90,21 +113,21 @@ async function loginAttempt(req, res) {
   }
 }
 
-app.use("/login", loginAttempt)
+
 
 async function registerAttempt(req, res) {
   let existsError = false;
   let names = await db.query(`SELECT name FROM userTbl`);
   names.forEach(element => {
     if (req.body.username == element.name) {
-      res.status(401).json({message: "A user with htis name already exists!"});
+      res.status(401).json({message: "A user with this name already exists!"});
       existsError = true;
     }
   })
 
   if (existsError) return;
     await db.query("INSERT INTO userTbl VALUES " +
-                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), FALSE);")
+                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), "+ (req.body.isAdmin == 1) ? "TRUE" : "FALSE" +");")
 
     await db.query("INSERT INTO savedata VALUES " +
     "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 1, -1, 0, 0, 0, 0, 0, 0), " +
@@ -114,7 +137,7 @@ async function registerAttempt(req, res) {
     res.status(200).json({message: "Successful registration!"})
 }
 
-app.use("/register", registerAttempt)
+
 
 // szintén sima SQL lekérés, itt viszont feltölti az adatokat, ennyi
 async function changeData(req, res) {
@@ -127,7 +150,7 @@ async function changeData(req, res) {
     console.log(response);
   });
 }
-app.use("/changedata", changeData);
+
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -136,6 +159,16 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json({ message: err.message });
   return;
 });
+
+
+app.use("/savedata", getData);
+app.use("/admin/checkData", checkData);
+app.use("/admin/getTableNames", getTableNames);
+app.use("/admin/getFields", getFields);
+app.use("/admin/insertIntoTables", insertIntoTables);
+app.use("/login", loginAttempt);
+app.use("/register", registerAttempt);
+app.use("/changedata", changeData);
 
 // Ez indítja a szervert
 app.listen(port, () => {
