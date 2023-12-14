@@ -1,4 +1,6 @@
 const h1 = document.getElementById("title");
+const container = document.getElementsByClassName("container")[0];
+const closeBtn = document.getElementsByClassName("closeBtn")[0];
 const taskbar = document.getElementsByClassName("taskbar")[0];
 const desktop = document.getElementsByClassName("desktop")[0];
 const login = document.getElementsByClassName("login-container")[0];
@@ -48,22 +50,6 @@ function isDecimal(number) {
   return (number % 1);
 }
 
-function zoom() {
-  container.style.display = "block";
-  closeBtn.style.display = "block";
-  taskbar.style.display = "flex";
-  desktop.style.display = "flex";
-  h1.style.display = "none";
-}
-
-function closeAdmin() {
-  container.style.display = "none";
-  closeBtn.style.display = "none";
-  taskbar.style.display = "none";
-  desktop.style.display = "none";
-  h1.style.display = "block";
-}
-
 function loginPressed() {
   /*let usernameLogin = document.getElementById('username').value;
     let passwordLogin = document.getElementById('password').value;
@@ -86,7 +72,6 @@ function loginPressed() {
 
   login.style.display = "none";
   adminPage.style.display = "block";
-  h1.style.display = "none";
 }
 
 function loadOptions() {
@@ -100,8 +85,7 @@ function loadOptions() {
   })
     .then(function (response) {
       return response.json();
-    })
-    .then(function (tables) {
+    }).then(function (tables) {
       for (let index = 0; index < tables.length; index++) {
         for (let i = 0; i < loadSelect.length; i++) {
           loadSelect[i].add(new Option(tables[index].table_name));
