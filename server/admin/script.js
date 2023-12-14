@@ -20,6 +20,7 @@ valueFilter.style.display = "none";
 
 
 
+
 function regex(text) {
   /* /^[a-zA-Z0-9áéóőúűöüßäÁÉÓŐÖÜÚŰÄ_.!]*$/g */
 
@@ -245,6 +246,7 @@ function insertData() {
 function attributeSearchLoad(selectedTable){
   var options = document.querySelectorAll('.attributeSearch option');
   var loadAttributes = document.getElementsByClassName('attributeSearch');
+  var tHeadNames = document.getElementById('update-table-head');
   for(let i = 1; i < options.length; i++) {
     options[i].remove();
   }
@@ -264,8 +266,17 @@ function attributeSearchLoad(selectedTable){
             loadAttributes[i].add(new Option(table[index].column_name))
           }
       }
+      for (let i = 0; i < table.length; i++) {
+        var th = document.createElement("th");
+        var text = document.createTextNode(table[i].column_name);
+        th.appendChild(text)
+        tHeadNames.appendChild(th);
+      }
     });
 }
 
-
-//KELLLLLLLLLLLLLLLLL document.querySelectorAll(".container > div:not(.first)");
+function getRowDataUpdate(clickedRow){
+ for (let i = 0; i < clickedRow.childElementCount; i++) {
+  console.log(clickedRow.cells[i].innerHTML);
+ }
+}
