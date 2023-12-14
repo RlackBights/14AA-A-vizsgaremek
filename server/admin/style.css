@@ -301,9 +301,6 @@ option {
   border: 2px solid #0082ce;
 }
 
-<<<<<<< HEAD
-.edit-container {
-=======
 .edit-content {
   width: 90%;
   height: 100%;
@@ -367,7 +364,6 @@ td {
   justify-content: space-evenly;
   column-gap: 6.9%;
   color: #fff;
->>>>>>> admin-page
   width: 100%;
   height: 100%;
 }
@@ -415,95 +411,6 @@ td {
   height: 100%;
   margin: auto;
   margin-top: 2%;
-<<<<<<< HEAD
-  display: grid;
-}
-
-.edit-data button {
-  position: relative;
-  font-size: 3vmin;
-  border-radius: 1rem;
-  background: none;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  border: 2px solid #fff;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.tbl-edit {
-  width: 90%;
-  height: 10%;
-}
-
-@media screen and (max-width: 600px) {
-  .desktop h3 {
-    font-size: 10vmin;
-  }
-
-  .login-container {
-    width: 70%;
-    padding: 0 1rem 1rem 1rem;
-  }
-  
-  .login-container h1 {
-    font-size: 10vmin;
-  }
-
-  .login-container h2 {
-    font-size: 6vmin;
-  }
-
-  .login input {
-    font-size: 4vmin;
-  }
-
-  .login-container button {
-    font-size: 6vmin;
-  }
-
-  #tableTitles {
-    flex-direction: column;
-  }
-
-  .tbl-add {
-    width: 90%;
-    min-height: 10%;
-    height: fit-content;
-  }
-
-  .add-container button {
-    font-size: 7vmin;
-  }
-
-  #tableTitles li input {
-    font-size: 5vmin;
-  }
-
-  select,option {
-    font-size: 4vmin;
-  }
-
-  .filter {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .filter p {
-    font-size: 5vmin;
-  }
-
-  .filter input {
-    font-size: 5vmin;
-  }
-
-  .edit-data button {
-    font-size: 6vmin;
-  }
-=======
 }
 
 .delete-table-container {
@@ -593,5 +500,4 @@ td {
 .delete-field button:hover {
   color: #0082ce;
   border: 3px solid #0082ce;
->>>>>>> admin-page
 }
