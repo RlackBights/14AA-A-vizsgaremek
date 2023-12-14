@@ -3,9 +3,9 @@ import { cookie } from "./cookie";
 import { useContext } from "react";
 import { saveContext } from "../App";
 import { refreshSaves, openSaves } from "./saveMenuManager";
-import { getData, setData } from "./saveCommHandler";
 import '../App.css';
-import { convertSave } from "./saveFileManagement";
+import { convertSave } from "./saveFileManager";
+import { getData, setData } from "./saveCommManager";
 
 
 export function changeToGame() {
@@ -34,30 +34,45 @@ export function changeToGame() {
 
 export function MainMenu() {
 
-    async function updateData () {
-        let myJson = await getData().then((value) => {
-          return value;
-        });
     
-        setSave1((save1) => convertSave(myJson[0]));
-        setSave2((save2) => convertSave(myJson[1]));
-        setSave3((save3) => convertSave(myJson[2]));
-    
-        refreshSaves(save1, save2, save3);
-    }
 
     const save1 = useContext(saveContext)[0][0];
-    const setSave1 = useContext(saveContext)[0][2];
+    const setSave1 = useContext(saveContext)[0][1];
     const save2 = useContext(saveContext)[1][0];
-    const setSave2 = useContext(saveContext)[1][2];
+    const setSave2 = useContext(saveContext)[1][1];
     const save3 = useContext(saveContext)[2][0];
-    const setSave3 = useContext(saveContext)[2][2];
+    const setSave3 = useContext(saveContext)[2][1];
+
+    async function updateData () {
+      let myJson = await getData().then((value) => {
+        return value;
+      });
+  
+      setSave1((save1) => convertSave(myJson[0]));
+      setSave2((save2) => convertSave(myJson[1]));
+      setSave3((save3) => convertSave(myJson[2]));
+  
+      refreshSaves(save1, save2, save3);
+  }
 
     return (
         <div className="main-menu">
             <LoginPage />
-            <h1 id="title-text" className="">
-              LearnTheBasics.it
+            <h1 id="title-text1" data-text="Learn" className="glitch">
+              {/*}
+              <p className="glitch">
+                <span aria-hidden="true">
+              Learn<br/>The<br/>Basics</span>
+                <span aria-hidden="true">
+              Learn<br/>The<br/>Basics</span>
+    </p>*/}
+              Learn
+            </h1>
+            <h1 id="title-text2" data-text="The" className="glitch">
+              The
+            </h1>
+            <h1 id="title-text3" data-text="Basics" className="glitch">
+              Basics
             </h1>
             <div className="button-container">
               <button
@@ -68,7 +83,6 @@ export function MainMenu() {
                   }
 
                   updateData();
-                  refreshSaves(save1, save2, save3);
                   openSaves();
                 }}
               >
@@ -114,7 +128,7 @@ export function MainMenu() {
                 Quit Game
               </button>
             </div>
-            <div id="darken-bg"></div>
+            <div id="darken-bg" className="crt"></div>
           </div>
     )}
 

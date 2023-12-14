@@ -1,17 +1,14 @@
 import { useContext } from "react";
 import { cookie } from "./cookie";
-import { setData } from "./saveCommHandler";
+import { setData } from "./saveCommManager";
 import { Icon } from "@iconify/react";
 import { saveContext } from "../App";
 
 export function Room() {
 
     const save1 = useContext(saveContext)[0][0];
-    const setSave1 = useContext(saveContext)[0][2];
     const save2 = useContext(saveContext)[1][0];
-    const setSave2 = useContext(saveContext)[1][2];
     const save3 = useContext(saveContext)[2][0];
-    const setSave3 = useContext(saveContext)[2][2];
     return (
         <div className="main-menu">
             <button

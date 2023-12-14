@@ -26,6 +26,8 @@ app.use(
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
+
+  console.log(req.query.userAuthCode)
   
   if(req.query.userAuthCode == undefined) {
     console.log('ERROR');

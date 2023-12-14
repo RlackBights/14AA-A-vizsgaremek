@@ -13,7 +13,6 @@
     "capacitor-nodejs": "https://github.com/hampoelz/capacitor-nodejs/releases/download/v1.0.0-beta.4/capacitor-nodejs.tgz",
     "mysql": "^2.18.1",
     "react": "^18.2.0",
-    "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -22,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "npm run dev --prefix server/"
   },
   "eslintConfig": {
     "extends": [
