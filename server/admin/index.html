@@ -11,7 +11,6 @@
 
   <body onload="loadOptions(); startTime();">
     <div class="desktop">
-      <h3 id="title">ADMIN PAGE</h3>
       <div class="login-container">
         <h1>Login</h1>
         <div class="login">
@@ -26,13 +25,13 @@
         <div class="admin-tabs">
           <ul>
             <li class="admin-nav adminActive" onclick="openPage('add')">
-              <a>Insert</a>
+              <a>Insert Data</a>
             </li>
             <li class="admin-nav" onclick="openPage('edit')">
-              <a>Update</a>
+              <a>Update Data</a>
             </li>
             <li class="admin-nav" onclick="openPage('delete')">
-              <a>Delete</a>
+              <a>Delete Data</a>
             </li>
             <li id="logout" onclick="logOut()"><a>Log out</a></li>
           </ul>
@@ -743,6 +742,7 @@
         <div id="clock"></div>
       </div>
     </div>
+    <div class="container"></div>
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <script src="script.js"></script>
   </body>
