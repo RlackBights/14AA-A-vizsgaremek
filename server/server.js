@@ -66,11 +66,11 @@ async function checkData(req, res) {
 
 
 //tábla nevek lekérése az admin page-hez
-async function getTableNames(req, res) {res.json(await db.query("SELECT table_name FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'LearnTheBasics'"))}
+async function getTableNames(req, res) {res.json(await db.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'learnthebasics'"))}
 
 
 //tábla column name lekérése admin page-hez
-async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(column_name), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
+async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(COLUMN_NAME), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
 
 
 //insertInto query

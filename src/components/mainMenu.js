@@ -6,6 +6,7 @@ import { refreshSaves, openSaves } from "./saveMenuManager";
 import '../App.css';
 import { convertSave } from "./saveFileManager";
 import { getData, setData } from "./saveCommManager";
+import { useNavigate } from "react-router-dom";
 
 
 export function changeToGame() {
@@ -68,7 +69,7 @@ export function MainMenu() {
               Basics
             </h1>
             <div className="button-container">
-              {cookie.get("isAdmin")?(<button>Admin Page</button>):("")}
+              <button style={cookie.get("isAdmin") ? {display: "block"} : {display: "none"}} onClick={() => {window.location = "https://bgs.jedlik.eu/learnthebasics"}}>Admin Page</button>
               <button
                 onClick={() => {
 

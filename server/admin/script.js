@@ -88,7 +88,7 @@ function loadOptions() {
     }).then(function (tables) {
       for (let index = 0; index < tables.length; index++) {
         for (let i = 0; i < loadSelect.length; i++) {
-          loadSelect[i].add(new Option(tables[index].table_name));
+          loadSelect[i].add(new Option(tables[index].TABLE_NAME));
         }
       }
     });
@@ -156,7 +156,7 @@ function addDataOption(selectedTable) {
           let input = document.createElement('input');
           li.className = "insertDatas-list";
           input.className = "insertDatas-input";
-          columnNames[i] = table[i].column_name;
+          columnNames[i] = table[i].COLUMN_NAME;
           li.innerText = columnNames[i];
           tableTitles.appendChild(li);
           li.appendChild(input);
@@ -272,12 +272,12 @@ function attributeSearchLoad(selectedTable) {
     }).then(function (table) {
       for (let index = 0; index < table.length; index++) {
         for (let i = 0; i < loadAttributes.length; i++) {
-          loadAttributes[i].add(new Option(table[index].column_name))
+          loadAttributes[i].add(new Option(table[index].COLUMN_NAME))
         }
       }
       for (let i = 0; i < table.length; i++) {
         var th = document.createElement("th");
-        var text = document.createTextNode(table[i].column_name);
+        var text = document.createTextNode(table[i].COLUMN_NAME);
         th.appendChild(text)
         tRow.appendChild(th);
       }

@@ -3,10 +3,10 @@
 
 const config = {
   db: {
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "LearnTheBasics",
+    host: "bgs.jedlik.eu",
+    user: "learnthebasics",
+    password: "LtB20231214",
+    database: "learnthebasics",
     connectTimeout: 60000,
   },
   listPerPage: 10,
