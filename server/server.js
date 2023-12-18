@@ -4,6 +4,8 @@ const port = 8000; // backend port
 const cors = require("cors"); // engedélyezi a CORS átállítását, ilyen internetes security cucc hogy limitálja ki honnan mit kérhet le
 const db = require("./db"); // behozza a db.js fájlt hogy lehessen lekérést küldeni
 const crypto = require("crypto");
+const https = require(`https`);
+const fs = require('fs');
 var insertValues = ["''"];
 
 app.use(
@@ -22,20 +24,26 @@ app.use(
   })
 );
 
+const certDir = `/etc/letsencrypt/live`;
+const domain = `bgs.jedlik.eu`;
+const options = {
+  key: fs.readFileSync(`${certDir}/${domain}/privkey.pem`),
+  cert: fs.readFileSync(`${certDir}/${domain}/fullchain.pem`)
+};
+
 // lekérések
 
 // sima SQL lekérés, a db.query paranccsal
 async function getData(req, res) {
 
   console.log(req.query.userAuthCode)
-  
-  if(req.query.userAuthCode == undefined) {
+
+  if (req.query.userAuthCode == undefined) {
     console.log('ERROR');
     return;
   }
 
-  if(!req.query.userAuthCode.includes('$'))
-  {
+  if (!req.query.userAuthCode.includes('$')) {
     console.log('ERROR')
     return;
   }
@@ -54,7 +62,7 @@ async function getData(req, res) {
   );
 
 }
- // A "getData" átmeneti function-nel küld lekérést
+// A "getData" átmeneti function-nel küld lekérést
 
 async function checkData(req, res) {
   res.json(
@@ -66,11 +74,11 @@ async function checkData(req, res) {
 
 
 //tábla nevek lekérése az admin page-hez
-async function getTableNames(req, res) {res.json(await db.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'learnthebasics'"))}
+async function getTableNames(req, res) { res.json(await db.query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'learnthebasics'")) }
 
 
 //tábla column name lekérése admin page-hez
-async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(COLUMN_NAME), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= ?", [req.body.table]))}
+async function getFields(req, res) { res.json(await db.query("SELECT DISTINCT(COLUMN_NAME), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= ?", [req.body.table])) }
 
 
 //insertInto query
@@ -78,9 +86,9 @@ async function insertIntoTables(req, res) {
   var insert = "INSERT INTO " + req.body.list[0] + " VALUES ";
   tableName = req.body.list[0];
   for (let index = 1; index < req.body.list.length; index++) {
-    insertValues.push("'" +req.body.list[index]+ "'");
+    insertValues.push("'" + req.body.list[index] + "'");
   }
-  res.json(await db.query(insert + "("+[insertValues]+")"));
+  res.json(await db.query(insert + "(" + [insertValues] + ")"));
   insertValues = ["''"];
 }
 
@@ -114,21 +122,21 @@ async function registerAttempt(req, res) {
   let names = await db.query(`SELECT name FROM userTbl`);
   names.forEach(element => {
     if (req.body.username == element.name) {
-      res.status(401).json({message: "A user with this name already exists!"});
+      res.status(401).json({ message: "A user with this name already exists!" });
       existsError = true;
     }
   })
 
   if (existsError) return;
-    await db.query("INSERT INTO userTbl VALUES " +
-                   "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), "+ (req.body.isAdmin == 1) ? "TRUE" : "FALSE" +");")
+  await db.query("INSERT INTO userTbl VALUES " +
+    "(0, '" + req.body.username + "', MD5('" + req.body.password + "'), " + (req.body.isAdmin == 1) ? "TRUE" : "FALSE" + ");")
 
-    await db.query("INSERT INTO savedata VALUES " +
+  await db.query("INSERT INTO savedata VALUES " +
     "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 1, -1, 0, 0, 0, 0, 0, 0), " +
     "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 2, -1, 0, 0, 0, 0, 0, 0), " +
     "(0, (SELECT uid FROM usertbl WHERE name = '" + req.body.username + "' AND password = MD5('" + req.body.password + "') LIMIT 1), 3, -1, 0, 0, 0, 0, 0, 0); ")
 
-    res.status(200).json({message: "Successful registration!"})
+  res.status(200).json({ message: "Successful registration!" })
 }
 
 
@@ -164,7 +172,4 @@ app.use("/login", loginAttempt);
 app.use("/register", registerAttempt);
 app.use("/changedata", changeData);
 
-// Ez indítja a szervert
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+https.createServer(options, app).listen(8000);
