@@ -49,7 +49,7 @@ async function getData(req, res) {
       "INNER JOIN gputbl g ON savedata.gpuId = g.hardwareId " +
       "INNER JOIN ramtbl r ON savedata.ramId = r.hardwareId " +
       "INNER JOIN stgtbl s ON savedata.stgId = s.hardwareId " +
-      `WHERE userTbl.name = '${req.query.userAuthCode.split('$')[0]}' AND userTbl.password = '${req.query.userAuthCode.split('$')[1]}'`
+      `WHERE userTbl.name = ? AND userTbl.password = ?`, [req.body.query.userAuthCode.split('$')[0], req.query.userAuthCode.split('$')[1]]
     )
   );
 
@@ -70,7 +70,7 @@ async function getTableNames(req, res) {res.json(await db.query("SELECT TABLE_NA
 
 
 //tábla column name lekérése admin page-hez
-async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(COLUMN_NAME), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= '" + req.body.table + "'"))}
+async function getFields(req, res) {res.json(await db.query("SELECT DISTINCT(COLUMN_NAME), COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME= ?", [req.body.table]))}
 
 
 //insertInto query
