@@ -3,10 +3,13 @@ const https = require(`https`);
 
 const certDir = `/etc/letsencrypt/live`;
 const domain = `bgs.jedlik.eu`;
-const options = {
-   key: fs.readFileSync(`${certDir}/${domain}/privkey.pem`),
-   cert: fs.readFileSync(`${certDir}/${domain}/fullchain.pem`)
-};
 
+const sslServer = https.createServer(
+   {
+      key: fs.readFileSync(`${certDir}/${domain}/privkey.pem`),
+      cert: fs.readFileSync(`${certDir}/${domain}/fullchain.pem`)
+   },
+   app
+)
 
-https.createServer(options, app).listen(8000);
+sslServer.listen(port, () => console.log('Secure server on https://bgs.jedlik.eu:8000'))
