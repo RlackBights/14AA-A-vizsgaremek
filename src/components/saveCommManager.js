@@ -16,7 +16,7 @@ export async function setData(id, lvl, money, time, cpu, gpu, ram, stg)
       tempSave = await getData()[2];
       break;
   }
-
+  /*
     fetch("http://127.0.0.1:8000/changedata", {
 
         method: "PUT",
@@ -33,6 +33,7 @@ export async function setData(id, lvl, money, time, cpu, gpu, ram, stg)
             stg: (stg == undefined) ? tempSave.stg : stg,
         }),
     });
+  */
 }
 
 

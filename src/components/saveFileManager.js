@@ -1,31 +1,13 @@
 export class saveFile {
-  constructor(id, lvl, money, time, cpu, gpu, ram, stg) {
+  constructor(id=0, lvl=-1, money=0, time=0, cpu=0, gpu=0, ram=0, stg=0) {
     this.id = id;
     this.lvl = lvl;
     this.money = money;
-    this.hours = Math.floor(time / 3600);
-    this.minutes = Math.floor((time % 3600) / 60);
-    this.seconds = Math.floor((time % 3600) % 60);
+    this.time = time;
     this.cpu = cpu;
     this.gpu = gpu;
     this.ram = ram;
     this.stg = stg;
-  }
-
-  addTime() {
-    this.seconds++;
-    if (this.seconds >= 60) {
-      this.seconds -= 60;
-      this.minutes++;
-    }
-    if (this.minutes >= 60) {
-      this.minutes -= 60;
-      this.hours++;
-    }
-  }
-
-  getSaveTime() {
-    return this.hours * 3600 + this.minutes * 60 + this.seconds;
   }
 
   getCpu() {
@@ -79,16 +61,4 @@ export class saveFile {
         return 3;
     }
   }
-}
-
-export function convertSave(savedata) {
-  return new saveFile(
-    savedata.lvl,
-    savedata.money,
-    savedata.time,
-    savedata.cpu,
-    savedata.gpu,
-    savedata.ram,
-    savedata.stg
-  );
 }

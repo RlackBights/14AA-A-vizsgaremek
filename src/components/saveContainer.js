@@ -4,7 +4,6 @@ import { cookie } from "./cookie";
 import { changeToGame } from "./mainMenu";
 import { saveFile } from "./saveFileManager";
 import { closeSaves } from "./saveMenuManager";
-import { setData } from "./saveCommManager";
 import '../App.css'
 
 
@@ -69,7 +68,7 @@ export function SaveContainer() {
             className="delete-button"
             id="delete-button1"
             onClick={() => {
-            setData(save1, 1, -1, 0, 0, 0, 0, 0, 0);
+            //setData(save1, 1, -1, 0, 0, 0, 0, 0, 0);
             setSave1((save1) => new saveFile(-1, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item1")
@@ -127,7 +126,7 @@ export function SaveContainer() {
             className="delete-button"
             id="delete-button2"
             onClick={() => {
-            setData(save2, 2, -1, 0, 0, 0, 0, 0, 0);
+            //setData(save2, 2, -1, 0, 0, 0, 0, 0, 0);
             setSave2((save2) => new saveFile(-1, 0, 0, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item2")
@@ -185,7 +184,7 @@ export function SaveContainer() {
             className="delete-button"
             id="delete-button3"
             onClick={() => {
-            setData(save3, 3, -1, 0, 0, 0, 0, 0, 0);
+            //setData(save3, 3, -1, 0, 0, 0, 0, 0, 0);
             setSave3((save3) => new saveFile(-1, 0, 0, 0, 0, "", "", "", ""));
             document
                 .getElementById("save-item3")

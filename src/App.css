@@ -544,12 +544,8 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
 }
 
-#save-item1 .save-bottom {
-  border-color: #e6cd92;
-}
-
-#save-item1 .save-top {
-  border-color: #e6cd92;
+#save-item1 .save-bottom, #save-item1 .save-top, #save-item2 .save-bottom, #save-item2 .save-top, #save-item3 .save-bottom, #save-item3 .save-top {
+  border-color: var(--accent-color);
 }
 
 #playtime {

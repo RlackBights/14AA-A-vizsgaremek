@@ -48,10 +48,6 @@ export function MainMenu() {
         return value;
       });
   
-      setSave1((save1) => convertSave(myJson[0]));
-      setSave2((save2) => convertSave(myJson[1]));
-      setSave3((save3) => convertSave(myJson[2]));
-  
       refreshSaves(save1, save2, save3);
   }
 
@@ -77,13 +73,8 @@ export function MainMenu() {
             <div className="button-container">
               <button
                 onClick={() => {
+                  if (cookie.get("user") === "") return;
 
-                  if (cookie.get("user") == null) {
-                    return;
-                  }
-
-                  updateData();
-                  openSaves();
                 }}
               >
                 Continue
@@ -91,29 +82,35 @@ export function MainMenu() {
               <button
                 onClick={() => {
 
-                  if (cookie.get("user") == null) {
-                    return;
-                  }
+                  if (cookie.get("user") === "") return;
 
                   updateData();
+                  
+                  switch (-1) {
+                    case save1.lvl:
+                      setData(save1, 1, 0)
+                      setSave1((save1) => {save1.lvl = 0; return save1});
+                      cookie.set("activeSaveSlot", 1);
+                      changeToGame();
+                      break;
 
-                  if (save1.lvl === -1) {
-                    setData(save1, 1, 0)
-                    setSave1((save1) => {save1.lvl = 0; return save1});
-                    cookie.set("activeSaveSlot", 1);
-                    changeToGame();
-                  } else if (save2.lvl === -1) {
-                    setData(save2, 2, 0);
-                    setSave2((save2) => {save2.lvl = 0; return save2});
-                    cookie.set("activeSaveSlot", 2);
-                    changeToGame();
-                  } else if (save3.lvl === -1) {
-                    setData(save3, 3, 0);
-                    setSave3((save3) => {save3.lvl = 0; return save3});
-                    cookie.set("activeSaveSlot", 3);
-                    changeToGame();
-                  } else {
-                    openSaves();
+                    case save2.lvl:
+                      setData(save2, 2, 0);
+                      setSave2((save2) => {save2.lvl = 0; return save2});
+                      cookie.set("activeSaveSlot", 2);
+                      changeToGame();
+                      break;
+
+                    case save3.lvl:
+                      setData(save3, 3, 0);
+                      setSave3((save3) => {save3.lvl = 0; return save3});
+                      cookie.set("activeSaveSlot", 3);
+                      changeToGame();
+                      break;
+
+                    default:
+                      openSaves();
+                      break;
                   }
                 }}
               >

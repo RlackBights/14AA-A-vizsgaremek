@@ -19,20 +19,28 @@ let timerAllowed = false;
 let updateData = async () => {};
 
 export const updateDataContext = createContext(updateData);
-export const saveContext = createContext([[],[],[]]);
+export const saveContext = createContext();
+
+function getSaveFiles(userAuthCode)
+{
+  var options = {
+    method: "POST",
+    mode: "no-cors", 
+    cache: "no-cache", 
+    headers: {
+      "Content-Type": "application/json",
+    }
+  }
+  fetch()
+}
 
 // Entry point
 
 function App() {
 
-  // States
-
-  const [save1, setSave1] = useState(new saveFile(1, -1, 0, 0, 0, 0, 0, 0));
-  const [save2, setSave2] = useState(new saveFile(2, -1, 0, 0, 0, 0, 0, 0));
-  const [save3, setSave3] = useState(new saveFile(3, -1, 0, 0, 0, 0, 0, 0));
-
+  const [saves, setSaves] = useState([null, null, null]);
   // Timing function
-
+  /*
   if (!timerAllowed) {
     timerAllowed = true;
     setInterval(() => {
@@ -53,15 +61,16 @@ function App() {
       }
     }, 1000);
   }
-
+  */
 
   // State logic
   
+
   switch (cookie.get("gameState")) {
     default:
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
+          <saveContext.Provider value={saves}>
             <updateDataContext.Provider value={updateData}>
               <MainMenu />
               {cookie.get("user").length > 0 &&
@@ -75,7 +84,7 @@ function App() {
     case "Room":
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
+          <saveContext.Provider value={saves}>
             <Room />
           </saveContext.Provider>
         </div>
@@ -83,7 +92,7 @@ function App() {
     case "Desktop":
       return (
         <div className="App">
-          <saveContext.Provider value={[[save1, setSave1], [save2, setSave2], [save3, setSave3]]}>
+          <saveContext.Provider value={saves}>
             <Desktop />
             <Taskbar />
           </saveContext.Provider>
