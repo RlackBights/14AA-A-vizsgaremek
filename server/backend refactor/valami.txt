@@ -1,0 +1,127 @@
+server.js
+const express = require('express');
+const app = express();
+const userRoutes = require('./routes/userRoutes');
+const db = require('./database/db');
+const compression = require('compression');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const cors = require('cors');
+
+app.use(express.json());
+app.use(compression());
+app.use(helmet());
+app.use(morgan('dev'));
+app.use(cors());
+
+app.use('/users', userRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, function() {
+  console.log('Server running on port ' + PORT);
+});
+
+
+routes/userRoutes.js
+const express = require('express');
+const router = express.Router();
+const userController = require('../controllers/userController');
+
+router.post('/register', userController.registerUser);
+router.post('/login', userController.loginUser);
+
+module.exports = router;
+
+
+controllers/userController.js:
+const bcrypt = require('bcrypt');
+const pool = require('../database/db');
+
+const executeQuery = function(query, values, res, successMessage) {
+  pool.query(query, values, function(error, results) {
+    if (error) {
+      console.error('Database query error:', error);
+      res.status(500).json({ error: 'Database query error' });
+      return;
+    }
+
+    console.log(successMessage);
+    res.status(200).json({ message: successMessage, data: results });
+  });
+};
+
+const userController = {
+  registerUser: async function(req, res) {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const query = 'INSERT INTO users (username, email, password) VALUES (?, ?, ?)';
+      const values = [username, email, hashedPassword];
+      executeQuery(query, values, res, 'User registered successfully');
+    } catch (error) {
+      console.error('Error during user registration:', error);
+      res.status(500).json({ error: 'User registration failed' });
+    }
+  },
+
+  loginUser: async function(req, res) {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    try {
+      const query = 'SELECT * FROM users WHERE email = ?';
+      const user = await new Promise(function(resolve, reject) {
+        pool.query(query, [email], function(error, results) {
+          if (error) {
+            return reject(error);
+          }
+          resolve(results[0]);
+        });
+      });
+
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: 'Invalid password' });
+      }
+
+      res.status(200).json({ message: 'Login successful', userId: user.id });
+    } catch (error) {
+      console.error('Error during user login:', error);
+      res.status(500).json({ error: 'User login failed' });
+    }
+  },
+};
+
+module.exports = userController;
+
+
+database/db.js:
+const mysql = require('mysql');
+const pool = mysql.createPool({
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'your_username',
+  password: 'your_password',
+  database: 'your_database_name'
+});
+
+pool.getConnection(function(err, connection) {
+  if (err) {
+    console.error('Database connection failed: ', err);
+    return;
+  }
+  console.log('Connected to MySQL database!');
+  connection.release();
+});
+
+module.exports = pool;
