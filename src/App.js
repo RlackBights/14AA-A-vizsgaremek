@@ -11,14 +11,11 @@ import { saveFile } from "./components/saveFileManager";
 
 // Base variables
 
-document.cookie = (cookie.get("activeSaveSlot") == null) ? "activeSaveSlot = null;" : ("activeSaveSlot = " + cookie.get("activeSaveSlot"));
+cookie.set("activeSaveSlot", (cookie.get("activeSaveSlot") == "") ? ";" : (cookie.get("activeSaveSlot")));
 let timerAllowed = false;
 
 // Contexts
 
-let updateData = async () => {};
-
-export const updateDataContext = createContext(updateData);
 export const saveContext = createContext();
 
 function getSaveFiles(userAuthCode)
@@ -34,76 +31,47 @@ function getSaveFiles(userAuthCode)
   fetch()
 }
 
+// Render State Logic
+
+function getGameState(gameState) {
+  switch (gameState) {
+    default:
+      return (<> <MainMenu /> {/*cookie.get("user").length > 0 && <SaveContainer />*/} </>)
+  
+    case "Room":
+      return ( <> <Room/> </>)
+  
+    case "Desktop":
+      return ( <> <Desktop/> <Taskbar/> </>)
+  
+    case "Taskbar":
+      return ( <>  </>)
+  
+  }
+}
+
 // Entry point
 
 function App() {
 
   const [saves, setSaves] = useState([null, null, null]);
-  // Timing function
-  /*
-  if (!timerAllowed) {
-    timerAllowed = true;
-    setInterval(() => {
-      if (cookie.get("gameState") !== "MainMenu") {
-        switch (cookie.get("activeSaveSlot")) {
-          case "1":
-            setData(save1, 1, undefined, undefined, save1.getSaveTime() + 1);
-            break;
-          case "2":
-            setData(save2, 2, undefined, undefined, save2.getSaveTime() + 1);
-            break;
-          case "3":
-            setData(save3, 3, undefined, undefined, save3.getSaveTime() + 1);
-            break;
-          default:
-            break;
-        }
-      }
-    }, 1000);
-  }
-  */
-
-  // State logic
   
 
-  switch (cookie.get("gameState")) {
-    default:
-      return (
-        <div className="App">
-          <saveContext.Provider value={saves}>
-            <updateDataContext.Provider value={updateData}>
-              <MainMenu />
-              {cookie.get("user").length > 0 &&
-                <SaveContainer />
-              }
-              
-            </updateDataContext.Provider>
-          </saveContext.Provider>
-        </div>
-      );
-    case "Room":
-      return (
-        <div className="App">
-          <saveContext.Provider value={saves}>
-            <Room />
-          </saveContext.Provider>
-        </div>
-      );
-    case "Desktop":
-      return (
-        <div className="App">
-          <saveContext.Provider value={saves}>
-            <Desktop />
-            <Taskbar />
-          </saveContext.Provider>
-        </div>
-      );
-    case "Taskbar":
-      return (
-        <div className="App">
-        </div>
-      )
-  }
+  let updateData = async (saveId, newSave) => {
+    let tempSaves = saves;
+    tempSaves[saveId] = newSave;
+    setSaves(tempSaves);
+  };
+
+  // State logic
+
+  return (
+    <div className="App">
+      <saveContext.Provider value={{saves, updateData}}>
+        {getGameState(cookie.get("gameState"))}
+      </saveContext.Provider>
+    </div>
+  );
 }
 
 export default App;

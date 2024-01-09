@@ -4,7 +4,6 @@
 /my-app-win32-x64
 /.pnp
 .pnp.js
-/node_modules/.cache
 /electron
 /node_modules
 

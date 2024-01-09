@@ -1,11 +1,6 @@
 import { LoginPage } from "./loginPage";
 import { cookie } from "./cookie";
-import { useContext } from "react";
-import { saveContext } from "../App";
-import { refreshSaves, openSaves } from "./saveMenuManager";
 import '../App.css';
-import { convertSave } from "./saveFileManager";
-import { getData, setData } from "./saveCommManager";
 
 
 export function changeToGame() {
@@ -33,23 +28,6 @@ export function changeToGame() {
   }
 
 export function MainMenu() {
-
-    
-
-    const save1 = useContext(saveContext)[0][0];
-    const setSave1 = useContext(saveContext)[0][1];
-    const save2 = useContext(saveContext)[1][0];
-    const setSave2 = useContext(saveContext)[1][1];
-    const save3 = useContext(saveContext)[2][0];
-    const setSave3 = useContext(saveContext)[2][1];
-
-    async function updateData () {
-      let myJson = await getData().then((value) => {
-        return value;
-      });
-  
-      refreshSaves(save1, save2, save3);
-  }
 
     return (
         <div className="main-menu">
@@ -81,37 +59,7 @@ export function MainMenu() {
               </button>
               <button
                 onClick={() => {
-
                   if (cookie.get("user") === "") return;
-
-                  updateData();
-                  
-                  switch (-1) {
-                    case save1.lvl:
-                      setData(save1, 1, 0)
-                      setSave1((save1) => {save1.lvl = 0; return save1});
-                      cookie.set("activeSaveSlot", 1);
-                      changeToGame();
-                      break;
-
-                    case save2.lvl:
-                      setData(save2, 2, 0);
-                      setSave2((save2) => {save2.lvl = 0; return save2});
-                      cookie.set("activeSaveSlot", 2);
-                      changeToGame();
-                      break;
-
-                    case save3.lvl:
-                      setData(save3, 3, 0);
-                      setSave3((save3) => {save3.lvl = 0; return save3});
-                      cookie.set("activeSaveSlot", 3);
-                      changeToGame();
-                      break;
-
-                    default:
-                      openSaves();
-                      break;
-                  }
                 }}
               >
                 New Game

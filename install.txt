@@ -43,4 +43,5 @@ szerver futtatása: npm run start
 3. cd electron
 (-) npm install --save-dev @electron-forge/cli (csak egyszer!)
 (-) npx electron-forge import (csak egyszer!)
-4. npx electron-forge package
+4. npm run build
+5. npx electron-forge package
