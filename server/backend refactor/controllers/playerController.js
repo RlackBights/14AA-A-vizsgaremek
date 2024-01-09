@@ -4,6 +4,7 @@ const executeQuery = async function (query, values, res, successMessage) {
     try {
         const connection = await db.pool.getConnection();
         const [results] = await connection.query(query, values);
+        
         connection.release();
 
         console.log(successMessage);
@@ -23,9 +24,15 @@ const playerController = {
             + "INNER JOIN ramTbl r ON savedata.ramId = r.hardwareId "
             + "INNER JOIN stgTbl s ON savedata.stgId = s.hardwareId "
             + "WHERE userId = ?";
-        const value = req.body.uId;
+        var value = req.body.uId;
         executeQuery(query, value, res, 'Player found!');
     },
+    playerDataPUT: async function (req, res){
+        const query = "UPDATE savedata SET lvl = ?, money = ?, time = ?, cpuId = ?, gpuId = ?, ramId = ?, stgId = ? WHERE saveId = ? AND userId = ?";
+        const { lvl, money, time, cpuId, gpuId, ramId, stgId, saveId, userId } = req.body;
+        const values = [lvl, money, time, cpuId, gpuId, ramId, stgId, saveId, userId];
+        executeQuery(query, values, res, 'The save for ID:'+ req.body.saveId + ' save has been updated!');
+    }
 
 };
 
