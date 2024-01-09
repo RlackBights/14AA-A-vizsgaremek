@@ -6,7 +6,7 @@
 .pnp.js
 /node_modules/.cache
 /electron
-/node_modules/.bin
+/node_modules
 
 # testing
 /coverage
