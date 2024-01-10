@@ -81,6 +81,38 @@ const playerController = {
         }
     },
 
+    loginUser: async function(req, res) {
+        const { username, password } = req.body;
+        if (!username || !password) {
+          return res.status(400).json({ error: "Don't leave fields empty" });
+        }
+    
+        try {
+          const connection = await db.pool.getConnection();
+          const query = 'SELECT * FROM userTbl WHERE name = ?';
+          const [user] = await connection.query(query, username)
+            
+         if(user.length == 0){
+            return res.status(404).json({ error: 'User not found' });
+        };
+
+          const passwordMatch = await bcrypt.compare(password, user[0].password);
+          if (!passwordMatch) {
+            return res.status(401).json({ error: 'Invalid password' });
+          }
+          
+          const informationSent = [
+            user[0].name,
+            user[0].password
+          ]
+    
+          res.status(200).json({ message: 'Login successful', data: informationSent});
+        } catch (error) {
+          console.error('Error during user login:', error);
+          res.status(500).json({ error: 'User login failed' });
+        }
+      },
+
     getSaves: async function (req, res) {
         const query = "SELECT saveId, lvl, time, money, c.name AS 'cpu', g.name AS 'gpu', r.name AS 'ram', s.name AS 'stg' FROM userTbl "
             + "INNER JOIN savedata ON savedata.userId = userTbl.uid "
@@ -88,7 +120,8 @@ const playerController = {
             + "INNER JOIN gpuTbl g ON savedata.gpuId = g.hardwareId "
             + "INNER JOIN ramTbl r ON savedata.ramId = r.hardwareId "
             + "INNER JOIN stgTbl s ON savedata.stgId = s.hardwareId "
-            + "WHERE userId = ?";
+            + "WHERE userId = ?"
+            + "ORDER BY saveId";
         var value = req.body.uId;
         executeQuery(query, value, res, 'Player found!');
     },
