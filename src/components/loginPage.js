@@ -69,7 +69,7 @@ export function LoginPage() {
                                 }),
                             }
 
-                            fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
+                            fetch('http://127.0.0.1:8000/user/login', fetchParams).then(function (response) {
                                 if (response.status === 200) {
                                     response.json().then((json) => { cookie.set("user", json.loginAuthCode); cookie.set("isAdmin", json.isAdmin) });
                                     const page = document.getElementById('login-page');
@@ -101,14 +101,14 @@ export function LoginPage() {
                         }}>
                             Register here!</a></p>
 
-                            <h3 className="close-image" onClick={() => {
-                        const loginPage = document.getElementById('login-page');
-                        const registerPage = document.getElementById('register-page');
-                        const container = document.getElementById('login-container');
-                        loginPage.style.display = 'none';
-                        registerPage.style.display = 'none';
-                        container.style.pointerEvents = 'none';
-                    }}>Close</h3>
+                        <h3 className="close-image" onClick={() => {
+                            const loginPage = document.getElementById('login-page');
+                            const registerPage = document.getElementById('register-page');
+                            const container = document.getElementById('login-container');
+                            loginPage.style.display = 'none';
+                            registerPage.style.display = 'none';
+                            container.style.pointerEvents = 'none';
+                        }}>Close</h3>
 
                     </div>
                 </div>
@@ -139,7 +139,7 @@ export function LoginPage() {
                             const regex = /\W/;
                             errorMessage.className = ""
 
-                            if (registerName.value === '' || registerPassword1.value === '' || registerPassword2.value === '' ) {
+                            if (registerName.value === '' || registerPassword1.value === '' || registerPassword2.value === '') {
                                 errorMessage.innerHTML = "One or more required fields are missing!";
                                 errorMessage.className = "show-error"
                                 setTimeout(() => {
@@ -175,59 +175,59 @@ export function LoginPage() {
                                     password: registerPassword1.value
                                 }),
                             }
-                            fetch('http://127.0.0.1:8000/register', fetchParams)
-                            .then(function (response) {
+                            fetch('http://127.0.0.1:8000/user/register', fetchParams)
+                                .then(function (response) {
 
-                                if (response.status === 200) {
+                                    if (response.status === 200) {
 
-                                    const fetchParams = {
-                                        method: "POST",
-                                        headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({
-                                            username: registerName.value,
-                                            password: registerPassword1.value
-                                        }),
-                                    }
-                                    fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
-        
-                                        if (response.status === 200) {
-                                            response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
-
-                                            const page = document.getElementById('register-page');
-                                            const container = document.getElementById('login-container');
-                                            page.style.display = 'none';
-                                            container.style.pointerEvents = 'none';
-                                            registerName.value = "";
-                                            registerPassword1.value = "";
-                                            registerPassword2.value = "";
-                                            window.location.reload();
-                                        } else {
-                                            errorMessage.innerHTML = "Wrong username/password!";
-                                            errorMessage.className = "show-error"
-                                            setTimeout(() => {
-                                                errorMessage.className = "";
-                                            }, 4000)
+                                        const fetchParams = {
+                                            method: "POST",
+                                            headers: { "Content-Type": "application/json" },
+                                            body: JSON.stringify({
+                                                username: registerName.value,
+                                                password: registerPassword1.value
+                                            }),
                                         }
-        
-                                    })
-                                } else if (response.status === 401) {
-                                    errorMessage.innerHTML = "This user already exists!";
-                                    errorMessage.className = "show-error"
-                                    setTimeout(() => {
-                                        errorMessage.className = "";
-                                    }, 4000)
-                                }
-                            });
+                                        fetch('http://127.0.0.1:8000/user/login', fetchParams).then(function (response) {
+
+                                            if (response.status === 200) {
+                                                response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
+
+                                                const page = document.getElementById('register-page');
+                                                const container = document.getElementById('login-container');
+                                                page.style.display = 'none';
+                                                container.style.pointerEvents = 'none';
+                                                registerName.value = "";
+                                                registerPassword1.value = "";
+                                                registerPassword2.value = "";
+                                                window.location.reload();
+                                            } else {
+                                                errorMessage.innerHTML = "Wrong username/password!";
+                                                errorMessage.className = "show-error"
+                                                setTimeout(() => {
+                                                    errorMessage.className = "";
+                                                }, 4000)
+                                            }
+
+                                        })
+                                    } else if (response.status === 401) {
+                                        errorMessage.innerHTML = "This user already exists!";
+                                        errorMessage.className = "show-error"
+                                        setTimeout(() => {
+                                            errorMessage.className = "";
+                                        }, 4000)
+                                    }
+                                });
 
 
 
                         }}>Register</button>
                         <p><br />Already have an account? <a id="login-btn" onClick={() => {
-                                const loginPage = document.getElementById('login-page');
-                                const registerPage = document.getElementById('register-page');
-                                loginPage.style.display = 'flex';
-                                registerPage.style.display = 'none';
-                            }}>Log in!</a>
+                            const loginPage = document.getElementById('login-page');
+                            const registerPage = document.getElementById('register-page');
+                            loginPage.style.display = 'flex';
+                            registerPage.style.display = 'none';
+                        }}>Log in!</a>
                         </p>
                     </div>
                 </div>
