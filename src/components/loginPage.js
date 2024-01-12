@@ -39,7 +39,7 @@ export function LoginPage() {
             window.location.reload();
         }
       }}>
-        Log out
+        [Log out]
       </button>
 
       <p id="error-message">ERROR PLACEHOLDER</p>

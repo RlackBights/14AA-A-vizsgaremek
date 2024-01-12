@@ -487,11 +487,29 @@
 }
 
 #logoutBtn {
-  z-index: 1 ;
+  position: absolute;
+  z-index: 10 ;
+  left: 0;
+  margin: 3.5%;
+  padding: 0.4% 0.6%;
+  pointer-events: all !important;
+  background-color: transparent;
+  outline: none;
+  border: 3px solid transparent;
+  border-radius: 5rem;
+  color: var(--accent-color);
+  font-family: "Pixel Font";
+  cursor: pointer;
+  font-size: 1rem;
+  font-style: italic;
+  transition: all 0.25s;
 }
 
 #logoutBtn:hover {
-  color: red;
+  background: rgba(0, 0, 0, 0.75);
+  border: 3px solid var(--theme-color);
+  color: var(--theme-color);
+  box-shadow: 10px 5px 10px black;
 }
 
 /*
