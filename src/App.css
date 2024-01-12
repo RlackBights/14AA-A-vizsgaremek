@@ -486,6 +486,14 @@
   aspect-ratio: 1/1;
 }
 
+#logoutBtn {
+  z-index: 1 ;
+}
+
+#logoutBtn:hover {
+  color: red;
+}
+
 /*
  .d8888b.        d8888 888     888 8888888888 .d8888b.        d8888 8888888b.  8888888b.   .d8888b.  
 d88P  Y88b      d88888 888     888 888       d88P  Y88b      d88888 888   Y88b 888  "Y88b d88P  Y88b 

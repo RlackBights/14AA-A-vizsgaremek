@@ -90,8 +90,8 @@ const playerController = {
         try {
           const connection = await db.pool.getConnection();
           const query = 'SELECT * FROM userTbl WHERE name = ?';
-          const [user] = await connection.query(query, username)
-            
+          const [user] = await connection.query(query, username);
+            console.log(user);
          if(user.length == 0){
             return res.status(404).json({ error: 'User not found' });
         };
