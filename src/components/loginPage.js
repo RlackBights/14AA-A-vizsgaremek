@@ -77,7 +77,7 @@ export function LoginPage() {
                                 }),
                             }
 
-                            fetch('http://127.0.0.1:8000/login', fetchParams).then(function (response) {
+                            fetch('http://127.0.0.1:8000/player/login', fetchParams).then(function (response) {
 
                                 if (response.status === 200) {
                                     response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
