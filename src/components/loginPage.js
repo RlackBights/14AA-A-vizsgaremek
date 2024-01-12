@@ -103,7 +103,7 @@ export function LoginPage() {
                   }),
                 };
 
-                fetch("http://127.0.0.1:8000/player/login", fetchParams).then(
+                fetch("http://127.0.0.1:8000/user/login", fetchParams).then(
                   function (response) {
                     switch (response.status) {
                       case 200:
@@ -242,7 +242,7 @@ export function LoginPage() {
                     password: registerPassword1.value,
                   }),
                 };
-                fetch("http://127.0.0.1:8000/register", fetchParams).then(
+                fetch("http://127.0.0.1:8000/user/register", fetchParams).then(
                   function (response) {
                     if (response.status === 200) {
                       const fetchParams = {
@@ -253,7 +253,7 @@ export function LoginPage() {
                           password: registerPassword1.value,
                         }),
                       };
-                      fetch("http://127.0.0.1:8000/login", fetchParams).then(
+                      fetch("http://127.0.0.1:8000/user/login", fetchParams).then(
                         function (response) {
                           if (response.status === 200) {
                             response.json().then((json) => {
