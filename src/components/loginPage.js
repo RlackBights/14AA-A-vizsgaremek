@@ -33,14 +33,13 @@ export function LoginPage() {
         </p>
       </button>
 
+      {cookie.get("user").length != 0 &&
       <button id="logoutBtn" onClick={ () => {
-        if (cookie.get("user").length != 0) {
             cookie.set("user", "");
             window.location.reload();
-        }
       }}>
         [Log out]
-      </button>
+      </button>}
 
       <p id="error-message">ERROR PLACEHOLDER</p>
       <div id="login-page" style={{ display: "none" }}>
