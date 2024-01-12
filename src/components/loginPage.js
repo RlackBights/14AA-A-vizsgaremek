@@ -21,7 +21,7 @@ export function LoginPage() {
                 }
             }}>
                 <Icon icon="uil:user" />
-                <p>{(cookie.get("user") !== "") ? cookie.get("user").split('$')[0] : "[Log in to play]"}</p>
+                <p>{(cookie.get("user") !== "") ? cookie.get("user").split('$$', 2)[0] : "[Log in to play]"}</p>
             </button>
 
 
@@ -78,16 +78,16 @@ export function LoginPage() {
                             }
 
                             fetch('http://127.0.0.1:8000/player/login', fetchParams).then(function (response) {
-
                                 if (response.status === 200) {
-                                    response.json().then((json) => { cookie.set("user", json.loginAuthCode) });
-                                    const page = document.getElementById('login-page');
-                                    const container = document.getElementById('login-container');
-                                    page.style.display = 'none';
-                                    container.style.pointerEvents = 'none';
-                                    usernameInput.value = "";
-                                    passwordInput.value = "";
-                                    window.location.reload();
+                                    response.json().then((json) => { cookie.set("user", json.data[0] + "$" + json.data[1]) }).then(() => {
+                                        const page = document.getElementById('login-page');
+                                        const container = document.getElementById('login-container');
+                                        page.style.display = 'none';
+                                        container.style.pointerEvents = 'none';
+                                        usernameInput.value = "";
+                                        passwordInput.value = "";
+                                        window.location.reload();
+                                    });
                                 } else {
                                     errorMessage.innerHTML = "Wrong username/password!";
                                     errorMessage.className = "show-error"
