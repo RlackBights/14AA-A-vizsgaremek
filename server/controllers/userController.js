@@ -1,7 +1,10 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+
+
 const emailController = require('./emailController');
-const tokenUtils = require('./tokenGeneration');
+const tokenGeneration = require('./tokenGeneration');
 
 const executeQuery = async function (query, values, res, successMessage) {
     try {
@@ -75,23 +78,6 @@ const playerController = {
             };
 
 
-            //check if stored password is TMP
-            const storedPassword = user[0].password;
-
-            if (storedPassword.startsWith('TMP_')) {
-                const storedTemporaryPassword = storedPassword.substring(4); // Remove 'TMP_' prefix
-
-                console.log(storedTemporaryPassword);
-                console.log(password.substring(4));
-                if (password.substring(4) === storedTemporaryPassword) {
-                    return res.status(269).json({ error: 'Temporary password used. Change password immediately.' });
-                } else {
-                    return res.status(406).json({ error: 'Invalid temporary password' });
-                }
-            }
-
-            //if not TMP regular login
-
             const passwordMatch = await bcrypt.compare(password, user[0].password);
 
             if (!passwordMatch) {
@@ -118,34 +104,80 @@ const playerController = {
         }
 
         try {
-
             const connection = await db.pool.getConnection();
             const query = 'SELECT * FROM userTbl WHERE email = ?';
             const [user] = await connection.query(query, email);
 
             if (user.length === 0) {
                 return res.status(404).json({ error: 'User not found' });
-            };
+            }
 
-            const passwordResetToken = tokenUtils.generateTemporaryPassword();
-            const tempPasswordUpdate = 'UPDATE userTbl SET password = ? WHERE email = ?';
-            const updateValues = [passwordResetToken, email];
-            await connection.query(tempPasswordUpdate, updateValues);
+            // Check if the user's password reset token is already used
+            if (user[0].passwordResetToken && !user[0].isUsed) {
+                return res.status(400).json({ error: 'Password reset link has already been used' });
+            }
 
-            const emailResult = await emailController.sendPasswordResetEmail(email, passwordResetToken, user[0].username);
+            // Generate a reset token using JWT
+            const resetToken = tokenGeneration.generateToken(user[0].uid);
+
+            // Set user's password reset token
+            const updateQuery = 'UPDATE userTbl SET passwordResetToken = ?, isUsed = false WHERE email = ?';
+            const updateValues = [resetToken, email];
+            await connection.query(updateQuery, updateValues);
+
+            // Send password reset email
+            const emailResult = await emailController.sendPasswordResetEmail(email, resetToken, user[0].username);
 
             if (emailResult.success) {
                 res.status(200).json({ message: 'Password reset email sent successfully' });
             } else {
                 res.status(500).json({ error: 'Error sending password reset email.' });
             }
+        } catch (error) {
+            console.error('Error during password reset:', error);
+            res.status(500).json({ error: 'Password reset failed' });
+        }
+    },
+
+    resetPassword: async function (req, res) {
+        const { resetToken, newPassword } = req.body;
+
+        if (!resetToken || !newPassword) {
+            return res.status(400).json({ error: "Both token and the new password are required!" });
+        }
+
+        try {
+            const decoded = jwt.verify(resetToken, process.env.SECRET_KEY);
+
+            const connection = await db.pool.getConnection();
+            const query = 'SELECT * FROM userTbl WHERE uid = ? AND passwordResetToken = ? AND isUsed = false';
+            const [results] = await connection.query(query, [decoded.userId, resetToken]);
+
+            if (results.length === 0) {
+                connection.release();
+                return res.status(400).json({ message: 'Invalid or expired reset token' });
+            }
+
+            // Update user's password and mark the reset token as used
+            const updateQuery = 'UPDATE userTbl SET password = ?, passwordResetToken = null, isUsed = true WHERE uid = ?';
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+            await connection.query(updateQuery, [hashedPassword, decoded.userId]);
+            connection.release();
+
+            const emailResult = await emailController.passwordResetSuccessful(results[0].email, results[0].username);
+
+            if (emailResult.success) {
+                res.status(200).json({ message: 'Password reset was successful and password changed email sent successfully' });
+            } else {
+                res.status(500).json({ error: 'Error sending the password changed email' });
+            }
 
 
         } catch (error) {
             console.error('Error during password reset:', error);
-            res.status(500).json({ error: 'Password reset failed' })
+            res.status(400).json({ message: 'Invalid or expired reset token' });
         }
-    }
+    },
 
 };
 
