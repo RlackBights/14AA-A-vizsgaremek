@@ -149,4 +149,4 @@ const playerController = {
 
 };
 
-module.exports = { playerController };
+module.exports = { playerController, executeQuery };
