@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/user', userRoutes);
+app.use('/player', userRoutes);
 app.use('/game', gameRoutes);
 
 app.listen(PORT, function () {
