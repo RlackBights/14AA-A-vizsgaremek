@@ -2,21 +2,20 @@ const db = require('../config/db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 
-const emailRegex = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
+const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
 
 const emailController = require('./emailController');
 const tokenGeneration = require('./tokenGeneration');
 
-const executeQuery = async function (query, values, res, successMessage) {
+async function executeQuery(query, values, res, successMessage) {
     try {
         const connection = await db.pool.getConnection();
         const [results] = await connection.query(query, values);
 
-        connection.release();
+        connection.release()
 
-        console.log(successMessage);
-        res.status(200).json({ message: successMessage, data: results });
+        return [ 200, {message: successMessage, data: results}];
     } catch (error) {
         console.error('Database query error:', error);
         res.status(500).json({ error: 'Database query error' });
@@ -40,15 +39,13 @@ const playerController = {
             // Check if email is already used
             const emailQuery = 'SELECT * FROM userTbl WHERE email = ?';
             const usernameQuery = 'SELECT * FROM userTbl WHERE username = ?';
-            const connection = await db.pool.getConnection();
-            const [emailCheck] = await connection.query(emailQuery, email);
-            const [usernameCheck] = await connection.query(usernameQuery, username);
-            connection.release();
+            const emailCheck = await executeQuery(emailQuery, email, res, "");
+            const usernameCheck = await executeQuery(usernameQuery, username, res, "");
 
-            if (emailCheck.length > 0) {
+            if (emailCheck[1].data.length > 0) {
                 return res.status(400).json({ error: 'Email already in use!' });
             }
-            else if (usernameCheck.length > 0) {
+            else if (usernameCheck[1].data.length > 0) {
                 return res.status(400).json({ error: 'Username already exists!' });
             }
 
@@ -60,7 +57,8 @@ const playerController = {
 
             const values = [email, username, hashedPassword];
             const registerSuccessMessage = 'User registered successfully';
-            executeQuery(query, values, res, registerSuccessMessage);
+            const querySuccRegister = await executeQuery(query, values, res, registerSuccessMessage);
+            res.status(querySuccRegister[0]).json(querySuccRegister[1]);
         } catch (error) {
             console.error('Error during user registration:', error);
             res.status(error.status || 500).json({ error: error.message || 'User registration failed' });
@@ -74,25 +72,23 @@ const playerController = {
         }
 
         try {
-            const connection = await db.pool.getConnection();
-            const query = 'SELECT * FROM userTbl WHERE username = ? OR email = ?';
-            const [user] = await connection.query(query, [username, username]);
 
-            console.log(user);
-            if (user.length === 0) {
+            
+            const userQuery = 'SELECT * FROM userTbl WHERE username = ? OR email = ?';
+            const user = await executeQuery(userQuery, [username, username], res, '')
+
+            if (user[1].data.length === 0) {
                 return res.status(404).json({ error: 'User not found' });
             };
 
-
-            const passwordMatch = await bcrypt.compare(password, user[0].password);
-
+            const passwordMatch = await bcrypt.compare(password, user[1].data[0].password);
             if (!passwordMatch) {
                 return res.status(401).json({ error: 'Invalid password' });
             }
 
             const informationSent = [
-                user[0].username,
-                user[0].password
+                user[1].data[0].username,
+                user[1].data[0].password
             ]
 
             res.status(200).json({ message: 'Login successful', data: informationSent });
@@ -105,36 +101,34 @@ const playerController = {
     forgotPassword: async function (req, res) {
         const { email } = req.body;
 
-        console.log(email);
-
         if (!email) {
             return res.status(400).json({ error: 'Email is required!' });
         }
 
         try {
-            const connection = await db.pool.getConnection();
             const query = 'SELECT * FROM userTbl WHERE email = ?';
-            const [user] = await connection.query(query, email);
-            console.log(user)
+            const user = await executeQuery(query, email, res, '')
 
-            if (user.length === 0) {
+            if (user[1].data.length === 0) {
                 return res.status(404).json({ error: 'User not found' });
             }
 
             // Check if the user's password reset token is already used
-            if (user[0].passwordResetToken && !user[0].isUsed) {
+            if (user[1].data[0].passwordResetToken && !user[1].data.isUsed) {
                 return res.status(400).json({ error: 'Password reset link has already been used' });
             }
 
             // Generate a reset token using JWT
-            const resetToken = tokenGeneration.generateToken(user[0].uid);
+            const resetToken = tokenGeneration.generateToken(user[1].data[0].uid);
 
-            // Set user's password reset token
+            console.log(resetToken)
+
+            // // Set user's password reset token
             const updateQuery = 'UPDATE userTbl SET passwordResetToken = ?, isUsed = false WHERE email = ?';
             const updateValues = [resetToken, email];
-            await connection.query(updateQuery, updateValues);
+            await executeQuery(updateQuery, updateValues, res, '');
 
-            // Send password reset email
+            // // Send password reset email
             const emailResult = await emailController.sendPasswordResetEmail(email, resetToken, user[0].username);
 
             if (emailResult.success) {
@@ -158,22 +152,23 @@ const playerController = {
         try {
             const decoded = jwt.verify(resetToken, process.env.SECRET_KEY);
 
-            const connection = await db.pool.getConnection();
-            const query = 'SELECT * FROM userTbl WHERE uid = ? AND passwordResetToken = ? AND isUsed = false';
-            const [results] = await connection.query(query, [decoded.userId, resetToken]);
 
-            if (results.length === 0) {
+            const query = 'SELECT * FROM userTbl WHERE uid = ? AND passwordResetToken = ? AND isUsed = false';
+            const results = await executeQuery(query, [decoded.userId, resetToken], res, '');
+
+
+            if (results[1].data[0].length === 0) {
                 connection.release();
                 return res.status(400).json({ message: 'Invalid or expired reset token' });
             }
+            console.log(results[1].data[0].email)
 
             // Update user's password and mark the reset token as used
             const updateQuery = 'UPDATE userTbl SET password = ?, passwordResetToken = null, isUsed = true WHERE uid = ?';
             const hashedPassword = await bcrypt.hash(newPassword, 10);
-            await connection.query(updateQuery, [hashedPassword, decoded.userId]);
-            connection.release();
+            await executeQuery(updateQuery, [hashedPassword, decoded.userId], res, "");
 
-            const emailResult = await emailController.passwordResetSuccessful(results[0].email, results[0].username);
+            const emailResult = await emailController.passwordResetSuccessful(results[1].data[0].email, results[1].data[0].username);
 
             if (emailResult.success) {
                 res.status(200).json({ message: 'Password reset was successful and password changed email sent successfully' });
