@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { saveContext } from "../App";
 import { cookie } from "./cookie";
-import { changeToGame } from "./mainMenu";
 import { saveFile } from "./saveFileManager";
 import { closeSaves } from "./saveMenuManager";
 import '../App.css'
@@ -27,7 +26,6 @@ export function SaveContainer() {
             onClick={() => {
             if (save1.lvl !== -1) {
                 cookie.set("activeSaveSlot", 1);
-                changeToGame();
             }
             }}
         >
@@ -85,7 +83,6 @@ export function SaveContainer() {
             onClick={() => {
             if (save2.lvl !== -1) {
                 cookie.set("activeSaveSlot", 2);
-                changeToGame();
             }
             }}
         >
@@ -143,7 +140,6 @@ export function SaveContainer() {
             onClick={() => {
             if (save3.lvl !== -1) {
                 cookie.set("activeSaveSlot", 3);
-                changeToGame();
             }
             }}
         >

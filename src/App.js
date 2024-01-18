@@ -17,6 +17,12 @@ let timerAllowed = false;
 // Contexts
 
 export const saveContext = createContext();
+export let currentSave = 0;
+export function updateSave()
+{
+  currentSave++;
+  console.log(currentSave);
+}  
 
 function getSaveFiles(userAuthCode)
 {
@@ -31,47 +37,8 @@ function getSaveFiles(userAuthCode)
   fetch()
 }
 
-// Render State Logic
-
-function getGameState(gameState) {
-  switch (gameState) {
-    default:
-      return (<> <MainMenu /> {/*cookie.get("user").length > 0 && <SaveContainer />*/} </>)
-  
-    case "Room":
-      return ( <> <Room/> </>)
-  
-    case "Desktop":
-      return ( <> <Desktop/> <Taskbar/> </>)
-  
-    case "Taskbar":
-      return ( <>  </>)
-  
-  }
-}
-
 // Entry point
 
-function App() {
-
-  const [saves, setSaves] = useState([null, null, null]);
-  
-
-  let updateData = async (saveId, newSave) => {
-    let tempSaves = saves;
-    tempSaves[saveId] = newSave;
-    setSaves(tempSaves);
-  };
-
-  // State logic
-
-  return (
-    <div className="App">
-      <saveContext.Provider value={{saves, updateData}}>
-        {getGameState(cookie.get("gameState"))}
-      </saveContext.Provider>
-    </div>
-  );
+export function App() {
+  console.log("RERENDER")
 }
-
-export default App;

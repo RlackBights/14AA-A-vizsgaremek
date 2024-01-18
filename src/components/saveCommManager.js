@@ -2,7 +2,7 @@ import { cookie } from "./cookie";
 
 export async function setData(id, lvl, money, time, cpu, gpu, ram, stg)
 {
-
+  /*
   let tempSave;
 
   switch (id) {
@@ -16,6 +16,7 @@ export async function setData(id, lvl, money, time, cpu, gpu, ram, stg)
       tempSave = await getData()[2];
       break;
   }
+  */
   /*
     fetch("http://127.0.0.1:8000/changedata", {
 

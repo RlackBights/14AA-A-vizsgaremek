@@ -1,4 +1,5 @@
 import "../App.css";
+import "../index.css";
 import { Icon } from "@iconify/react";
 import exitImage from "../assets/delete-button.png";
 import { cookie } from "./cookie";
@@ -28,7 +29,7 @@ export function LoginPage() {
         <Icon icon="uil:user" />
         <p>
           {cookie.get("user") !== ""
-            ? cookie.get("user").split("$$", 2)[0]
+            ? cookie.get("user").split(" ", 2)[0]
             : "[Log in to play]"}
         </p>
       </button>
@@ -98,7 +99,7 @@ export function LoginPage() {
                           .then((json) => {
                             cookie.set(
                               "user",
-                              json.data[0] + "$" + json.data[1]
+                              json.data[0] + " " + json.data[1]
                             );
                           })
                           .then(() => {
@@ -230,7 +231,7 @@ export function LoginPage() {
                                   .then((json) => {
                                     cookie.set(
                                       "user",
-                                      json.data[0] + "$" + json.data[1]
+                                      json.data[0] + " " + json.data[1]
                                     );
                                   })
                                   .then(() => {
