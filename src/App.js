@@ -12,16 +12,20 @@ const router = createBrowserRouter([
 ]);
 
 // Contexts
+export const userContext = createContext();
 export const saveContext = createContext();
 
 // Entry point
 
 export function App() {
-  const [test, setTest] = useState(0);
+  const [saveFiles, setSaveFiles] = useState(0);
+  const [userAuthCode, setUserAuthCode] = useState("");
 
   return (
-      <saveContext.Provider value={{test, setTest}}>
+    <userContext.Provider value={{userAuthCode, setUserAuthCode}}>
+      <saveContext.Provider value={{saveFiles, setSaveFiles}}>
         <RouterProvider router={router}/>
       </saveContext.Provider>
+    </userContext.Provider>
   )
 }

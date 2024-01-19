@@ -2,9 +2,13 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import exitImage from "../assets/delete-button.png";
-import { cookie } from "./cookie";
+import { useContext } from "react";
+import { userContext } from "../App";
 
 export function LoginPage() {
+
+  const user = useContext(userContext);
+
   return (
     <div id="login-container" style={{ pointerEvents: "none" }}>
       <button
@@ -28,16 +32,15 @@ export function LoginPage() {
       >
         <Icon icon="uil:user" />
         <p>
-          {cookie.get("user") !== ""
-            ? cookie.get("user").split(" ", 2)[0]
+          {user.userAuthCode !== ""
+            ? user.userAuthCode.split(" ")[0]
             : "[Log in to play]"}
         </p>
       </button>
 
-      {cookie.get("user").length != 0 &&
+      {user.userAuthCode.length != 0 &&
       <button id="logoutBtn" onClick={ () => {
-            cookie.set("user", "");
-            window.location.reload();
+        user.setUserAuthCode("");
       }}>
         [Log out]
       </button>}
@@ -97,10 +100,7 @@ export function LoginPage() {
                         response
                           .json()
                           .then((json) => {
-                            cookie.set(
-                              "user",
-                              json.data[0] + " " + json.data[1]
-                            );
+                            user.setUserAuthCode(json.data[0] + " " + json.data[1]);
                           })
                           .then(() => {
                             const page = document.getElementById("login-page");
@@ -110,7 +110,6 @@ export function LoginPage() {
                             container.style.pointerEvents = "none";
                             usernameInput.value = "";
                             passwordInput.value = "";
-                            window.location.reload();
                           });
                         break;
                       default:
@@ -229,10 +228,7 @@ export function LoginPage() {
                                 response
                                   .json()
                                   .then((json) => {
-                                    cookie.set(
-                                      "user",
-                                      json.data[0] + " " + json.data[1]
-                                    );
+                                    user.setUserAuthCode(json.data[0] + " " + json.data[1]);
                                   })
                                   .then(() => {
                                     const page = document.getElementById("login-page");
@@ -243,7 +239,6 @@ export function LoginPage() {
                                     registerName.value = "";
                                     registerPassword1.value = "";
                                     registerPassword2.value = "";
-                                    window.location.reload();
                                   });
                                 break;
                               default:

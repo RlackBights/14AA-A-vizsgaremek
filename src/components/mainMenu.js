@@ -1,11 +1,12 @@
 import { LoginPage } from "./loginPage";
-import { cookie } from "./cookie";
 import '../App.css';
 import { useContext } from "react";
-import { saveContext } from "../App";
+import { saveContext, userContext } from "../App";
 
 export function MainMenu() {
-    const saves = useContext(saveContext);
+
+    const user = useContext(userContext);
+
     return (
         <div className="main-menu">
             <LoginPage />
@@ -21,16 +22,18 @@ export function MainMenu() {
             <div className="button-container">
               <button
                 onClick={() => {
-                  saves.setTest(x => x + 1);
-                  if (cookie.get("user") === "") return;
-
+                  if (user.userAuthCode === "") return;
+                  console.log("logged in!");
+                  return;
                 }}
               >
-                {saves.test}
+                Continue
               </button>
               <button
                 onClick={() => {
-                  if (cookie.get("user") === "") return;
+                  if (user.userAuthCode === "") return;
+                  console.log("logged in!");
+                  return;
                 }}
               >
                 New Game
