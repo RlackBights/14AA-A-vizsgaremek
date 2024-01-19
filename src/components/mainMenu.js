@@ -1,9 +1,11 @@
 import { LoginPage } from "./loginPage";
 import { cookie } from "./cookie";
 import '../App.css';
+import { useContext } from "react";
+import { saveContext } from "../App";
 
 export function MainMenu() {
-
+    const saves = useContext(saveContext);
     return (
         <div className="main-menu">
             <LoginPage />
@@ -19,11 +21,12 @@ export function MainMenu() {
             <div className="button-container">
               <button
                 onClick={() => {
+                  saves.setTest(x => x + 1);
                   if (cookie.get("user") === "") return;
 
                 }}
               >
-                Continue
+                {saves.test}
               </button>
               <button
                 onClick={() => {
