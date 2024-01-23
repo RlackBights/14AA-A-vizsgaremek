@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/player', userRoutes);
 app.use('/game', gameRoutes);
 
+
 app.listen(PORT, function () {
   console.log('Server running on http://localhost:' + PORT);
 });
