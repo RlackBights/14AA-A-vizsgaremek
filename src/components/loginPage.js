@@ -48,7 +48,7 @@ export function LoginPage() {
       <p id="error-message">ERROR PLACEHOLDER</p>
       <div id="login-page" style={{ display: "none" }}>
         <div id="form-container">
-          <img
+          <p
             className="close-image"
             onClick={() => {
               const loginPage = document.getElementById("login-page");
@@ -58,8 +58,7 @@ export function LoginPage() {
               registerPage.style.display = "none";
               container.style.pointerEvents = "none";
             }}
-            src={exitImage}
-          ></img>
+          >Close</p>
           <h1>Login</h1>
           <p>Username or Email</p>
           <input type="text" id="name-input"></input>
@@ -164,7 +163,7 @@ export function LoginPage() {
       </div>
       <div id="register-page" style={{ display: "none" }}>
         <div id="form-container">
-          <img
+          <p
             className="close-image"
             onClick={() => {
               const loginPage = document.getElementById("login-page");
@@ -174,8 +173,7 @@ export function LoginPage() {
               registerPage.style.display = "none";
               container.style.pointerEvents = "none";
             }}
-            src={exitImage}
-          ></img>
+          >Close</p>
           <h1>Register</h1>
           <p>Username</p>
           <input type="text" id="name2-input"></input>
@@ -290,7 +288,7 @@ export function LoginPage() {
       </div>
       <div id="forgot-page" style={{ display: "none" }}>
         <div id="form-container">
-          <img
+          <p
             className="close-image"
             onClick={() => {
               const loginPage = document.getElementById("login-page");
@@ -302,8 +300,7 @@ export function LoginPage() {
               container.style.pointerEvents = "none";
               forgotPage.style.display = "none";
             }}
-            src={exitImage}
-          ></img>
+          >Close</p>
           <h1>Password Reset</h1>
           <p>Enter your email address:</p>
           <input type="text" id="forgot-email-input"></input>

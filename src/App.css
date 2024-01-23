@@ -381,10 +381,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 #login-btn, #register-btn, #forgot-back-btn {
   text-decoration: underline;
+  transition: all 0.25s;
 }
 
 #login-btn:hover, #register-btn:hover, #forgot-back-btn:hover {
@@ -434,6 +436,11 @@
   text-align: center;
   padding: 0.5rem 1rem;
   font-size: 2.5vmin;
+  transition: all 0.25s;
+}
+
+#form-container input:hover {
+  border-color: var(--theme-color);
 }
 
 #form-container input:focus {
@@ -483,12 +490,23 @@
 .close-image {
   position: absolute;
   cursor: pointer;
-  top: -5%;
-  right: -5%;
-  margin: 0;
-  padding: 0;
-  width: 4vmin;
-  aspect-ratio: 1/1;
+  top: 0;
+  right: 0;
+  font-size: 2.5vmin !important;
+  padding: 1vmin 0 !important;
+  letter-spacing: 0px;
+  color: var(--accent-color);
+  border: 2px solid var(--theme-color);
+  border-bottom-left-radius: 1rem;
+  border-right: none;
+  border-top: none;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  transition: all 0.25s;
+}
+
+.close-image:hover {
+  color: var(--theme-color);
 }
 
 #logoutBtn {
