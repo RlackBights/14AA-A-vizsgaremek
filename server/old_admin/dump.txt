@@ -1,0 +1,440 @@
+
+        <!--<div class="login-container">
+        <h1>Login</h1>
+        <div class="login">
+          <h2>Username</h2>
+          <input type="text" id="username" />
+          <h2>Password</h2>
+          <input type="password" id="password" />
+        </div>
+        <button onclick="loginPressed()">Login</button>
+      </div> -->
+
+<div class="admin-container">
+        <div class="admin-tabs">
+          <ul>
+            <li class="admin-nav adminActive" onclick="openPage('add')">
+              <a>Insert Data</a>
+            </li>
+            <li class="admin-nav" onclick="openPage('edit')">
+              <a>Update Data</a>
+            </li>
+            <li class="admin-nav" onclick="openPage('delete')">
+              <a>Delete Data</a>
+            </li>
+            <li id="logout" onclick="logOut()"><a>Log out</a></li>
+          </ul>
+        </div>
+        <div class="add-data">
+          <p>
+            Table:
+            <select
+              name=""
+              class="tableSelect"
+              onchange="addDataOption(this.value)"
+            >
+              <option value="base" selected disabled hidden>
+                Select an Option
+              </option>
+            </select>
+          </p>
+          <div class="add-container">
+            <div class="tbl-add">
+              <ul id="tableTitles"></ul>
+            </div>
+            <button onclick="insertData()">Submit</button>
+          </div>
+        </div>
+        <div class="edit-data">
+          <div class="filter">
+            <p>
+              Table:<select
+                name=""
+                class="tableSelect"
+                onchange="attributeSearchLoad(this.value); updateAppear()"
+              >
+                <option value="base" selected disabled hidden>
+                  Select an Option
+                </option>
+              </select>
+            </p>
+            <p id="attribute">
+              Attribute:<select
+                name=""
+                class="attributeSearch"
+                onchange="addOne(); updateAppear()"
+              >
+                
+              </select>
+            </p>
+            <p id="value">Value: <input type="text" /></p>
+            <button>Search</button>
+          </div>
+          
+          <div class="edit-content">
+            <table class="update-table">
+              <thead id="update-table-head" class="table-head">
+              </thead>
+            </table>
+            <div class="update-table-container">
+              <table class="update-table">
+                <tr onclick="getRowDataUpdate(this)">
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+              </table>
+            </div>
+            <div class="edit-field">
+              <ul>
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+                <li><input type="text"></li>
+              </ul>
+              <button onclick="insertData()">Submit</button>
+            </div>
+          </div>
+        </div>
+        <div class="delete-data">
+          <div class="filter">
+            <p>
+              Table:<select
+                name=""
+                class="tableSelect"
+                onchange=""
+              >
+                <option value="base" selected disabled hidden>
+                  Select an Option
+                </option>
+              </select>
+            </p>
+            <p id="">
+              Attribute:<select
+                name=""
+                class="attributeSearch"
+                onchange=""
+              >
+                <option value="base" selected>Select an Option</option>
+              </select>
+            </p>
+            <p id="">Value: <input type="text" /></p>
+            <button>Search</button>
+          </div>
+          
+          <div class="delete-content">
+            <table class="delete-table">
+              <thead class="table-head">
+                <tr>
+                <th>cpuid</th>
+                <th>name</th>
+                <th>desciption</th>
+                <th>company</th>
+                </tr>
+              </thead>
+            </table>
+            <div class="delete-table-container">
+              <table class="delete-table">
+                <tr onclick="alert('asdasd')">
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+                <tr>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                  <td>asd</td>
+                </tr>
+              </table>
+            </div>
+            <div class="delete-field">
+              <ul>
+                <li><p>asd</p></li>
+                <li><p>asd</p></li>
+                <li><p>asd</p></li>
+                <li><p>asd</p></li>
+              </ul>
+              <button onclick="">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
