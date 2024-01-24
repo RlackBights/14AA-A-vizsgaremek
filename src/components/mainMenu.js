@@ -2,6 +2,7 @@ import { LoginPage } from "./loginPage";
 import '../App.css';
 import { useContext } from "react";
 import { saveContext, userContext } from "../App";
+import { SaveContainer } from "./saveContainer";
 
 export function MainMenu() {
 
@@ -10,6 +11,7 @@ export function MainMenu() {
     return (
         <div className="main-menu">
             <LoginPage />
+            <SaveContainer />
             <h1 id="title-text1" data-text="Learn" className="glitch">
               Learn
             </h1>
@@ -23,8 +25,7 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (user.userAuthCode === "") return;
-                  console.log("logged in!");
-                  return;
+                  
                 }}
               >
                 Continue
@@ -32,8 +33,7 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (user.userAuthCode === "") return;
-                  console.log("logged in!");
-                  return;
+                  
                 }}
               >
                 New Game

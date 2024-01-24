@@ -1,7 +1,6 @@
 import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
-import exitImage from "../assets/delete-button.png";
 import { useContext } from "react";
 import { userContext } from "../App";
 

@@ -14,6 +14,7 @@ const router = createBrowserRouter([
 // Contexts
 export const userContext = createContext();
 export const saveContext = createContext();
+export const overlayContext = createContext();
 
 // Entry point
 
