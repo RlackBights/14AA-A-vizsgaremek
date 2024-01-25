@@ -350,6 +350,7 @@
 }
 
 #login-container {
+  pointer-events: all !important;
   position: absolute;
   top: 0;
   left: 0;

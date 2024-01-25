@@ -2,31 +2,20 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
-import { userContext } from "../App";
+import { overlayContext, userContext } from "../App";
 
 export function LoginPage() {
 
   const user = useContext(userContext);
+  const overlay = useContext(overlayContext);
 
   return (
-    <div id="login-container" style={{ pointerEvents: "none" }}>
+    <div id="login-container" style={{ pointerEvents: "none"}}>
       <button
         id="user-icon"
+        style={{display: overlay.currOverlay == "" ? "flex" : "none"}}
         onClick={() => {
-          const loginPage = document.getElementById("login-page");
-          const registerPage = document.getElementById("register-page");
-          const container = document.getElementById("login-container");
-          if (
-            loginPage.style.display === "none" &&
-            registerPage.style.display === "none"
-          ) {
-            loginPage.style.display = "flex";
-            container.style.pointerEvents = "all";
-          } else {
-            loginPage.style.display = "none";
-            registerPage.style.display = "none";
-            container.style.pointerEvents = "none";
-          }
+          overlay.setCurrOverlay("loginPage");
         }}
       >
         <Icon icon="uil:user" />
@@ -38,24 +27,22 @@ export function LoginPage() {
       </button>
 
       {user.userAuthCode.length != 0 &&
-      <button id="logoutBtn" onClick={ () => {
-        user.setUserAuthCode("");
-      }}>
+      <button
+        id="logoutBtn"
+        style={{display: overlay.currOverlay == "" ? "flex" : "none"}}
+        onClick={ () => {
+          user.setUserAuthCode("");
+        }}>
         [Log out]
       </button>}
 
       <p id="error-message">ERROR PLACEHOLDER</p>
-      <div id="login-page" style={{ display: "none" }}>
+      <div id="login-page" style={{ display: overlay.currOverlay == "loginPage" ? "flex" : "none" }}>
         <div id="form-container">
           <p
             className="close-image"
             onClick={() => {
-              const loginPage = document.getElementById("login-page");
-              const registerPage = document.getElementById("register-page");
-              const container = document.getElementById("login-container");
-              loginPage.style.display = "none";
-              registerPage.style.display = "none";
-              container.style.pointerEvents = "none";
+              overlay.setCurrOverlay("");
             }}
           >Close</p>
           <h1>Login</h1>
@@ -133,11 +120,7 @@ export function LoginPage() {
               <a
                 id="register-btn"
                 onClick={() => {
-                  const loginPage = document.getElementById("login-page");
-                  const registerPage = document.getElementById("register-page");
-
-                  loginPage.style.display = "none";
-                  registerPage.style.display = "flex";
+                  overlay.setCurrOverlay("registerPage");
                 }}
               >
                 Register here!
@@ -160,17 +143,12 @@ export function LoginPage() {
           </div>
         </div>
       </div>
-      <div id="register-page" style={{ display: "none" }}>
+      <div id="register-page" style={{ display: overlay.currOverlay == "registerPage" ? "flex" : "none" }}>
         <div id="form-container">
           <p
             className="close-image"
             onClick={() => {
-              const loginPage = document.getElementById("login-page");
-              const registerPage = document.getElementById("register-page");
-              const container = document.getElementById("login-container");
-              loginPage.style.display = "none";
-              registerPage.style.display = "none";
-              container.style.pointerEvents = "none";
+              overlay.setCurrOverlay("");
             }}
           >Close</p>
           <h1>Register</h1>
@@ -273,10 +251,7 @@ export function LoginPage() {
               <a
                 id="login-btn"
                 onClick={() => {
-                  const loginPage = document.getElementById("login-page");
-                  const registerPage = document.getElementById("register-page");
-                  loginPage.style.display = "flex";
-                  registerPage.style.display = "none";
+                  overlay.setCurrOverlay("loginPage");
                 }}
               >
                 Log in!
@@ -290,14 +265,7 @@ export function LoginPage() {
           <p
             className="close-image"
             onClick={() => {
-              const loginPage = document.getElementById("login-page");
-              const registerPage = document.getElementById("register-page");
-              const container = document.getElementById("login-container");
-              const forgotPage = document.getElementById("forgot-page")
-              loginPage.style.display = "none";
-              registerPage.style.display = "none";
-              container.style.pointerEvents = "none";
-              forgotPage.style.display = "none";
+              overlay.setCurrOverlay("");
             }}
           >Close</p>
           <h1>Password Reset</h1>

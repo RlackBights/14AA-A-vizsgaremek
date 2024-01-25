@@ -21,11 +21,14 @@ export const overlayContext = createContext();
 export function App() {
   const [saveFiles, setSaveFiles] = useState(0);
   const [userAuthCode, setUserAuthCode] = useState("");
+  const [currOverlay, setCurrOverlay] = useState("");
 
   return (
     <userContext.Provider value={{userAuthCode, setUserAuthCode}}>
       <saveContext.Provider value={{saveFiles, setSaveFiles}}>
-        <RouterProvider router={router}/>
+        <overlayContext.Provider value={{currOverlay, setCurrOverlay}}>
+          <RouterProvider router={router}/>
+        </overlayContext.Provider>
       </saveContext.Provider>
     </userContext.Provider>
   )
