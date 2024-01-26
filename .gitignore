@@ -6,7 +6,6 @@
 .pnp.js
 /electron
 /node_modules
-/server/node_modules
 
 # testing
 /coverage
