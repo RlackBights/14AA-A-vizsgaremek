@@ -1,12 +1,8 @@
 import { LoginPage } from "./loginPage";
 import '../App.css';
-import { useContext } from "react";
-import { saveContext, userContext } from "../App";
 import { SaveContainer } from "./saveContainer";
 
 export function MainMenu() {
-
-    const user = useContext(userContext);
 
     return (
         <div className="main-menu">
@@ -21,10 +17,10 @@ export function MainMenu() {
             <h1 id="title-text3" data-text="Basics" className="glitch">
               Basics
             </h1>
-            <div className="button-container">
+            <div className="button-container" style={{zIndex: 1000}}>
               <button
                 onClick={() => {
-                  if (user.userAuthCode === "") return;
+                  if (localStorage.getItem("userAuthCode") === "") return;
                   
                 }}
               >
@@ -32,7 +28,7 @@ export function MainMenu() {
               </button>
               <button
                 onClick={() => {
-                  if (user.userAuthCode === "") return;
+                  if (localStorage.getItem("userAuthCode") === "") return;
                   
                 }}
               >

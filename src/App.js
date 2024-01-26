@@ -11,8 +11,11 @@ const router = createBrowserRouter([
   }
 ]);
 
+// Backend location
+
+export const backend = 'https://backend-learnthebasics.koyeb.app';
+
 // Contexts
-export const userContext = createContext();
 export const saveContext = createContext();
 export const overlayContext = createContext();
 
@@ -20,16 +23,13 @@ export const overlayContext = createContext();
 
 export function App() {
   const [saveFiles, setSaveFiles] = useState(0);
-  const [userAuthCode, setUserAuthCode] = useState("");
   const [currOverlay, setCurrOverlay] = useState("");
 
   return (
-    <userContext.Provider value={{userAuthCode, setUserAuthCode}}>
-      <saveContext.Provider value={{saveFiles, setSaveFiles}}>
-        <overlayContext.Provider value={{currOverlay, setCurrOverlay}}>
-          <RouterProvider router={router}/>
-        </overlayContext.Provider>
-      </saveContext.Provider>
-    </userContext.Provider>
+    <saveContext.Provider value={{saveFiles, setSaveFiles}}>
+      <overlayContext.Provider value={{currOverlay, setCurrOverlay}}>
+        <RouterProvider router={router}/>
+      </overlayContext.Provider>
+    </saveContext.Provider>
   )
 }

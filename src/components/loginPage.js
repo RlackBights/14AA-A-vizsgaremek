@@ -2,11 +2,10 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
-import { overlayContext, userContext } from "../App";
+import { backend, overlayContext } from "../App";
 
 export function LoginPage() {
 
-  const user = useContext(userContext);
   const overlay = useContext(overlayContext);
 
   return (
@@ -20,18 +19,18 @@ export function LoginPage() {
       >
         <Icon icon="uil:user" />
         <p>
-          {user.userAuthCode !== ""
-            ? user.userAuthCode.split(" ")[0]
+          {localStorage.getItem("userAuthCode") !== null
+            ? localStorage.getItem("userAuthCode").split(" ")[0]
             : "[Log in to play]"}
         </p>
       </button>
 
-      {user.userAuthCode.length != 0 &&
+      {localStorage.getItem("userAuthCode") !== null &&
       <button
         id="logoutBtn"
         style={{display: overlay.currOverlay == "" ? "flex" : "none"}}
         onClick={ () => {
-          user.setUserAuthCode("");
+          localStorage.setItem("userAuthCode", "");
         }}>
         [Log out]
       </button>}
@@ -78,23 +77,17 @@ export function LoginPage() {
                   }),
                 };
 
-                fetch("http://127.0.0.1:8000/player/login", fetchParams).then(
+                fetch( backend + "/player/login", fetchParams).then(
                   function (response) {
                     switch (response.status) {
                       case 200:
                         response
                           .json()
                           .then((json) => {
-                            user.setUserAuthCode(json.data[0] + " " + json.data[1]);
+                            localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
                           })
                           .then(() => {
-                            const page = document.getElementById("login-page");
-                            const container =
-                              document.getElementById("login-container");
-                            page.style.display = "none";
-                            container.style.pointerEvents = "none";
-                            usernameInput.value = "";
-                            passwordInput.value = "";
+                            overlay.setCurrOverlay("");
                           });
                         break;
                       default:
@@ -130,11 +123,7 @@ export function LoginPage() {
               <a
                 id="register-btn"
                 onClick={() => {
-                  const loginPage = document.getElementById("login-page");
-                  const forgotPage = document.getElementById("forgot-page");
-
-                  loginPage.style.display = "none";
-                  forgotPage.style.display = "flex";
+                  overlay.setCurrOverlay("forgotPassword");
                 }}
               >
                 Forgot your password?
@@ -184,28 +173,21 @@ export function LoginPage() {
                     confirmPassword: registerPassword2.value
                   }),
                 };
-                fetch("http://127.0.0.1:8000/player/register", fetchParams).then(
+                fetch( backend + "/player/register", fetchParams).then(
                   (response) => {
                     switch (response.status) {
                       case 200:
-                        fetch("http://127.0.0.1:8000/player/login", fetchParams).then(
+                        fetch( backend + "/player/login", fetchParams).then(
                           (response) => {
                             switch (response.status) {
                               case 200:
                                 response
                                   .json()
                                   .then((json) => {
-                                    user.setUserAuthCode(json.data[0] + " " + json.data[1]);
+                                    localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
                                   })
                                   .then(() => {
-                                    const page = document.getElementById("login-page");
-                                    const container =
-                                      document.getElementById("login-container");
-                                    page.style.display = "none";
-                                    container.style.pointerEvents = "none";
-                                    registerName.value = "";
-                                    registerPassword1.value = "";
-                                    registerPassword2.value = "";
+                                    overlay.setCurrOverlay("");
                                   });
                                 break;
                               default:
@@ -252,7 +234,7 @@ export function LoginPage() {
           </div>
         </div>
       </div>
-      <div id="forgot-page" style={{ display: "none" }}>
+      <div id="forgot-page" style={{ display: overlay.currOverlay == "forgotPassword" ? "flex" : "none" }}>
         <div id="form-container">
           <p
             className="close-image"
@@ -277,7 +259,7 @@ export function LoginPage() {
                   },
                   body: JSON.stringify({email:emailAddress.value})
                 }
-                fetch ("http://localhost:8000/player/forgotPassword", options).then((res) => {res.json()}).then((res) => {console.log(res)}) 
+                fetch (backend + "/player/forgotPassword", options).then((res) => {res.json()}).then((res) => {console.log(res)}) 
               }}>
               Send Email
             </button>
@@ -286,10 +268,7 @@ export function LoginPage() {
               <a
                 id="forgot-back-btn"
                 onClick={() => {
-                  const loginPage = document.getElementById("login-page");
-                  const forgotPage = document.getElementById("forgot-page");
-                  loginPage.style.display = "flex";
-                  forgotPage.style.display = "none";
+                  overlay.setCurrOverlay("loginPage");
                 }}
               >
                 Back
