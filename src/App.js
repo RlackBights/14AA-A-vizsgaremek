@@ -13,6 +13,7 @@ const router = createBrowserRouter([
 
 // Backend location
 
+if (localStorage.getItem("userAuthCode") == null) localStorage.setItem("userAuthCode", "")
 export const backend = 'https://backend-learnthebasics.koyeb.app';
 
 // Contexts

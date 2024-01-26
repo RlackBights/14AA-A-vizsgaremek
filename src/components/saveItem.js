@@ -19,7 +19,7 @@ export function SaveItem()
                     </div>
                     <div className="grid-item save-top">
                         <div id="langs">
-                            <p className={/* SAVE GETCPU */0 >= 0 ? "" : "locked-lang"} id="html">
+                            <p className={/* SAVE GETCPU */"0" >= 0 ? "" : "locked-lang"} id="html">
                             HTML
                             </p>
                             <p className={/* SAVE GETCPU */0 >= 1 ? "" : "locked-lang"} id="css">

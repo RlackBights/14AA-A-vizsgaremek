@@ -12,23 +12,23 @@ export function LoginPage() {
     <div id="login-container" style={{ pointerEvents: "none"}}>
       <button
         id="user-icon"
-        style={{display: overlay.currOverlay == "" ? "flex" : "none"}}
+        style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={() => {
           overlay.setCurrOverlay("loginPage");
         }}
       >
         <Icon icon="uil:user" />
         <p>
-          {localStorage.getItem("userAuthCode") !== null
+          {localStorage.getItem("userAuthCode") !== ""
             ? localStorage.getItem("userAuthCode").split(" ")[0]
             : "[Log in to play]"}
         </p>
       </button>
 
-      {localStorage.getItem("userAuthCode") !== null &&
+      {localStorage.getItem("userAuthCode") !== "" &&
       <button
         id="logoutBtn"
-        style={{display: overlay.currOverlay == "" ? "flex" : "none"}}
+        style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={ () => {
           localStorage.setItem("userAuthCode", "");
         }}>
@@ -36,7 +36,7 @@ export function LoginPage() {
       </button>}
 
       <p id="error-message">ERROR PLACEHOLDER</p>
-      <div id="login-page" style={{ display: overlay.currOverlay == "loginPage" ? "flex" : "none" }}>
+      <div id="login-page" style={{ display: overlay.currOverlay === "loginPage" ? "flex" : "none" }}>
         <div id="form-container">
           <p
             className="close-image"
@@ -251,7 +251,6 @@ export function LoginPage() {
               id=""
               onClick={() => {
                 const emailAddress = document.getElementById("forgot-email-input");
-                const errorMessage = document.getElementById("error-message");
                 const options = {
                   method: "POST",
                   headers: {
