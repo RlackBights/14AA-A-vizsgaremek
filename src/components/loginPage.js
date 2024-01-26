@@ -174,15 +174,6 @@ export function LoginPage() {
                 const errorMessage = document.getElementById("error-message");
                 errorMessage.className = "";
 
-                if (registerPassword1.value !== registerPassword2.value) {
-                  errorMessage.innerHTML = "The passwords don't match!";
-                  errorMessage.className = "show-error";
-                  setTimeout(() => {
-                    errorMessage.className = "";
-                  }, 4000);
-                  return;
-                }
-
                 const fetchParams = {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
@@ -190,6 +181,7 @@ export function LoginPage() {
                     email: emailAddress.value,
                     username: registerName.value,
                     password: registerPassword1.value,
+                    confirmPassword: registerPassword2.value
                   }),
                 };
                 fetch("http://127.0.0.1:8000/player/register", fetchParams).then(
