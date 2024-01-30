@@ -45,7 +45,7 @@ export function LoginPage() {
             }}
           >Close</p>
           <h1>Login</h1>
-          <p>Username or Email</p>
+          <p>Username</p>
           <input type="text" id="name-input"></input>
           <p>Password</p>
           <input type="password" id="password-input"></input>
