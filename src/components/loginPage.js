@@ -31,6 +31,7 @@ export function LoginPage() {
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={ () => {
           localStorage.setItem("userAuthCode", "");
+          overlay.setCurrOverlay("loginPage")
         }}>
         [Log out]
       </button>}
