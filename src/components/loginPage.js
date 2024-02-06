@@ -2,15 +2,17 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
-import { backend, overlayContext, userContext } from "../App";
+import { backend, overlayContext, saveContext, userContext } from "../App";
+import { parseSave } from "./saveFileManager";
 
 export function LoginPage() {
 
   const overlay = useContext(overlayContext);
   const user = useContext(userContext);
+  const saves = useContext(saveContext);
 
   return (
-    <div id="login-container" style={{ pointerEvents: "none"}}>
+    <div id="login-container" style={{ pointerEvents: overlay.currOverlay === "loginPage" ? "all" : "none"}}>
       <button
         id="user-icon"
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
@@ -79,7 +81,7 @@ export function LoginPage() {
                   }),
                 };
 
-                fetch( backend + "/player/login", fetchParams).then(
+                fetch(backend + "/player/login", fetchParams).then(
                   function (response) {
                     switch (response.status) {
                       case 200:
@@ -88,6 +90,23 @@ export function LoginPage() {
                           .then((json) => {
                             localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
                             user.setCurrUser(json.data[0] + " " + json.data[1]);
+
+                            const newFetchParams = {
+                              method: "POST",
+                              headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify({
+                                authCode: json.data[0] + " " + json.data[1]
+                              }),
+                            };
+
+                            fetch(backend + "/game/getPlayerSaves", newFetchParams).then((res) => res.json()).then((res) => {
+                              console.log(res);
+                              if (res.data.length > 0) {
+                                let temp = saves.saveFiles;
+                                temp.push(parseSave(res.data));
+                                saves.setSaveFiles(temp);
+                              }
+                            })
                           })
                           .then(() => {
                             overlay.setCurrOverlay("");

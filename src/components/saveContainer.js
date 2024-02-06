@@ -1,18 +1,19 @@
 import { useContext } from "react";
-import { overlayContext } from "../App"
+import { overlayContext, saveContext } from "../App"
 import { closeSaves } from "./saveMenuManager";
 import { SaveItem } from "./saveItem";
 import '../App.css'
 
 
 export function SaveContainer() {
-    const overlay = useContext(overlayContext)
+    const overlay = useContext(overlayContext);
+    const saves = useContext(saveContext);
     return (
-    <div style={{ display: overlay.currOverlay === "save" ? "flex" : "none"}}>
-        <SaveItem />
+    <div className="save-container" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
+        {[<SaveItem index='0'/>, <SaveItem index='1'/>, <SaveItem index='2'/>]} /* Magic? idk */
         <button
             onClick={() => {
-            closeSaves();
+                overlay.setCurrOverlay("")
             }}
             id="save-back-button"
             style={{ display: "block" }}
@@ -20,5 +21,4 @@ export function SaveContainer() {
             Back
         </button>
     </div>
-    
     )};

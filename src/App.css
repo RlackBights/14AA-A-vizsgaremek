@@ -350,7 +350,6 @@
 }
 
 #login-container {
-  pointer-events: all !important;
   position: absolute;
   top: 0;
   left: 0;
@@ -545,7 +544,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 .save-item {
-  width: 70%;
+  width: min(70%, 45vh);
   height: 70%;
   display: grid;
   grid-template-rows: 1fr 1fr;

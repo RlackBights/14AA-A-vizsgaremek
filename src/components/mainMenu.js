@@ -1,8 +1,12 @@
 import { LoginPage } from "./loginPage";
 import '../App.css';
 import { SaveContainer } from "./saveContainer";
+import { useContext } from "react";
+import { overlayContext } from "../App";
 
 export function MainMenu() {
+
+    const overlay = useContext(overlayContext);
 
     return (
         <div className="main-menu">
@@ -17,11 +21,11 @@ export function MainMenu() {
             <h1 id="title-text3" data-text="Basics" className="glitch">
               Basics
             </h1>
-            <div className="button-container" style={{zIndex: 1000}}>
+            <div className="button-container">
               <button
                 onClick={() => {
                   if (localStorage.getItem("userAuthCode") === "") return;
-                  
+                  overlay.setCurrOverlay("savePage");
                 }}
               >
                 Continue

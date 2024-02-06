@@ -1,9 +1,8 @@
 import '../App.css'
 
-export function SaveItem()
+export function SaveItem(saveInfo)
 {
     return (
-        <div className="save-container" style={{ display: "flex" }}>
             <div className="save-item-container">
                 <div
                     className="save-item"
@@ -52,6 +51,5 @@ export function SaveItem()
                     <span>Delete</span>
                 </button>
             </div>
-        </div>
     )
 }
