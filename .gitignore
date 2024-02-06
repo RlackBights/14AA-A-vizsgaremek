@@ -4,8 +4,12 @@
 /my-app-win32-x64
 /.pnp
 .pnp.js
-/electron
+/electron/node_modules
+/electron/build
+/electron/app
+/electron/out
 /node_modules
+/server
 
 # testing
 /coverage

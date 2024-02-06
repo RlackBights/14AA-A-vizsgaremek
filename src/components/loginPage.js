@@ -2,11 +2,12 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
-import { backend, overlayContext } from "../App";
+import { backend, overlayContext, userContext } from "../App";
 
 export function LoginPage() {
 
   const overlay = useContext(overlayContext);
+  const user = useContext(userContext);
 
   return (
     <div id="login-container" style={{ pointerEvents: "none"}}>
@@ -19,18 +20,19 @@ export function LoginPage() {
       >
         <Icon icon="uil:user" />
         <p>
-          {localStorage.getItem("userAuthCode") !== ""
-            ? localStorage.getItem("userAuthCode").split(" ")[0]
+          {user.currUser !== ""
+            ? user.currUser.split(" ")[0]
             : "[Log in to play]"}
         </p>
       </button>
 
-      {localStorage.getItem("userAuthCode") !== "" &&
+      {user.currUser !== "" &&
       <button
         id="logoutBtn"
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={ () => {
           localStorage.setItem("userAuthCode", "");
+          user.setCurrUser("")
         }}>
         [Log out]
       </button>}
@@ -85,9 +87,12 @@ export function LoginPage() {
                           .json()
                           .then((json) => {
                             localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
+                            user.setCurrUser(json.data[0] + " " + json.data[1]);
                           })
                           .then(() => {
                             overlay.setCurrOverlay("");
+                            usernameInput.value = "";
+                            passwordInput.value = "";
                           });
                         break;
                       default:
@@ -156,10 +161,8 @@ export function LoginPage() {
               onClick={() => {
                 const emailAddress = document.getElementById("email-input")
                 const registerName = document.getElementById("name2-input");
-                const registerPassword1 =
-                  document.getElementById("password2-input");
-                const registerPassword2 =
-                  document.getElementById("password3-input");
+                const registerPassword1 = document.getElementById("password2-input");
+                const registerPassword2 = document.getElementById("password3-input");
                 const errorMessage = document.getElementById("error-message");
                 errorMessage.className = "";
 
@@ -185,9 +188,14 @@ export function LoginPage() {
                                   .json()
                                   .then((json) => {
                                     localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
+                                    user.setCurrUser(json.data[0] + " " + json.data[1]);
                                   })
                                   .then(() => {
                                     overlay.setCurrOverlay("");
+                                    emailAddress.value = "";
+                                    registerName.value = "";
+                                    registerPassword1.value = "";
+                                    registerPassword2.value = "";
                                   });
                                 break;
                               default:
