@@ -87,8 +87,11 @@ code {
   scale: 1.1;
 }
 
-#logo {
-  width: 6vmin;
+.logo {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 1%;
+  max-width: 50%;
 }
 
 #main-content {
@@ -104,21 +107,25 @@ code {
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 1rem;
   width: 49.5%;
+  box-sizing: border-box;
 }
 
 #about-us {
   box-sizing: border-box;
+  font-size: 2.5vmin;
   padding: 2%;
+  width: fit-content;
 }
 
-#about-us h1 {
+#about-us-title, #login-title {
+  font-size: 4vmin;
   color: var(--accent-color);
-  font-size: 5vmin;
+  font-weight: bold;
 }
 
 #about-us p {
   color: var(--accent-color);
-  font-size: 3vmin;
+  box-sizing: border-box;
 }
 
 #login {
@@ -144,9 +151,11 @@ code {
   border: 2px solid var(--theme-color);
   border-radius: 1rem;
   padding: 1% 0;
+  box-sizing: border-box;
 }
 
-#form-container h1 {
+#form-container h3 {
+  box-sizing: border-box;
   font-size: 8vmin;
   margin: 0;
   padding: 0;
@@ -187,11 +196,11 @@ code {
   border: 3px solid var(--accent-color);
   border-radius: 0.5rem;
   margin: 0;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5vmin 1.5vmin;
   text-align: center;
   font-family: "Pixel Font";
   font-weight: 100;
-  font-size: 1.5rem;
+  font-size: 2vmin;
   color: var(--accent-color);
   cursor: pointer;
   transition: 0.25s all;
@@ -206,4 +215,18 @@ code {
   background-color: transparent !important;
   width: 80% !important;
   margin: 2vmin 0 3vmin 0;
+}
+
+@media (max-width: 950px) {
+  #main-content {
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #main-content div {
+    width: 100%;
+    height: fit-content;
+  }
 }
