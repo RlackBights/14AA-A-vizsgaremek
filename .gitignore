@@ -9,6 +9,7 @@
 /electron/app
 /electron/out
 /node_modules
+/server
 
 # testing
 /coverage
