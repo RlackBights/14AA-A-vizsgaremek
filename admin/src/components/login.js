@@ -8,7 +8,7 @@ export function Login() {
 
         return (
         <div id="form-container">
-            <h1>Login</h1>
+            <p id="login-title">Login</p>
             <p>Username</p>
             <input type="text" id="name-input"></input>
             <p>Password</p>
