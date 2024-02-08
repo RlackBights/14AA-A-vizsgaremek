@@ -7,9 +7,10 @@ import '../App.css'
 export function SaveContainer() {
     const overlay = useContext(overlayContext);
     const saves = useContext(saveContext);
+    console.log(saves.saveFiles.length);
     return (
         <div className="save-container" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
-            <h1 id="missing-save-text" style={{ display: (saves.saveFiles.length > 0) ? "none" : "absolute"}}>No save files found L bozo</h1>
+            {saves.saveFiles.length === 0 && <h1 id="missing-save-text" style={{ display: "absolute"}}>No save files found L bozo</h1>}
             {saves.saveFiles.map((save) => <SaveItem save={save} />)}
             <button
                 onClick={() => {

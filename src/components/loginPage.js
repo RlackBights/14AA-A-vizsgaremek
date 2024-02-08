@@ -3,7 +3,6 @@ import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
 import { backend, overlayContext, saveContext, userContext } from "../App";
-import { parseSave } from "./saveFileManager";
 
 export function LoginPage() {
 
@@ -12,7 +11,7 @@ export function LoginPage() {
   const saves = useContext(saveContext);
 
   return (
-    <div id="login-container" style={{ pointerEvents: overlay.currOverlay === "loginPage" ? "all" : "none"}}>
+    <div id="login-container" style={{ pointerEvents: (["loginPage", "registerPage"].includes(overlay.currOverlay)) ? "all" : "none"}}>
       <button
         id="user-icon"
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
@@ -90,6 +89,7 @@ export function LoginPage() {
                           .then((json) => {
                             localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
                             user.setCurrUser(json.data[0] + " " + json.data[1]);
+                            saves.setSaveFiles([]);
                           })
                           .then(() => {
                             overlay.setCurrOverlay("");
@@ -139,7 +139,7 @@ export function LoginPage() {
           </div>
         </div>
       </div>
-      <div id="register-page" style={{ display: overlay.currOverlay == "registerPage" ? "flex" : "none" }}>
+      <div id="register-page" style={{ display: overlay.currOverlay == "registerPage" ? "flex" : "none"}}>
         <div id="form-container">
           <p
             className="close-image"

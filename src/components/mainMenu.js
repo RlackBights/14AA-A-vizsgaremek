@@ -37,7 +37,8 @@ export function MainMenu() {
                   };
 
                   fetch(backend + "/game/getPlayerSaves", newFetchParams).then((res) => res.json()).then((res) => {
-                    if (res.status === 200 && res.data.length > 0) {
+                    console.log(res);
+                    if (res.data != undefined) {
                       saves.setSaveFiles(parseSave(res.data));
                     }
                     overlay.setCurrOverlay("savePage");
