@@ -1,14 +1,16 @@
-import "../App.css";
-import { useState, createContext } from "react";
+import { useContext } from "react";
+import "../App.css"; 
+import { userContext } from "../App";
+
+const backend = "https://backend-learnthebasics.koyeb.app";
+
 export function Login() {
-
+    const user = useContext(userContext);
     
-    const backend = 'https://backend-learnthebasics.koyeb.app';
-    const overlay = createContext();
-
-        return (
+    return (
         <div id="form-container">
-            <p id="login-title">Login</p>
+            <p id="error-message">asasdasd</p>
+            <h3 id="login-title">Login</h3>
             <p>Username</p>
             <input type="text" id="name-input"></input>
             <p>Password</p>
@@ -28,7 +30,7 @@ export function Login() {
                     errorMessage.className = "show-error";
                     setTimeout(() => {
                         errorMessage.className = "";
-                    }, 4000);
+                    }, 5000);
                     return;
                     }
 
@@ -48,11 +50,13 @@ export function Login() {
                             response
                             .json()
                             .then((json) => {
-                                localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
+                                localStorage.setItem("authToken", json.data[0] + " " + json.data[1]);
+                                user.setAuthToken(json.data[0] + " " + json.data[1]);
                             })
-                            .then(() => {
-                                overlay.setCurrOverlay("");
-                            });
+                            .then(
+                                usernameInput.value = "",
+                                passwordInput.value = ""
+                            );
                             break;
                         default:
                             response.json().then((errorResponse) => {
@@ -73,4 +77,4 @@ export function Login() {
             </div>
         </div>
         );
-        }
+    }
