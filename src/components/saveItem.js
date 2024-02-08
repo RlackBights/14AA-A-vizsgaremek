@@ -1,7 +1,8 @@
 import '../App.css'
 
-export function SaveItem(saveInfo)
+export function SaveItem(props)
 {
+    console.log(props);
     return (
             <div className="save-item-container">
                 <div
@@ -18,28 +19,29 @@ export function SaveItem(saveInfo)
                     </div>
                     <div className="grid-item save-top">
                         <div id="langs">
-                            <p className={/* SAVE GETCPU */"0" >= 0 ? "" : "locked-lang"} id="html">
+                            <p className={props.save.cpu >= 0 ? "" : "locked-lang"} id="html">
                             HTML
                             </p>
-                            <p className={/* SAVE GETCPU */0 >= 1 ? "" : "locked-lang"} id="css">
+                            <p className={props.save.cpu >= 1 ? "" : "locked-lang"} id="css">
                             CSS
                             </p>
-                            <p className={/* SAVE GETCPU */0 >= 2 ? "" : "locked-lang"} id="js">
+                            <p className={props.save.cpu >= 2 ? "" : "locked-lang"} id="js">
                             JS
                             </p>
                         </div>
                         <div id="config">
-                            <p>CPU: <span></span></p>
-                            <p>GPU: <span></span></p>
-                            <p>RAM: <span></span></p>
-                            <p>STG: <span></span></p>
+                            <p>CPU: <br/>{props.save.getCPU()}<span></span></p>
+                            <p>GPU: <br/>{props.save.getGPU()}<span></span></p>
+                            <p>RAM: <br/>{props.save.getRAM()}<span></span></p>
+                            <p>STG: <br/>{props.save.getSTG()}<span></span></p>
                         </div>
                     </div>
                     <div className="grid-item save-bottom">
-                        <p>LvL: </p>
-                        <p>$</p>
+                        <p>{props.save.id}</p>
+                        <p>LvL: {props.save.lvl}</p>
+                        <p>{props.save.money}$</p>
                         <p id="playtime">
-                            0:0:0
+                            {props.save.getParsedTime()}
                         </p>
                     </div>
                 </div>

@@ -90,23 +90,6 @@ export function LoginPage() {
                           .then((json) => {
                             localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
                             user.setCurrUser(json.data[0] + " " + json.data[1]);
-
-                            const newFetchParams = {
-                              method: "POST",
-                              headers: { "Content-Type": "application/json" },
-                              body: JSON.stringify({
-                                authCode: json.data[0] + " " + json.data[1]
-                              }),
-                            };
-
-                            fetch(backend + "/game/getPlayerSaves", newFetchParams).then((res) => res.json()).then((res) => {
-                              console.log(res);
-                              if (res.data.length > 0) {
-                                let temp = saves.saveFiles;
-                                temp.push(parseSave(res.data));
-                                saves.setSaveFiles(temp);
-                              }
-                            })
                           })
                           .then(() => {
                             overlay.setCurrOverlay("");

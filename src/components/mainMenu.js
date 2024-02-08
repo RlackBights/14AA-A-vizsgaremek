@@ -2,11 +2,14 @@ import { LoginPage } from "./loginPage";
 import '../App.css';
 import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
-import { overlayContext } from "../App";
+import { backend, overlayContext, saveContext, userContext } from "../App";
+import { parseSave } from "./saveFileManager";
 
 export function MainMenu() {
 
     const overlay = useContext(overlayContext);
+    const user = useContext(userContext);
+    const saves = useContext(saveContext);
 
     return (
         <div className="main-menu">
@@ -25,7 +28,20 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (localStorage.getItem("userAuthCode") === "") return;
-                  overlay.setCurrOverlay("savePage");
+                  const newFetchParams = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      authCode: user.currUser
+                    }),
+                  };
+
+                  fetch(backend + "/game/getPlayerSaves", newFetchParams).then((res) => res.json()).then((res) => {
+                    if (res.status === 200 && res.data.length > 0) {
+                      saves.setSaveFiles(parseSave(res.data));
+                    }
+                    overlay.setCurrOverlay("savePage");
+                  })
                 }}
               >
                 Continue

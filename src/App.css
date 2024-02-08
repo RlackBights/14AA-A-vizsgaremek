@@ -530,6 +530,13 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
  "Y8888P" d88P     888     Y8P     8888888888 "Y8888P" d88P     888 888   T88b 8888888P"   "Y8888P"  
 */
 
+#missing-save-text {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  color: var(--accent-color);
+}
+
 .save-container {
   z-index: 10;
   position: absolute;
@@ -612,8 +619,9 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  text-align: center;
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 2.5vmin;
 }
 
 #config p {
@@ -624,8 +632,8 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   color: #fff;
 }
 
-#html,#css,#js {
-  color: var(--accent-color);
+#html, #css, #js {
+  color: var(--accent-color );
 }
 
 .locked-lang {
