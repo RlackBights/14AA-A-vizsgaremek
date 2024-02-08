@@ -1,7 +1,11 @@
 import "../App.css";
 import { Login } from "./login";
 import logoText from "../LearnTheBasics.svg"
+import { Statistics } from "./statistics";
+import { useContext } from "react";
+import { userContext } from "../App";
 export function MainPage() {
+  const user = useContext(userContext);
   return (
     <div id="mainpage">
       <div className="navbar">
@@ -11,18 +15,22 @@ export function MainPage() {
             <p>Admin page</p>
           </li>
           <li>
-            <button id="download">Download</button>
+            <button className="btn">Download</button>
           </li>
         </ul>
       </div>
       <div id="main-content">
         <div id="about-us">
-            <p id="about-us-title">About LearnTheBasics</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <button id="download">Download Our Game Now!</button>
+            <p id="about-us-title">About the project</p>
+            <div className="about-us-text">
+            <p>Our game's main purpose is to teach beginners the basics of building a PC, and Web Development</p>
+            <p>The application was made using the React.js framework, with a Node.js backend server</p>
+            </div>
+            <button className="btn">Download Our Game Now!</button>
         </div>
-        <div id="login">
-            <Login/>
+        <div id="user-container">
+
+            {(user.authToken === "") ? <Login/> : <Statistics/>}
         </div>
       </div>
     </div>
