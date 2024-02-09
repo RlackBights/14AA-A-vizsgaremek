@@ -2,11 +2,16 @@ import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { MainPage } from './components/mainpage';
 import { createContext, useState } from 'react';
+import { AdminPage } from './components/adminpage';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainPage/>
+  },
+  {
+    path: "/admin-page",
+    element: <AdminPage/>
   }
 ])
 
