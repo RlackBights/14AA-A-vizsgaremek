@@ -1,7 +1,12 @@
+import { useContext, useState } from 'react';
+import { backend, overlayContext, saveContext } from '../App';
 import '../App.css'
+import { saveOffsetContext } from './saveContainer';
 
 export function SaveItem(props)
 {
+    const overlay = useContext(overlayContext);
+    const saveOffset = useContext(saveOffsetContext);
     return (
             <div className="save-item-container">
                 <div
@@ -48,7 +53,18 @@ export function SaveItem(props)
                     tabindex="-1"
                     className="delete-button"
                     onClick={() => {
-                        console.log(`SEND FETCH REQUEST => ${props.user} - ${props.save.id}`)
+                        const fetchParams = {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                              authCode: props.user,
+                              saveId: props.save.id
+                            }),
+                          };
+                        fetch("http://localhost:8000" + '/game/deleteSave', fetchParams).then((res) => res.json()).then((res) => console.log(res));
+                        saveOffset.setSaveOffset(0);
+                        overlay.setCurrOverlay("");
+                        //console.log(`SEND FETCH REQUEST => ${props.user} - ${props.save.id}`)
                     }}
                 >
                     <span>Delete</span>

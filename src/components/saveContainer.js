@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { createContext, useContext } from "react";
 import { overlayContext, saveContext, userContext } from "../App";
 import { SaveItem } from "./saveItem";
 import '../App.css';
@@ -6,15 +6,17 @@ import { useState } from "react";
 
 function displaySaves(saveFiles, user){
 
-    let test = [];
+    let output = [];
 
     for (let i = 0; i < saveFiles.length; i++) {
-        test.push(<SaveItem key={i} user={user} save={saveFiles[i]}/>)
-        
+        output.push(<SaveItem key={i} user={user} save={saveFiles[i]}/>)
     }
     
-    return (test);
+    return (output);
 }
+
+export const saveOffsetContext = createContext();
+
 export function SaveContainer() {
     const overlay = useContext(overlayContext);
     const saves = useContext(saveContext);
@@ -41,9 +43,11 @@ export function SaveContainer() {
             >
                 Back
             </button>
-            <div className="save-container" style={{ transform: `translateX(calc(-${saveOffset} * 100vw))`}}>
+            <div className="save-container" style={{ transform: `translateX(calc(-${saveOffset} * 100vw))`, width: `${Math.ceil(clamp(saves.saveFiles.length, 1, 99) / 3)*100}vw`}}>
                 {saves.saveFiles.length === 0 && <h1 id="missing-save-text" style={{ display: "absolute"}}>No save files found L bozo</h1>}
-                {displaySaves(saves.saveFiles, user.currUser)}
+                <saveOffsetContext.Provider value={{setSaveOffset}}>
+                    {displaySaves(saves.saveFiles, user.currUser)}
+                </saveOffsetContext.Provider>
             </div>
         </div>
         
