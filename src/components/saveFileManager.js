@@ -72,11 +72,10 @@ export class saveFile {
   }
 
   getParsedTime() {
-    if (this.time < 3600) {
-      return new Date(this.time * 1000).toISOString().substring(14, 19)
-    } else {
-      return new Date(this.time * 1000).toISOString().substring(11, 16)
-    }
+    const hours = Math.floor(this.time / 3600);
+    const minutes = Math.floor((this.time - hours*3600) / 60);
+    const seconds = Math.floor(this.time - hours*3600 - minutes*60);
+    return `${hours === 0 ? "" : hours + ":"}${minutes}:${seconds}`;
   }
 }
 

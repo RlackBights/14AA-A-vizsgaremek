@@ -2,7 +2,6 @@ import '../App.css'
 
 export function SaveItem(props)
 {
-    console.log(props);
     return (
             <div className="save-item-container">
                 <div
@@ -46,9 +45,11 @@ export function SaveItem(props)
                     </div>
                 </div>
                 <button
+                    tabindex="-1"
                     className="delete-button"
-                    id="delete-button1"
-                    onClick={() => {}}
+                    onClick={() => {
+                        console.log(`SEND FETCH REQUEST => ${props.user} - ${props.save.id}`)
+                    }}
                 >
                     <span>Delete</span>
                 </button>
