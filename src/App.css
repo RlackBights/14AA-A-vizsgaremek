@@ -537,20 +537,36 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   color: var(--accent-color);
 }
 
+.save-nav-button {
+  outline: none;
+  position: fixed;
+  z-index: 50;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #00000000;
+  border: #00000000;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  margin: 0, 20vw;
+}
+
 .save-container {
   z-index: 10;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  transition: 0.75s all ease-in-out;
 }
 
 .save-item {
+  cursor: pointer;
   width: min(70%, 45vh);
   height: 70%;
   display: grid;
@@ -562,6 +578,10 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
     rgb(0, 0, 0) 0%,
     var(--theme-color) 100%
   );
+}
+
+.save-item:hover {
+  
 }
 
 .grid-item {
@@ -641,17 +661,17 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 #save-back-button {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  top: 2%;
-  right: 2%;
+  outline: none;
+  position: fixed;
   z-index: 11;
-  height: 10vmin;
-  border: 4px solid #fff;
+  margin: 0;
+  padding: 1%;
+  top: 1%;
+  right: 1%;
+  border: 4px solid var(--accent-color);
   border-radius: 1rem;
   background: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: var(--accent-color);
   font-size: 2rem;
   font-family: "Pixel Font" !important;
   letter-spacing: 1px;
@@ -659,8 +679,34 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   transition: all 0.25s;
 }
 
+.arrow {
+  border: solid var(--accent-color);
+  border-width: 0 10px 10px 0;
+  border-radius: 0.5rem;
+  display: inline-block;
+  padding: 30px;
+  transition: 0.1s all;
+}
+
+.arrow:hover {
+  scale: 1.25;
+  border-color: var(--theme-color);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
 #save-back-button:hover {
   border: 4px solid var(--theme-color);
+  color: var(--theme-color);
+  scale: 1.1;
 }
 
 .empty-save {
@@ -696,26 +742,44 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 .delete-button {
   align-self: center;
-  width: 33%;
+  width: 100%;
   background: none;
   position: relative;
   border: none;
-  transition: 0.2s color;
-  cursor: pointer;
-  color: white;
+  color: var(--accent-color);
 }
 
 .delete-button span {
-  -webkit-text-stroke: 2px black;
-  font-size: 5.5vmin;
-  font-weight: bold;
+  font-family: "Pixel Font";
+  font-size: 4vmin;
   width: 100%;
   height: 100%;
+  transition: 0.2s all;
+  cursor: pointer;
   z-index: 1;
+  padding: 0 2vmin 1vmin 2vmin;
+  border-radius: 1rem;
 }
 
-.delete-button:hover {
-  color: var(--accent-color) !important;
+.delete-button span:hover {
+  color: #9c2525 !important;
+}
+
+.delete-button span::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0.5vmin;
+  transition: 0.25s width;
+  background-color: var(--accent-color);
+}
+
+.delete-button span:hover::after {
+  background-color: #9c2525;
+  width: calc(100%/3);
 }
 
 .save-item-container {
@@ -723,7 +787,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: calc(100vw/3);
   height: 100%;
   margin: 0;
   padding: 0;
