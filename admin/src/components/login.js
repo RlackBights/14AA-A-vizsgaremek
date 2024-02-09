@@ -51,6 +51,7 @@ export function Login() {
                             .json()
                             .then((json) => {
                                 localStorage.setItem("authToken", json.data[0] + " " + json.data[1]);
+                                localStorage.setItem("isAdmin", json.data[0])
                                 user.setAuthToken(json.data[0] + " " + json.data[1]);
                             })
                             .then(

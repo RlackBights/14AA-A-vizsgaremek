@@ -74,15 +74,19 @@ code {
   scale: 1.1;
 }
 
-.navbar-items p {
+.navbar-items #adminBtn {
+  font-family: "Pixel Font";
   margin: 0;
-  width: 15vmin;
   font-size: 2.5vmin;
   cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: var(--accent-color);
   transition: all 0.25s;
 }
 
-.navbar-items p:hover {
+.navbar-items #adminBtn:hover {
   color: var(--theme-color);
   scale: 1.1;
 }
@@ -278,6 +282,16 @@ code {
 
 #stats-container ul li p {
   text-align: left;
+}
+
+#admin-container {
+  height: 100vh;
+}
+
+#datagrid {
+  padding-top: 20vh;
+  width: 80%;
+  margin: auto;
 }
 
 @keyframes showErrorMessage {
