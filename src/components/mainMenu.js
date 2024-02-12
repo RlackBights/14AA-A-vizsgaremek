@@ -3,7 +3,7 @@ import '../App.css';
 import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
 import { backend, overlayContext, saveContext, userContext } from "../App";
-import { parseSave } from "./saveFileManager";
+import { getPlayerSaves } from "./requests";
 
 export function MainMenu() {
 
@@ -28,19 +28,8 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (localStorage.getItem("userAuthCode") === "") return;
-                  const newFetchParams = {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      authCode: user.currUser
-                    }),
-                  };
-
-                  fetch(backend + "/game/getPlayerSaves", newFetchParams).then((res) => res.json()).then((res) => {
-                    console.log(res);
-                    if (res.data != undefined) {
-                      saves.setSaveFiles(parseSave(res.data));
-                    }
+                  getPlayerSaves(user.currUser).then((res) => {
+                    saves.setSaveFiles(res);
                     overlay.setCurrOverlay("savePage");
                   })
                 }}

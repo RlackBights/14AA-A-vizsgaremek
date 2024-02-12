@@ -3,6 +3,7 @@ import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
 import { backend, overlayContext, saveContext, userContext } from "../App";
+import { loginUser, registerUser } from "./requests";
 
 export function LoginPage() {
 
@@ -61,54 +62,19 @@ export function LoginPage() {
                 const passwordInput = document.getElementById("password-input");
                 const errorMessage = document.getElementById("error-message");
 
-                if (passwordInput.value === "" || usernameInput.value === "") {
-                  errorMessage.innerHTML =
-                    "One or more required fields are missing!";
-                  errorMessage.className = "show-error";
-                  setTimeout(() => {
-                    errorMessage.className = "";
-                  }, 4000);
-                  return;
-                }
-
-                const fetchParams = {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    username: usernameInput.value,
-                    password: passwordInput.value,
-                  }),
-                };
-
-                fetch(backend + "/player/login", fetchParams).then(
-                  function (response) {
-                    switch (response.status) {
-                      case 200:
-                        response
-                          .json()
-                          .then((json) => {
-                            localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
-                            user.setCurrUser(json.data[0] + " " + json.data[1]);
-                            saves.setSaveFiles([]);
-                          })
-                          .then(() => {
-                            overlay.setCurrOverlay("");
-                            usernameInput.value = "";
-                            passwordInput.value = "";
-                          });
-                        break;
-                      default:
-                        response.json().then((errorResponse) => {
-                          errorMessage.innerHTML = errorResponse.error;
-                        });
-                        errorMessage.className = "show-error";
-                        setTimeout(() => {
-                          errorMessage.className = "";
-                        }, 4000);
-                        break;
-                    }
+                loginUser(usernameInput.value, passwordInput.value).then((res) => {
+                  if (res.success) {
+                    localStorage.setItem("userAuthCode", res.data);
+                    user.setCurrUser(res.data);
+                  } else {
+                    errorMessage.innerHTML = res.data;
+                    errorMessage.className = "show-error";
+                    setTimeout(() => {
+                      errorMessage.className = "";
+                    }, 4000);
                   }
-                );
+                  overlay.setCurrOverlay("")
+                });
               }}
             >
               Login
@@ -166,65 +132,21 @@ export function LoginPage() {
                 const registerPassword1 = document.getElementById("password2-input");
                 const registerPassword2 = document.getElementById("password3-input");
                 const errorMessage = document.getElementById("error-message");
-                errorMessage.className = "";
 
-                const fetchParams = {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    email: emailAddress.value,
-                    username: registerName.value,
-                    password: registerPassword1.value,
-                    confirmPassword: registerPassword2.value
-                  }),
-                };
-                fetch( backend + "/player/register", fetchParams).then(
-                  (response) => {
-                    switch (response.status) {
-                      case 200:
-                        fetch( backend + "/player/login", fetchParams).then(
-                          (response) => {
-                            switch (response.status) {
-                              case 200:
-                                response
-                                  .json()
-                                  .then((json) => {
-                                    localStorage.setItem("userAuthCode", json.data[0] + " " + json.data[1]);
-                                    user.setCurrUser(json.data[0] + " " + json.data[1]);
-                                  })
-                                  .then(() => {
-                                    overlay.setCurrOverlay("");
-                                    emailAddress.value = "";
-                                    registerName.value = "";
-                                    registerPassword1.value = "";
-                                    registerPassword2.value = "";
-                                  });
-                                break;
-                              default:
-                                response.json().then((errorResponse) => {
-                                  errorMessage.innerHTML = errorResponse.error;
-                                });
-                                errorMessage.className = "show-error";
-                                setTimeout(() => {
-                                  errorMessage.className = "";
-                                }, 4000);
-                                break;
-                            }
-                          }
-                        );
-                        break;
-                      default:
-                        response.json().then((errorResponse) => {
-                          errorMessage.innerHTML = errorResponse.error;
-                        });
-                        errorMessage.className = "show-error";
-                        setTimeout(() => {
-                          errorMessage.className = "";
-                        }, 4000);
-                        break;
-                    }
+                registerUser(emailAddress.value, registerName.value, registerPassword1.value, registerPassword2.value).then((res) => {
+                  if (res.success) {
+                    localStorage.setItem("userAuthCode", res.data);
+                    user.setCurrUser(res.data);
+                  } else {
+                    errorMessage.innerHTML = res.data;
+                    errorMessage.className = "show-error";
+                    setTimeout(() => {
+                      errorMessage.className = "";
+                    }, 4000);
                   }
-                );
+                  overlay.setCurrOverlay("")
+                })
+                
               }}
             >
               Register

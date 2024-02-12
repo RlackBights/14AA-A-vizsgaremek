@@ -79,7 +79,7 @@ export class saveFile {
   }
 }
 
-export function parseSave(inputArray)
+export function parseSaves(inputArray)
 {
   let outputArray = [];
   inputArray.forEach(save => {
