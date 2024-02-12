@@ -3,7 +3,7 @@ import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
 import { backend, overlayContext, saveContext, userContext } from "../App";
-import { loginUser, registerUser } from "./requests";
+import { loginUser, registerUser, sendRecoveryEmail } from "./requests";
 
 export function LoginPage() {
 
@@ -183,14 +183,7 @@ export function LoginPage() {
               id=""
               onClick={() => {
                 const emailAddress = document.getElementById("forgot-email-input");
-                const options = {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({email:emailAddress.value})
-                }
-                fetch (backend + "/player/forgotPassword", options).then((res) => {res.json()}).then((res) => {console.log(res)}) 
+                sendRecoveryEmail(emailAddress.value);
               }}>
               Send Email
             </button>

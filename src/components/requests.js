@@ -73,3 +73,30 @@ export async function registerUser(email, username, password, confirmPassword)
         }
       );
 }
+
+export async function sendRecoveryEmail(email)
+{
+    const fetchParams = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: email
+        })
+    }
+    await fetch(backend + "/player/forgotPassword", fetchParams).then((res) => res.json()).then((res) => console.log(res));
+}
+
+export async function deleteSave(user, saveId)
+{
+    const fetchParams = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          authCode: user,
+          saveId: saveId
+        }),
+      };
+    fetch(backend + '/game/deleteSave', fetchParams).then((res) => res.json()).then((res) => console.log(res));
+}

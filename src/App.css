@@ -709,37 +709,6 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   scale: 1.1;
 }
 
-.empty-save {
-  display: block;
-}
-
-.empty-save-base {
-  display: none;
-}
-
-.empty-save > * {
-  display: none;
-}
-
-.empty-save .empty-save-base {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 4vmin;
-  flex-direction: column;
-}
-
-.empty-save .empty-save-base p {
-  margin: 2rem 0;
-}
-
-.empty-save .empty-save-base p:last-child {
-  color: #696969;
-}
-
 .delete-button {
   align-self: center;
   width: 100%;

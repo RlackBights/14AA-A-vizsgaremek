@@ -1,26 +1,34 @@
-import { useContext, useState } from 'react';
-import { backend, overlayContext, saveContext } from '../App';
+import { useContext, useEffect } from 'react';
+import { overlayContext, saveContext } from '../App';
 import '../App.css'
 import { saveOffsetContext } from './saveContainer';
+import { deleteSave } from './requests';
+import { useNavigate } from 'react-router-dom';
 
 export function SaveItem(props)
 {
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
+    const saves = useContext(saveContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (saves.activeSaveFile.lvl !== -1) {
+            console.log(saves.activeSaveFile)
+            return navigate("/game/tableView")
+        }
+    }, [saves.activeSaveFile])
+
     return (
             <div className="save-item-container">
                 <div
                     className="save-item"
                     id="save-item1"
                     onClick={() => {
+                        saves.setActiveSaveFile(props.save);
+                        localStorage.setItem("activeSaveFile", JSON.stringify(props.save));
                     }}
                 >
-                    <div className="empty-save-base">
-                        <p>Empty save</p>
-                        <p>
-                            <i>-- slot 1 --</i>
-                        </p>
-                    </div>
                     <div className="grid-item save-top">
                         <div id="langs">
                             <p className={props.save.cpu >= 0 ? "" : "locked-lang"} id="html">
@@ -50,21 +58,13 @@ export function SaveItem(props)
                     </div>
                 </div>
                 <button
-                    tabindex="-1"
+                    tabIndex="-1"
                     className="delete-button"
                     onClick={() => {
-                        const fetchParams = {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                              authCode: props.user,
-                              saveId: props.save.id
-                            }),
-                          };
-                        fetch("http://localhost:8000" + '/game/deleteSave', fetchParams).then((res) => res.json()).then((res) => console.log(res));
-                        saveOffset.setSaveOffset(0);
-                        overlay.setCurrOverlay("");
-                        //console.log(`SEND FETCH REQUEST => ${props.user} - ${props.save.id}`)
+                        deleteSave(props.user, props.save.id).then(() => {
+                            saveOffset.setSaveOffset(0);
+                            overlay.setCurrOverlay("");
+                        });
                     }}
                 >
                     <span>Delete</span>

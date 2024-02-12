@@ -4,6 +4,7 @@ import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
 import { backend, overlayContext, saveContext, userContext } from "../App";
 import { getPlayerSaves } from "./requests";
+import { saveFile } from "./saveFileManager";
 
 export function MainMenu() {
 
@@ -28,6 +29,8 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (localStorage.getItem("userAuthCode") === "") return;
+                  localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile()));
+                  saves.setActiveSaveFile(new saveFile());
                   getPlayerSaves(user.currUser).then((res) => {
                     saves.setSaveFiles(res);
                     overlay.setCurrOverlay("savePage");
