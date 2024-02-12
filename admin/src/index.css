@@ -288,12 +288,6 @@ code {
   height: 100vh;
 }
 
-#datagrid {
-  padding-top: 20vh;
-  width: 80%;
-  margin: auto;
-}
-
 @keyframes showErrorMessage {
   0% {opacity: 0;}
   12% {opacity: 1;}
