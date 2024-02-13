@@ -3,7 +3,7 @@ import { Login } from "./login";
 import logoText from "../LearnTheBasics.svg"
 import { Statistics } from "./statistics";
 import { useContext } from "react";
-import { userContext } from "../App";
+import { backend, userContext } from "../App";
 export function MainPage() {
   const user = useContext(userContext);
 
@@ -15,7 +15,19 @@ export function MainPage() {
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
             <button className="navbar-links" onClick={() => {
-              window.location.href = "/admin-page"
+              let fetchParams = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  authCode: user.authToken
+                }),
+              };
+            
+              fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
+                console.log(res);
+                if (res.data[0].isAdmin === true) window.location.href = "/admin-page";
+              })
+              
             }}>Admin page</button>
           </li>
           <li>

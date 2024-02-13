@@ -4,6 +4,8 @@ import { MainPage } from './components/mainpage';
 import { createContext, useState } from 'react';
 import { AdminPage } from './components/adminpage';
 
+export const backend = "https://backend-learnthebasics.koyeb.app";
+
 const router = createBrowserRouter([
   {
     path: "/",

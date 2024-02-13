@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import "../App.css"; 
-import { userContext } from "../App";
+import { backend, userContext } from "../App";
 
-const backend = "https://backend-learnthebasics.koyeb.app";
 
 export function Login() {
     const user = useContext(userContext);
