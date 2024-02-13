@@ -2,20 +2,23 @@ import { LoginPage } from "./loginPage";
 import '../App.css';
 import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
-import { backend, overlayContext, saveContext, userContext } from "../App";
+import { backend, optionsContext, overlayContext, saveContext, userContext } from "../App";
 import { getPlayerSaves } from "./requests";
 import { saveFile } from "./saveFileManager";
+import OptionsPage from "./optionsPage";
 
 export function MainMenu() {
 
     const overlay = useContext(overlayContext);
     const user = useContext(userContext);
     const saves = useContext(saveContext);
+    const options = useContext(optionsContext);
 
     return (
         <div className="main-menu">
             <LoginPage />
             <SaveContainer />
+            <OptionsPage />
             <h1 id="title-text1" data-text="Learn" className="glitch">
               Learn
             </h1>
@@ -47,7 +50,9 @@ export function MainMenu() {
               >
                 New Game
               </button>
-              <button>Options</button>
+              <button onClick={() => {
+                overlay.setCurrOverlay("optionsPage");
+              }}>Options</button>
               <button
                 onClick={() => {
                   window.close();
@@ -56,7 +61,7 @@ export function MainMenu() {
                 Quit Game
               </button>
             </div>
-            <div id="darken-bg" className="crt"></div>
+            <div id="darken-bg" className={options.optionValues.specialEffects ? "crt" : ""}></div>
           </div>
     )}
 

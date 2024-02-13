@@ -361,7 +361,7 @@
 #login-page, #register-page, #forgot-page {
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -580,8 +580,22 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   );
 }
 
+.save-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw/3);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  transition: 0.25s all;
+}
+
 .save-item-container:hover {
-  scale: 1.05;
+  width: calc((100vw/3) * 1.1);
+  height: calc(100% * 1.1);
 }
 
 .grid-item {
@@ -679,6 +693,12 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   transition: all 0.25s;
 }
 
+#save-back-button:hover {
+  border: 4px solid var(--theme-color);
+  color: var(--theme-color);
+  font-size: 2.2rem;
+}
+
 .arrow {
   border: solid var(--accent-color);
   border-width: 0 10px 10px 0;
@@ -689,7 +709,8 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 .arrow:hover {
-  scale: 1.25;
+  border-width: 0 13px 13px 0;
+  padding: 40px;
   border-color: var(--theme-color);
 }
 
@@ -701,12 +722,6 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
-}
-
-#save-back-button:hover {
-  border: 4px solid var(--theme-color);
-  color: var(--theme-color);
-  scale: 1.1;
 }
 
 .delete-button {
@@ -751,17 +766,144 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   width: calc(100%/3);
 }
 
-.save-item-container {
+/*
+ .d88888b.  8888888b. 88888888888 8888888 .d88888b.  888b    888  .d8888b.  
+d88P" "Y88b 888   Y88b    888       888  d88P" "Y88b 8888b   888 d88P  Y88b 
+888     888 888    888    888       888  888     888 88888b  888 Y88b.      
+888     888 888   d88P    888       888  888     888 888Y88b 888  "Y888b.   
+888     888 8888888P"     888       888  888     888 888 Y88b888     "Y88b. 
+888     888 888           888       888  888     888 888  Y88888       "888 
+Y88b. .d88P 888           888       888  Y88b. .d88P 888   Y8888 Y88b  d88P 
+ "Y88888P"  888           888     8888888 "Y88888P"  888    Y888  "Y8888P"  
+*/
+
+#options-container {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: calc(100vw/3);
-  height: 100%;
+  justify-content: space-evenly;
+}
+
+#options-back-btn {
+  outline: none;
+  z-index: 11;
   margin: 0;
-  padding: 0;
-  gap: 0;
-  transition: 0.25s scale;
+  padding: 1%;
+  border: 4px solid var(--accent-color);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent-color);
+  font-size: 2rem;
+  font-family: "Pixel Font" !important;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 17.5vmin;
+  height: 9vmin;
+}
+
+#options-back-btn:hover {
+  border: 4px solid var(--theme-color);
+  color: var(--theme-color);
+  width: calc(17.5vmin * 1.1);
+  font-size: 2.2rem;
+}
+
+#options-container h1 {
+  color: var(--accent-color);
+  margin: 0;
+  font-size: 7vmin;
+}
+
+#options {
+  width: 30%;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 1rem;
+  border: 2px solid var(--theme-color);
+}
+
+#options ul {
+  padding: 1.5vmin 4vmin;
+}
+
+#options ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+#options ul li p {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 2.5vmin;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--accent-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  border-color: var(--theme-color);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  color: var(--accent-color);
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  font-size: 2vmin;
+  background-color: var(--accent-color);
+  transition: .25s all;
+}
+
+input:checked + .slider::before {
+  background-color: var(--theme-color);
+  content: "✔";
+  text-align: center;
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 1rem;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /*
@@ -774,6 +916,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
  d8888888888 888   Y8888   888   888   "   888  d8888888888     888       888  Y88b. .d88P 888   Y8888 Y88b  d88P 
 d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 "Y88888P"  888    Y888  "Y8888P"
 */
+
 .crt {
   width: 100vw;
   height: 200vh;
