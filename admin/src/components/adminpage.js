@@ -23,17 +23,21 @@ export function AdminPage() {
       })
 
       const tableSelect = document.getElementById("table-select");
+      const filters = document.getElementById("admin-filters");
 
       fetchParams = {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       };
-    
+
       fetch(backend + "/admin/getTableNames", fetchParams).then((res) => res.json()).then((res) => {
-        res.data.map((obj) => {
-          const x = document.createElement("option")
-          x.innerHTML = obj.TABLE_NAME;
-          tableSelect.appendChild(x);
+        res.data.map((tableInfo) => {
+          const tableOption = document.createElement("option")
+          tableOption.innerHTML = tableInfo.TABLE_NAME;
+          tableSelect.appendChild(tableOption);
+
+          const filterItem = document.createElement("li");
+          filters.appendChild(filterItem);
         });
       })
     }}>
