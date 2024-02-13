@@ -55,7 +55,12 @@ code {
   align-items: center;
 }
 
-.btn {
+#admin-confirm-button {
+  width: 20vmin;
+  padding: 1vmin 0 !important;
+}
+
+.btn, #admin-confirm-button {
   font-family: "Pixel Font";
   padding: 1vmin 5vmin;
   font-size: 2.5vmin;
@@ -69,12 +74,12 @@ code {
   transition: all 0.25s;
 }
 
-.btn:hover {
+.btn:hover, #admin-confirm-button:hover {
   color: var(--theme-color);
   scale: 1.1;
 }
 
-.navbar-items #adminBtn {
+.navbar-links {
   font-family: "Pixel Font";
   margin: 0;
   font-size: 2.5vmin;
@@ -84,9 +89,10 @@ code {
   border: none;
   color: var(--accent-color);
   transition: all 0.25s;
+  position: relative;
 }
 
-.navbar-items #adminBtn:hover {
+.navbar-links:hover {
   color: var(--theme-color);
   scale: 1.1;
 }
@@ -106,6 +112,98 @@ code {
   background-size: cover;
   height: 100vh;
   padding: 12vh 2vmin 2vmin 2vmin;
+}
+
+#admin-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  background-image: url(bg.jpg);
+  background-size: cover;
+  height: 100vh;
+}
+
+#admin-content {
+  margin: 12vmin 2vmin 2vmin 2vmin;
+  height: 86vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#admin-title {
+  margin: 0 auto;
+  font-size: 5vmin;
+  color: var(--accent-color);
+}
+
+#admin-table {
+  height: 65vh !important;
+  width: 85% !important;
+  border-radius: 1rem;
+  border: 2px solid var(--theme-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#admin-table::-webkit-scrollbar {
+  display: none;
+}
+
+#admin-filters {
+  width: 90%;
+}
+
+#admin-filters li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style-type: none;
+}
+
+#admin-filters li p {
+  color: var(--accent-color);
+  font-size: 2.5vmin;
+}
+
+#table-select {
+  cursor: pointer;
+  background: none;
+  color: var(--accent-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 1rem;
+  padding: 1vmin;
+  font-size: 2vmin;
+  outline: none;
+  transition: 0.25s all;
+}
+
+#table-select:hover {
+  color: var(--theme-color);
+  border-color: var(--theme-color);
+}
+
+#activated {
+  color: var(--theme-color) !important;
+}
+
+#activated::after {
+  bottom: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0.3vmin;
+  background-color: var(--theme-color);
+  transition: 0.25s all;
 }
 
 #main-content div {

@@ -7,13 +7,14 @@ import { userContext } from "../App";
 export function MainPage() {
   const user = useContext(userContext);
 
+
   return (
     <div id="mainpage">
       <div className="navbar">
         <img className="logo" src={logoText}></img>
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
-            <button id="adminBtn" onClick={() => {
+            <button className="navbar-links" onClick={() => {
               window.location.href = "/admin-page"
             }}>Admin page</button>
           </li>
