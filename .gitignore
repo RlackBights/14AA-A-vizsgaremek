@@ -10,6 +10,7 @@
 /electron/out
 /node_modules
 /server
+/android
 
 # testing
 /coverage
