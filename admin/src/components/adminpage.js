@@ -3,6 +3,7 @@ import logoText from '../LearnTheBasics.svg'
 import { backend, userContext } from '../App';
 
 export function AdminPage() {
+  let tableData = [];
   const [activePage, setActivePage] = useState("insert");
   const user = useContext(userContext);
 
@@ -23,7 +24,6 @@ export function AdminPage() {
       })
 
       const tableSelect = document.getElementById("table-select");
-      const filters = document.getElementById("admin-filters");
 
       fetchParams = {
         method: "GET",
@@ -31,31 +31,34 @@ export function AdminPage() {
       };
 
       fetch(backend + "/admin/getTableNames", fetchParams).then((res) => res.json()).then((res) => {
+        console.log(res);
+        tableData = res.data;
+        let tableNames = [];
         res.data.map((tableInfo) => {
-          const tableOption = document.createElement("option")
+          if (tableNames.includes(tableInfo.TABLE_NAME)) return null;
+          tableNames.push(tableInfo.TABLE_NAME);
+          const tableOption = document.createElement("option");
           tableOption.innerHTML = tableInfo.TABLE_NAME;
           tableSelect.appendChild(tableOption);
-
-          const filterItem = document.createElement("li");
-          filters.appendChild(filterItem);
+          return null;
         });
       })
     }}>
       <div className="navbar">
-        <img className="logo" src={logoText}></img>
+        <img className="logo" src={logoText} alt=''></img>
         <ul className="navbar-items">
           <li>
-            <button id={activePage == "insert" ? "activated" : ""} className="navbar-links" onClick={() => {
+            <button id={activePage === "insert" ? "activated" : ""} className="navbar-links" onClick={() => {
               setActivePage("insert")
             }}>Insert</button>
           </li>
           <li>
-            <button id={activePage == "update" ? "activated" : ""} className="navbar-links" onClick={() => {
+            <button id={activePage === "update" ? "activated" : ""} className="navbar-links" onClick={() => {
               setActivePage("update")
             }}>Update</button>
           </li>
           <li>
-            <button id={activePage == "delete" ? "activated" : ""} className="navbar-links" onClick={() => {
+            <button id={activePage === "delete" ? "activated" : ""} className="navbar-links" onClick={() => {
               setActivePage("delete")
             }}>Delete</button>
           </li>
@@ -68,18 +71,115 @@ export function AdminPage() {
       </div>
       <div id='admin-content'>
         <ul id='admin-filters'>
-          <li>
+          <li id='constant-filter'>
             <p>Table:</p>
-            <select id='table-select' onChange={(e) => {
-              console.log(e.target.value);
+            <select id='table-select' onChange={async (e) => {
+
+              const adminFilters = document.getElementById('admin-filters');
+              const adminTable = document.getElementById("admin-table");
+
+              while (adminFilters.childNodes.length > 1) {
+                adminFilters.removeChild(adminFilters.lastChild);
+              }
+
+              while (adminTable.firstChild.firstChild.childNodes.length > 0) {
+                adminTable.firstChild.firstChild.removeChild(adminTable.firstChild.firstChild.lastChild);
+              }
+
+              while (adminTable.lastChild.childNodes.length > 0) {
+                adminTable.lastChild.removeChild(adminTable.lastChild.lastChild);
+              }
+
+              if (e.target.value === "Select a table") return;
+
+              tableData.filter((tableInfo) => tableInfo.TABLE_NAME === e.target.value).map((tableInfo) => {
+                const input = document.createElement('input');
+                const additionalInfo = document.createElement('p');
+                const label = document.createElement('label');
+                additionalInfo.innerHTML = tableInfo.COLUMN_NAME + ":";
+                const li = document.createElement('li');
+                let inputType;
+                switch (tableInfo.COLUMN_TYPE) {
+                  case "tinyint(1)":
+                    label.className="switch";
+                    const span = document.createElement('span');
+                    span.className = "slider round";
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    inputType = "checkbox";
+                    break;
+                  default:
+                    if (tableInfo.COLUMN_TYPE.includes("int")) {
+                      console.log("number");
+                      inputType = "number";
+                    } else
+                    {
+                      console.log("text");
+                      inputType = "text";
+                    }
+                    break;
+                }
+                input.setAttribute("type", inputType);
+                if (tableInfo.COLUMN_NAME === "id" || tableInfo.COLUMN_NAME.toLowerCase() === "lastmodified" || (tableInfo.TABLE_NAME === "userTbl" && tableInfo.COLUMN_NAME.toLowerCase() === "uid") || tableInfo.COLUMN_NAME.toLowerCase() === "passwordresettoken") input.disabled = true;
+                li.appendChild(additionalInfo);
+                if (inputType === "checkbox") {
+                  li.appendChild(label);
+                } else {
+                  li.appendChild(input);
+                }
+                li.className = "generated-data";
+                adminFilters.appendChild(li);
+
+                return null;
+              });
+
+              
+
+              let fetchParams = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  tableName: e.target.value
+                }),
+              };
+              
+              fetch(backend + "/admin/getTableRows", fetchParams).then((res) => res.json()).then((res) => res.data).then((tableContent) => {
+
+
+
+                Object.keys(tableContent[0]).forEach(colName => {
+                  const headTitle = document.createElement('td');
+                  headTitle.innerHTML = colName;
+                  headTitle.style = `min-width: ${100 / Object.keys(tableContent[0]).length}%`;
+                  adminTable.firstChild.firstChild.appendChild(headTitle);
+                })
+
+                tableContent.forEach(row => {
+                  const tableRow = document.createElement('tr');
+                  console.log();
+                  Object.values(row).forEach((value) => {
+                    const tableVal = document.createElement('td');
+                    tableVal.style = `min-width: ${100 / Object.keys(tableContent[0]).length}%`;
+                    tableVal.innerHTML = value;
+                    tableRow.appendChild(tableVal);
+                  });
+                  adminTable.lastChild.appendChild(tableRow);
+                });
+              });
+
             }}>
               <option>Select a table</option>
             </select>
           </li>
         </ul>
-        <div id='admin-table'>
-
-        </div>
+        <table id='admin-table'>
+          <thead>
+            <tr>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
         <button id='admin-confirm-button'>{activePage}</button>
       </div>
     </div>

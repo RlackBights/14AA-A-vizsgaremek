@@ -11,7 +11,7 @@ export function MainPage() {
   return (
     <div id="mainpage">
       <div className="navbar">
-        <img className="logo" src={logoText}></img>
+        <img className="logo" src={logoText} alt=""></img>
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
             <button className="navbar-links" onClick={() => {
