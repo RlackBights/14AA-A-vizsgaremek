@@ -9,6 +9,8 @@ export function MainPage() {
 
   return (
     <div id="mainpage" onLoad={() => {
+      if (user.authToken === "") return;
+      
       let fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -18,7 +20,7 @@ export function MainPage() {
       };
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-        user.setIsAdmin(res.data[0].isAdmin);
+          user.setIsAdmin(res.data[0].isAdmin);
       });
     }}>
       <div className="navbar">

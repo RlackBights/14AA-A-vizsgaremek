@@ -18,6 +18,8 @@ export function AdminPage() {
       tableSelect.removeChild(tableSelect.lastChild);
     }
 
+    tableSelect.dispatchEvent(new Event("onChange"));
+
     let fetchParams = {
       method: "GET",
       headers: { "Content-Type": "application/json" }
@@ -53,6 +55,8 @@ export function AdminPage() {
           authCode: user.authToken
         }),
       };
+
+      console.log(user.authToken);
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
         if (res.data[0].isAdmin === false) window.location.href = "../";
@@ -64,7 +68,7 @@ export function AdminPage() {
         <ul className="navbar-items">
           <li>
             <button id={activePage === "insert" ? "activated" : ""} className="navbar-links" onClick={() => {
-              setActivePage("insert")
+              setActivePage("insert");
             }}>Insert</button>
           </li>
           <li>
