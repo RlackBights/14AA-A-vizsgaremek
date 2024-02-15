@@ -145,24 +145,26 @@ export function AdminPage() {
               
               fetch(backend + "/admin/getTableRows", fetchParams).then((res) => res.json()).then((res) => res.data).then((tableContent) => {
 
+                const tableKeys = Object.keys(tableContent[0])
 
-
-                Object.keys(tableContent[0]).forEach(colName => {
+                tableKeys.forEach(colName => {
                   const headTitle = document.createElement('td');
                   headTitle.innerHTML = colName;
-                  headTitle.style = `min-width: ${100 / Object.keys(tableContent[0]).length}%`;
                   adminTable.firstChild.firstChild.appendChild(headTitle);
                 })
 
                 tableContent.forEach(row => {
                   const tableRow = document.createElement('tr');
-                  console.log();
+                  let rowValue = "";
+                  let indexer = 0;
                   Object.values(row).forEach((value) => {
                     const tableVal = document.createElement('td');
-                    tableVal.style = `min-width: ${100 / Object.keys(tableContent[0]).length}%`;
                     tableVal.innerHTML = value;
+                    rowValue += `${tableKeys[indexer]} - ${value}\n`;
+                    indexer++;
                     tableRow.appendChild(tableVal);
                   });
+                  tableRow.onclick = () => alert(rowValue);
                   adminTable.lastChild.appendChild(tableRow);
                 });
               });

@@ -21,6 +21,7 @@ export function Statistics() {
                 {
                     localStorage.setItem("authToken", "");
                     user.setAuthToken("");
+                    user.setIsAdmin(false);
                 }
             }>Log Out</button>
         </div>
