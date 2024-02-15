@@ -182,15 +182,19 @@ export function AdminPage() {
                   });
 
                   tableRow.onclick = (e) => {
+                    let temp = "";
                     for (let i = 0; i < e.target.parentElement.childNodes.length; i++) {
+
+                      temp += `\"${inputFields[i].parentElement.firstChild.innerHTML.replace(":", "\":")}${e.target.parentElement.childNodes[i].innerHTML}\n`;
+
                       if (inputFields[i].type === "checkbox") {
                         inputFields[i].checked = e.target.parentElement.childNodes[i].innerHTML === "true";
                       } else {
                         inputFields[i].value = e.target.parentElement.childNodes[i].innerHTML;
                       }
-
                       
                     }
+                    alert(temp);
                   }
 
                   adminTable.lastChild.appendChild(tableRow);
