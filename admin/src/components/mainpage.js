@@ -5,29 +5,29 @@ import { Statistics } from "./statistics";
 import { useContext } from "react";
 import { backend, userContext } from "../App";
 export function MainPage() {
+
   const user = useContext(userContext);
 
-
   return (
-    <div id="mainpage">
+    <div id="mainpage" onLoad={() => {
+      let fetchParams = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          authCode: user.authToken
+        }),
+      };
+    
+      fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
+        user.setIsAdmin(res.data[0].isAdmin);
+      });
+    }}>
       <div className="navbar">
         <img className="logo" src={logoText} alt=""></img>
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
-            <button className="navbar-links" onClick={() => {
-              let fetchParams = {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  authCode: user.authToken
-                }),
-              };
-            
-              fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-                console.log(res);
-                if (res.data[0].isAdmin === true) window.location.href = "/admin-page";
-              })
-              
+            <button className="navbar-links" style={{display: user.isAdmin ? "block" : "none"}} onClick={() => {
+              window.location.href = "/admin-page";
             }}>Admin page</button>
           </li>
           <li>

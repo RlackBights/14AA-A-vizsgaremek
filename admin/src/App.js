@@ -22,9 +22,10 @@ export const userContext = createContext();
 
 function App() {
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
+  const [isAdmin, setIsAdmin] = useState(false);
   return (
     <div className="App">
-      <userContext.Provider value={{authToken, setAuthToken}}>
+      <userContext.Provider value={{authToken, setAuthToken, isAdmin, setIsAdmin}}>
         <RouterProvider router={router} />
       </userContext.Provider>
     </div>

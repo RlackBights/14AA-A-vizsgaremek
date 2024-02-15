@@ -49,8 +49,21 @@ export function Login() {
                             response
                             .json()
                             .then((json) => {
+                                console.log(json);
+
+                                let fetchParams = {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify({
+                                        authCode: (json.data[0] + " " + json.data[1])
+                                    }),
+                                };
+                                
+                                fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
+                                     user.setIsAdmin(res.data[0].isAdmin);
+                                });
+                                
                                 localStorage.setItem("authToken", json.data[0] + " " + json.data[1]);
-                                localStorage.setItem("isAdmin", json.data[0])
                                 user.setAuthToken(json.data[0] + " " + json.data[1]);
                             })
                             .then(
