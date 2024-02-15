@@ -1,6 +1,5 @@
 import "../App.css";
 import { Login } from "./login";
-import logoText from "../LearnTheBasics.svg"
 import { Statistics } from "./statistics";
 import { useContext } from "react";
 import { backend, userContext } from "../App";
@@ -10,6 +9,8 @@ export function MainPage() {
 
   return (
     <div id="mainpage" onLoad={() => {
+      if (user.authToken === "") return;
+      
       let fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -19,11 +20,11 @@ export function MainPage() {
       };
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-        user.setIsAdmin(res.data[0].isAdmin);
+          user.setIsAdmin(res.data[0].isAdmin);
       });
     }}>
       <div className="navbar">
-        <img className="logo" src={logoText} alt=""></img>
+        <img className="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=""></img>
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
             <button className="navbar-links" style={{display: user.isAdmin ? "block" : "none"}} onClick={() => {

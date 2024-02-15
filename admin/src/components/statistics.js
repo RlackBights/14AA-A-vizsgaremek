@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import "../App.css"; 
-import { userContext } from "../App";
+import { backend, userContext } from "../App";
 
 export function Statistics() {
     

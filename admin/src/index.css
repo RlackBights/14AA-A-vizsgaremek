@@ -7,6 +7,7 @@
 :root {
   --theme-color: #782b51;
   --accent-color: #E6C79C;
+  overflow-x: hidden;
 }
 
 body {
@@ -31,7 +32,7 @@ code {
   position: fixed;
   margin: 0;
   width: 100vw;
-  height: 10vh;
+  height: 10vmin;
   display: flex;
   justify-content: space-between;
   background-color: rgba(0, 0, 0, 0.9);
@@ -58,8 +59,8 @@ code {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 7vmin;
+  height: 4vmin;
 }
 
 .switch input { 
@@ -89,10 +90,11 @@ input:checked + .slider {
   position: absolute;
   content: "";
   color: var(--accent-color);
-  height: 26px;
-  width: 26px;
-  left: 2px;
-  bottom: 2px;
+  height: 3vmin;
+  width: 3vmin;
+  top: 50%;
+  left: 4%;
+  transform: translateY(-1.5vmin);
   font-size: 2vmin;
   background-color: var(--accent-color);
   transition: .25s all;
@@ -102,7 +104,7 @@ input:checked + .slider::before {
   background-color: var(--theme-color);
   content: "✔";
   text-align: center;
-  transform: translateX(26px);
+  transform: translateX(3vmin) translateY(-50%);
 }
 
 /* Rounded sliders */
@@ -158,10 +160,16 @@ input:checked + .slider::before {
 }
 
 .logo {
+  background-image: url('LearnTheBasics.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
   box-sizing: border-box;
-  height: 100%;
-  padding: 1%;
-  max-width: 50%;
+  position: relative;
+  left: 5vmin;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8vmin;
+  width: 100%;
 }
 
 #main-content {
@@ -185,9 +193,9 @@ input:checked + .slider::before {
 
 #admin-content {
   box-sizing: border-box;
-  margin: 12vmin 2vmin 2vmin 2vmin;
+  margin: 12vmin auto 0 auto;
   height: 86vh;
-  width: 100%;
+  width: 90%;
   background-color: rgba(0, 0, 0, 0.9);
   border-radius: 1rem;
   display: flex;
@@ -209,7 +217,7 @@ input:checked + .slider::before {
   border: 0.5vmin solid var(--theme-color);
   color: var(--accent-color);
   height: 65vmin;
-  width: 150vmin;
+  width: 80%;
   overflow-y: scroll;
   overflow-x: scroll;
   border-spacing: 0;
@@ -359,13 +367,14 @@ input:checked + .slider::before {
 
 .generated-data input:disabled {
   border: 2px solid var(--theme-color);
+  color: var(--theme-color);
 }
 
 .generated-data:has(input:disabled) p::after {
   position: absolute;
   content: "";
   top: 50%;
-  margin-left: 1.75vmin;
+  margin-left: 2vmin;
   left: fit-content;
   transform: translateY(-50%) ;
   width: 15vmin;
@@ -386,7 +395,7 @@ input:checked + .slider::before {
   transition: 0.25s all;
 }
 
-#table-select:hover {
+#table-select:focus {
   color: var(--theme-color);
   border-color: var(--theme-color);
 }
@@ -618,5 +627,9 @@ input:checked + .slider::before {
   #error-message {
     width: 80%;
     top:10%;
+  }
+
+  .logo {
+    background-image: url('LearnTheBasicsLogo.svg');
   }
 }
