@@ -1,11 +1,47 @@
-import React, { useContext, useState } from 'react'
-import logoText from '../LearnTheBasics.svg'
+import React, { useContext, useEffect, useState } from 'react'
 import { backend, userContext } from '../App';
+
 
 export function AdminPage() {
   let tableData = [];
   const [activePage, setActivePage] = useState("insert");
   const user = useContext(userContext);
+  let inputFields = [];
+
+  useEffect(() => {
+
+
+    const tableSelect = document.getElementById("table-select");
+
+    while (tableSelect.childNodes.length > 1)
+    {
+      tableSelect.removeChild(tableSelect.lastChild);
+    }
+
+    let fetchParams = {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    };
+
+    fetch(backend + "/admin/getTableNames", fetchParams).then((res) => res.json()).then((res) => {
+      tableData = res.data;
+      let tableNames = [];
+      tableData.map((tableInfo) => {
+        if (tableNames.includes(tableInfo.TABLE_NAME))
+        {
+          return null
+        } else {
+          tableNames.push(tableInfo.TABLE_NAME);
+          const tableOption = document.createElement("option");
+          tableOption.innerHTML = tableInfo.TABLE_NAME;
+          tableSelect.appendChild(tableOption);
+          return null;
+        }
+        
+      });
+      console.log(tableNames);
+    })
+  }, [activePage])
 
   return (
     <div id='admin-container' onLoad={() => {
@@ -19,33 +55,12 @@ export function AdminPage() {
       };
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-        console.log(res);
         if (res.data[0].isAdmin === false) window.location.href = "../";
       })
 
-      const tableSelect = document.getElementById("table-select");
-
-      fetchParams = {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      };
-
-      fetch(backend + "/admin/getTableNames", fetchParams).then((res) => res.json()).then((res) => {
-        console.log(res);
-        tableData = res.data;
-        let tableNames = [];
-        res.data.map((tableInfo) => {
-          if (tableNames.includes(tableInfo.TABLE_NAME)) return null;
-          tableNames.push(tableInfo.TABLE_NAME);
-          const tableOption = document.createElement("option");
-          tableOption.innerHTML = tableInfo.TABLE_NAME;
-          tableSelect.appendChild(tableOption);
-          return null;
-        });
-      })
     }}>
       <div className="navbar">
-        <img className="logo" src={logoText} alt=''></img>
+        <img className="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=''></img>
         <ul className="navbar-items">
           <li>
             <button id={activePage === "insert" ? "activated" : ""} className="navbar-links" onClick={() => {
@@ -91,6 +106,7 @@ export function AdminPage() {
               }
 
               if (e.target.value === "Select a table") return;
+              inputFields = [];
 
               tableData.filter((tableInfo) => tableInfo.TABLE_NAME === e.target.value).map((tableInfo) => {
                 const input = document.createElement('input');
@@ -110,25 +126,25 @@ export function AdminPage() {
                     break;
                   default:
                     if (tableInfo.COLUMN_TYPE.includes("int")) {
-                      console.log("number");
                       inputType = "number";
                     } else
                     {
-                      console.log("text");
                       inputType = "text";
                     }
                     break;
                 }
+
                 input.setAttribute("type", inputType);
                 if (tableInfo.COLUMN_NAME === "id" || tableInfo.COLUMN_NAME.toLowerCase() === "lastmodified" || (tableInfo.TABLE_NAME === "userTbl" && tableInfo.COLUMN_NAME.toLowerCase() === "uid") || tableInfo.COLUMN_NAME.toLowerCase() === "passwordresettoken") input.disabled = true;
                 li.appendChild(additionalInfo);
-                if (inputType === "checkbox") {
+                if (inputType === "checkbox") { 
                   li.appendChild(label);
                 } else {
                   li.appendChild(input);
                 }
                 li.className = "generated-data";
                 adminFilters.appendChild(li);
+                inputFields.push(input);
 
                 return null;
               });
@@ -155,16 +171,24 @@ export function AdminPage() {
 
                 tableContent.forEach(row => {
                   const tableRow = document.createElement('tr');
-                  let rowValue = "";
-                  let indexer = 0;
                   Object.values(row).forEach((value) => {
                     const tableVal = document.createElement('td');
                     tableVal.innerHTML = value;
-                    rowValue += `${tableKeys[indexer]} - ${value}\n`;
-                    indexer++;
                     tableRow.appendChild(tableVal);
                   });
-                  tableRow.onclick = () => alert(rowValue);
+
+                  tableRow.onclick = (e) => {
+                    for (let i = 0; i < e.target.parentElement.childNodes.length; i++) {
+                      if (inputFields[i].type === "checkbox") {
+                        inputFields[i].checked = e.target.parentElement.childNodes[i].innerHTML === "true";
+                      } else {
+                        inputFields[i].value = e.target.parentElement.childNodes[i].innerHTML;
+                      }
+
+                      
+                    }
+                  }
+
                   adminTable.lastChild.appendChild(tableRow);
                 });
               });

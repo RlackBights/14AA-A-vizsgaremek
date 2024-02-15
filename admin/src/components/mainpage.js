@@ -1,6 +1,5 @@
 import "../App.css";
 import { Login } from "./login";
-import logoText from "../LearnTheBasics.svg"
 import { Statistics } from "./statistics";
 import { useContext } from "react";
 import { backend, userContext } from "../App";
@@ -23,7 +22,7 @@ export function MainPage() {
       });
     }}>
       <div className="navbar">
-        <img className="logo" src={logoText} alt=""></img>
+        <img className="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=""></img>
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
             <button className="navbar-links" style={{display: user.isAdmin ? "block" : "none"}} onClick={() => {
