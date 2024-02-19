@@ -1,6 +1,6 @@
 :root {
   --theme-color: #782b51;
-  --accent-color: #e6c79c;
+  --accent-color: #E6C79C;
 }
 
 /*
@@ -47,9 +47,7 @@
   background-size: cover;
 }
 
-#title-text1,
-#title-text2,
-#title-text3 {
+#title-text1, #title-text2, #title-text3 {
   text-align: center;
   position: absolute;
   z-index: 1;
@@ -77,6 +75,7 @@
   top: 40%;
 }
 
+
 .button-container button {
   cursor: pointer;
   z-index: 1;
@@ -97,8 +96,7 @@
   font-size: 2.25vmin;
   margin: 1vh 0 1vh -4vw;
   text-align: right;
-  transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s, border 0.25s,
-    box-shadow 0.25s, color 0.25s;
+  transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s, border 0.25s, box-shadow 0.25s, color 0.25s;
   font-family: "Pixel Font" !important;
   letter-spacing: 1px;
   cursor: pointer;
@@ -121,11 +119,12 @@
 
 /*------------------------------------------------------------*/
 
+
 .glitch {
   position: relative;
   font-size: 49px;
   font-weight: bold;
-  color: #e6c79c;
+  color: #E6C79C;
   letter-spacing: 3px;
   z-index: 1;
 }
@@ -160,135 +159,137 @@
 
 @keyframes noise-before {
   0% {
-    clip: rect(61px, 9999px, 52px, 0);
+     clip: rect(61px, 9999px, 52px, 0);
   }
   5% {
-    clip: rect(33px, 9999px, 144px, 0);
+     clip: rect(33px, 9999px, 144px, 0);
   }
   10% {
-    clip: rect(121px, 9999px, 115px, 0);
+     clip: rect(121px, 9999px, 115px, 0);
   }
   15% {
-    clip: rect(144px, 9999px, 162px, 0);
+     clip: rect(144px, 9999px, 162px, 0);
   }
   20% {
-    clip: rect(62px, 9999px, 180px, 0);
+     clip: rect(62px, 9999px, 180px, 0);
   }
   25% {
-    clip: rect(34px, 9999px, 42px, 0);
+     clip: rect(34px, 9999px, 42px, 0);
   }
   30% {
-    clip: rect(147px, 9999px, 179px, 0);
+     clip: rect(147px, 9999px, 179px, 0);
   }
   35% {
-    clip: rect(99px, 9999px, 63px, 0);
+     clip: rect(99px, 9999px, 63px, 0);
   }
   40% {
-    clip: rect(188px, 9999px, 122px, 0);
+     clip: rect(188px, 9999px, 122px, 0);
   }
   45% {
-    clip: rect(154px, 9999px, 14px, 0);
+     clip: rect(154px, 9999px, 14px, 0);
   }
   50% {
-    clip: rect(63px, 9999px, 37px, 0);
+     clip: rect(63px, 9999px, 37px, 0);
   }
   55% {
-    clip: rect(161px, 9999px, 147px, 0);
+     clip: rect(161px, 9999px, 147px, 0);
   }
   60% {
-    clip: rect(109px, 9999px, 175px, 0);
+     clip: rect(109px, 9999px, 175px, 0);
   }
   65% {
-    clip: rect(157px, 9999px, 88px, 0);
+     clip: rect(157px, 9999px, 88px, 0);
   }
   70% {
-    clip: rect(173px, 9999px, 131px, 0);
+     clip: rect(173px, 9999px, 131px, 0);
   }
   75% {
-    clip: rect(62px, 9999px, 70px, 0);
+     clip: rect(62px, 9999px, 70px, 0);
   }
   80% {
-    clip: rect(24px, 9999px, 153px, 0);
+     clip: rect(24px, 9999px, 153px, 0);
   }
   85% {
-    clip: rect(138px, 9999px, 40px, 0);
+     clip: rect(138px, 9999px, 40px, 0);
   }
   90% {
-    clip: rect(79px, 9999px, 136px, 0);
+     clip: rect(79px, 9999px, 136px, 0);
   }
   95% {
-    clip: rect(25px, 9999px, 34px, 0);
+     clip: rect(25px, 9999px, 34px, 0);
   }
   100% {
-    clip: rect(173px, 9999px, 166px, 0);
+     clip: rect(173px, 9999px, 166px, 0);
   }
 }
 
 @keyframes noise-after {
   0% {
-    clip: rect(26px, 9999px, 33px, 0);
+     clip: rect(26px, 9999px, 33px, 0);
   }
   5% {
-    clip: rect(140px, 9999px, 198px, 0);
+     clip: rect(140px, 9999px, 198px, 0);
   }
   10% {
-    clip: rect(184px, 9999px, 89px, 0);
+     clip: rect(184px, 9999px, 89px, 0);
   }
   15% {
-    clip: rect(121px, 9999px, 6px, 0);
+     clip: rect(121px, 9999px, 6px, 0);
   }
   20% {
-    clip: rect(181px, 9999px, 99px, 0);
+     clip: rect(181px, 9999px, 99px, 0);
   }
   25% {
-    clip: rect(154px, 9999px, 133px, 0);
+     clip: rect(154px, 9999px, 133px, 0);
   }
   30% {
-    clip: rect(134px, 9999px, 169px, 0);
+     clip: rect(134px, 9999px, 169px, 0);
   }
   35% {
-    clip: rect(26px, 9999px, 187px, 0);
+     clip: rect(26px, 9999px, 187px, 0);
   }
   40% {
-    clip: rect(147px, 9999px, 137px, 0);
+     clip: rect(147px, 9999px, 137px, 0);
   }
   45% {
-    clip: rect(31px, 9999px, 52px, 0);
+     clip: rect(31px, 9999px, 52px, 0);
   }
   50% {
-    clip: rect(191px, 9999px, 109px, 0);
+     clip: rect(191px, 9999px, 109px, 0);
   }
   55% {
-    clip: rect(74px, 9999px, 54px, 0);
+     clip: rect(74px, 9999px, 54px, 0);
   }
   60% {
-    clip: rect(145px, 9999px, 75px, 0);
+     clip: rect(145px, 9999px, 75px, 0);
   }
   65% {
-    clip: rect(153px, 9999px, 198px, 0);
+     clip: rect(153px, 9999px, 198px, 0);
   }
   70% {
-    clip: rect(99px, 9999px, 136px, 0);
+     clip: rect(99px, 9999px, 136px, 0);
   }
   75% {
-    clip: rect(118px, 9999px, 192px, 0);
+     clip: rect(118px, 9999px, 192px, 0);
   }
   80% {
-    clip: rect(1px, 9999px, 83px, 0);
+     clip: rect(1px, 9999px, 83px, 0);
   }
   85% {
-    clip: rect(145px, 9999px, 98px, 0);
+     clip: rect(145px, 9999px, 98px, 0);
   }
   90% {
-    clip: rect(121px, 9999px, 154px, 0);
+     clip: rect(121px, 9999px, 154px, 0);
   }
   95% {
-    clip: rect(156px, 9999px, 44px, 0);
+     clip: rect(156px, 9999px, 44px, 0);
   }
   100% {
-    clip: rect(67px, 9999px, 122px, 0);
+     clip: rect(67px, 9999px, 122px, 0);
   }
 }
+
+
 
 /*
 888      .d88888b.   .d8888b.  8888888 888b    888 
@@ -355,12 +356,7 @@
   z-index: 999;
 }
 
-<<<<<<< HEAD
-#login-page,
-#register-page {
-=======
 #login-page, #register-page, #forgot-page {
->>>>>>> Rework-save-management
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
@@ -371,16 +367,6 @@
   text-align: center;
 }
 
-<<<<<<< HEAD
-#login-btn,
-#register-btn {
-  text-decoration: underline;
-  color: var(--accent-color);
-}
-
-#login-btn:hover,
-#register-btn:hover {
-=======
 #login-btn, #register-btn, #forgot-back-btn {
   text-wrap: nowrap;
   text-decoration: underline;
@@ -389,28 +375,10 @@
 
 #login-btn:hover, #register-btn:hover, #forgot-back-btn:hover {
   color: var(--theme-color);
->>>>>>> Rework-save-management
   cursor: pointer;
-  color: var(--theme-color);
 }
 
-.close-image {
-  font-weight: normal;
-  color: var(--accent-color);
-  cursor: pointer;
-  font-size: 2.5vmin;
-  margin: auto;
-  width: fit-content;
-  margin-top: 5%;
-  border-top: 2px solid var(--theme-color);
-  transition: all 0.15s ease-in-out;
-}
-
-.close-image:hover {
-  color: var(--theme-color);
-}
-
-#form-container {
+.form-container {
   position: relative;
   width: 30%;
   min-height: 60%;
@@ -427,24 +395,18 @@
   padding: 1% 0;
 }
 
-#form-container h1 {
-<<<<<<< HEAD
-  font-size: 6vmin;
-=======
+.form-container h1 {
   font-size: 5vmin;
->>>>>>> Rework-save-management
   margin: 0;
   padding: 0;
   letter-spacing: 1px;
-  color: black;
-  -webkit-text-stroke: 5px var(--theme-color);
+  color: var(--theme-color);
 }
 
-#form-container p {
+.form-container p {
   margin: 0;
   padding: 0;
   font-size: 3.5vmin;
-  color: var(--theme-color);
 }
 
 #button-container p {
@@ -453,7 +415,7 @@
   font-size: 2.5vmin;
 }
 
-#form-container input {
+.form-container input {
   width: 60%;
   height: 5%;
   color: var(--accent-color);
@@ -467,41 +429,30 @@
   transition: all 0.25s;
 }
 
-#form-container input:hover {
+.form-container input:hover {
   border-color: var(--theme-color);
 }
 
-#form-container input:focus {
+.form-container input:focus {
   border: 2px solid var(--theme-color);
 }
 
-#form-container .form-btn {
+.form-container .form-btn {
   background: rgba(0, 0, 0, 0.4);
-<<<<<<< HEAD
-  border: 2px solid var(--accent-color);
-  border-radius: 0.5rem;
-=======
   border: 3px solid var(--accent-color);
   border-radius: 1rem;
->>>>>>> Rework-save-management
   margin: 0;
   padding: 1.5vmin 4vmin;
   text-align: center;
   font-family: "Pixel Font";
   font-weight: 100;
-<<<<<<< HEAD
-  font-size: 1.5rem;
-  color: var(--accent-color);
-  cursor: pointer;
-=======
   font-size: 3.5vmin;
   color: var(--accent-color);
   cursor: pointer;
   transition: 0.25s all;
->>>>>>> Rework-save-management
 }
 
-#form-container .form-btn:hover {
+.form-container .form-btn:hover {
   border: 3px solid var(--theme-color);
   color: var(--theme-color);
 }
@@ -524,8 +475,6 @@
   text-align: center;
 }
 
-<<<<<<< HEAD
-=======
 .close-image {
   position: absolute;
   cursor: pointer;
@@ -574,7 +523,6 @@
   box-shadow: 10px 5px 10px black;
 }
 
->>>>>>> Rework-save-management
 /*
  .d8888b.        d8888 888     888 8888888888 .d8888b.        d8888 8888888b.  8888888b.   .d8888b.  
 d88P  Y88b      d88888 888     888 888       d88P  Y88b      d88888 888   Y88b 888  "Y88b d88P  Y88b 
@@ -630,7 +578,10 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   border-radius: 1.25rem;
   border: 5px solid var(--accent-color);
   color: var(--accent-color);
-  background: linear-gradient(rgb(0, 0, 0) 0%, var(--theme-color) 100%);
+  background: linear-gradient(
+    rgb(0, 0, 0) 0%,
+    var(--theme-color) 100%
+  );
 }
 
 .save-item-container {
@@ -667,7 +618,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 .save-bottom p {
-  font-size: 2rem;
+  font-size: 4vmin;
   margin: 0;
 }
 
@@ -691,7 +642,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  font-size: 3rem;
+  font-size: 5vmin;
   padding: 0;
   border-right: 3px solid #e6cd92;
 }
@@ -715,19 +666,12 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
 }
 
-#config p span {
+#config p span{
   color: #fff;
 }
 
-<<<<<<< HEAD
-#html,
-#css,
-#js {
-  color: var(--accent-color);
-=======
 #html, #css, #js {
   color: var(--accent-color );
->>>>>>> Rework-save-management
 }
 
 .locked-lang {
@@ -979,7 +923,10 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
 .crt {
   width: 100vw;
   height: 200vh;
-  background-image: linear-gradient(#000000, var(--theme-color));
+  background-image: linear-gradient(
+    #000000,
+    var(--theme-color)
+  );
   background-repeat: repeat;
   background-size: 100vw 50vh;
   transform: scaleY(200%);
@@ -1027,25 +974,10 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
 }
 
 @keyframes showErrorMessage {
-<<<<<<< HEAD
-  0% {
-    top: -5rem;
-  }
-  10% {
-    top: 2rem;
-  }
-  90% {
-    top: 2rem;
-  }
-  100% {
-    top: -5rem;
-  }
-=======
   0% {top: -10%}
   10% {top: 5%}
   90% {top: 5%}
   100% {top: -10%}
->>>>>>> Rework-save-management
 }
 
 /*
