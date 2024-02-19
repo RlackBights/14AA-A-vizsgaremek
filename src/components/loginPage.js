@@ -41,7 +41,7 @@ export function LoginPage() {
 
       <p id="error-message">ERROR PLACEHOLDER</p>
       <div id="login-page" style={{ display: overlay.currOverlay === "loginPage" ? "flex" : "none" }}>
-        <div id="form-container">
+        <form id="form-container" onSubmit={(e) => {e.preventDefault()}}>
           <p
             className="close-image"
             onClick={() => {
@@ -64,8 +64,11 @@ export function LoginPage() {
 
                 loginUser(usernameInput.value, passwordInput.value).then((res) => {
                   if (res.success) {
+                    usernameInput.value = "";
+                    passwordInput.value = "";
                     localStorage.setItem("userAuthCode", res.data);
                     user.setCurrUser(res.data);
+                    overlay.setCurrOverlay("")
                   } else {
                     errorMessage.innerHTML = res.data;
                     errorMessage.className = "show-error";
@@ -73,7 +76,6 @@ export function LoginPage() {
                       errorMessage.className = "";
                     }, 4000);
                   }
-                  overlay.setCurrOverlay("")
                 });
               }}
             >
@@ -89,7 +91,7 @@ export function LoginPage() {
                   overlay.setCurrOverlay("registerPage");
                 }}
               >
-                Register here!
+                <br/>Register here!
               </a>
               <br />
               <br />
@@ -103,10 +105,10 @@ export function LoginPage() {
               </a>
             </p>
           </div>
-        </div>
+        </form>
       </div>
       <div id="register-page" style={{ display: overlay.currOverlay == "registerPage" ? "flex" : "none"}}>
-        <div id="form-container">
+        <form id="form-container" onSubmit={(e) => {e.preventDefault()}}>
           <p
             className="close-image"
             onClick={() => {
@@ -135,8 +137,13 @@ export function LoginPage() {
 
                 registerUser(emailAddress.value, registerName.value, registerPassword1.value, registerPassword2.value).then((res) => {
                   if (res.success) {
+                    emailAddress.value = "";
+                    registerName.value = "";
+                    registerPassword1.value = "";
+                    registerPassword2.value = "";
                     localStorage.setItem("userAuthCode", res.data);
                     user.setCurrUser(res.data);
+                    overlay.setCurrOverlay("")
                   } else {
                     errorMessage.innerHTML = res.data;
                     errorMessage.className = "show-error";
@@ -144,7 +151,6 @@ export function LoginPage() {
                       errorMessage.className = "";
                     }, 4000);
                   }
-                  overlay.setCurrOverlay("")
                 })
                 
               }}
@@ -164,10 +170,10 @@ export function LoginPage() {
               </a>
             </p>
           </div>
-        </div>
+        </form>
       </div>
-      <div id="forgot-page" style={{ display: overlay.currOverlay == "forgotPassword" ? "flex" : "none" }}>
-        <div id="form-container">
+      <div id="forgot-page" style={{ display: overlay.currOverlay === "forgotPassword" ? "flex" : "none" }}>
+        <form id="form-container" onSubmit={(e) => {e.preventDefault()}}>
           <p
             className="close-image"
             onClick={() => {
@@ -183,7 +189,25 @@ export function LoginPage() {
               id=""
               onClick={() => {
                 const emailAddress = document.getElementById("forgot-email-input");
-                sendRecoveryEmail(emailAddress.value);
+                const errorMessage = document.getElementById("error-message");
+
+                sendRecoveryEmail(emailAddress.value).then((res) => {
+                  if (res.success) {
+                    emailAddress.value = "";
+                    errorMessage.innerHTML = "Password reset email sent!";
+                    errorMessage.className = "show-error";
+                    setTimeout(() => {
+                      errorMessage.className = "";
+                    }, 4000);
+                    overlay.setCurrOverlay("")
+                  } else {
+                    errorMessage.innerHTML = res.data;
+                    errorMessage.className = "show-error";
+                    setTimeout(() => {
+                      errorMessage.className = "";
+                    }, 4000);
+                  }
+                });
               }}>
               Send Email
             </button>
@@ -199,7 +223,7 @@ export function LoginPage() {
               </a>
             </p>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

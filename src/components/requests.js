@@ -85,7 +85,18 @@ export async function sendRecoveryEmail(email)
             email: email
         })
     }
-    await fetch(backend + "/player/forgotPassword", fetchParams).then((res) => res.json()).then((res) => console.log(res));
+    return await fetch(backend + "/player/forgotPassword", fetchParams).then((res) => {
+        switch (res.status) {
+            case 200:
+                return { success: true, data: "Password reset email successfully sent!"};
+            default:
+                return res.json().then((errorRes) => {
+                    console.log(errorRes);
+                    return {success: false, data: errorRes.error};
+                });
+              
+          }
+    });
 }
 
 export async function deleteSave(user, saveId)
