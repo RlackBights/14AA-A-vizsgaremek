@@ -1,9 +1,6 @@
 import { LoginPage } from "./loginPage";
-import { cookie } from "./cookie";
-import { useContext } from "react";
-import { saveContext } from "../App";
-import { refreshSaves, openSaves } from "./saveMenuManager";
 import '../App.css';
+<<<<<<< HEAD
 import { convertSave } from "./saveFileManager";
 import { getData, setData } from "./saveCommManager";
 import { useNavigate } from "react-router-dom";
@@ -49,17 +46,28 @@ export function MainMenu() {
       refreshSaves(save1, save2, save3);
   }
   */
+=======
+import { SaveContainer } from "./saveContainer";
+import { useContext } from "react";
+import { backend, optionsContext, overlayContext, saveContext, userContext } from "../App";
+import { getPlayerSaves } from "./requests";
+import { saveFile } from "./saveFileManager";
+import OptionsPage from "./optionsPage";
+
+export function MainMenu() {
+
+    const overlay = useContext(overlayContext);
+    const user = useContext(userContext);
+    const saves = useContext(saveContext);
+    const options = useContext(optionsContext);
+
+>>>>>>> Rework-save-management
     return (
         <div className="main-menu">
             <LoginPage />
+            <SaveContainer />
+            <OptionsPage />
             <h1 id="title-text1" data-text="Learn" className="glitch">
-              {/*}
-              <p className="glitch">
-                <span aria-hidden="true">
-              Learn<br/>The<br/>Basics</span>
-                <span aria-hidden="true">
-              Learn<br/>The<br/>Basics</span>
-    </p>*/}
               Learn
             </h1>
             <h1 id="title-text2" data-text="The" className="glitch">
@@ -72,6 +80,7 @@ export function MainMenu() {
               <button style={cookie.get("isAdmin") ? {display: "block"} : {display: "none"}} onClick={() => {window.location = "https://bgs.jedlik.eu/learnthebasics"}}>Admin Page</button>
               <button
                 onClick={() => {
+<<<<<<< HEAD
 
                   if (cookie.get("user") == null) {
                     return;
@@ -79,12 +88,22 @@ export function MainMenu() {
 
                   //updateData();
                   //openSaves();
+=======
+                  if (localStorage.getItem("userAuthCode") === "") return;
+                  localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile()));
+                  saves.setActiveSaveFile(new saveFile());
+                  getPlayerSaves(user.currUser).then((res) => {
+                    saves.setSaveFiles(res);
+                    overlay.setCurrOverlay("savePage");
+                  })
+>>>>>>> Rework-save-management
                 }}
               >
                 Continue
               </button>
               <button
                 onClick={() => {
+<<<<<<< HEAD
 
                   if (cookie.get("user") == null) {
                     return;
@@ -111,11 +130,17 @@ export function MainMenu() {
                     //openSaves();
                   }
                   */
+=======
+                  if (localStorage.getItem("userAuthCode") === "") return;
+                  
+>>>>>>> Rework-save-management
                 }}
               >
                 New Game
               </button>
-              <button>Options</button>
+              <button onClick={() => {
+                overlay.setCurrOverlay("optionsPage");
+              }}>Options</button>
               <button
                 onClick={() => {
                   window.close();
@@ -124,7 +149,7 @@ export function MainMenu() {
                 Quit Game
               </button>
             </div>
-            <div id="darken-bg" className="crt"></div>
+            <div id="darken-bg" className={options.optionValues.specialEffects ? "crt" : ""}></div>
           </div>
     )}
 

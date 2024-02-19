@@ -1,28 +1,59 @@
+// Imports
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import { useState, createContext } from "react";
-import { cookie } from "./components/cookie";
 import { MainMenu } from "./components/mainMenu";
-import { Room } from "./components/room";
-import { Desktop } from "./components/desktop";
-import { Taskbar } from "./components/taskbar";
-import { getData, setData } from "./components/saveCommManager";
-import { SaveContainer } from "./components/saveContainer";
+import { TableView } from "./components/tableView";
 import { saveFile } from "./components/saveFileManager";
 
-// Base variables
+// Block refresh
 
-document.cookie = (cookie.get("activeSaveSlot") == null) ? "activeSaveSlot = null;" : ("activeSaveSlot = " + cookie.get("activeSaveSlot"));
-let timerAllowed = false;
+
+// Router
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainMenu />
+  },
+  {
+    path: "/game/tableView",
+    element: <TableView />
+  },
+  {
+    path: "*",
+    element: <div>ERROR</div>
+  }
+]);
+
+// Backend location
+if (localStorage.getItem("userAuthCode") === null) localStorage.setItem("userAuthCode", "")
+if (localStorage.getItem("activeSaveFile") === null) localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile()));
+if (localStorage.getItem("gameOptions") === null) localStorage.setItem("gameOptions", JSON.stringify({specialEffects: true}));
+export const backend = 'https://backend-learnthebasics.koyeb.app';
 
 // Contexts
+<<<<<<< HEAD
 
 //let updateData = async () => {};
 
 //export const updateDataContext = createContext(updateData);
 //export const saveContext = createContext([[],[],[]]);
+=======
+export const saveContext = createContext();
+export const overlayContext = createContext();
+export const userContext = createContext();
+export const optionsContext = createContext();
+>>>>>>> Rework-save-management
 
 // Entry point
+export function App() {
+  const [activeSaveFile, setActiveSaveFile] = useState(JSON.parse(localStorage.getItem("activeSaveFile")));
+  const [currUser, setCurrUser] = useState(localStorage.getItem("userAuthCode"));
+  const [optionValues, setOptionValues] = useState(JSON.parse(localStorage.getItem("gameOptions")));
+  const [saveFiles, setSaveFiles] = useState([]);
+  const [currOverlay, setCurrOverlay] = useState("");
 
+<<<<<<< HEAD
 function App() {
 
   // States
@@ -95,6 +126,17 @@ function App() {
         </div>
       )
   }
+=======
+  return (
+    <saveContext.Provider value={{saveFiles, setSaveFiles, activeSaveFile, setActiveSaveFile}}>
+      <overlayContext.Provider value={{currOverlay, setCurrOverlay}}>
+        <userContext.Provider value={{currUser, setCurrUser}}>
+          <optionsContext.Provider value={{optionValues, setOptionValues}}>
+            <RouterProvider router={router}/>
+          </optionsContext.Provider>
+        </userContext.Provider>
+      </overlayContext.Provider>
+    </saveContext.Provider>
+  )
+>>>>>>> Rework-save-management
 }
-
-export default App;

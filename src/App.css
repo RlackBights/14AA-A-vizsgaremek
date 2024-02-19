@@ -1,22 +1,6 @@
 :root {
-  --mobile-vis: unset;
   --theme-color: #782b51;
   --accent-color: #e6c79c;
-}
-
-/*
-888b     d888  .d88888b.  888888b.  8888888 888      8888888888 
-8888b   d8888 d88P" "Y88b 888  "88b   888   888      888        
-88888b.d88888 888     888 888  .88P   888   888      888        
-888Y88888P888 888     888 8888888K.   888   888      8888888    
-888 Y888P 888 888     888 888  "Y88b  888   888      888        
-888  Y8P  888 888     888 888    888  888   888      888        
-888   "   888 Y88b. .d88P 888   d88P  888   888      888        
-888       888  "Y88888P"  8888888P" 8888888 88888888 8888888888
-*/
-
-.mobile {
-  display: var(--mobile-vis);
 }
 
 /*
@@ -69,7 +53,7 @@
   text-align: center;
   position: absolute;
   z-index: 1;
-  font-size: 5rem;
+  font-size: 9vmin;
   width: 100%;
   padding: 0;
   margin: 0;
@@ -77,7 +61,6 @@
   transform: translateY(-50%);
   letter-spacing: 2px;
   pointer-events: none;
-  /*-webkit-text-stroke: 0.5px white;*/
   color: var(--accent-color);
   -webkit-text-stroke: 1px black;
 }
@@ -99,7 +82,8 @@
   z-index: 1;
   width: 30vmin;
   height: fit-content;
-  border: 5px solid var(--accent-color);
+  outline: none;
+  border: 0.6vmin solid var(--accent-color);
   border-left: none;
   border-top-right-radius: 5rem;
   border-bottom-right-radius: 5rem;
@@ -109,10 +93,9 @@
     rgba(0, 0, 0, 0.4) 100%
   );
   color: var(--accent-color);
-  padding: 1rem;
-  font-size: 1.25rem;
-  font-weight: 900;
-  margin: 0.5rem 0 0.5rem -4rem;
+  padding: 2vmin;
+  font-size: 2.25vmin;
+  margin: 1vh 0 1vh -4vw;
   text-align: right;
   transition: margin cubic-bezier(0.7, 0.11, 0.62, 1.48) 0.25s, border 0.25s,
     box-shadow 0.25s, color 0.25s;
@@ -130,8 +113,8 @@
   top: 0;
 }
 .button-container button:hover {
-  margin-left: -1rem;
-  border: 5px solid var(--theme-color);
+  margin-left: -1vw;
+  border: 0.6vmin solid var(--theme-color);
   color: var(--theme-color);
   box-shadow: 10px 10px 10px rgb(10, 10, 10);
 }
@@ -335,6 +318,7 @@
   border-radius: 5rem;
   border: 4px solid transparent;
   transition: all 0.25s;
+  outline: none;
 }
 
 #user-icon:hover {
@@ -371,16 +355,23 @@
   z-index: 999;
 }
 
+<<<<<<< HEAD
 #login-page,
 #register-page {
+=======
+#login-page, #register-page, #forgot-page {
+>>>>>>> Rework-save-management
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
+  pointer-events: all;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
+<<<<<<< HEAD
 #login-btn,
 #register-btn {
   text-decoration: underline;
@@ -389,6 +380,16 @@
 
 #login-btn:hover,
 #register-btn:hover {
+=======
+#login-btn, #register-btn, #forgot-back-btn {
+  text-wrap: nowrap;
+  text-decoration: underline;
+  transition: all 0.25s;
+}
+
+#login-btn:hover, #register-btn:hover, #forgot-back-btn:hover {
+  color: var(--theme-color);
+>>>>>>> Rework-save-management
   cursor: pointer;
   color: var(--theme-color);
 }
@@ -410,7 +411,9 @@
 }
 
 #form-container {
-  width: 15%;
+  position: relative;
+  width: 30%;
+  min-height: 60%;
   height: fit-content;
   display: flex;
   align-items: center;
@@ -425,7 +428,11 @@
 }
 
 #form-container h1 {
+<<<<<<< HEAD
   font-size: 6vmin;
+=======
+  font-size: 5vmin;
+>>>>>>> Rework-save-management
   margin: 0;
   padding: 0;
   letter-spacing: 1px;
@@ -440,8 +447,14 @@
   color: var(--theme-color);
 }
 
+#button-container p {
+  margin: 0;
+  padding: 0;
+  font-size: 2.5vmin;
+}
+
 #form-container input {
-  width: 80%;
+  width: 60%;
   height: 5%;
   color: var(--accent-color);
   background: none;
@@ -450,7 +463,12 @@
   border-radius: 0.5rem;
   text-align: center;
   padding: 0.5rem 1rem;
-  font-size: 2vmin;
+  font-size: 2.5vmin;
+  transition: all 0.25s;
+}
+
+#form-container input:hover {
+  border-color: var(--theme-color);
 }
 
 #form-container input:focus {
@@ -459,26 +477,33 @@
 
 #form-container .form-btn {
   background: rgba(0, 0, 0, 0.4);
+<<<<<<< HEAD
   border: 2px solid var(--accent-color);
   border-radius: 0.5rem;
+=======
+  border: 3px solid var(--accent-color);
+  border-radius: 1rem;
+>>>>>>> Rework-save-management
   margin: 0;
-  padding: 0 0.5rem;
-  width: fit-content;
-  height: 2rem;
+  padding: 1.5vmin 4vmin;
   text-align: center;
+  font-family: "Pixel Font";
   font-weight: 100;
+<<<<<<< HEAD
   font-size: 1.5rem;
   color: var(--accent-color);
   cursor: pointer;
+=======
+  font-size: 3.5vmin;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+>>>>>>> Rework-save-management
 }
 
 #form-container .form-btn:hover {
-  border: 2px solid var(--theme-color);
+  border: 3px solid var(--theme-color);
   color: var(--theme-color);
-}
-
-#button-container p {
-  font-size: 1rem !important;
 }
 
 #error-message {
@@ -486,7 +511,7 @@
   width: fit-content;
   margin: 0;
   padding: 0.5rem 1rem;
-  top: -5rem;
+  top: -100%;
   left: 50%;
   transform: translateX(-50%);
   display: block;
@@ -495,8 +520,61 @@
   border-radius: 1rem;
   color: white;
   font-size: 3vmin;
+  z-index: 9999;
+  text-align: center;
 }
 
+<<<<<<< HEAD
+=======
+.close-image {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  font-size: 2.5vmin !important;
+  padding: 1vmin 0 !important;
+  letter-spacing: 0px;
+  color: var(--accent-color);
+  border: 2px solid var(--theme-color);
+  border-bottom-left-radius: 1rem;
+  border-right: none;
+  border-top: none;
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  transition: all 0.25s;
+}
+
+.close-image:hover {
+  color: var(--theme-color);
+}
+
+#logoutBtn {
+  position: absolute;
+  z-index: 10 ;
+  right: 0;
+  margin: 1% 2%;
+  padding: 0.4% 0.6%;
+  pointer-events: all !important;
+  background-color: transparent;
+  outline: none;
+  border: 3px solid transparent;
+  border-radius: 5rem;
+  color: var(--accent-color);
+  font-family: "Pixel Font";
+  cursor: pointer;
+  font-size: 2vmin;
+  font-style: italic;
+  transition: all 0.25s;
+}
+
+#logoutBtn:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border: 3px solid var(--theme-color);
+  color: var(--theme-color);
+  box-shadow: 10px 5px 10px black;
+}
+
+>>>>>>> Rework-save-management
 /*
  .d8888b.        d8888 888     888 8888888888 .d8888b.        d8888 8888888b.  8888888b.   .d8888b.  
 d88P  Y88b      d88888 888     888 888       d88P  Y88b      d88888 888   Y88b 888  "Y88b d88P  Y88b 
@@ -508,21 +586,44 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
  "Y8888P" d88P     888     Y8P     8888888888 "Y8888P" d88P     888 888   T88b 8888888P"   "Y8888P"  
 */
 
+#missing-save-text {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  color: var(--accent-color);
+}
+
+.save-nav-button {
+  outline: none;
+  position: fixed;
+  z-index: 50;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #00000000;
+  border: #00000000;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  margin: 0, 20vw;
+}
+
 .save-container {
   z-index: 10;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.6);
   top: 0;
   left: 0;
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  transition: 0.75s all ease-in-out;
 }
 
 .save-item {
-  width: 70%;
+  cursor: pointer;
+  width: min(70%, 45vh);
   height: 70%;
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -530,6 +631,24 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   border: 5px solid var(--accent-color);
   color: var(--accent-color);
   background: linear-gradient(rgb(0, 0, 0) 0%, var(--theme-color) 100%);
+}
+
+.save-item-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw/3);
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  transition: 0.25s all;
+}
+
+.save-item-container:hover {
+  width: calc((100vw/3) * 1.1);
+  height: calc(100% * 1.1);
 }
 
 .grid-item {
@@ -552,12 +671,8 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
 }
 
-#save-item1 .save-bottom {
-  border-color: #e6cd92;
-}
-
-#save-item1 .save-top {
-  border-color: #e6cd92;
+#save-item1 .save-bottom, #save-item1 .save-top, #save-item2 .save-bottom, #save-item2 .save-top, #save-item3 .save-bottom, #save-item3 .save-top {
+  border-color: var(--accent-color);
 }
 
 #playtime {
@@ -591,8 +706,9 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  text-align: center;
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 2.5vmin;
 }
 
 #config p {
@@ -603,10 +719,15 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   color: #fff;
 }
 
+<<<<<<< HEAD
 #html,
 #css,
 #js {
   color: var(--accent-color);
+=======
+#html, #css, #js {
+  color: var(--accent-color );
+>>>>>>> Rework-save-management
 }
 
 .locked-lang {
@@ -614,17 +735,17 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 }
 
 #save-back-button {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  top: 2%;
-  right: 2%;
+  outline: none;
+  position: fixed;
   z-index: 11;
-  height: 10vmin;
-  border: 4px solid #fff;
+  margin: 0;
+  padding: 1%;
+  top: 1%;
+  right: 1%;
+  border: 4px solid var(--accent-color);
   border-radius: 1rem;
   background: rgba(0, 0, 0, 0.6);
-  color: white;
+  color: var(--accent-color);
   font-size: 2rem;
   font-family: "Pixel Font" !important;
   letter-spacing: 1px;
@@ -634,73 +755,214 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 #save-back-button:hover {
   border: 4px solid var(--theme-color);
+  color: var(--theme-color);
+  font-size: 2.2rem;
 }
 
-.empty-save {
-  display: block;
+.arrow {
+  border: solid var(--accent-color);
+  border-width: 0 10px 10px 0;
+  border-radius: 0.5rem;
+  display: inline-block;
+  padding: 30px;
+  transition: 0.1s all;
 }
 
-.empty-save-base {
-  display: none;
+.arrow:hover {
+  border-width: 0 13px 13px 0;
+  padding: 40px;
+  border-color: var(--theme-color);
 }
 
-.empty-save > * {
-  display: none;
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
 }
 
-.empty-save .empty-save-base {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  font-size: 4vmin;
-  flex-direction: column;
-}
-
-.empty-save .empty-save-base p {
-  margin: 2rem 0;
-}
-
-.empty-save .empty-save-base p:last-child {
-  color: #696969;
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
 
 .delete-button {
   align-self: center;
-  width: 33%;
+  width: 100%;
   background: none;
   position: relative;
   border: none;
-  transition: 0.2s color;
-  cursor: pointer;
-  color: white;
+  color: var(--accent-color);
 }
 
 .delete-button span {
-  -webkit-text-stroke: 2px black;
-  font-size: 5.5vmin;
-  font-weight: bold;
+  font-family: "Pixel Font";
+  font-size: 4vmin;
   width: 100%;
   height: 100%;
+  transition: 0.2s all;
+  cursor: pointer;
   z-index: 1;
+  padding: 0 2vmin 1vmin 2vmin;
+  border-radius: 1rem;
 }
 
-.delete-button:hover {
-  color: var(--accent-color) !important;
+.delete-button span:hover {
+  color: #9c2525 !important;
 }
 
-.save-item-container {
+.delete-button span::after {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0.5vmin;
+  transition: 0.25s width;
+  background-color: var(--accent-color);
+}
+
+.delete-button span:hover::after {
+  background-color: #9c2525;
+  width: calc(100%/3);
+}
+
+/*
+ .d88888b.  8888888b. 88888888888 8888888 .d88888b.  888b    888  .d8888b.  
+d88P" "Y88b 888   Y88b    888       888  d88P" "Y88b 8888b   888 d88P  Y88b 
+888     888 888    888    888       888  888     888 88888b  888 Y88b.      
+888     888 888   d88P    888       888  888     888 888Y88b 888  "Y888b.   
+888     888 8888888P"     888       888  888     888 888 Y88b888     "Y88b. 
+888     888 888           888       888  888     888 888  Y88888       "888 
+Y88b. .d88P 888           888       888  Y88b. .d88P 888   Y8888 Y88b  d88P 
+ "Y88888P"  888           888     8888888 "Y88888P"  888    Y888  "Y8888P"  
+*/
+
+#options-container {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  justify-content: space-evenly;
+}
+
+#options-back-btn {
+  outline: none;
+  z-index: 11;
   margin: 0;
-  padding: 0;
-  gap: 0;
+  padding: 1%;
+  border: 4px solid var(--accent-color);
+  border-radius: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--accent-color);
+  font-size: 3vmin;
+  font-family: "Pixel Font" !important;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 17.5vmin;
+  height: 9vmin;
+}
+
+#options-back-btn:hover {
+  border: 4px solid var(--theme-color);
+  color: var(--theme-color);
+  width: calc(17.5vmin * 1.1);
+  font-size: 3.5vmin;
+}
+
+#options-container h1 {
+  color: var(--accent-color);
+  margin: 0;
+  font-size: 7vmin;
+}
+
+#options {
+  width: 30%;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 1rem;
+  border: 2px solid var(--theme-color);
+}
+
+#options ul {
+  padding: 1.5vmin 4vmin;
+}
+
+#options ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+#options ul li p {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 2.5vmin;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  border: 2px solid var(--accent-color);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  border-color: var(--theme-color);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  color: var(--accent-color);
+  height: 85%;
+  width: 45%;
+  top: 7.5%;
+  left: 4%;
+  background-color: var(--accent-color);
+  transition: .25s all;
+}
+
+input:checked + .slider::before {
+  background-color: var(--theme-color);
+  content: "✔";
+  text-align: center;
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 1rem;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }
 
 /*
@@ -713,6 +975,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
  d8888888888 888   Y8888   888   888   "   888  d8888888888     888       888  Y88b. .d88P 888   Y8888 Y88b  d88P 
 d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 "Y88888P"  888    Y888  "Y8888P"
 */
+
 .crt {
   width: 100vw;
   height: 200vh;
@@ -764,6 +1027,7 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
 }
 
 @keyframes showErrorMessage {
+<<<<<<< HEAD
   0% {
     top: -5rem;
   }
@@ -776,6 +1040,12 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
   100% {
     top: -5rem;
   }
+=======
+  0% {top: -10%}
+  10% {top: 5%}
+  90% {top: 5%}
+  100% {top: -10%}
+>>>>>>> Rework-save-management
 }
 
 /*

@@ -1,94 +1,90 @@
 export class saveFile {
-  constructor(id, lvl, money, time, cpu, gpu, ram, stg) {
+  constructor(id="", lvl=-1, time=0, money=0, cpu=0, gpu=0, ram=0, stg=0, lb={cpu:0,gpu:0,ram:0,stg:0}) {
     this.id = id;
     this.lvl = lvl;
+    this.time = time;
     this.money = money;
-    this.hours = Math.floor(time / 3600);
-    this.minutes = Math.floor((time % 3600) / 60);
-    this.seconds = Math.floor((time % 3600) % 60);
     this.cpu = cpu;
     this.gpu = gpu;
     this.ram = ram;
     this.stg = stg;
+    this.lb = lb;
   }
 
-  addTime() {
-    this.seconds++;
-    if (this.seconds >= 60) {
-      this.seconds -= 60;
-      this.minutes++;
-    }
-    if (this.minutes >= 60) {
-      this.minutes -= 60;
-      this.hours++;
-    }
-  }
-
-  getSaveTime() {
-    return this.hours * 3600 + this.minutes * 60 + this.seconds;
-  }
-
-  getCpu() {
+  getCPU() {
     switch (this.cpu) {
+      case 0:
+        return "Z3";
+      case 1:
+        return "Z5";
+      case 2:
+        return "Z7";
+      case 3:
+        return "Z9";
       default:
-        return 0;
-      case "Z5":
-        return 1;
-      case "Z7":
-        return 2;
-      case "Z9":
-        return 3;
+        return "ERROR";
     }
   }
 
-  getGpu() {
+  getGPU() {
     switch (this.gpu) {
+      case 0:
+        return "DT 620";
+      case 1:
+        return "DTX 1150";
+      case 2:
+        return "ETX 2260";
+      case 3:
+        return "ETX 4490";
       default:
-        return 0;
-      case "DTX 1150":
-        return 1;
-      case "ETX 2260":
-        return 2;
-      case "ETX 4490":
-        return 3;
+        return "ERROR";
     }
   }
 
-  getRam() {
+  getRAM() {
     switch (this.ram) {
+      case 0:
+        return "8GB";
+      case 1:
+        return "16GB";
+      case 2:
+        return "32GB";
+      case 3:
+        return "64GB";
       default:
-        return 0;
-      case "16GB":
-        return 1;
-      case "32GB":
-        return 2;
-      case "64GB":
-        return 3;
+        return "ERROR";
     }
   }
 
-  getStg() {
+  getSTG() {
     switch (this.stg) {
+      case 0:
+        return "250GB HDD";
+      case 1:
+        return "500GB HDD";
+      case 2:
+        return "500GB SSD";
+      case 3:
+        return "1TB SSD";
       default:
-        return 0;
-      case "500GB HDD":
-        return 1;
-      case "500GB SSD":
-        return 2;
-      case "1TB SSD":
-        return 3;
+        return "ERROR";
     }
+  }
+
+  getParsedTime() {
+    const hours = Math.floor(this.time / 3600);
+    const minutes = Math.floor((this.time - hours*3600) / 60);
+    const seconds = Math.floor(this.time - hours*3600 - minutes*60);
+    return `${hours === 0 ? "" : hours + ":"}${minutes}:${seconds}`;
   }
 }
 
-export function convertSave(savedata) {
-  return new saveFile(
-    savedata.lvl,
-    savedata.money,
-    savedata.time,
-    savedata.cpu,
-    savedata.gpu,
-    savedata.ram,
-    savedata.stg
-  );
+export function parseSaves(inputArray)
+{
+  let outputArray = [];
+  inputArray.forEach(save => {
+    outputArray.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, JSON.parse(save.lastBought)))
+  });
+
+  return outputArray;
 }
