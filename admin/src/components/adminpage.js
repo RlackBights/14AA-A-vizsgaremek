@@ -8,6 +8,36 @@ export function AdminPage() {
   const user = useContext(userContext);
   let inputFields = [];
 
+  
+function insertFetch() {
+  let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
+  const object = new Object();
+  let columnName;
+  //ITTTTT
+  for (let i = 0; i < inputFields.length; i++) {
+    columnName = tableData[firstIndexOfTable + i].COLUMN_NAME;
+    if(columnName === "id" ||columnName === "hardvareId" ||columnName === "lastmodi"){
+
+    }
+      object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+  }
+  
+
+
+  let fetchParams = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      tableName: tableData[0].TABLE_NAME,
+      data: [
+        object
+      ]
+  }),
+  };
+
+  // fetch (backend + "/admin/insertRows", fetchParams).then()
+}
+
   useEffect(() => {
 
 
@@ -194,7 +224,7 @@ export function AdminPage() {
                       }
                       
                     }
-                    alert(temp);
+                   // alert(temp);
                   }
 
                   adminTable.lastChild.appendChild(tableRow);
@@ -214,7 +244,7 @@ export function AdminPage() {
           <tbody>
           </tbody>
         </table>
-        <button id='admin-confirm-button'>{activePage}</button>
+        <button id='admin-confirm-button' onClick={insertFetch}>{activePage}</button>
       </div>
     </div>
   )
