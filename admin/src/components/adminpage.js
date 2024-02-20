@@ -11,32 +11,132 @@ export function AdminPage() {
   
 function insertFetch() {
   let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
+  let tableName = document.getElementById("table-select").value
   const object = new Object();
   let columnName;
-  //ITTTTT
   for (let i = 0; i < inputFields.length; i++) {
     columnName = tableData[firstIndexOfTable + i].COLUMN_NAME;
-    if(columnName === "id" ||columnName === "hardvareId" ||columnName === "lastmodi"){
-
-    }
+    if(columnName === "id" || columnName === "hardwareId" || columnName === "lastModified" || columnName === "uid"){
+      object[tableData[firstIndexOfTable + i].COLUMN_NAME] = 0;
+    }else{
       object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+    }
+      
   }
   
-
-
   let fetchParams = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      tableName: tableData[0].TABLE_NAME,
+      tableName: tableName,
       data: [
         object
       ]
   }),
   };
+  console.log(fetchParams)
 
-  // fetch (backend + "/admin/insertRows", fetchParams).then()
+  fetch (backend + "/admin/insertRows", fetchParams).then(
+    function (response) {
+      switch (response.status) {
+        case 200:
+          console.log("nice")
+          window.location.reload()
+          break;
+      
+        default:
+          console.log("bruh")
+          break;
+      }
+    }
+  )
 }
+
+function updateFetch() {
+  let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
+  let tableName = document.getElementById("table-select").value
+  const object = new Object();
+  let columnName;
+  for (let i = 0; i < inputFields.length; i++) {
+    object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+  }
+  
+  let fetchParams = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      tableName: tableName,
+      data: [
+        object
+      ]
+  }),
+  };
+  console.log(fetchParams)
+
+  fetch (backend + "/admin/updateRows", fetchParams).then(
+    function (response) {
+      switch (response.status) {
+        case 200:
+            console.log("nice")
+            window.location.reload()
+          break;
+      
+        default:
+            console.log("bruh")
+          break;
+      }
+    }
+  )
+}
+
+function deleteFetch() {
+  let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
+  let tableName = document.getElementById("table-select").value
+  const object = new Object();
+  let columnName;
+  for (let i = 0; i < inputFields.length; i++) {
+    object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+  }
+  let fetchParams = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      tableName: tableName,
+      fieldName: tableData[firstIndexOfTable].COLUMN_NAME,
+      fieldValue: inputFields[0].value
+  }),
+  };
+  console.log(fetchParams)
+
+  fetch (backend + "/admin/deleteRows", fetchParams).then(
+    function (response) {
+      switch (response.status) {
+        case 200:
+            console.log("nice")
+            window.location.reload()
+          break;
+      
+        default:
+            console.log("bruh")
+          break;
+      }
+    }
+  )
+}
+
+  function fetchMode() {
+    switch (activePage) {
+      case "update":
+        updateFetch();
+        break;
+      case "delete":
+        deleteFetch();
+        break;
+      default:
+        insertFetch();
+        break;
+    }
+  }
 
   useEffect(() => {
 
@@ -244,8 +344,12 @@ function insertFetch() {
           <tbody>
           </tbody>
         </table>
-        <button id='admin-confirm-button' onClick={insertFetch}>{activePage}</button>
+        <button id='admin-confirm-button' onClick={fetchMode}>{activePage}</button>
       </div>
     </div>
   )
 }
+
+
+//TODO
+// isAdmin on/off problem and set to true false
