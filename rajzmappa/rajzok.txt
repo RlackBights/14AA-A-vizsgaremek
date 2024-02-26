@@ -1,6 +1,0 @@
-1db CPU rajz különböző feliratokkal rajta, feliratok: (InkWell Z3 3400) (InkWell Z5 6500) (InkWell Z7 9800P) (InkWell Z9 12990P) cpuPélda alapján
-1db CPU hűtő rajz 2 példa alapján (cpuFan, cpuFanView2)
-4db GPU rajz 4 példa kép alapján (gpu0, gpu1, gpu2, gpu3)
-1db HDD rajz 2db különböző felirattal rajta, feliratok: (SeeGait Bermuda 250GB) (SeeGait Bermuda 500GB) hddPélda alapján
-1db SSD rajz 2db különböző felirattal rajta, feliratok: (Evolution 710 500GB) (Evolution 820 1TB)
-1db RAM rajz ram1 kép alapján
