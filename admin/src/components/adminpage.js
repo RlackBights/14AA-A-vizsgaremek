@@ -9,9 +9,8 @@ export function AdminPage() {
   let inputFields = [];
 
   useEffect(() => {
-
-
     const tableSelect = document.getElementById("table-select");
+    let currTable = tableSelect.selectedIndex;
 
     while (tableSelect.childNodes.length > 1)
     {
@@ -42,7 +41,28 @@ export function AdminPage() {
         
       });
       console.log(tableNames);
-    })
+      tableSelect.selectedIndex = currTable;
+    });
+
+    const adminFilters = document.getElementById('admin-filters');
+    if (activePage === "delete") {
+      adminFilters.childNodes.forEach((node) => {
+        if (node.id === "constant-filter") return;
+        const nodeContent = node.firstChild.innerHTML.replace(':', '');
+        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
+        node.lastChild.disabled = false;
+        if ((tableSelect === "usertbl" && nodeContent.toLowerCase() !== "uid") || (nodeContent.toLowerCase() !== "uid" && nodeContent !== "id" && nodeContent.toLowerCase() !== "hardwareid")) node.lastChild.disabled = true;
+      })
+    } else {
+      adminFilters.childNodes.forEach((node) => {
+        if (node.id === "constant-filter") return;
+        const nodeContent = node.firstChild.innerHTML.replace(':', '');
+        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
+        node.lastChild.disabled = false;
+        if (nodeContent === "id" || nodeContent.toLowerCase() === "lastmodified" || (tableSelect === "usertbl" && nodeContent.toLowerCase() === "uid") || nodeContent.toLowerCase() === "passwordresettoken" || nodeContent.toLowerCase() === "hardwareid") node.lastChild.disabled = true;
+      })
+    }
+
   }, [activePage])
 
   return (
@@ -78,6 +98,7 @@ export function AdminPage() {
           </li>
           <li>
             <button id={activePage === "delete" ? "activated" : ""} className="navbar-links" onClick={() => {
+              
               setActivePage("delete")
             }}>Delete</button>
           </li>
@@ -139,7 +160,6 @@ export function AdminPage() {
                 }
 
                 input.setAttribute("type", inputType);
-                if (tableInfo.COLUMN_NAME === "id" || tableInfo.COLUMN_NAME.toLowerCase() === "lastmodified" || (tableInfo.TABLE_NAME === "userTbl" && tableInfo.COLUMN_NAME.toLowerCase() === "uid") || tableInfo.COLUMN_NAME.toLowerCase() === "passwordresettoken") input.disabled = true;
                 li.appendChild(additionalInfo);
                 if (inputType === "checkbox") { 
                   li.appendChild(label);
@@ -194,12 +214,13 @@ export function AdminPage() {
                       }
                       
                     }
-                    alert(temp);
                   }
 
                   adminTable.lastChild.appendChild(tableRow);
                 });
               });
+
+              setActivePage(activePage);
 
             }}>
               <option>Select a table</option>

@@ -7,7 +7,7 @@ export function Login() {
     const user = useContext(userContext);
     
     return (
-        <div id="form-container">
+        <form id="form-container" onSubmit={(e) => {e.preventDefault()}}>
             <p id="error-message">asasdasd</p>
             <h3 id="login-title">Login</h3>
             <p>Username</p>
@@ -88,6 +88,6 @@ export function Login() {
                 Login
                 </button>
             </div>
-        </div>
+        </form>
         );
     }
