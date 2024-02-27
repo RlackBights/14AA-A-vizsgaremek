@@ -13,7 +13,7 @@ export async function getPlayerSaves(authCode)
     
     return await fetch(backend + "/game/getPlayerSaves", fetchParams).then((res) => res.json()).then((res) => {
         console.log(res);
-        if (res.data != undefined) {
+        if (res.data !== undefined) {
             return parseSaves(res.data);
         }
         return [];

@@ -908,6 +908,128 @@ input:checked + .slider::before {
 .slider.round:before {
   border-radius: 50%;
 }
+@keyframes slideUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.show-error {
+  animation-name: showErrorMessage;
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes showErrorMessage {
+  0% {top: -10%}
+  10% {top: 5%}
+  90% {top: 5%}
+  100% {top: -10%}
+}
+
+/*
+ .d8888b.         d8888 888b     d888 8888888888 
+d88P  Y88b       d88888 8888b   d8888 888        
+888    888      d88P888 88888b.d88888 888        
+888            d88P 888 888Y88888P888 8888888    
+888  88888    d88P  888 888 Y888P 888 888        
+888    888   d88P   888 888  Y8P  888 888        
+Y88b  d88P  d8888888888 888   "   888 888        
+ "Y8888P88 d88P     888 888       888 8888888888 
+*/
+
+#pause-menu {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  pointer-events: all;
+  z-index: 1;
+}
+
+#pause-menu > #title-text1, #pause-menu > #title-text2, #pause-menu > #title-text3 {
+  transform: translateY(-10vh);
+}
+
+.pause-button:first-of-type {
+  margin-top: 20vh;
+}
+
+.pause-button {
+  font-family: "Pixel Font" !important;
+  width: fit-content;
+  margin: 2vh 0;
+  padding: 1vh 1.5vw;
+  border-radius: 1rem;
+  font-size: 5vmin;
+  border: 0.6vmin solid var(--accent-color);
+  cursor: pointer;
+  color: var(--accent-color);
+  background-color: transparent;
+  outline: none;
+  transition: 0.25s all;
+}
+
+.pause-button:hover {
+  color: var(--theme-color);
+  border-color: var(--theme-color);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+/*
+888b     d888  .d88888b.  888b    888 8888888 88888888888 .d88888b.  8888888b.  
+8888b   d8888 d88P" "Y88b 8888b   888   888       888    d88P" "Y88b 888   Y88b 
+88888b.d88888 888     888 88888b  888   888       888    888     888 888    888 
+888Y88888P888 888     888 888Y88b 888   888       888    888     888 888   d88P 
+888 Y888P 888 888     888 888 Y88b888   888       888    888     888 8888888P"  
+888  Y8P  888 888     888 888  Y88888   888       888    888     888 888 T88b   
+888   "   888 Y88b. .d88P 888   Y8888   888       888    Y88b. .d88P 888  T88b  
+888       888  "Y88888P"  888    Y888 8888888     888     "Y88888P"  888   T88b
+*/
+
+#room {
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100vw 100vh;
+  background-image: url('assets/gameDrawing.jpg');
+}
+
+#monitor, #computer {
+  cursor: pointer;
+  position: absolute;
+  transition: 0.2s all;
+}
+
+#monitor {
+  top: 10vh;
+  left: 7vw;
+  width: 46vw;
+  height: 46vh;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 1% 100%);
+}
+
+#computer {
+  top: 6vh;
+  right: 2vw;
+  width: 24vw;
+  height: 76vh;
+  clip-path: polygon(10% 1%, 62.5% 0.5%, 97% 14%, 89% 98%, 30% 98%, 7% 73%);
+}
+
+#monitor:hover, #computer:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 
 /*
        d8888 888b    888 8888888 888b     d888        d8888 88888888888 8888888 .d88888b.  888b    888  .d8888b.  
@@ -957,89 +1079,10 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
   animation: slideUp 1s ease-in-out forwards;
 }
 
-@keyframes slideUp {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-.show-error {
-  animation-name: showErrorMessage;
-  animation-duration: 4s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-}
-
-@keyframes showErrorMessage {
-  0% {top: -10%}
-  10% {top: 5%}
-  90% {top: 5%}
-  100% {top: -10%}
-}
 
 /*
-8888888b.   .d88888b.   .d88888b.  888b     d888 
-888   Y88b d88P" "Y88b d88P" "Y88b 8888b   d8888 
-888    888 888     888 888     888 88888b.d88888 
-888   d88P 888     888 888     888 888Y88888P888 
-8888888P"  888     888 888     888 888 Y888P 888 
-888 T88b   888     888 888     888 888  Y8P  888 
-888  T88b  Y88b. .d88P Y88b. .d88P 888   "   888 
-888   T88b  "Y88888P"   "Y88888P"  888       888 
-*/
+FONT: Colossal
 
-#exit-game-button {
-  transition: none;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: none;
-  color: black;
-  margin: 0;
-  width: 2rem;
-  height: 2rem;
-}
-
-#exit-game-button:hover {
-  margin: 0;
-}
-
-#monitor {
-  position: absolute;
-  top: 12rem;
-  left: 34rem;
-  width: 38.5rem;
-  height: 23.5rem;
-}
-
-#monitor:hover {
-  border: 5px dashed black;
-}
-
-/*
-888b     d888  .d88888b.  888b    888 8888888 88888888888 .d88888b.  8888888b.  
-8888b   d8888 d88P" "Y88b 8888b   888   888       888    d88P" "Y88b 888   Y88b 
-88888b.d88888 888     888 88888b  888   888       888    888     888 888    888 
-888Y88888P888 888     888 888Y88b 888   888       888    888     888 888   d88P 
-888 Y888P 888 888     888 888 Y88b888   888       888    888     888 8888888P"  
-888  Y8P  888 888     888 888  Y88888   888       888    888     888 888 T88b   
-888   "   888 Y88b. .d88P 888   Y8888   888       888    Y88b. .d88P 888  T88b  
-888       888  "Y88888P"  888    Y888 8888888     888     "Y88888P"  888   T88b
-*/
-
-#desktop {
-  background-image: url("./assets/bg.png");
-  width: 100%;
-  height: 100%;
-  background-repeat: no-repeat;
-  background-position: -31rem -14rem;
-  background-size: 222rem;
-}
-
-/*
 POLISH IDEAS:
 
 Save items float up (staggered)

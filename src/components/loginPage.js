@@ -2,14 +2,13 @@ import "../App.css";
 import "../index.css";
 import { Icon } from "@iconify/react";
 import { useContext } from "react";
-import { backend, overlayContext, saveContext, userContext } from "../App";
+import { overlayContext, userContext } from "../App";
 import { loginUser, registerUser, sendRecoveryEmail } from "./requests";
 
 export function LoginPage() {
 
   const overlay = useContext(overlayContext);
   const user = useContext(userContext);
-  const saves = useContext(saveContext);
 
   return (
     <div id="login-container" style={{ pointerEvents: (["loginPage", "registerPage"].includes(overlay.currOverlay)) ? "all" : "none"}}>
@@ -86,6 +85,7 @@ export function LoginPage() {
               Don't have an account?{" "}
               <a
                 id="register-btn"
+                href="#/"
                 onClick={() => {
                   overlay.setCurrOverlay("registerPage");
                 }}
@@ -96,6 +96,7 @@ export function LoginPage() {
               <br />
               <a
                 id="register-btn"
+                href="#/"
                 onClick={() => {
                   overlay.setCurrOverlay("forgotPassword");
                 }}
@@ -106,7 +107,7 @@ export function LoginPage() {
           </div>
         </form>
       </div>
-      <div id="register-page" style={{ display: overlay.currOverlay == "registerPage" ? "flex" : "none"}}>
+      <div id="register-page" style={{ display: overlay.currOverlay === "registerPage" ? "flex" : "none"}}>
         <form className="form-container" onSubmit={(e) => {e.preventDefault()}}>
           <p
             className="close-image"
@@ -160,6 +161,7 @@ export function LoginPage() {
               Already have an account?{" "}
               <a
                 id="login-btn"
+                href="#/"
                 onClick={() => {
                   overlay.setCurrOverlay("loginPage");
                 }}
@@ -212,6 +214,7 @@ export function LoginPage() {
               <br />
               <a
                 id="forgot-back-btn"
+                href="#/"
                 onClick={() => {
                   overlay.setCurrOverlay("loginPage");
                 }}
