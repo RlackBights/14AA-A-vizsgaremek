@@ -16,10 +16,10 @@ export default function PasswordReset() {
       }).then((res) => res.json());
 
       if (response.status === 200) {
-        console.log(data.message);
-        window.location.href = '/';
+        console.log(response.message);
+        window.location.href = 'http://localhost:3000';
       } else {
-        console.error(data.error);
+        console.error(response.error);
       }
     } catch (error) {
       console.error('Error resetting password:', error);

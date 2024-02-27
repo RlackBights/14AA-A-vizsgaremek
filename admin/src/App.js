@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { MainPage } from './components/mainpage';
 import { createContext, useState } from 'react';
 import { AdminPage } from './components/adminpage';
+import PasswordReset from './components/PasswordReset';
 
 export const backend = "https://backend-learnthebasics.koyeb.app";
 
@@ -14,6 +15,14 @@ const router = createBrowserRouter([
   {
     path: "/admin-page",
     element: <AdminPage/>
+  },
+  {
+    path: "/password-reset/:resetToken",
+    element: <PasswordReset/>
+  },
+  {
+    path: "/password-reset",
+    element: <form onSubmit={() => alert("asd")}><button></button></form>
   }
 ])
 

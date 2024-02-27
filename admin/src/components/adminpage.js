@@ -1,51 +1,73 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { backend, userContext } from '../App';
 
+let inputFields = [];
+let tableData = [];
 
 export function AdminPage() {
-  let tableData = [];
   const [activePage, setActivePage] = useState("insert");
   const user = useContext(userContext);
-  let inputFields = [];
 
+  function updateFilterFields() {
+    const adminFilters = document.getElementById('admin-filters');
+    
+    if (activePage === "delete") {
+      adminFilters.childNodes.forEach((node) => {
+        if (node.id === "constant-filter") return;
+        const nodeContent = node.firstChild.innerHTML.replace(':', '');
+        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
+        node.lastChild.disabled = false;
+        if (node.lastChild.className === "switch") node.lastChild.firstChild.disabled = false;
+        if ((tableSelect === "usertbl" && nodeContent.toLowerCase() !== "uid") || (nodeContent.toLowerCase() !== "uid" && nodeContent !== "id" && nodeContent.toLowerCase() !== "hardwareid")) node.lastChild.disabled = true;
+        if (node.lastChild.className === "switch") node.lastChild.firstChild.disabled = true;
+      })
+    } else {
+      adminFilters.childNodes.forEach((node) => {
+        if (node.id === "constant-filter") return;
+        const nodeContent = node.firstChild.innerHTML.replace(':', '');
+        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
+        node.lastChild.disabled = false;
+        if (node.lastChild.className === "switch") node.lastChild.firstChild.disabled = false;
+        if (nodeContent === "id" || nodeContent.toLowerCase() === "lastmodified" || nodeContent.toLowerCase() === "uid" || nodeContent.toLowerCase() === "passwordresettoken" || nodeContent.toLowerCase() === "hardwareid") node.lastChild.disabled = true;
+      })
+    }
+  }
   
 function insertFetch() {
   let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
   let tableName = document.getElementById("table-select").value
-  const object = new Object();
+  const obj = new Object();
   let columnName;
   for (let i = 0; i < inputFields.length; i++) {
     columnName = tableData[firstIndexOfTable + i].COLUMN_NAME;
     if(columnName === "id" || columnName === "hardwareId" || columnName === "lastModified" || columnName === "uid"){
-      object[tableData[firstIndexOfTable + i].COLUMN_NAME] = 0;
+      obj[tableData[firstIndexOfTable + i].COLUMN_NAME] = 0;
     }else{
-      object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+      obj[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
     }
-      
   }
-  
+
+  console.log(obj)
+
   let fetchParams = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       tableName: tableName,
       data: [
-        object
+        obj
       ]
   }),
   };
-  console.log(fetchParams)
 
   fetch (backend + "/admin/insertRows", fetchParams).then(
     function (response) {
       switch (response.status) {
         case 200:
-          console.log("nice")
           window.location.reload()
           break;
       
         default:
-          console.log("bruh")
           break;
       }
     }
@@ -56,10 +78,12 @@ function updateFetch() {
   let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
   let tableName = document.getElementById("table-select").value
   const object = new Object();
-  let columnName;
   for (let i = 0; i < inputFields.length; i++) {
+    if (tableData[firstIndexOfTable + i].COLUMN_NAME.toLowerCase() === "lastmodified") continue;
     object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
   }
+
+  console.log(object)
   
   let fetchParams = {
     method: "POST",
@@ -71,18 +95,15 @@ function updateFetch() {
       ]
   }),
   };
-  console.log(fetchParams)
 
   fetch (backend + "/admin/updateRows", fetchParams).then(
     function (response) {
       switch (response.status) {
         case 200:
-            console.log("nice")
             window.location.reload()
           break;
       
         default:
-            console.log("bruh")
           break;
       }
     }
@@ -93,7 +114,6 @@ function deleteFetch() {
   let firstIndexOfTable = tableData.findIndex(x => x.TABLE_NAME === document.getElementById("table-select").value);
   let tableName = document.getElementById("table-select").value
   const object = new Object();
-  let columnName;
   for (let i = 0; i < inputFields.length; i++) {
     object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
   }
@@ -106,18 +126,15 @@ function deleteFetch() {
       fieldValue: inputFields[0].value
   }),
   };
-  console.log(fetchParams)
 
   fetch (backend + "/admin/deleteRows", fetchParams).then(
     function (response) {
       switch (response.status) {
         case 200:
-            console.log("nice")
             window.location.reload()
           break;
       
         default:
-            console.log("bruh")
           break;
       }
     }
@@ -170,34 +187,14 @@ function deleteFetch() {
         }
         
       });
-      console.log(tableNames);
       tableSelect.selectedIndex = currTable;
     });
-
-    const adminFilters = document.getElementById('admin-filters');
-    if (activePage === "delete") {
-      adminFilters.childNodes.forEach((node) => {
-        if (node.id === "constant-filter") return;
-        const nodeContent = node.firstChild.innerHTML.replace(':', '');
-        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
-        node.lastChild.disabled = false;
-        if ((tableSelect === "usertbl" && nodeContent.toLowerCase() !== "uid") || (nodeContent.toLowerCase() !== "uid" && nodeContent !== "id" && nodeContent.toLowerCase() !== "hardwareid")) node.lastChild.disabled = true;
-      })
-    } else {
-      adminFilters.childNodes.forEach((node) => {
-        if (node.id === "constant-filter") return;
-        const nodeContent = node.firstChild.innerHTML.replace(':', '');
-        const tableSelect = document.getElementById("table-select").selectedOptions[0].innerHTML.toLowerCase();
-        node.lastChild.disabled = false;
-        if (nodeContent === "id" || nodeContent.toLowerCase() === "lastmodified" || (tableSelect === "usertbl" && nodeContent.toLowerCase() === "uid") || nodeContent.toLowerCase() === "passwordresettoken" || nodeContent.toLowerCase() === "hardwareid") node.lastChild.disabled = true;
-      })
-    }
+    updateFilterFields();
 
   }, [activePage])
 
   return (
     <div id='admin-container' onLoad={() => {
-
       let fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -205,8 +202,6 @@ function deleteFetch() {
           authCode: user.authToken
         }),
       };
-
-      console.log(user.authToken);
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
         if (res.data[0].isAdmin === false) window.location.href = "../";
@@ -223,13 +218,12 @@ function deleteFetch() {
           </li>
           <li>
             <button id={activePage === "update" ? "activated" : ""} className="navbar-links" onClick={() => {
-              setActivePage("update")
+              setActivePage("update");
             }}>Update</button>
           </li>
           <li>
             <button id={activePage === "delete" ? "activated" : ""} className="navbar-links" onClick={() => {
-              
-              setActivePage("delete")
+              setActivePage("delete");
             }}>Delete</button>
           </li>
           <li>
@@ -300,6 +294,7 @@ function deleteFetch() {
                 adminFilters.appendChild(li);
                 inputFields.push(input);
 
+                updateFilterFields();
                 return null;
               });
 
@@ -350,8 +345,6 @@ function deleteFetch() {
                   adminTable.lastChild.appendChild(tableRow);
                 });
               });
-
-              setActivePage(activePage);
 
             }}>
               <option>Select a table</option>

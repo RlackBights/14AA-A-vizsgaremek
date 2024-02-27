@@ -370,7 +370,7 @@ input:checked + .slider::before {
   color: var(--theme-color);
 }
 
-.generated-data:has(input:disabled) p::after {
+.generated-data:has(input:not([type=checkbox]):disabled) p::after {
   position: absolute;
   content: "";
   top: 50%;
@@ -381,6 +381,16 @@ input:checked + .slider::before {
   height: 0.3vmin;
   border-radius: 1rem;
   background-color: var(--theme-color);
+}
+
+.generated-data:has(input[type=checkbox]:disabled) .slider.round {
+  border-color: var(--theme-color) !important;
+  color: var(--accent-color) !important;
+}
+
+.generated-data:has(input[type=checkbox]:disabled) .slider.round::before {
+  background-color: var(--theme-color) !important;
+  content: "X" !important;
 }
 
 #table-select {
