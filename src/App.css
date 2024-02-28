@@ -1035,17 +1035,48 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 /*
-
+8888888b.  8888888888 .d8888b.  888    d8P 88888888888 .d88888b.  8888888b.  
+888  "Y88b 888       d88P  Y88b 888   d8P      888    d88P" "Y88b 888   Y88b 
+888    888 888       Y88b.      888  d8P       888    888     888 888    888 
+888    888 8888888    "Y888b.   888d88K        888    888     888 888   d88P 
+888    888 888           "Y88b. 8888888b       888    888     888 8888888P"  
+888    888 888             "888 888  Y88b      888    888     888 888        
+888  .d88P 888       Y88b  d88P 888   Y88b     888    Y88b. .d88P 888        
+8888888P"  8888888888 "Y8888P"  888    Y88b    888     "Y88888P"  888        
 */
 
 #desktop {
   width: 100vw;
   height: 100vh;
-  background-color: #080808;
+  background: url(assets/desktop_bg.jpeg);
+}
+
+#taskbar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  height: 7vh;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#icons ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
 /*
-
+888      .d88888b.        d8888 8888888b. 8888888 888b    888  .d8888b.  
+888     d88P" "Y88b      d88888 888  "Y88b  888   8888b   888 d88P  Y88b 
+888     888     888     d88P888 888    888  888   88888b  888 888    888 
+888     888     888    d88P 888 888    888  888   888Y88b 888 888        
+888     888     888   d88P  888 888    888  888   888 Y88b888 888  88888 
+888     888     888  d88P   888 888    888  888   888  Y88888 888    888 
+888     Y88b. .d88P d8888888888 888  .d88P  888   888   Y8888 Y88b  d88P 
+88888888 "Y88888P" d88P     888 8888888P" 8888888 888    Y888  "Y8888P88
 */
 
 .cube-folding {
@@ -1054,6 +1085,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   display: inline-block;
   transform: rotate(45deg);
   font-size: 0;
+  animation: fade-in 1s ease-in forwards;
 }
 .cube-folding span {
   position: relative;
@@ -1109,14 +1141,20 @@ Y88b  d88P  d8888888888 888   "   888 888
   transform-origin: 0 0;
 }
 
+.fade-out {
+  animation: fade-in 0.25s ease-in reverse forwards;
+}
+
 .cube-wrapper {
   position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: fit-content;
+  height: 100%;
+  background-color: #080808;
   text-align: center;
-  animation: fade-in 1s ease-in forwards;
 }
 
 .cube-wrapper .loading {
@@ -1129,6 +1167,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   position: relative;
   top: 3vmin;
   z-index: 2;
+  animation: fade-in 1s ease-in forwards;
 }
 
 /*
