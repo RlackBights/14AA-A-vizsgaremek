@@ -368,6 +368,7 @@
 }
 
 #login-btn, #register-btn, #forgot-back-btn {
+  color: var(--accent-color);
   text-wrap: nowrap;
   text-decoration: underline;
   transition: all 0.25s;
