@@ -3,12 +3,14 @@ import browser from '../assets/browser-icon.svg';
 import editor from '../assets/editor-icon.svg';
 import jobs from '../assets/jobs-icon.svg';
 import shop from '../assets/shop-icon.svg';
+import logo from '../assets/logo.svg';
 
 export function Desktop() {
 
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
         setTimeout(() => {
+            document.getElementById("loading-screen").style.pointerEvents = "none";
             document.getElementById("loading-screen").className = "cube-wrapper fade-out";
         }, time);
     }, [])
@@ -42,7 +44,27 @@ export function Desktop() {
                 </ul>
             </div>
             <div id='taskbar'>
-
+                <ul id='windows'>
+                    <li>
+                        <img src={logo}></img>
+                    </li>
+                    <li>
+                        <img src={browser}></img>
+                        <p>Browser</p>
+                    </li>
+                    <li>
+                        <img src={editor}></img>
+                        <p>Browser</p>
+                    </li>
+                    <li>
+                        <img src={jobs}></img>
+                        <p>Browser</p>
+                    </li>
+                    <li>
+                        <img src={shop}></img>
+                        <p>Browser</p>
+                    </li>
+                </ul>
             </div>
             
         </div>
