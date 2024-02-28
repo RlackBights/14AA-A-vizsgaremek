@@ -12,7 +12,6 @@ export async function getPlayerSaves(authCode)
     };
     
     return await fetch(backend + "/game/getPlayerSaves", fetchParams).then((res) => res.json()).then((res) => {
-        console.log(res);
         if (res.data !== undefined) {
             return parseSaves(res.data);
         }
@@ -110,4 +109,18 @@ export async function deleteSave(user, saveId)
         }),
       };
     fetch(backend + '/game/deleteSave', fetchParams).then((res) => res.json()).then((res) => console.log(res));
+}
+
+export async function updateSave(user, saveData)
+{
+    const fetchParams = {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-save-type": "update"},
+        body: JSON.stringify({
+            authCode: user,
+            data: [saveData]
+        })
+    }
+
+    return await fetch(backend + "/game/savePlayerData", fetchParams).then(res => res.json());
 }

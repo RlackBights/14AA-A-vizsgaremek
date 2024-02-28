@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { updateSave } from './requests'
+import { userContext } from '../App';
+import { saveContext } from '../App';
 
 export default function PauseMenu() {
+  const user = useContext(userContext);
+  const saves = useContext(saveContext);
   return (
     <div id='pause-menu' style={{display: 'none'}}>
         <h1 id="title-text1" data-text="Learn" className="glitch">
@@ -12,8 +17,17 @@ export default function PauseMenu() {
         <h1 id="title-text3" data-text="Basics" className="glitch">
             Basics
         </h1>
-        <button className='pause-button'>Options</button>
-        <button className='pause-button'>Save and Quit</button>
+        <button className='pause-button' onClick={() => {
+
+        }}>Options</button>
+        <button className='pause-button' onClick={() => {
+          const sendSave = saves.activeSaveFile;
+          sendSave.lb = JSON.stringify(sendSave.lb);
+          sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
+          updateSave(user.currUser, sendSave).then((res) => {
+            window.location.href = "../../";
+          });
+        }}>Save and Quit</button>
     </div>
   )
 }

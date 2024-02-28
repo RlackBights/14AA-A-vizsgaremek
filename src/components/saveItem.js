@@ -14,7 +14,6 @@ export function SaveItem(props)
 
     useEffect(() => {
         if (saves.activeSaveFile.lvl !== -1) {
-            console.log(saves.activeSaveFile)
             return navigate("/game/tableView")
         }
     }, [saves.activeSaveFile])
@@ -23,10 +22,10 @@ export function SaveItem(props)
             <div className="save-item-container">
                 <div
                     className="save-item"
-                    id="save-item1"
                     onClick={() => {
                         saves.setActiveSaveFile(props.save);
                         localStorage.setItem("activeSaveFile", JSON.stringify(props.save));
+                        localStorage.setItem("currTime", Date.now().toString());
                     }}
                 >
                     <div className="grid-item save-top">

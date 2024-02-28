@@ -616,15 +616,12 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  border-color: var(--accent-color);
 }
 
 .save-bottom p {
   font-size: 4vmin;
   margin: 0;
-}
-
-#save-item1 .save-bottom, #save-item1 .save-top, #save-item2 .save-bottom, #save-item2 .save-top, #save-item3 .save-bottom, #save-item3 .save-top {
-  border-color: var(--accent-color);
 }
 
 #playtime {
@@ -635,6 +632,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 .save-top {
   display: flex;
+  border-color: var(--accent-color);
 }
 
 #langs {
@@ -1006,6 +1004,10 @@ Y88b  d88P  d8888888888 888   "   888 888
   background-image: url('assets/gameDrawing.jpg');
 }
 
+#room.monitor-zoom {
+  animation: monitor-zoom linear 1s forwards;
+}
+
 #monitor, #computer {
   cursor: pointer;
   position: absolute;
@@ -1059,6 +1061,13 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
 
 .slide-left {
   animation: slideLeft 1s ease-in-out forwards;
+}
+
+@keyframes monitor-zoom {
+  100% {
+    background-position: -18vw -26vh;
+    background-size: 225vw 243vh;
+  }
 }
 
 @keyframes bgscroll {

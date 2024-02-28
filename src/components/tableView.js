@@ -10,7 +10,6 @@ export function TableView() {
     document.body.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             const pauseMenu = document.getElementById('pause-menu');
-            console.log(pauseMenu.style.display);
             pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
         }
     })
@@ -18,7 +17,17 @@ export function TableView() {
     return (
         <div id='room'>
             <PauseMenu/>
-            <div id='monitor'>
+            <div id='monitor' onClick={() => {
+                const room = document.getElementById("room");
+                const monitorClick = document.getElementById("monitor");
+                const computerClick = document.getElementById("computer");
+                monitorClick.style.display = "none";
+                computerClick.style.display = "none";
+                room.classList.add("monitor-zoom");
+                setTimeout(() => {
+                    window.location.href = "/game/desktop";
+                }, 1100);
+            }}>
 
             </div>
             <div id='computer'>

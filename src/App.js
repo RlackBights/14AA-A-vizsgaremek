@@ -5,6 +5,7 @@ import { useState, createContext } from "react";
 import { MainMenu } from "./components/mainMenu";
 import { TableView } from "./components/tableView";
 import { saveFile } from "./components/saveFileManager";
+import { Desktop } from "./components/desktop";
 
 // Block refresh
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/game/tableView",
     element: <TableView />
+  },
+  {
+    path: "/game/desktop",
+    element: <Desktop />
   },
   {
     path: "*",
