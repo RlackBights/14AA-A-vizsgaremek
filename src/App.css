@@ -1035,6 +1035,103 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 /*
+
+*/
+
+#desktop {
+  width: 100vw;
+  height: 100vh;
+  background-color: #080808;
+}
+
+/*
+
+*/
+
+.cube-folding {
+  width: 6vmin;
+  height: 6vmin;
+  display: inline-block;
+  transform: rotate(45deg);
+  font-size: 0;
+}
+.cube-folding span {
+  position: relative;
+  width: 3vmin;
+  height: 3vmin;
+  transform: scale(1.1);
+  display: inline-block;
+}
+.cube-folding span::before {
+  content: "";
+  background-color: #782b51;
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 3.5vmin;
+  height: 1vmin;
+  -moz-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  -webkit-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
+  animation: folding 0.5s infinite linear both;
+}
+.cube-folding .leaf2 {
+  transform: rotateZ(90deg) scale(1.1);
+}
+.cube-folding .leaf2::before {
+  animation-delay: calc(0.5s / 4);
+  background-color: #652444;
+}
+.cube-folding .leaf3 {
+  transform: rotateZ(270deg) scale(1.1);
+}
+.cube-folding .leaf3::before {
+  animation-delay: calc(1.5s / 4);
+  background-color: #652444;
+}
+.cube-folding .leaf4 {
+  transform: rotateZ(180deg) scale(1.1);
+}
+.cube-folding .leaf4::before {
+  animation-delay: calc(1s / 4);
+  background-color: #521e38;
+}
+.cube-folding .leaf5::before {
+  position: relative;
+  width: 2vmin;
+  height: 2vmin;
+  animation: breathe 1s infinite ease-in-out both;
+  top: -3.75vmin;
+  left: 0.5vmin;
+  background-color: var(--accent-color);
+  transform-origin: 0 0;
+}
+
+.cube-wrapper {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: fit-content;
+  text-align: center;
+  animation: fade-in 1s ease-in forwards;
+}
+
+.cube-wrapper .loading {
+  font-size: 3vmin;
+  width: 100%;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  display: block;
+  color: var(--accent-color);
+  position: relative;
+  top: 3vmin;
+  z-index: 2;
+}
+
+/*
        d8888 888b    888 8888888 888b     d888        d8888 88888888888 8888888 .d88888b.  888b    888  .d8888b.  
       d88888 8888b   888   888   8888b   d8888       d88888     888       888  d88P" "Y88b 8888b   888 d88P  Y88b 
      d88P888 88888b  888   888   88888b.d88888      d88P888     888       888  888     888 88888b  888 Y88b.      
@@ -1063,6 +1160,15 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
   animation: slideLeft 1s ease-in-out forwards;
 }
 
+@keyframes fade-in {
+  0% {
+    filter: opacity(0);
+  }
+  100% {
+    filter: opacity(1);
+  }
+}
+
 @keyframes monitor-zoom {
   100% {
     background-position: -18vw -26vh;
@@ -1084,6 +1190,33 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
     transform: translateX(-100%);
   }
 }
+
+@keyframes breathe {
+  0% {
+    filter: opacity(0.8);
+  }
+  50% {
+    filter: opacity(0.3);
+  }
+  100% {
+    filter: opacity(0.8);
+  }
+}
+
+ @keyframes folding {
+ 0%, 10% {
+   transform: perspective(140px) rotateX(-180deg);
+   opacity: 0;
+ }
+ 25%, 75% {
+   transform: perspective(140px) rotateX(0deg);
+   opacity: 1;
+ }
+ 90%, 100% {
+   transform: perspective(140px) rotateY(180deg);
+   opacity: 0;
+ }
+ }
 
 .slide-up {
   animation: slideUp 1s ease-in-out forwards;

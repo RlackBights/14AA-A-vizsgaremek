@@ -88,13 +88,6 @@
 	 z-index: 2;
 	 animation: text 0.5s ease infinite alternate;
 }
- html, body {
-	 min-height: 100%;
-}
- body {
-	 background: #0d0d0d;
-	 font-family: arial;
-}
 @keyframes text {
   100% {
     top: 35px;
