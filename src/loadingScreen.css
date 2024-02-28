@@ -1,0 +1,122 @@
+ .cube-folding {
+	 width: 50px;
+	 height: 50px;
+	 display: inline-block;
+	 transform: rotate(45deg);
+	 font-size: 0;
+}
+ .cube-folding span {
+	 position: relative;
+	 width: 25px;
+	 height: 25px;
+	 transform: scale(1.1);
+	 display: inline-block;
+}
+ .cube-folding span::before {
+	 content: "";
+	 background-color: #782b51;
+	 position: absolute;
+	 left: 0;
+	 top: 0;
+	 display: block;
+	 width: 25px;
+	 height: 25px;
+	 -moz-transform-origin: 100% 100%;
+	 -ms-transform-origin: 100% 100%;
+	 -webkit-transform-origin: 100% 100%;
+	 transform-origin: 100% 100%;
+	 animation: folding 2.5s infinite linear both;
+}
+ .cube-folding .leaf2 {
+	 transform: rotateZ(90deg) scale(1.1);
+}
+ .cube-folding .leaf2::before {
+	 -webkit-animation-delay: 0.3s;
+	 animation-delay: 0.3s;
+	 background-color: #652444;
+}
+ .cube-folding .leaf3 {
+	 transform: rotateZ(270deg) scale(1.1);
+}
+ .cube-folding .leaf3::before {
+	 -webkit-animation-delay: 0.9s;
+	 animation-delay: 0.9s;
+	 background-color: #652444;
+}
+ .cube-folding .leaf4 {
+	 transform: rotateZ(180deg) scale(1.1);
+}
+ .cube-folding .leaf4::before {
+	 -webkit-animation-delay: 0.6s;
+	 animation-delay: 0.6s;
+	 background-color: #521e38;
+ }
+ .cube-wrapper {
+	 position: fixed;
+	 left: 50%;
+	 top: 50%;
+	 margin-top: -50px;
+	 margin-left: -50px;
+	 width: 100px;
+	 height: 100px;
+	 text-align: center;
+}
+ .cube-wrapper:after {
+	 content: "";
+	 position: absolute;
+	 left: 0;
+	 right: 0;
+	 bottom: -20px;
+	 margin: auto;
+	 width: 90px;
+	 height: 6px;
+	 z-index: 1;
+	 background-color: rgba(0, 0, 0, 0.7);
+	 -webkit-filter: blur(2px);
+	 filter: blur(2px);
+	 border-radius: 100%;
+	 animation: shadow 0.5s ease infinite alternate;
+}
+ .cube-wrapper .loading {
+	 font-size: 15px;
+	 font-weight: bold;
+	 letter-spacing: 0.1em;
+	 display: block;
+	 color: #fff;
+	 position: relative;
+	 top: 25px;
+	 z-index: 2;
+	 animation: text 0.5s ease infinite alternate;
+}
+ html, body {
+	 min-height: 100%;
+}
+ body {
+	 background: #0d0d0d;
+	 font-family: arial;
+}
+@keyframes text {
+  100% {
+    top: 35px;
+ }
+}
+@keyframes shadow {
+  100% {
+    bottom: -18px;
+    width: 100px;
+ }
+}
+ @keyframes folding {
+ 0%, 10% {
+   transform: perspective(140px) rotateX(-180deg);
+   opacity: 0;
+}
+ 25%, 75% {
+   transform: perspective(140px) rotateX(0deg);
+   opacity: 1;
+}
+ 90%, 100% {
+   transform: perspective(140px) rotateY(180deg);
+   opacity: 0;
+}
+}
