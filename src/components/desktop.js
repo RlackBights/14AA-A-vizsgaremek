@@ -22,6 +22,11 @@ export function Desktop() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
+
+    useEffect(() => {
+        console.log(window);
+    }, [window])
+
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
         setTimeout(() => {
@@ -40,8 +45,6 @@ export function Desktop() {
                 playtime: `${hours === 0 ? "" : `${hours}:`}${normalizeTime(minutes)}:${normalizeTime(seconds)}`
             });
         }, 1000);
-        
-        const playtimeSinceStart = Date.now() - localStorage.getItem("currTime");
     }, [])
 
     return (
@@ -60,20 +63,28 @@ export function Desktop() {
             <h1 id='playtime-desktop'>{clock.playtime}</h1>
             <div id='icons'>
                 <ul>
-                    <li>
-                        <img src={browser}></img>
+                    <li onClick={() => {
+                        setWindow("browser");
+                    }}>
+                        <img draggable={false} src={browser}></img>
                         <p>Browser</p>
                     </li>
-                    <li>
-                        <img src={editor}></img>
+                    <li onClick={() => {
+                        setWindow("code");
+                    }}>
+                        <img draggable={false} src={editor}></img>
                         <p>Code</p>
                     </li>
-                    <li>
-                        <img src={jobs}></img>
+                    <li onClick={() => {
+                        setWindow("jobs");
+                    }}>
+                        <img draggable={false} src={jobs}></img>
                         <p>Jobs</p>
                     </li>
-                    <li>
-                        <img src={shop}></img>
+                    <li onClick={() => {
+                        setWindow("market");
+                    }}>
+                        <img draggable={false} src={shop}></img>
                         <p>Market</p>
                     </li>
                 </ul>
@@ -83,12 +94,16 @@ export function Desktop() {
             </div>
             <div id='start-menu' style={{opacity: 0}}>
                 <ul>
-                    <li>
-                        <img src={pc}></img>
+                    <li onClick={() => {
+                        setWindow("thispc");
+                    }}>
+                        <img draggable={false} src={pc}></img>
                         <p>This PC</p>
                     </li>
-                    <li>
-                        <img src={settings}></img>
+                    <li onClick={() => {
+                        setWindow("settings");
+                    }}>
+                        <img draggable={false} src={settings}></img>
                         <p>Settings</p>
                     </li>
                     <li onClick={() => {
@@ -97,13 +112,13 @@ export function Desktop() {
                             document.location.href = "/game/tableView?return=monitor";
                         }, 250);
                     }}>
-                        <img src={power}></img>
+                        <img draggable={false} src={power}></img>
                         <p>Power Off</p>
                     </li>
                 </ul>
                 <div>
                     <div>
-                        <img src={userIcon}></img>
+                        <img draggable={false} src={userIcon}></img>
                         <p>{user.currUser.split(' ', 2)[0]}</p>
                     </div>
                     <p>{save.activeSaveFile.saveId}</p>
@@ -112,7 +127,7 @@ export function Desktop() {
                 </div>
             </div>
             <div id='taskbar'>
-                <ul id='windows'>
+                <ul id='taskbar-icons'>
                     <li>
                         <button onClick={() => {
                             const startMenu = document.getElementById("start-menu");
@@ -130,25 +145,57 @@ export function Desktop() {
                                 }, 0);
                             }
                         }}>
-                            <img src={logo}></img>
+                            <img draggable={false} src={logo}></img>
                         </button>
                     </li>
-                    <li>
-                        <img src={browser}></img>
+                    <li onClick={() => {
+                        setWindow("browser");
+                    }}>
+                        <img draggable={false} src={browser}></img>
                     </li>
-                    <li>
-                        <img src={editor}></img>
+                    <li onClick={() => {
+                        setWindow("code");
+                    }}>
+                        <img draggable={false} src={editor}></img>
                     </li>
-                    <li>
-                        <img src={jobs}></img>
+                    <li onClick={() => {
+                        setWindow("jobs");
+                    }}>
+                        <img draggable={false}  src={jobs}></img>
                     </li>
-                    <li>
-                        <img src={shop}></img>
+                    <li onClick={() => {
+                        setWindow("market");
+                    }}>
+                        <img draggable={false} src={shop}></img>
                     </li>
                 </ul>
                 <p>
                     {`${normalizeTime(clock.date.getHours())}:${normalizeTime(clock.date.getMinutes())}\n${normalizeTime(clock.date.getMonth())}/${normalizeTime(clock.date.getDate())}`}
                 </p>
+            </div>
+            <div id='windows'>
+                <p id='window-title'>{window}</p>
+                <button style={{display : window !== "" ? "block" : "none"}} onClick={() => {
+                    setWindow("");
+                }}>Close</button>
+                <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
+
+                </div>
+                <div id='code-page' className='pages' style={{display: (window === "code") ? "flex" : "none"}}>
+
+                </div>
+                <div id='jobs-page' className='pages' style={{display: (window === "jobs") ? "flex" : "none"}}>
+
+                </div>
+                <div id='market-page' className='pages' style={{display: (window === "market") ? "flex" : "none"}}>
+
+                </div>
+                <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
+
+                </div>
+                <div id='settings-page' className='pages' style={{display: (window === "settings") ? "flex" : "none"}}>
+
+                </div>
             </div>
             
         </div>

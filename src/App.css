@@ -1105,7 +1105,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   transition: 0.25s all;
 }
 
-#windows {
+#taskbar-icons {
   display: flex;
   list-style-type: none;
   flex-direction: row;
@@ -1124,7 +1124,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   color: var(--accent-color);
 }
 
-#windows li {
+#taskbar-icons li {
   color: var(--accent-color);
   font-weight: bold;
   font-size: 2vmin;
@@ -1135,7 +1135,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   padding: 0.5vw;
 }
 
-#windows button {
+#taskbar-icons button {
   outline: none;
   background: none;
   border: none;
@@ -1145,7 +1145,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   flex-direction: row;
 }
 
-#windows button::after {
+#taskbar-icons button::after {
   content: "";
   display: block;
   position: relative;
@@ -1157,25 +1157,25 @@ Y88b  d88P  d8888888888 888   "   888 888
   background-color: var(--theme-color);
 }
 
-#windows button:hover {
+#taskbar-icons button:hover {
   filter: brightness(1.2);
 }
 
-#windows li:not(:first-child) {
+#taskbar-icons li:not(:first-child) {
   background: none;
   transition: 0.25s all;
   cursor: pointer;
 }
 
-#windows li:not(:first-child):hover {
+#taskbar-icons li:not(:first-child):hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-#windows img:first-of-type {
+#taskbar-icons img:first-of-type {
   width: 5vmin;
 }
 
-#windows img {
+#taskbar-icons img {
   width: 3vmin;
 }
 
@@ -1229,9 +1229,10 @@ Y88b  d88P  d8888888888 888   "   888 888
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2vmin;
 }
 
-#start-menu > div > p {
+#start-menu p {
   margin: 0;
 }
 
@@ -1239,6 +1240,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   width: 3vmin;
   border: 0.25vmin solid var(--accent-color);
   border-radius: 50%;
+  margin-right: 1vmin;
 }
 
 #start-menu > ul img {
@@ -1278,6 +1280,78 @@ Y88b  d88P  d8888888888 888   "   888 888
   left: 50%;
   font-size: 20vmin;
   transform: translateX(-50%);
+}
+
+.pages {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80%;
+  height: 80%;
+  border: 0.5vmin solid var(--accent-color);
+  border-radius: 1rem;
+  background-color: var(--theme-color);
+}
+
+.pages::before {
+  content: "";
+  position: absolute;
+  top: 6vmin;
+  width: 100%;
+  height: 0.5vmin;
+  background-color: var(--accent-color);
+}
+
+#windows > button {
+  position: absolute;
+  z-index: 99;
+  top: 10vh;
+  right: 11vw;
+  font-size: 3vmin;
+  height: 6vh;
+  background: none;
+  outline: none;
+  border: none;
+  font-family: 'Pixel Font';
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+}
+
+#windows > button:hover {
+  font-size: 3.5vmin;
+  top: 9.75vh;
+  right: 10.5vw;
+}
+
+#windows > button::after {
+  content: "";
+  width: 0.5vh;
+  height: 100%;
+  background-color: var(--accent-color);
+  border-radius: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: -2vmin;
+  transition: 0.25s all;
+}
+
+#windows > button:hover::after {
+  left: -0.9vmin;
+  bottom: -0.2vh;
+}
+
+#window-title {
+  position: absolute;
+  z-index: 99;
+  top: 11vh;
+  height: 6.25vh;
+  left: 11vw;
+  font-size: 3vmin;
+  color: var(--accent-color);
+  text-align: left;
+  margin: 0;
 }
 
 /*
