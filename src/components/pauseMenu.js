@@ -30,8 +30,8 @@ export default function PauseMenu() {
         }}>Options</button>
         <button className='pause-button' onClick={() => {
           const sendSave = saves.activeSaveFile;
-          sendSave.lb = JSON.stringify(sendSave.lb);
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
+          console.log(sendSave);
           updateSave(user.currUser, sendSave).then((res) => {
             window.location.href = "../../";
           });

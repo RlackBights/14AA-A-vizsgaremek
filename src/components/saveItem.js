@@ -30,13 +30,13 @@ export function SaveItem(props)
                 >
                     <div className="grid-item save-top">
                         <div id="langs">
-                            <p className={props.save.cpu >= 0 ? "" : "locked-lang"} id="html">
+                            <p className={props.save.cpuId >= 0 ? "" : "locked-lang"} id="html">
                             HTML
                             </p>
-                            <p className={props.save.cpu >= 1 ? "" : "locked-lang"} id="css">
+                            <p className={props.save.cpuId >= 1 ? "" : "locked-lang"} id="css">
                             CSS
                             </p>
-                            <p className={props.save.cpu >= 2 ? "" : "locked-lang"} id="js">
+                            <p className={props.save.cpuId >= 2 ? "" : "locked-lang"} id="js">
                             JS
                             </p>
                         </div>
@@ -48,7 +48,7 @@ export function SaveItem(props)
                         </div>
                     </div>
                     <div className="grid-item save-bottom">
-                        <p>{props.save.id}</p>
+                        <p>{props.save.saveId}</p>
                         <p>LvL: {props.save.lvl}</p>
                         <p>{props.save.money}$</p>
                         <p id="playtime">
@@ -60,7 +60,7 @@ export function SaveItem(props)
                     tabIndex="-1"
                     className="delete-button"
                     onClick={() => {
-                        deleteSave(props.user, props.save.id).then(() => {
+                        deleteSave(props.user, props.save.saveId).then(() => {
                             saveOffset.setSaveOffset(0);
                             overlay.setCurrOverlay("");
                         });

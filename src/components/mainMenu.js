@@ -14,6 +14,12 @@ export function MainMenu() {
     const saves = useContext(saveContext);
     const options = useContext(optionsContext);
 
+    document.body.addEventListener('keydown', (e) => {
+      if (e.key === "Escape") {
+          overlay.setCurrOverlay("")
+      }
+    });
+
     return (
         <div className="main-menu">
             <LoginPage />

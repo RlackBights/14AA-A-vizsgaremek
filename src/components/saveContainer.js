@@ -25,7 +25,7 @@ export function SaveContainer() {
     const clamp = (input, min, max) => {return Math.min(max, Math.max(input, min))}
 
     return (
-        <div style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
+        <div id="save-page" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
             <button className="save-nav-button" style={{left: "1vw"}} onClick={() => {
                 setSaveOffset((save) => clamp(save - 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
                 console.log(saveOffset);

@@ -1,18 +1,18 @@
 export class saveFile {
-  constructor(id="", lvl=-1, time=0, money=0, cpu=0, gpu=0, ram=0, stg=0, lb={cpu:0,gpu:0,ram:0,stg:0}) {
-    this.id = id;
+  constructor(saveId="", lvl=-1, time=0, money=0, cpuId=0, gpuId=0, ramId=0, stgId=0, lastBought={cpuId:0,gpuId:0,ramId:0,stgId:0}) {
+    this.saveId = saveId;
     this.lvl = lvl;
     this.time = time;
     this.money = money;
-    this.cpu = cpu;
-    this.gpu = gpu;
-    this.ram = ram;
-    this.stg = stg;
-    this.lb = lb;
+    this.cpuId = cpuId;
+    this.gpuId = gpuId;
+    this.ramId = ramId;
+    this.stgId = stgId;
+    this.lastBought = lastBought;
   }
 
   getCPU() {
-    switch (this.cpu) {
+    switch (this.cpuId) {
       case 0:
         return "Z3";
       case 1:
@@ -27,7 +27,7 @@ export class saveFile {
   }
 
   getGPU() {
-    switch (this.gpu) {
+    switch (this.gpuId) {
       case 0:
         return "DT 620";
       case 1:
@@ -42,7 +42,7 @@ export class saveFile {
   }
 
   getRAM() {
-    switch (this.ram) {
+    switch (this.ramId) {
       case 0:
         return "8GB";
       case 1:
@@ -57,7 +57,7 @@ export class saveFile {
   }
 
   getSTG() {
-    switch (this.stg) {
+    switch (this.stgId) {
       case 0:
         return "250GB HDD";
       case 1:
@@ -79,13 +79,17 @@ export class saveFile {
   }
 }
 
-export function parseSaves(inputArray)
+export function parseSaves(input, isArray = true)
 {
-  let outputArray = [];
-  inputArray.forEach(save => {
-    console.log(save);
-    outputArray.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, JSON.parse(save.lastBought)))
-  });
+  let output;
+  if (isArray) {
+    output = [];
+    input.forEach(save => {
+      output.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, save.lastBought))
+    });
+  } else {
+    return new saveFile(input.saveId, input.lvl, input.time, input.money, input.cpuId, input.gpuId, input.ramId, input.stgId, input.lastBought);
+  }
 
-  return outputArray;
+  return output;
 }

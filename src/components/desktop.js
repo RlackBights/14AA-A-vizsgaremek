@@ -11,15 +11,17 @@ import userIcon from '../assets/user-icon.svg';
 import { useContext } from 'react';
 import { saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
-import { parseSaves } from './saveFileManager';
 
+function normalizeTime(num)
+{
+    return `${num > 9 ? num : `0${num}`}`
+}
 
 export function Desktop() {
     const [window, setWindow] = useState("");
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
-
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
         setTimeout(() => {
@@ -27,10 +29,15 @@ export function Desktop() {
             document.getElementById("loading-screen").className = "cube-wrapper fade-out";
         }, time);
 
+
         setInterval(() => {
+            const time = save.activeSaveFile.time + Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
+            const hours = Math.floor(time / 3600);
+            const minutes = Math.floor((time - hours*3600) / 60);
+            const seconds = Math.floor(time - hours*3600 - minutes*60);
             setClock({
                 date: new Date(),
-                playtime: `${save.activeSaveFile.getParsedTime()}`
+                playtime: `${hours === 0 ? "" : `${hours}:`}${normalizeTime(minutes)}:${normalizeTime(seconds)}`
             });
         }, 1000);
         
@@ -99,7 +106,7 @@ export function Desktop() {
                         <img src={userIcon}></img>
                         <p>{user.currUser.split(' ', 2)[0]}</p>
                     </div>
-                    <p>{save.activeSaveFile.id}</p>
+                    <p>{save.activeSaveFile.saveId}</p>
                     <p>Level {save.activeSaveFile.lvl}</p>
                     <p>{save.activeSaveFile.money}$</p>
                 </div>
@@ -140,7 +147,7 @@ export function Desktop() {
                     </li>
                 </ul>
                 <p>
-                    {`${clock.date.getHours()}:${clock.date.getMinutes()}\n${(clock.date.getMonth() + 1) > 9 ? clock.date.getMonth() + 1 : `0${clock.date.getMonth() + 1}` }/${(clock.date.getDate() > 9) ? clock.date.getDate() : `0${clock.date.getDate()}`}`}
+                    {`${normalizeTime(clock.date.getHours())}:${normalizeTime(clock.date.getMinutes())}\n${normalizeTime(clock.date.getMonth())}/${normalizeTime(clock.date.getDate())}`}
                 </p>
             </div>
             
