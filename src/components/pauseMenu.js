@@ -6,6 +6,14 @@ import { saveContext } from '../App';
 export default function PauseMenu() {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
+
+  document.body.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+        const pauseMenu = document.getElementById('pause-menu');
+        pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
+      }
+    })
+
   return (
     <div id='pause-menu' style={{display: 'none'}}>
         <h1 id="title-text1" data-text="Learn" className="glitch">

@@ -4,7 +4,7 @@ import "./App.css";
 import { useState, createContext } from "react";
 import { MainMenu } from "./components/mainMenu";
 import { TableView } from "./components/tableView";
-import { saveFile } from "./components/saveFileManager";
+import { parseSaves, saveFile } from "./components/saveFileManager";
 import { Desktop } from "./components/desktop";
 
 // Block refresh
@@ -44,7 +44,7 @@ export const optionsContext = createContext();
 
 // Entry point
 export function App() {
-  const [activeSaveFile, setActiveSaveFile] = useState(JSON.parse(localStorage.getItem("activeSaveFile")));
+  const [activeSaveFile, setActiveSaveFile] = useState(parseSaves([JSON.parse(localStorage.getItem("activeSaveFile"))]));
   const [currUser, setCurrUser] = useState(localStorage.getItem("userAuthCode"));
   const [optionValues, setOptionValues] = useState(JSON.parse(localStorage.getItem("gameOptions")));
   const [saveFiles, setSaveFiles] = useState([]);

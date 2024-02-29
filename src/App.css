@@ -626,8 +626,8 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
 
 #playtime {
   color: lightgray;
-  font-size: 1.5rem;
-  padding-top: 2rem;
+  font-size: 2.5vmin;
+  padding-top: 3vmin;
 }
 
 .save-top {
@@ -1008,6 +1008,10 @@ Y88b  d88P  d8888888888 888   "   888 888
   animation: monitor-zoom linear 1s forwards;
 }
 
+#room.monitor-leave {
+  animation: monitor-zoom linear 1s forwards reverse;
+}
+
 #monitor, #computer {
   cursor: pointer;
   position: absolute;
@@ -1050,6 +1054,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   height: 100vh;
   background: url(assets/desktop_bg.jpeg);
   background-size: cover;
+  transition: 0.1s filter;
 }
 
 #taskbar {
@@ -1064,33 +1069,40 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #icons ul {
-  margin: 0 1vmin;
+  margin: 0 1vw;
   padding: 0;
+  padding-top: 1vh;
   list-style-type: none;
+  width: fit-content;
 }
 
-#icons ul > li:first-of-type > img {
-  margin-top: 2vmin;
+#icons li {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 6vw;
+  aspect-ratio: 1/1;
+  border-radius: 1rem;
+  transition: 0.25s all;
+  cursor: pointer;
+  margin-bottom: 1vh;
+}
+
+#icons li:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#icons p {
+  color: var(--accent-color);
+  margin: 0;
+  padding: 0;
 }
 
 #icons img {
   width: 7vmin;
-  padding: 1vmin;
-  margin: 0.5vmin;
   border-radius: 1rem;
   transition: 0.25s all;
-}
-
-
-#icons ul > li:first-of-type > img:hover {
-  margin-top: 1.5vmin;
-}
-
-#icons img:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  margin: 0;
-  width: 8vmin;
-  cursor: pointer;
 }
 
 #windows {
@@ -1102,7 +1114,14 @@ Y88b  d88P  d8888888888 888   "   888 888
   margin: 0;
   padding: 0;
   width: fit-content;
-  column-gap: 0.5vw;
+}
+
+#taskbar p {
+  margin-right: 1vw;
+  width: 6vw;
+  font-size: 2vmin;
+  text-align: center;
+  color: var(--accent-color);
 }
 
 #windows li {
@@ -1113,7 +1132,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0 0.5vw;
+  padding: 0.5vw;
 }
 
 #windows button {
@@ -1142,22 +1161,14 @@ Y88b  d88P  d8888888888 888   "   888 888
   filter: brightness(1.2);
 }
 
-#windows p {
-  margin: 1.5vmin 0;
-}
-
 #windows li:not(:first-child) {
-  background: linear-gradient(to right, var(--theme-color), #00000000 80%);
-  background-size: 200%;
-  background-position: 50%;
-  border-radius: 1rem;
+  background: none;
   transition: 0.25s all;
+  cursor: pointer;
 }
 
 #windows li:not(:first-child):hover {
-  cursor: pointer;
-  background-position: 0;  
-  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 #windows img:first-of-type {
@@ -1174,19 +1185,25 @@ Y88b  d88P  d8888888888 888   "   888 888
   justify-content: space-evenly;
   align-items: center;
   height: 32vh;
-  width: 23svw;
+  min-width: 23vw;
+  width: fit-content;
   border-radius: 1rem;
   background-color: #782b5150;
-  border: 0.5vmin solid var(--accent-color);
+  border: 0.5vmin solid var(--theme-color);
   bottom: 0;
   left: 0;
   margin: 0 0 8vh 1vh;
   padding: 1vmin;
   box-sizing: border-box;
+  transition: 0.25s all;
 }
 
 #start-menu ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   list-style-type: none;
+  row-gap: 0.25vmin;
   width: 50%;
   height: 100%;
   margin: 0;
@@ -1194,12 +1211,75 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #start-menu > div {
-  width: 50%;
+  width: fit-content;
+  padding: 0 3vmin;
   height: 100%;
-  border: 0.5vmin solid var(--accent-color);
+  border: 0.5vmin solid var(--theme-color);
   border-radius: 0.75rem;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-color);
+  font-size: 2.5vmin;
 }
+
+#start-menu > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#start-menu > div > p {
+  margin: 0;
+}
+
+#start-menu > div > div > img {
+  width: 3vmin;
+  border: 0.25vmin solid var(--accent-color);
+  border-radius: 50%;
+}
+
+#start-menu > ul img {
+  width: 3.5vmin;
+}
+
+#start-menu > ul > li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 1rem;
+  padding: 0.5vmin;
+  transition: 0.25s all;
+  background: linear-gradient(to right, var(--theme-color), #00000000 50%);
+  background-size: 200%;
+  background-position: 100%;
+}
+
+#start-menu > ul > li:hover {
+  background-position: 0;
+}
+
+#start-menu > ul > li p {
+  margin: 0;
+  margin-left: 1vmin;
+  padding: 0;
+  color: var(--accent-color);
+}
+
+#playtime-desktop {
+  color: var(--theme-color);
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  top: 15%;
+  left: 50%;
+  font-size: 20vmin;
+  transform: translateX(-50%);
+}
+
 /*
 888      .d88888b.        d8888 8888888b. 8888888 888b    888  .d8888b.  
 888     d88P" "Y88b      d88888 888  "Y88b  888   8888b   888 d88P  Y88b 

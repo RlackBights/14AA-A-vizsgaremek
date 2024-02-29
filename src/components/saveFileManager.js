@@ -83,6 +83,7 @@ export function parseSaves(inputArray)
 {
   let outputArray = [];
   inputArray.forEach(save => {
+    console.log(save);
     outputArray.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, JSON.parse(save.lastBought)))
   });
 
