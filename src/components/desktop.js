@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import browser from '../assets/browser-icon.svg';
 import editor from '../assets/editor-icon.svg';
 import jobs from '../assets/jobs-icon.svg';
@@ -6,6 +6,8 @@ import shop from '../assets/shop-icon.svg';
 import logo from '../assets/logo.svg';
 
 export function Desktop() {
+
+    const [window, setWindow] = useState("");
 
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
@@ -43,10 +45,33 @@ export function Desktop() {
                     </li>
                 </ul>
             </div>
+            <div id='desktop-windows'>
+
+            </div>
+            <div id='start-menu'>
+                <ul>
+                    <li>
+                        
+                    </li>
+                    <li>
+                        
+                    </li>
+                    <li>
+                        
+                    </li>
+                </ul>
+                <div>
+
+                </div>
+            </div>
             <div id='taskbar'>
                 <ul id='windows'>
                     <li>
-                        <img src={logo}></img>
+                        <button onClick={() => {
+
+                        }}>
+                            <img src={logo}></img>
+                        </button>
                     </li>
                     <li>
                         <img src={browser}></img>
