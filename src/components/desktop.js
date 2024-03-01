@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import browser from '../assets/browser-icon.svg';
 import editor from '../assets/editor-icon.svg';
 import jobs from '../assets/jobs-icon.svg';
@@ -17,11 +17,34 @@ function normalizeTime(num)
     return `${num > 9 ? num : `0${num}`}`
 }
 
+function selectIcon(window)
+{
+    switch (window) {
+        case "browser":
+            return browser;
+        case "code":
+            return editor;
+        case "jobs":
+            return jobs;
+        case "market":
+            return shop;
+        case "thispc":
+            return pc;
+        case "settings":
+            return settings;
+        default:
+            return "";
+    }
+}
+
+export const windowContext = createContext();
+
 export function Desktop() {
     const [window, setWindow] = useState("");
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
+
 
     useEffect(() => {
         console.log(window);
@@ -49,39 +72,61 @@ export function Desktop() {
 
     return (
         <div id='desktop'>
-            <PauseMenu/>
-            <div class="cube-wrapper" id='loading-screen'>
-                <div class="cube-folding">
-                <span class="leaf1"></span>
-                <span class="leaf2"></span>
-                <span class="leaf3"></span>
-                <span class="leaf4"></span>
-                <span class="leaf5"></span>
+            <windowContext.Provider value={setWindow}>
+                <PauseMenu/>
+            </windowContext.Provider>
+            <div className="cube-wrapper" id='loading-screen'>
+                <div className="cube-folding">
+                <span className="leaf1"></span>
+                <span className="leaf2"></span>
+                <span className="leaf3"></span>
+                <span className="leaf4"></span>
+                <span className="leaf5"></span>
                 </div>
-                <span class="loading" data-name="Loading">Learn_OS</span>
+                <span className="loading" data-name="Loading">Learn_OS</span>
             </div>
             <h1 id='playtime-desktop'>{clock.playtime}</h1>
             <div id='icons'>
                 <ul>
                     <li onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
                         setWindow("browser");
                     }}>
                         <img draggable={false} src={browser}></img>
                         <p>Browser</p>
                     </li>
                     <li onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
                         setWindow("code");
                     }}>
                         <img draggable={false} src={editor}></img>
                         <p>Code</p>
                     </li>
                     <li onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
                         setWindow("jobs");
                     }}>
                         <img draggable={false} src={jobs}></img>
                         <p>Jobs</p>
                     </li>
                     <li onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
                         setWindow("market");
                     }}>
                         <img draggable={false} src={shop}></img>
@@ -95,13 +140,23 @@ export function Desktop() {
             <div id='start-menu' style={{opacity: 0}}>
                 <ul>
                     <li onClick={() => {
-                        setWindow("thispc");
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+                        setWindow(window === "thispc" ? "" : "thispc");
                     }}>
                         <img draggable={false} src={pc}></img>
                         <p>This PC</p>
                     </li>
                     <li onClick={() => {
-                        setWindow("settings");
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+                        setWindow(window === "settings" ? "" : "settings");
                     }}>
                         <img draggable={false} src={settings}></img>
                         <p>Settings</p>
@@ -148,23 +203,51 @@ export function Desktop() {
                             <img draggable={false} src={logo}></img>
                         </button>
                     </li>
-                    <li onClick={() => {
-                        setWindow("browser");
+                    <li className={window === "browser" ? "focused" : ""}
+                        onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+
+                        setWindow(window === "browser" ? "" : "browser");
                     }}>
                         <img draggable={false} src={browser}></img>
                     </li>
-                    <li onClick={() => {
-                        setWindow("code");
+                    <li className={window === "code" ? "focused" : ""}
+                        onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+
+                        setWindow(window === "code" ? "" : "code");
                     }}>
                         <img draggable={false} src={editor}></img>
                     </li>
-                    <li onClick={() => {
-                        setWindow("jobs");
+                    <li className={window === "jobs" ? "focused" : ""}
+                        onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+
+                        setWindow(window === "jobs" ? "" : "jobs");
                     }}>
                         <img draggable={false}  src={jobs}></img>
                     </li>
-                    <li onClick={() => {
-                        setWindow("market");
+                    <li className={window === "market" ? "focused" : ""}
+                        onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        startMenu.style.opacity = 0;
+                        setTimeout(() => {
+                            startMenu.style.display = "none";
+                        }, 250);
+
+                        setWindow(window === "market" ? "" : "market");
                     }}>
                         <img draggable={false} src={shop}></img>
                     </li>
@@ -174,12 +257,13 @@ export function Desktop() {
                 </p>
             </div>
             <div id='windows'>
+                <img draggable={false} src={selectIcon(window)}></img>
                 <p id='window-title'>{window}</p>
                 <button style={{display : window !== "" ? "block" : "none"}} onClick={() => {
                     setWindow("");
                 }}>Close</button>
                 <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
-
+                    <p className='blocked-feature'>Feature not included in demo version</p>
                 </div>
                 <div id='code-page' className='pages' style={{display: (window === "code") ? "flex" : "none"}}>
 
@@ -188,13 +272,22 @@ export function Desktop() {
 
                 </div>
                 <div id='market-page' className='pages' style={{display: (window === "market") ? "flex" : "none"}}>
+                    <div id='market-tabs'>
+                        <p>Processors</p>
+                        <p>Graphics Cards</p>
+                        <p>Memory</p>
+                        <p>Storage</p>
+                        <p>{save.activeSaveFile.money}$</p>
+                    </div>
+                    <div id='market-items'>
 
+                    </div>
                 </div>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
-
+                    <p className='blocked-feature'>Feature not included in demo version</p>
                 </div>
                 <div id='settings-page' className='pages' style={{display: (window === "settings") ? "flex" : "none"}}>
-
+                    <p className='blocked-feature'>Feature not included in demo version</p>
                 </div>
             </div>
             

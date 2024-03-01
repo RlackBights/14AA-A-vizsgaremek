@@ -3,9 +3,10 @@ import '../App.css';
 import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
 import { backend, optionsContext, overlayContext, saveContext, userContext } from "../App";
-import { getPlayerSaves } from "./requests";
+import { getHardwareElements, getPlayerSaves, requestSaveFileCreation } from "./requests";
 import { saveFile } from "./saveFileManager";
 import OptionsPage from "./optionsPage";
+import { NewSave } from "./newSave";
 
 export function MainMenu() {
 
@@ -25,6 +26,7 @@ export function MainMenu() {
             <LoginPage />
             <SaveContainer />
             <OptionsPage />
+            <NewSave />
             <h1 id="title-text1" data-text="Learn" className="glitch">
               Learn
             </h1>
@@ -36,9 +38,11 @@ export function MainMenu() {
             </h1>
             <div className="button-container">
               <button
-                onClick={() => {
+                onClick={async () => {
                   if (localStorage.getItem("userAuthCode") === "") return;
+                  const hardwareElements = await getHardwareElements();
                   localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile()));
+                  localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                   saves.setActiveSaveFile(new saveFile());
                   getPlayerSaves(user.currUser).then((res) => {
                     saves.setSaveFiles(res);
@@ -51,7 +55,7 @@ export function MainMenu() {
               <button
                 onClick={() => {
                   if (localStorage.getItem("userAuthCode") === "") return;
-                  
+                  overlay.setCurrOverlay("newSave");
                 }}
               >
                 New Game

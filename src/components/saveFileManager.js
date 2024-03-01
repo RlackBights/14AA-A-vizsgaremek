@@ -1,5 +1,5 @@
 export class saveFile {
-  constructor(saveId="", lvl=-1, time=0, money=0, cpuId=0, gpuId=0, ramId=0, stgId=0, lastBought={cpuId:0,gpuId:0,ramId:0,stgId:0}) {
+  constructor(saveId="", lvl=-1, time=0, money=0, cpuId=0, gpuId=0, ramId=0, stgId=0, lastBought={cpu:0,gpu:0,ram:0,stg:0}) {
     this.saveId = saveId;
     this.lvl = lvl;
     this.time = time;

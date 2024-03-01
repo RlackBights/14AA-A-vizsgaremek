@@ -1,18 +1,54 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
+import { windowContext } from './desktop';
+
+
 
 export default function PauseMenu() {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
+  const setWindow = useContext(windowContext);
 
-  document.body.addEventListener('keydown', (e) => {
-    if (e.key === "Escape") {
+  useEffect(() => {
+
+    const keydownEvent = (e) => {
+      if (e.key === "Escape") {
+        let isPageActive = false;
+        let hasWindows = document.getElementById('windows') !== null;
+        if (hasWindows) {
+          document.getElementById('windows').childNodes.forEach(child => {
+            if (child.className !== "pages") return;
+            if (child.style.display === "none") return;
+            isPageActive = true;
+          });
+        }
+        
         const pauseMenu = document.getElementById('pause-menu');
+        if (pauseMenu.getAttribute("locked") === "true") return;
+        if (hasWindows) {
+          setWindow("");
+        }
+        if (isPageActive) return;
         pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
+        pauseMenu.setAttribute("locked", "true");
       }
-    })
+      };
+
+    const keyupEvent = (e) => {
+      if (e.key === "Escape") {
+          const pauseMenu = document.getElementById('pause-menu');
+          pauseMenu.setAttribute("locked", "false");
+        }
+      };
+
+    document.body.removeEventListener('keyup', keyupEvent);
+    document.body.removeEventListener('keydown', keydownEvent);
+
+    document.body.addEventListener('keydown', keydownEvent);
+    document.body.addEventListener('keyup', keyupEvent);
+  }, [])
 
   return (
     <div id='pause-menu' style={{display: 'none'}}>

@@ -124,3 +124,41 @@ export async function updateSave(user, saveData)
 
     return await fetch(backend + "/game/savePlayerData", fetchParams).then(res => res.json());
 }
+
+export async function requestSaveFileCreation(user, saveId)
+{
+    const fetchParams = {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({
+            authCode: user,
+            data: [{saveId: saveId}]
+        })
+    }
+
+    return await fetch(backend + "/game/savePlayerData", fetchParams).then(res => res.json());
+}
+
+export async function finaliseNewSave(user, saveId)
+{
+    const fetchParams = {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-save-type": "override"},
+        body: JSON.stringify({
+            authCode: user,
+            data: [{saveId: saveId}]
+        })
+    }
+
+    return await fetch(backend + "/game/savePlayerData", fetchParams).then(res => res.json());
+}
+
+export async function getHardwareElements()
+{
+    const fetchParams = {
+        method: "GET",
+        headers: {"Content-Type": "application/json"}
+    }
+
+    return await fetch(backend + "/game/getHardwareElements", fetchParams).then(res => res.json());
+}
