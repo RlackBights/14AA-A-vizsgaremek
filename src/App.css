@@ -1329,7 +1329,14 @@ Y88b  d88P  d8888888888 888   "   888 888
   margin-bottom: 2vmin;
 }
 
+#start-menu > div > p:first-of-type {
+  font-size: 100%;
+}
+
 #start-menu p {
+  width: 100%;
+  text-align: center;
+  text-wrap: nowrap;
   margin: 0;
 }
 
