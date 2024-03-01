@@ -1,22 +1,20 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { overlayContext, saveContext } from '../App';
 import '../App.css'
 import { saveOffsetContext } from './saveContainer';
 import { deleteSave } from './requests';
 import { useNavigate } from 'react-router-dom';
 
+function startGame()
+{
+
+}
+
 export function SaveItem(props)
 {
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (saves.activeSaveFile.lvl !== -1) {
-            return navigate("/game/tableView")
-        }
-    }, [saves.activeSaveFile])
 
     return (
             <div className="save-item-container">
@@ -26,6 +24,9 @@ export function SaveItem(props)
                         saves.setActiveSaveFile(props.save);
                         localStorage.setItem("activeSaveFile", JSON.stringify(props.save));
                         localStorage.setItem("currTime", Date.now().toString());
+                        setTimeout(() => {
+                            window.location.href = "/game/tableView";
+                        }, 250);
                     }}
                 >
                     <div className="grid-item save-top">

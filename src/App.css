@@ -635,6 +635,7 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   position: absolute;
   text-align: center;
   color: var(--accent-color);
+  font-size: 6vmin;
 }
 
 .save-nav-button {

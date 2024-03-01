@@ -1,15 +1,46 @@
-import { useContext } from "react"
-import { overlayContext, userContext } from "../App"
-import { finaliseNewSave, requestSaveFileCreation } from "./requests";
+import { useContext, useEffect } from "react"
+import { overlayContext, saveContext, userContext } from "../App"
+import { finaliseNewSave, getHardwareElements, requestSaveFileCreation } from "./requests";
+import { saveFile } from "./saveFileManager";
 
+function loadIntoNewSave(saveFile)
+{
+    localStorage.setItem("activeSaveFile", JSON.stringify(saveFile));
+    localStorage.setItem("currTime", Date.now().toString());
+
+    setTimeout(() => {
+        window.location.href = "/game/tableView";
+    }, 250);
+}
 
 export function NewSave()
 {
     const user = useContext(userContext);
     const overlay = useContext(overlayContext);
+    const saves = useContext(saveContext);
+
     return (
         <div id="new-save" style={{display: overlay.currOverlay === "newSave" ? "flex" : "none"}}>
-            <form onSubmit={(e) => {e.preventDefault()}}>
+            <form onSubmit={async (e) => {
+                e.preventDefault();
+                console.log("new save");
+                const saveInput = document.getElementById("save-input");
+                const hardwareElements = await getHardwareElements();
+                localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
+                await requestSaveFileCreation(user.currUser, saveInput.value).then((res) => {
+                            
+                    if (Object.keys(res).includes("message")) {
+
+                        const emptySave = new saveFile(saveInput.value);
+                        saves.setActiveSaveFile(emptySave);
+                        loadIntoNewSave(emptySave);
+
+                    } else {
+                        const saveExists = document.getElementById("save-exists");
+                        saveExists.style.display = "flex";
+                    }
+                });
+                }}>
                 <h1>Enter file name:</h1>
                 <input type="text" id="save-input"></input>
                 <div>
@@ -19,11 +50,18 @@ export function NewSave()
                         Back
                     </button>
                     <button onClick={async () => {
+                        console.log("new save");
                         const saveInput = document.getElementById("save-input");
+                        const hardwareElements = await getHardwareElements();
+                        localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await requestSaveFileCreation(user.currUser, saveInput.value).then((res) => {
                             
                             if (Object.keys(res).includes("message")) {
-                                overlay.setCurrOverlay("");
+
+                                const emptySave = new saveFile(saveInput.value);
+                                saves.setActiveSaveFile(emptySave);
+                                loadIntoNewSave(emptySave);
+
                             } else {
                                 const saveExists = document.getElementById("save-exists");
                                 saveExists.style.display = "flex";
@@ -43,10 +81,16 @@ export function NewSave()
                         e.target.parentNode.parentNode.style.display = "none";
                     }}>Cancel</button>
                     <button onClick={async (e) => {
+                        console.log("overwrite yes");
                         const saveInput = document.getElementById("save-input");
+                        const hardwareElements = await getHardwareElements();
+                        localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await finaliseNewSave(user.currUser, saveInput.value).then(() => {
-                            e.target.parentNode.parentNode.style.display = "none";
-                            overlay.setCurrOverlay("");
+
+                            const emptySave = new saveFile(saveInput.value);
+                            saves.setActiveSaveFile(emptySave);
+                            loadIntoNewSave(emptySave);
+
                         });
                     }}>Overwrite</button>
                 </div>

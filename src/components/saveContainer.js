@@ -26,13 +26,13 @@ export function SaveContainer() {
 
     return (
         <div id="save-page" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
-            <button className="save-nav-button" style={{left: "1vw"}} onClick={() => {
+            { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{left: "1vw"}} onClick={() => {
                 setSaveOffset((save) => clamp(save - 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
                 console.log(saveOffset);
-            }}><i className="arrow left"></i></button>
-            <button className="save-nav-button" style={{right: "1vw"}} onClick={() => {
+            }}><i className="arrow left"></i></button>}
+            { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{right: "1vw"}} onClick={() => {
                 setSaveOffset((save) => clamp(save + 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
-            }}><i className="arrow right"></i></button>
+            }}><i className="arrow right"></i></button>}
             <button
                 onClick={() => {
                     overlay.setCurrOverlay("")
@@ -44,7 +44,7 @@ export function SaveContainer() {
                 Back
             </button>
             <div className="save-container" style={{ transform: `translateX(calc(-${saveOffset} * 100vw))`, width: `${Math.ceil(clamp(saves.saveFiles.length, 1, 99) / 3)*100}vw`}}>
-                {saves.saveFiles.length === 0 && <h1 id="missing-save-text" style={{ display: "absolute"}}>No save files found L bozo</h1>}
+                {saves.saveFiles.length === 0 && <h1 id="missing-save-text">No save files found</h1>}
                 <saveOffsetContext.Provider value={{setSaveOffset}}>
                     {displaySaves(saves.saveFiles, user.currUser)}
                 </saveOffsetContext.Provider>

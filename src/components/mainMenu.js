@@ -41,9 +41,7 @@ export function MainMenu() {
                 onClick={async () => {
                   if (localStorage.getItem("userAuthCode") === "") return;
                   const hardwareElements = await getHardwareElements();
-                  localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile()));
                   localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
-                  saves.setActiveSaveFile(new saveFile());
                   getPlayerSaves(user.currUser).then((res) => {
                     saves.setSaveFiles(res);
                     overlay.setCurrOverlay("savePage");
