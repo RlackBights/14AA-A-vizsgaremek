@@ -1452,10 +1452,22 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #market-items {
+  margin-top: 3vmin;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
   background-color: #080808;
   display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  row-gap: 3vmin;
+}
+
+#market-items::-webkit-scrollbar {
+  display: none;
 }
 
 .pages#settings-page {
@@ -1539,7 +1551,60 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .market-item {
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30vw;
+  aspect-ratio: 3/1;
+  border: 0.5vmin solid var(--accent-color);
+  border-radius: 1rem;
+  box-sizing: border-box;
+  background-color: #060b4d;
+  padding: 1vmin;
+  color: var(--accent-color);
+}
+
+.market-item > img {
+  border: 1vmin solid var(--accent-color);
+  border-radius: 1rem;
+  width: 20vmin;
+}
+
+.market-item-company {
+  font-style: italic;
+  color: gray;
+}
+
+.market-item-name {
+  font-size: 3vmin;
+  font-weight: bold;
+}
+
+.market-item-description {
+  font-size: 1.5vmin;
+  font-style: italic;
+}
+
+.market-item button {
+  background: rgba(0, 0, 0, 0.4);
+  border: 3px solid var(--accent-color);
+  border-radius: 1rem;
+  margin: 0;
+  padding: 1vmin 2vmin;
+  text-align: center;
+  font-family: "Pixel Font";
+  font-weight: 100;
+  font-size: 2.5vmin;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+  font-weight: bold;
+}
+
+.market-item button:hover {
+  border: 3px solid var(--theme-color);
+  color: var(--theme-color);
 }
 
 /*

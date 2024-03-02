@@ -8,9 +8,15 @@ import power from '../assets/power-icon.svg';
 import settings from '../assets/settings-icon.svg';
 import pc from '../assets/thispc-icon.svg';
 import userIcon from '../assets/user-icon.svg';
+import cpu from '../assets/cpu.png';
+import gpu from '../assets/gpu.png';
+import ram from '../assets/ram.png';
+import stg from '../assets/hdd.png';
 import { useContext } from 'react';
 import { saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
+
+const images = {cpu, gpu, ram, stg};
 
 function normalizeTime(num) {
     return num > 9 ? num : `0${num}`
@@ -36,18 +42,23 @@ function selectIcon(window)
     }
 }
 
-function displayMarketItems()
+function displayMarketItems(tab)
 {
-    // maps the hardware items from localStorage to small info cards
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
-    const hardwareCards = hardwareItems.cpu.map((element) => {
+    hardwareItems[tab].forEach((element) => {
         output.push(
-            <div key={element.hardwareId} className='market-item'>
-                {element.name}
+            <div key={`${element.hardwareId}`} className='market-item'>
+                <img alt='' src={images[tab]}></img>
+                <p className='market-item-company'>{element.company}</p>
+                <p className='market-item-name'>{element.name}</p>
+                <p className='market-item-description'>{element.description}</p>
+                <p className='market-item-price'>{element.price}$</p>
+                <button>Buy</button>
             </div>
         )
     });
+
     return output;
 }
 
@@ -58,11 +69,7 @@ export function Desktop() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
-
-
-    useEffect(() => {
-        console.log(window);
-    }, [window])
+    const [marketTab, setMarketTab] = useState("cpu");
 
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
@@ -287,14 +294,22 @@ export function Desktop() {
                 </div>
                 <div id='market-page' className='pages' style={{display: (window === "market") ? "flex" : "none"}}>
                     <div id='market-tabs'>
-                        <p>Processors</p>
-                        <p>Graphics Cards</p>
-                        <p>Memory</p>
-                        <p>Storage</p>
+                        <p onClick={() => {
+                            setMarketTab("cpu");
+                        }}>Processors</p>
+                        <p onClick={() => {
+                            setMarketTab("gpu");
+                        }}>Graphics Cards</p>
+                        <p onClick={() => {
+                            setMarketTab("ram");
+                        }}>Memory</p>
+                        <p onClick={() => {
+                            setMarketTab("stg");
+                        }}>Storage</p>
                         <p>{save.activeSaveFile.money}$</p>
                     </div>
                     <div id='market-items'>
-                        {displayMarketItems()}
+                        {displayMarketItems(marketTab)}
                     </div>
                 </div>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>

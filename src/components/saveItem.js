@@ -1,14 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { overlayContext, saveContext } from '../App';
 import '../App.css'
 import { saveOffsetContext } from './saveContainer';
 import { deleteSave } from './requests';
-import { useNavigate } from 'react-router-dom';
-
-function startGame()
-{
-
-}
 
 export function SaveItem(props)
 {
