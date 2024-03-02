@@ -12,9 +12,8 @@ import { useContext } from 'react';
 import { saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
 
-function normalizeTime(num)
-{
-    return `${num > 9 ? num : `0${num}`}`
+function normalizeTime(num) {
+    return num > 9 ? num : `0${num}`
 }
 
 function selectIcon(window)
@@ -35,6 +34,21 @@ function selectIcon(window)
         default:
             return "";
     }
+}
+
+function displayMarketItems()
+{
+    // maps the hardware items from localStorage to small info cards
+    const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
+    let output = [];
+    const hardwareCards = hardwareItems.cpu.map((element) => {
+        output.push(
+            <div key={element.hardwareId} className='market-item'>
+                {element.name}
+            </div>
+        )
+    });
+    return output;
 }
 
 export const windowContext = createContext();
@@ -68,7 +82,7 @@ export function Desktop() {
                 playtime: `${hours === 0 ? "" : `${hours}:`}${normalizeTime(minutes)}:${normalizeTime(seconds)}`
             });
         }, 1000);
-    }, [])
+    })
 
     return (
         <div id='desktop'>
@@ -96,7 +110,7 @@ export function Desktop() {
                         }, 250);
                         setWindow("browser");
                     }}>
-                        <img draggable={false} src={browser}></img>
+                        <img alt="" draggable={false} src={browser}></img>
                         <p>Browser</p>
                     </li>
                     <li onClick={() => {
@@ -107,7 +121,7 @@ export function Desktop() {
                         }, 250);
                         setWindow("code");
                     }}>
-                        <img draggable={false} src={editor}></img>
+                        <img alt="" draggable={false} src={editor}></img>
                         <p>Code</p>
                     </li>
                     <li onClick={() => {
@@ -118,7 +132,7 @@ export function Desktop() {
                         }, 250);
                         setWindow("jobs");
                     }}>
-                        <img draggable={false} src={jobs}></img>
+                        <img alt="" draggable={false} src={jobs}></img>
                         <p>Jobs</p>
                     </li>
                     <li onClick={() => {
@@ -129,7 +143,7 @@ export function Desktop() {
                         }, 250);
                         setWindow("market");
                     }}>
-                        <img draggable={false} src={shop}></img>
+                        <img alt="" draggable={false} src={shop}></img>
                         <p>Market</p>
                     </li>
                 </ul>
@@ -147,7 +161,7 @@ export function Desktop() {
                         }, 250);
                         setWindow(window === "thispc" ? "" : "thispc");
                     }}>
-                        <img draggable={false} src={pc}></img>
+                        <img alt="" draggable={false} src={pc}></img>
                         <p>This PC</p>
                     </li>
                     <li onClick={() => {
@@ -158,7 +172,7 @@ export function Desktop() {
                         }, 250);
                         setWindow(window === "settings" ? "" : "settings");
                     }}>
-                        <img draggable={false} src={settings}></img>
+                        <img alt="" draggable={false} src={settings}></img>
                         <p>Settings</p>
                     </li>
                     <li onClick={() => {
@@ -167,13 +181,13 @@ export function Desktop() {
                             document.location.href = "/game/tableView?return=monitor";
                         }, 250);
                     }}>
-                        <img draggable={false} src={power}></img>
+                        <img alt="" draggable={false} src={power}></img>
                         <p>Power Off</p>
                     </li>
                 </ul>
                 <div>
                     <div>
-                        <img draggable={false} src={userIcon}></img>
+                        <img alt="" draggable={false} src={userIcon}></img>
                         <p>{user.currUser.split(' ', 2)[0]}</p>
                     </div>
                     <p>{save.activeSaveFile.saveId}</p>
@@ -200,7 +214,7 @@ export function Desktop() {
                                 }, 0);
                             }
                         }}>
-                            <img draggable={false} src={logo}></img>
+                            <img alt="" draggable={false} src={logo}></img>
                         </button>
                     </li>
                     <li className={window === "browser" ? "focused" : ""}
@@ -213,7 +227,7 @@ export function Desktop() {
 
                         setWindow(window === "browser" ? "" : "browser");
                     }}>
-                        <img draggable={false} src={browser}></img>
+                        <img alt="" draggable={false} src={browser}></img>
                     </li>
                     <li className={window === "code" ? "focused" : ""}
                         onClick={() => {
@@ -225,7 +239,7 @@ export function Desktop() {
 
                         setWindow(window === "code" ? "" : "code");
                     }}>
-                        <img draggable={false} src={editor}></img>
+                        <img alt="" draggable={false} src={editor}></img>
                     </li>
                     <li className={window === "jobs" ? "focused" : ""}
                         onClick={() => {
@@ -237,7 +251,7 @@ export function Desktop() {
 
                         setWindow(window === "jobs" ? "" : "jobs");
                     }}>
-                        <img draggable={false}  src={jobs}></img>
+                        <img alt="" draggable={false}  src={jobs}></img>
                     </li>
                     <li className={window === "market" ? "focused" : ""}
                         onClick={() => {
@@ -249,7 +263,7 @@ export function Desktop() {
 
                         setWindow(window === "market" ? "" : "market");
                     }}>
-                        <img draggable={false} src={shop}></img>
+                        <img alt="" draggable={false} src={shop}></img>
                     </li>
                 </ul>
                 <p>
@@ -257,7 +271,7 @@ export function Desktop() {
                 </p>
             </div>
             <div id='windows'>
-                <img draggable={false} src={selectIcon(window)}></img>
+                <img alt="" draggable={false} src={selectIcon(window)}></img>
                 <p id='window-title'>{window}</p>
                 <button style={{display : window !== "" ? "block" : "none"}} onClick={() => {
                     setWindow("");
@@ -280,7 +294,7 @@ export function Desktop() {
                         <p>{save.activeSaveFile.money}$</p>
                     </div>
                     <div id='market-items'>
-
+                        {displayMarketItems()}
                     </div>
                 </div>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>

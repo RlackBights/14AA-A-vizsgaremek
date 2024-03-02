@@ -53,7 +53,7 @@ export function SaveItem(props)
                         <p>LvL: {props.save.lvl}</p>
                         <p>{props.save.money}$</p>
                         <p id="playtime">
-                            {props.save.getParsedTime()}
+                            { props.save.getParsedTime()}
                         </p>
                     </div>
                 </div>

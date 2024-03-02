@@ -75,7 +75,7 @@ export class saveFile {
     const hours = Math.floor(this.time / 3600);
     const minutes = Math.floor((this.time - hours*3600) / 60);
     const seconds = Math.floor(this.time - hours*3600 - minutes*60);
-    return `${hours === 0 ? "" : hours + ":"}${minutes}:${seconds}`;
+    return `${hours === 0 ? "" : hours + ":"}${minutes > 9 ? minutes : `0${minutes}`}:${seconds > 9 ? seconds : `0${seconds}`}`;
   }
 }
 
