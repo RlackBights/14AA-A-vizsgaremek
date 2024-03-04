@@ -289,7 +289,7 @@ export function Desktop() {
                     </li>
                 </ul>
                 <p>
-                    {`${normalizeTime(clock.date.getHours())}:${normalizeTime(clock.date.getMinutes())}\n${normalizeTime(clock.date.getMonth())}/${normalizeTime(clock.date.getDate())}`}
+                    {`${normalizeTime(clock.date.getHours())}:${normalizeTime(clock.date.getMinutes())}\n${normalizeTime(clock.date.getMonth() + 1)}/${normalizeTime(clock.date.getDate())}`}
                 </p>
             </div>
             <div id='windows'>
