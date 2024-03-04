@@ -16,6 +16,7 @@ import { useContext } from 'react';
 import { saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
 
+let currInterval;
 const images = {cpu, gpu, ram, stg};
 
 function normalizeTime(num) {
@@ -42,7 +43,7 @@ function selectIcon(window)
     }
 }
 
-function displayMarketItems(tab)
+function displayMarketItems(tab, saveFile)
 {
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
@@ -54,7 +55,7 @@ function displayMarketItems(tab)
                 <p className='market-item-name'>{element.name}</p>
                 <p className='market-item-description'>{element.description}</p>
                 <p className='market-item-price'>{element.price}$</p>
-                <button>Buy</button>
+                <button disabled={(element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}</button>
             </div>
         )
     });
@@ -78,8 +79,8 @@ export function Desktop() {
             document.getElementById("loading-screen").className = "cube-wrapper fade-out";
         }, time);
 
-
-        setInterval(() => {
+        if (currInterval !== undefined) clearInterval(currInterval);
+        currInterval = setInterval(() => {
             const time = save.activeSaveFile.time + Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
             const hours = Math.floor(time / 3600);
             const minutes = Math.floor((time - hours*3600) / 60);
@@ -309,7 +310,7 @@ export function Desktop() {
                         <p>{save.activeSaveFile.money}$</p>
                     </div>
                     <div id='market-items'>
-                        {displayMarketItems(marketTab)}
+                        {displayMarketItems(marketTab, save.activeSaveFile)}
                     </div>
                 </div>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>

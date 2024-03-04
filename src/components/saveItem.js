@@ -9,14 +9,18 @@ export function SaveItem(props)
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
+    console.log(props.save);
 
     return (
             <div className="save-item-container">
                 <div
                     className="save-item"
                     onClick={() => {
-                        saves.setActiveSaveFile(props.save);
-                        localStorage.setItem("activeSaveFile", JSON.stringify(props.save));
+                        let save = props.save;
+                        save.lastBought = JSON.parse(save.lastBought)
+                        console.log(save.lastBought);
+                        saves.setActiveSaveFile(save);
+                        localStorage.setItem("activeSaveFile", JSON.stringify(save));
                         localStorage.setItem("currTime", Date.now().toString());
                         setTimeout(() => {
                             window.location.href = "/game/tableView";

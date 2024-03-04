@@ -1,27 +1,27 @@
 CPU:
 
-0: InkWell Z3 3400 3.1GHz 2core
-1: InkWell Z5 6500 2.8GHz 4core/4thread
-2: InkWell Z7 9800P 3.8GHz 8core/16thread
-3: InkWell Z9 12990P 4.9GHz 16core/32thread
+0: InkWell Z3 3400 3.1GHz 2core 0 HTML
+1: InkWell Z5 6500 2.8GHz 4core/4thread CSS 3
+2: InkWell Z7 9800P 3.8GHz 8core/16thread JS 6
+3: InkWell Z9 12990P 4.9GHz 16core/32thread ALL AT ONCE 9
 
-GPU:
+GPU: INCREASES INCOME / GIVES HINTS || CRYPTO MINING MINIGAME
 
-0: MediaVideo DT 620 1GB GDDR3
-1: MediaVideo DTX 1150 2GB GDDR4
-2: MediaVideo ETX 2260 6GB GDDR5
-3: MediaVideo ETX 4490 24GB GDDR6
+0: MediaVideo DT 620 1GB GDDR3 0 
+1: MediaVideo DTX 1150 2GB GDDR4 INCOME INCREASE 1.25x, 1 HINT, CRYPTO BASICS
+2: MediaVideo ETX 2260 6GB GDDR5 INCOME INCREASE 1.5x, 2 HINTS, ADVANCED CRYPTO
+3: MediaVideo ETX 4490 24GB GDDR6 INCOME INCREASE 2x, 3 HINTS
 
 RAM:
 
-0: Tungsten Curie 8GB DDR4 1600MHz
-1: Tungsten Curie 16GB DDR4 2133MHz
-2: Tungsten Curie 32GB DDR4 2666MHz
-3: Tungsten Curie 64GB DDR4 3200MHz
+0: Tungsten Curie 8GB DDR4 1600MHz 0 1 JOB
+1: Tungsten Curie 16GB DDR4 2133MHz 2 JOBS
+2: Tungsten Curie 32GB DDR4 2666MHz 3 JOBS
+3: Tungsten Curie 64GB DDR4 3200MHz 4 JOBS
 
-STG:
+STG: LONGER JOBS
 
-0: SeeGait Bermuda 250GB HDD 5400rpm
-1: SeeGait Bermuda 500GB HDD 7200rpm
-2: DanTsung 710Evolution 500GB SSD 200MB/s
-3: DanTsung 820Evolution 1TB SSD 520MB/s
+0: SeeGait Bermuda 250GB HDD 5400rpm 0 3
+1: SeeGait Bermuda 500GB HDD 7200rpm 5
+2: DanTsung 710Evolution 500GB SSD 200MB/s 8
+3: DanTsung 820Evolution 1TB SSD 520MB/s 12

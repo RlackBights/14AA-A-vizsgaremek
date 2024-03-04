@@ -1566,17 +1566,30 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .market-item > img {
-  border: 1vmin solid var(--accent-color);
-  border-radius: 1rem;
   width: 20vmin;
 }
 
 .market-item-company {
   font-style: italic;
+  text-align: center;
   color: gray;
 }
 
+.market-item-company::before {
+  content: "";
+  position: relative;
+  bottom: 2vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  width: 20vw;
+  height: 0.5vh;
+  border-radius: 1rem;
+  background-color: var(--accent-color);
+}
+
 .market-item-name {
+  margin: 0;
   font-size: 3vmin;
   font-weight: bold;
 }
@@ -1605,6 +1618,12 @@ Y88b  d88P  d8888888888 888   "   888 888
 .market-item button:hover {
   border: 3px solid var(--theme-color);
   color: var(--theme-color);
+}
+
+.market-item button:disabled, .market-item button:disabled:hover {
+  cursor: default;
+  color: gray;
+  border-color: gray;
 }
 
 /*
