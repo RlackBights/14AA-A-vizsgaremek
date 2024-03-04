@@ -43,7 +43,7 @@ function selectIcon(window)
     }
 }
 
-function displayMarketItems(tab, saveFile)
+function displayMarketItems(tab, saveFile, setSaveFile)
 {
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
@@ -55,7 +55,18 @@ function displayMarketItems(tab, saveFile)
                 <p className='market-item-name'>{element.name}</p>
                 <p className='market-item-description'>{element.description}</p>
                 <p className='market-item-price'>{element.price}$</p>
-                <button disabled={(element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}</button>
+                <button
+                    onClick={() => {
+                    console.log(saveFile);
+                    const newSave = {...saveFile, money: saveFile.money - element.price, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
+                    setSaveFile(newSave);
+                    localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
+                    document.getElementById("alert").classList.add("active");
+                    setTimeout(() => {
+                        document.getElementById("alert").classList.remove("active");
+                    }, 5000);
+                }} disabled={((tab === "cpu" && (element.hardwareId * 3 > saveFile.lvl || element.hardwareId <= saveFile.lastBought.cpu)) || (tab !== "cpu" && (element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId)) || element.price > saveFile.money) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId || (tab === "cpu" && element.hardwareId * 3 <= saveFile.lvl)) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}
+                </button>
             </div>
         )
     });
@@ -94,6 +105,9 @@ export function Desktop() {
 
     return (
         <div id='desktop'>
+            <div id='alert'>
+                <p>Item added to storage</p>
+            </div>
             <windowContext.Provider value={setWindow}>
                 <PauseMenu/>
             </windowContext.Provider>
@@ -310,7 +324,7 @@ export function Desktop() {
                         <p>{save.activeSaveFile.money}$</p>
                     </div>
                     <div id='market-items'>
-                        {displayMarketItems(marketTab, save.activeSaveFile)}
+                        {displayMarketItems(marketTab, save.activeSaveFile, save.setActiveSaveFile)}
                     </div>
                 </div>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>

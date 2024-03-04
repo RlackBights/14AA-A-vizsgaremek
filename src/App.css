@@ -1626,6 +1626,32 @@ Y88b  d88P  d8888888888 888   "   888 888
   border-color: gray;
 }
 
+#alert {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1vh 2vw 2.5vh 2vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 0.5vmin solid var(--accent-color);
+  border-top: none;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  z-index: 5;
+}
+
+#alert p {
+  margin: 0;
+  font-size: 4vmin;
+  color: var(--accent-color);
+}
+
+#alert.active {
+  animation: alert 5s;
+}
+
 /*
 888      .d88888b.        d8888 8888888b. 8888888 888b    888  .d8888b.  
 888     d88P" "Y88b      d88888 888  "Y88b  888   8888b   888 d88P  Y88b 
@@ -1823,6 +1849,12 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
   animation: slideUp 1s ease-in-out forwards;
 }
 
+@keyframes alert {
+  0% { top: -100% }
+  20% { top: 0 }
+  80% { top: 0 }
+  100% { top: -100% }
+}
 
 /*
 FONT: Colossal
