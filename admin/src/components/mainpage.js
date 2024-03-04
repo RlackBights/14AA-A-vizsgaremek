@@ -3,8 +3,11 @@ import { Login } from "./login";
 import { Statistics } from "./statistics";
 import { useContext } from "react";
 import { backend, userContext } from "../App";
+
+
 export function MainPage() {
 
+  if (window.location.href.includes("password-reset")) window.location.href = "/";
   const user = useContext(userContext);
 
   return (

@@ -54,7 +54,7 @@ export function LoginPage() {
           <input type="password" id="password-input"></input>
           <div id="button-container">
             <button
-              className="form-btn"
+              className="form-btn"w
               onClick={() => {
                 const usernameInput = document.getElementById("name-input");
                 const passwordInput = document.getElementById("password-input");

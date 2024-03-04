@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/password-reset",
-    element: <form onSubmit={() => alert("asd")}><button></button></form>
+    element: <MainPage />
   }
 ])
 
