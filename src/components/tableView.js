@@ -41,7 +41,17 @@ export function TableView() {
             }}>
 
             </div>
-            <div id='computer'>
+            <div id='computer' onClick={() => {
+                const room = document.getElementById("room");
+                const monitorClick = document.getElementById("monitor");
+                const computerClick = document.getElementById("computer");
+                monitorClick.style.display = "none";
+                computerClick.style.display = "none";
+                room.classList.add("pc-zoom");
+                setTimeout(() => {
+                    window.location.href = "/game/pcbuild";
+                }, 700);
+            }}>
 
             </div>
         </div>

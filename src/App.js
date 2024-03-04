@@ -6,6 +6,7 @@ import { MainMenu } from "./components/mainMenu";
 import { TableView } from "./components/tableView";
 import { parseSaves, saveFile } from "./components/saveFileManager";
 import { Desktop } from "./components/desktop";
+import { PCBuild } from "./components/pcBuild";
 
 // Block refresh
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/game/desktop",
     element: <Desktop />
+  },
+  {
+    path: "/game/pcbuild",
+    element: <PCBuild />
   },
   {
     path: "*",
