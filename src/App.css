@@ -1673,17 +1673,55 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 #pc-build {
   background-image: url('./assets/pcSide.png');
-  margin: 0;
-  padding: 0;
-  width: 101vw;
-  height: 101vh;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: 101vw 101vh;
+}
+
+#pc-build img {
+  width: 10vmin;
+  height: 10vmin;
 }
 
 .draggable-item {
-  width: 10vmin;
-  height: 10vmin;
+
+}
+
+.hold-item {
+  position: absolute;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.hardware-target {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 101vw 101vh;
+  filter: brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2) opacity(0.25);
+}
+
+#cpu-target {
+  background-image: url('./assets/cpuInside.png');
+}
+
+#gpu-target {
+  background-image: url('./assets/gpuInside.png');
+}
+
+#ram-target {
+  background-image: url('./assets/ramInside.png');
+}
+
+#stg-target {
+  background-image: url('./assets/hddInside.png');
 }
 
 /*

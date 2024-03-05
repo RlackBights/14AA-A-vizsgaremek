@@ -12,7 +12,6 @@ export default function PauseMenu() {
   const setWindow = useContext(windowContext);
 
   useEffect(() => {
-
     const keydownEvent = (e) => {
       if (e.key === "Escape") {
         let isPageActive = false;
