@@ -80,7 +80,7 @@ function updateFetch() {
   const object = new Object();
   for (let i = 0; i < inputFields.length; i++) {
     if (tableData[firstIndexOfTable + i].COLUMN_NAME.toLowerCase() === "lastmodified") continue;
-    object[tableData[firstIndexOfTable + i].COLUMN_NAME] = inputFields[i].value;
+    object[tableData[firstIndexOfTable + i].COLUMN_NAME] = (tableData[firstIndexOfTable + i].COLUMN_NAME.toLowerCase() !== "isadmin") ? inputFields[i].value : (inputFields[i].value === "on") ? 1 : 0;
   }
 
   console.log(object)

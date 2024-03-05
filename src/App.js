@@ -39,8 +39,8 @@ const router = createBrowserRouter([
 if (localStorage.getItem("userAuthCode") === null) localStorage.setItem("userAuthCode", "")
 if (localStorage.getItem("activeSaveFile") === null) localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile(-1)));
 if (localStorage.getItem("gameOptions") === null) localStorage.setItem("gameOptions", JSON.stringify({specialEffects: true}));
-//export const backend = 'https://backend-learnthebasics.koyeb.app';
-export const backend = 'http://localhost:8000';
+export const backend = 'https://backend-learnthebasics.koyeb.app';
+//export const backend = 'http://localhost:8000';
 
 // Contexts
 export const saveContext = createContext();

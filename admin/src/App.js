@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 import { AdminPage } from './components/adminpage';
 import PasswordReset from './components/PasswordReset';
 
-export const backend = "https://backend-learnthebasics.koyeb.app";
+export const backend = "http://localhost:8000";
 
 const router = createBrowserRouter([
   {

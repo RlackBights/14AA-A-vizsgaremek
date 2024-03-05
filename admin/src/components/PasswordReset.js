@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { userContext } from '../App';
+import { backend, userContext } from '../App';
 
 export default function PasswordReset() {
   const [newPassword, setNewPassword] = useState('');
@@ -14,7 +14,7 @@ export default function PasswordReset() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({token: resetToken}),
         }
-        const res = await fetch('http://localhost:8000/player/validateResetToken', fetchParams).then((res) => res.json());
+        const res = await fetch(backend + '/player/validateResetToken', fetchParams).then((res) => res.json());
         if (Object.keys(res).includes('error')) window.location.href = '/';
       }
 
@@ -40,7 +40,7 @@ export default function PasswordReset() {
             password: newPasswordInput.value,
             confirmPassword: confirmPasswordInput.value,
           })}
-        const response = await fetch('http://localhost:8000/player/resetPassword', fetchParams).then((res) => res.json());;
+        const response = await fetch(backend + '/player/resetPassword', fetchParams).then((res) => res.json());
         if (Object.keys(response).includes('error')) {
           alert(response.error);
         } else {
