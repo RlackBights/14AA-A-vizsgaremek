@@ -31,7 +31,7 @@ export function MainPage() {
         <ul className="navbar-items">
           <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
             <button className="navbar-links" style={{display: user.isAdmin ? "block" : "none"}} onClick={() => {
-              window.location.href = "/admin-page";
+              window.location.href = "/learnthebasics/admin-page";
             }}>Admin page</button>
           </li>
           <li>

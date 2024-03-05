@@ -204,7 +204,7 @@ function deleteFetch() {
       };
     
       fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-        if (res.data[0].isAdmin === false) window.location.href = "../";
+        if (res.data[0].isAdmin === false) window.location.href = "../learnthebasics";
       })
 
     }}>
@@ -228,7 +228,7 @@ function deleteFetch() {
           </li>
           <li>
             <button className="btn" onClick={() => {
-              window.location.href = "../";
+              window.location.href = "../learnthebasics";
             }}>Back</button>
           </li>
         </ul>

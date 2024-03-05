@@ -24,7 +24,9 @@ const router = createBrowserRouter([
     path: "/password-reset",
     element: <MainPage />
   }
-])
+], {
+  basename: "/learnthebasics"
+})
 
 if (localStorage.getItem("authToken") == null) localStorage.setItem("authToken", "");
 export const userContext = createContext();
