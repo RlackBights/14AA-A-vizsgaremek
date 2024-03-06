@@ -15,7 +15,7 @@ export default function PasswordReset() {
           body: JSON.stringify({token: resetToken}),
         }
         const res = await fetch(backend + '/player/validateResetToken', fetchParams).then((res) => res.json());
-        if (Object.keys(res).includes('error')) window.location.href = '/';
+        if (Object.keys(res).includes('error')) window.location.href = '/learnthebasics';
       }
 
       fetchData();

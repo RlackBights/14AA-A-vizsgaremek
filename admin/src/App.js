@@ -1,11 +1,11 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MainPage } from './components/mainpage';
+import { MainPage } from './components/mainPage';
 import { createContext, useState } from 'react';
-import { AdminPage } from './components/adminpage';
-import PasswordReset from './components/PasswordReset';
+import { AdminPage } from './components/adminPage';
+import PasswordReset from './components/passwordReset';
 
-export const backend = "http://localhost:8000";
+export const backend = "https://backend-learnthebasics.koyeb.app";
 
 const router = createBrowserRouter([
   {
@@ -17,12 +17,12 @@ const router = createBrowserRouter([
     element: <AdminPage/>
   },
   {
-    path: "/password-reset/:resetToken",
-    element: <PasswordReset/>
-  },
-  {
     path: "/password-reset",
     element: <MainPage />
+  },
+  {
+    path: "/password-reset/*",
+    element: <PasswordReset/>
   }
 ], {
   basename: "/learnthebasics"

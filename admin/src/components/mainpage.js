@@ -1,31 +1,33 @@
 import "../App.css";
 import { Login } from "./login";
 import { Statistics } from "./statistics";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { backend, userContext } from "../App";
 
 
 export function MainPage() {
 
-  if (window.location.href.includes("password-reset")) window.location.href = "/";
+  if (window.location.href.includes("password-reset")) window.location.href = "/learnthebasics";
   const user = useContext(userContext);
 
-  return (
-    <div id="mainpage" onLoad={() => {
-      if (user.authToken === "") return;
+  useEffect(() => {
+    if (user.authToken === "") return;
       
-      let fetchParams = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          authCode: user.authToken
-        }),
-      };
-    
-      fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-          user.setIsAdmin(res.data[0].isAdmin);
-      });
-    }}>
+    let fetchParams = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        authCode: user.authToken
+      }),
+    };
+  
+    fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
+        user.setIsAdmin(res.data[0].isAdmin);
+    });
+  })
+
+  return (
+    <div id="mainpage">
       <div className="navbar">
         <img className="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=""></img>
         <ul className="navbar-items">
