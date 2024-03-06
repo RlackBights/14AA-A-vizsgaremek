@@ -23,6 +23,21 @@ export function TableView() {
                 room.classList.remove("monitor-leave");
             }, 1000);
         }
+
+        if (new URLSearchParams(window.location.search).get("return") === "pc") 
+        {
+            const room = document.getElementById("room");
+            const monitorClick = document.getElementById("monitor");
+            const computerClick = document.getElementById("computer");
+            monitorClick.style.display = "none";
+            computerClick.style.display = "none";
+            room.classList.add("pc-leave");
+            setTimeout(() => {
+                monitorClick.style.display = "block";
+                computerClick.style.display = "block";
+                room.classList.remove("pc-leave");
+            }, 1000);
+        }
     }, [])
 
     return (

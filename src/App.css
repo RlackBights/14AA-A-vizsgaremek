@@ -1112,7 +1112,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   animation: pc-zoom linear 1s forwards;
 }
 
-#toom.pc-leave {
+#room.pc-leave {
   animation: pc-zoom linear 1s forwards reverse;
 }
 
@@ -1735,6 +1735,88 @@ Y88b  d88P  d8888888888 888   "   888 888
   height: 18.52vh;
   top: 64.4vh;
   left: 59.4vw;
+}
+
+#pc-back {
+  background: rgba(0, 0, 0, 0.6);
+  border: 0.5vmin solid var(--theme-color);
+  position: absolute;
+  top: 1vmin;
+  right: 1vmin;
+  border-radius: 1rem;
+  margin: 0;
+  padding: 1.5vmin 4vmin;
+  text-align: center;
+  font-family: "Pixel Font";
+  font-weight: 100;
+  font-size: 3.5vmin;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+}
+
+#pc-back:hover {
+  font-size: 4vmin;
+  color: var(--theme-color);
+}
+
+#inventory-icon {
+  margin: 1vmin;
+  cursor: pointer;
+  width: 7vmin !important;
+  height: 7vmin !important;
+  border: 0.75vmin solid var(--theme-color);
+  padding: 0.25vmin;
+  border-radius: 1rem;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: 0.25s all;
+}
+
+#inventory-icon:hover {
+  width: 8vmin !important;
+  height: 8vmin !important;
+}
+
+#inventory-contents {
+  position: absolute;
+  width: 70%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1vmin solid var(--theme-color);
+  border-radius: 1rem;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#inventory-contents > ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style-type: none;
+  border-bottom: 1vmin solid var(--theme-color);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#inventory-contents > ul > li {
+  color: var(--accent-color);
+  font-size: 2.75vmin;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+#inventory-contents > ul > li:not(:last-of-type) {
+  border-right: 1vmin solid var(--theme-color);
 }
 
 /*
