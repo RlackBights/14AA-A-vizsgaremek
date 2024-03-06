@@ -3,13 +3,13 @@ import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
 import { windowContext } from './desktop';
-
-
+import { inventoryContext } from './pcBuild';
 
 export default function PauseMenu() {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
   const setWindow = useContext(windowContext);
+  const setInventoryPage = useContext(inventoryContext);
 
   useEffect(() => {
     const keydownEvent = (e) => {
@@ -23,7 +23,14 @@ export default function PauseMenu() {
             isPageActive = true;
           });
         }
-        
+
+        let hasInventory = (document.getElementById('inventory-contents') !== null && document.getElementById('inventory-contents').style.display === "flex");
+        if (hasInventory)
+        {
+          setInventoryPage("");
+          isPageActive = true;
+        }
+
         const pauseMenu = document.getElementById('pause-menu');
         if (pauseMenu.getAttribute("locked") === "true") return;
         if (hasWindows) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import cpu from "../assets/cpu.png";
 import gpu from "../assets/gpu.png";
 import ram from "../assets/ram.png";
@@ -8,12 +8,43 @@ import PauseMenu from "./pauseMenu";
 import { useContext } from "react";
 import { saveContext } from "../App";
 
+/*
+<img className={`draggable-item ${page}-hardware`} key={`${page}${i}`} hardware={page} draggable={false} src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]} alt=""/>
+
+<img className="draggable-item gpu-hardware" hardware={"gpu"} draggable={false} src={gpu} alt=""/>
+<img className="draggable-item ram-hardware" hardware={"ram"} draggable={false} src={ram} alt=""/>
+<img className="draggable-item stg-hardware" hardware={"stg"} draggable={false} src={stg} alt=""/>
+*/
+
 function inventoryItems(lastBought, page)
 {
+    if (page === "") return [];
     let output = []
 
-    console.log(lastBought);
-
+    console.log(lastBought[page])
+    const availableHardware = JSON.parse(localStorage.getItem("availableHardware"));
+    for (let i = 0; i < lastBought[page] + 1; i++) {
+        output.push(
+            <div className="inventory-item" onClick={(e) => {
+                // <img className={`draggable-item ${page}-hardware`} key={`${page}${i}`} hardware={page} draggable={false} src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]} alt=""/>
+                //console.log({hardwareType: page, hardwareTier: i});
+                const img = document.createElement('img');
+                img.className = `draggable-item ${page}-hardware`;
+                img.setAttribute("key", `${page}${i}`);
+                img.setAttribute("hardware", page);
+                img.draggable = false;
+                img.src = {cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page];
+                img.alt = "";
+                document.getElementById("pc-build").appendChild(img);
+            }}>
+                <img src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
+                <p className="inventory-company-name">{availableHardware[page][i].company}</p>
+                <p className="inventory-hardware-name">{availableHardware[page][i].name}</p>
+                <p className="inventory-hardware-desc">{availableHardware[page][i].description}</p>
+                <button className="inventory-button">Add component</button>
+            </div>
+        )
+    }
     return output;
 }
 
@@ -24,6 +55,8 @@ function checkMouseInside(width, height, top, left, mouseX, mouseY)
     if (mouseY < top || mouseY > top + height) return false;
     return true;
 }
+
+export const inventoryContext = createContext();
 
 export function PCBuild() {
     const save = useContext(saveContext);
@@ -68,6 +101,7 @@ export function PCBuild() {
                 e.target.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
                 const hardwareTarget = document.getElementById(`${e.target.classList[1].split('-')[0]}-target`);
                 hardwareTarget.style.display = "block";
+                setInventoryPage("");
             }
         }
 
@@ -80,10 +114,12 @@ export function PCBuild() {
     })
     return (
         <div id="pc-build">
-            <PauseMenu />
+            <inventoryContext.Provider value={setInventoryPage}>
+                <PauseMenu />
+            </inventoryContext.Provider>
             <button id="pc-back" onClick={() => {
                 window.location.href = "/game/tableView?return=pc";
-            }}>Back</button>
+            }}>Desktop</button>
             <div id="target-container">
                 <div id="cpu-target" className="hardware-target" style={{display: "none"}}></div>
                 <div id="gpu-target" className="hardware-target" style={{display: "none"}}></div>
@@ -91,26 +127,28 @@ export function PCBuild() {
                 <div id="stg-target" className="hardware-target" style={{display: "none"}}></div>
             </div>
             <img id="inventory-icon" src={inventoryIcon} onClick={() => {
-                const inventory = document.getElementById("inventory-contents");
                 setInventoryPage(x => (x !== "") ? "" : "cpu");
             }}/>
             <div id="inventory-contents" style={{display: (inventoryPage !== "") ? "flex" : "none"}}>
                 <ul>
-                    <li>Processors</li>
-                    <li>Graphics Cards</li>
-                    <li>Memory</li>
-                    <li>Storage</li>
+                    <li onClick={() => {
+                        setInventoryPage("cpu");
+                    }}>Processors</li>
+                    <li onClick={() => {
+                        setInventoryPage("gpu");
+                    }}>Graphics Cards</li>
+                    <li onClick={() => {
+                        setInventoryPage("ram");
+                    }}>Memory</li>
+                    <li onClick={() => {
+                        setInventoryPage("stg");
+                    }}>Storage</li>
                 </ul>
-                {inventoryItems(save.activeSaveFile.lastBought, inventoryPage)}
+                <div id="inventory-item-container">
+                    {inventoryItems(save.activeSaveFile.lastBought, inventoryPage)}
+                </div>
             </div>
             
         </div>
     )
 }
-
-/*
-<img className="draggable-item cpu-hardware" hardware={"cpu"} draggable={false} src={cpu} alt=""/>
-<img className="draggable-item gpu-hardware" hardware={"gpu"} draggable={false} src={gpu} alt=""/>
-<img className="draggable-item ram-hardware" hardware={"ram"} draggable={false} src={ram} alt=""/>
-<img className="draggable-item stg-hardware" hardware={"stg"} draggable={false} src={stg} alt=""/>
-*/

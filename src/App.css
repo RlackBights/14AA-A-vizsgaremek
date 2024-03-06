@@ -1686,12 +1686,14 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .draggable-item {
-  z-index: 30;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  transform: translateY(-50%) translateX(-50%);
 }
 
 .hold-item {
   position: absolute;
-  transform: translateY(-50%) translateX(-50%);
 }
 
 .hardware-target {
@@ -1735,6 +1737,30 @@ Y88b  d88P  d8888888888 888   "   888 888
   height: 18.52vh;
   top: 64.4vh;
   left: 59.4vw;
+}
+
+.cpu-hardware {
+  width: 15vmin !important;
+  height: 15vmin !important;
+}
+
+.gpu-hardware {
+  width: 72vmin !important;
+  height: 72vmin !important;
+  bottom: -50%;
+  left: 20%;
+}
+
+.ram-hardware {
+  width: 28vmin !important;
+  height: 28vmin !important;
+  left: 10%;
+}
+
+.stg-hardware {
+  width: 35vmin !important;
+  height: 35vmin !important;
+  left: 10%;
 }
 
 #pc-back {
@@ -1787,6 +1813,10 @@ Y88b  d88P  d8888888888 888   "   888 888
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
 }
 
 #inventory-contents > ul {
@@ -1809,14 +1839,96 @@ Y88b  d88P  d8888888888 888   "   888 888
   color: var(--accent-color);
   font-size: 2.75vmin;
   margin: 0;
-  padding: 0;
+  padding: 1.75vh 0;
   text-align: center;
   width: 100%;
-  height: 100%;
+  height: 50%;
+  transition: 0.25s all;
+  cursor: pointer;
+}
+
+#inventory-contents > ul > li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 #inventory-contents > ul > li:not(:last-of-type) {
   border-right: 1vmin solid var(--theme-color);
+}
+
+#inventory-item-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding: 2vmin;
+  overflow-y: scroll;
+  gap: 1.75vmin;
+}
+
+#inventory-item-container::-webkit-scrollbar {
+  display: none;
+}
+
+.inventory-item {
+  background-color: #782b52c5;
+  width: 23%;
+  height: 43vh;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  border: 0.5vmin solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: 1rem;
+}
+
+.inventory-item p {
+  margin: 1vmin 0;
+  text-align: center;
+}
+
+.inventory-item img {
+  width: 18vmin !important;
+  height: 18vmin !important;
+}
+
+.inventory-company-name {
+  font-style: italic;
+  color: gray;
+  margin: 0 !important;
+}
+
+.inventory-hardware-name {
+  font-weight: bold;
+  font-size: 2.25vmin;
+}
+
+.inventory-hardware-desc {
+  font-style: italic;
+}
+
+.inventory-button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 0.5vmin solid var(--theme-color);
+  border-radius: 1rem;
+  margin: 0;
+  padding: 1vmin 1.25vmin;
+  text-align: center;
+  font-family: "Pixel Font";
+  font-weight: 100;
+  font-size: 1.75vmin;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+  margin-bottom: 1vmin;
+}
+
+.inventory-button:hover {
+  color: var(--theme-color);
 }
 
 /*
