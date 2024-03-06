@@ -1686,7 +1686,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .draggable-item {
-
+  z-index: 30;
 }
 
 .hold-item {
@@ -1697,31 +1697,44 @@ Y88b  d88P  d8888888888 888   "   888 888
 .hardware-target {
   position: absolute;
   display: block;
-  top: 0;
-  left: 0;
   pointer-events: none;
   width: 100vw;
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 101vw 101vh;
   filter: brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2) opacity(0.25);
 }
 
 #cpu-target {
   background-image: url('./assets/cpuInside.png');
+  width: 15.625vw;
+  height: 27.78vh;
+  top: 17.6vh;
+  left: 37vw;
 }
 
 #gpu-target {
   background-image: url('./assets/gpuInside.png');
+  width: 39.06vw;
+  height: 23.15vh;
+  top: 46.2vh;
+  left: 31vw;
 }
 
 #ram-target {
   background-image: url('./assets/ramInside.png');
+  width: 5.21vw;
+  height: 29.63vh;
+  top: 17vh;
+  left: 52.4vw;
 }
 
 #stg-target {
   background-image: url('./assets/hddInside.png');
+  width: 15.625vw;
+  height: 18.52vh;
+  top: 64.4vh;
+  left: 59.4vw;
 }
 
 /*

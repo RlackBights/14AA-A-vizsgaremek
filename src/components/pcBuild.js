@@ -12,8 +12,8 @@ export function PCBuild() {
     useEffect(() => {
         const mousemoveEvent = (e) => {
             if (attachedImage === undefined) return;
-            attachedImage.style.top = `${(e.screenY / window.innerHeight) * 100}vh`;
-            attachedImage.style.left = `${(e.screenX / window.innerWidth) * 100}vw`;
+            attachedImage.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
+            attachedImage.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
 
         }
 
@@ -28,8 +28,8 @@ export function PCBuild() {
             {
                 e.target.classList.add("hold-item");
                 setAttachedImage(e.target);
-                e.target.style.top = `${(e.screenY / window.innerHeight) * 100}vh`;
-                e.target.style.left = `${(e.screenX / window.innerWidth) * 100}vw`;
+                e.target.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
+                e.target.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
             }
         }
 
