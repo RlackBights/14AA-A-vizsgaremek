@@ -48,24 +48,29 @@ function displayMarketItems(tab, saveFile, setSaveFile)
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
     hardwareItems[tab].forEach((element) => {
+        let finalPrice = element.price;
+        for (let i = hardwareItems[tab].length - 1; i >= 0; i--) {
+            if (saveFile.lastBought[tab] >= i || element.hardwareId <= i) continue;
+            finalPrice += hardwareItems[tab][i].price;
+        }
         output.push(
             <div key={`${element.hardwareId}`} className='market-item'>
                 <img alt='' src={images[tab]}></img>
                 <p className='market-item-company'>{element.company}</p>
                 <p className='market-item-name'>{element.name}</p>
                 <p className='market-item-description'>{element.description}</p>
-                <p className='market-item-price'>{element.price}$</p>
+                <p className='market-item-price'>{finalPrice}$</p>
                 <button
                     onClick={() => {
                     console.log(saveFile);
-                    const newSave = {...saveFile, money: saveFile.money - element.price, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
+                    const newSave = {...saveFile, money: saveFile.money - finalPrice, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
                     setSaveFile(newSave);
                     localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
                     document.getElementById("alert").classList.add("active");
                     setTimeout(() => {
                         document.getElementById("alert").classList.remove("active");
                     }, 5000);
-                }} disabled={((tab === "cpu" && (element.hardwareId * 3 > saveFile.lvl || element.hardwareId <= saveFile.lastBought.cpu)) || (tab !== "cpu" && (element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId)) || element.price > saveFile.money) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId || (tab === "cpu" && element.hardwareId * 3 <= saveFile.lvl)) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}
+                }} disabled={((tab === "cpu" && (element.hardwareId * 3 > saveFile.lvl || element.hardwareId <= saveFile.lastBought.cpu)) || (tab !== "cpu" && (element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId)) || finalPrice > saveFile.money) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId || (tab === "cpu" && element.hardwareId * 3 <= saveFile.lvl)) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}
                 </button>
             </div>
         )

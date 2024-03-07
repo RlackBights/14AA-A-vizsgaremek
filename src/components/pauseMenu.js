@@ -78,10 +78,9 @@ export default function PauseMenu() {
             const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
-          console.log(sendSave);
-          //updateSave(user.currUser, sendSave).then((res) => {
-          //  window.location.href = "../../";
-          //});
+          updateSave(user.currUser, sendSave).then((res) => {
+            window.location.href = "../../";
+          });
         }}>Save and Quit</button>
     </div>
   )
