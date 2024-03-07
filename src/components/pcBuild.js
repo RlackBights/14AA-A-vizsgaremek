@@ -40,7 +40,7 @@ function inventoryItems(lastBought, page, save)
     for (let i = 0; i < lastBought[page] + 1; i++) {
         output.push(
             <div className="inventory-item" key={`inventory-${page}${i}`}>
-                <img alt="" src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
+                <img draggable={false} alt="" src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
                 <p className="inventory-company-name">{availableHardware[page][i].company}</p>
                 <p className="inventory-hardware-name">{availableHardware[page][i].name}</p>
                 <p className="inventory-hardware-desc">{availableHardware[page][i].description}</p>

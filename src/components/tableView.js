@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import { userContext } from '../App'
+import { saveContext, userContext } from '../App'
 import PauseMenu from './pauseMenu';
 import { useEffect } from 'react';
 
 export function TableView() {
     const user = useContext(userContext);
+    const save = useContext(saveContext);
     if (localStorage.getItem("userAuthCode") === "" || user.currUser === "") window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     useEffect(() => {
         if (new URLSearchParams(window.location.search).get("return") === "monitor") 
@@ -42,6 +43,7 @@ export function TableView() {
         <div id='room'>
             <PauseMenu/>
             <div id='monitor' onClick={() => {
+                if([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1)) return;
                 const room = document.getElementById("room");
                 const monitorClick = document.getElementById("monitor");
                 const computerClick = document.getElementById("computer");

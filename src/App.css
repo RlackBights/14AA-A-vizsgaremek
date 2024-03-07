@@ -813,12 +813,12 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   border-color: var(--theme-color);
 }
 
-.right {
+.arrow-right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
 }
 
-.left {
+.arrow-left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
@@ -1659,6 +1659,15 @@ Y88b  d88P  d8888888888 888   "   888 888
 #alert.active {
   animation: alert 5s;
 }
+
+.code-editor {
+  position: absolute;
+  top: 6.5vh;
+  right: 0;
+  height: 87vh;
+  width: 90% !important;
+}
+
 
 /*
 8888888b.   .d8888b.       888888b.   888     888 8888888 888      8888888b.  
