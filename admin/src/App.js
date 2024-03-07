@@ -2,8 +2,8 @@ import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { MainPage } from './components/mainPage';
 import { createContext, useState } from 'react';
-import { AdminPage } from './components/adminPage';
 import PasswordReset from './components/passwordReset';
+import { AdminPage } from './components/adminpage';
 
 export const backend = "https://backend-learnthebasics.koyeb.app";
 
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin-page",
-    element: <AdminPage/>
+    element: <AdminPage />
   },
   {
     path: "/password-reset",

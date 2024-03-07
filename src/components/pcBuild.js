@@ -19,6 +19,7 @@ import { saveContext } from "../App";
 function generateDraggableItem(page, i)
 {
     const img = document.createElement('img');
+    img.id = `hardware-${page}${i}`;
     img.className = `draggable-item ${page}-hardware`;
     img.setAttribute("key", `${page}${i}`);
     img.setAttribute("hardware", page);
@@ -30,7 +31,7 @@ function generateDraggableItem(page, i)
     return img;
 }
 
-function inventoryItems(lastBought, page)
+function inventoryItems(lastBought, page, save)
 {
     if (page === "") return [];
     let output = []
@@ -38,12 +39,12 @@ function inventoryItems(lastBought, page)
     const availableHardware = JSON.parse(localStorage.getItem("availableHardware"));
     for (let i = 0; i < lastBought[page] + 1; i++) {
         output.push(
-            <div className="inventory-item" key={`market-${page}${i}`}>
-                <img src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
+            <div className="inventory-item" key={`inventory-${page}${i}`}>
+                <img alt="" src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
                 <p className="inventory-company-name">{availableHardware[page][i].company}</p>
                 <p className="inventory-hardware-name">{availableHardware[page][i].name}</p>
                 <p className="inventory-hardware-desc">{availableHardware[page][i].description}</p>
-                <button onClick={() => {generateDraggableItem(page, i)}} className="inventory-button">Add component</button>
+                <button onClick={(e) => {generateDraggableItem(page, i); e.target.disabled = true}} disabled={(document.getElementById(`hardware-${page}${i}`) !== null || save[`${page}Id`] === i)} className="inventory-button">Add component</button>
             </div>
         )
     }
@@ -64,6 +65,7 @@ export function PCBuild() {
     const save = useContext(saveContext);
     const [inventoryPage, setInventoryPage] = useState("");
     useEffect(() => {
+        console.log(save.activeSaveFile);
         const mousemoveEvent = (e) => {
             const attachedImage = (document.querySelector(".hold-item") !== null) ? document.querySelector(".hold-item") : undefined;
             if (attachedImage === undefined) return;
@@ -77,7 +79,9 @@ export function PCBuild() {
             }
             const inventoryIcon = document.getElementById('inventory-icon');
             if (checkMouseInside(inventoryIcon.clientWidth, inventoryIcon.clientHeight, inventoryIcon.offsetTop, inventoryIcon.offsetLeft, e.clientX, e.clientY)) {
-                console.log("over inventory icon");
+                attachedImage.style.filter = "brightness(0.5) opacity(0.5) saturate(2)";
+            } else {
+                attachedImage.style.filter = "";
             }
             attachedImage.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
             attachedImage.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
@@ -91,11 +95,16 @@ export function PCBuild() {
             if (hardwareTarget !== null && hardwareTarget.getAttribute("placedtier") === "-1") {
                 if (checkMouseInside(hardwareTarget.clientWidth, hardwareTarget.clientHeight, hardwareTarget.offsetTop, hardwareTarget.offsetLeft, e.clientX, e.clientY)) {
                     attachedImage.parentElement.removeChild(attachedImage);
-                    hardwareTarget.style.filter = "opacity(1)";
-                    hardwareTarget.setAttribute("placedtier", attachedImage.getAttribute("tier"));
+                    save.setActiveSaveFile(activeSaveFile => ({...activeSaveFile, [`${attachedImage.getAttribute("hardware")}Id`]: parseInt(attachedImage.getAttribute("tier"))}));
                 } else {
                     hardwareTarget.style.display = "none";
+                    save.setActiveSaveFile(activeSaveFile => ({...activeSaveFile, [`${attachedImage.getAttribute("hardware")}Id`]: -1}));
                 }
+            }
+            
+            const inventoryIcon = document.getElementById('inventory-icon');
+            if (checkMouseInside(inventoryIcon.clientWidth, inventoryIcon.clientHeight, inventoryIcon.offsetTop, inventoryIcon.offsetLeft, e.clientX, e.clientY)) {
+                attachedImage.parentElement.removeChild(attachedImage);
             }
             e.target.classList.remove("hold-item");
         }
@@ -116,8 +125,7 @@ export function PCBuild() {
             } else if (e.target.classList.contains("hardware-target"))
             {
                 e.target.style.display = "none";
-                console.log(document.getElementById("pc-build").querySelector(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedtier")}\"]`));
-                if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedtier")}\"]`).length === 0)
+                if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier="${e.target.getAttribute("placedtier")}"]`).length === 0)
                 {
                     if (e.target.getAttribute("placedtier") === "-1") return;
                     const img = generateDraggableItem(e.target.id.split('-')[0], e.target.getAttribute("placedtier"));
@@ -125,7 +133,7 @@ export function PCBuild() {
                     img.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
                     img.classList.add('hold-item');
                 }
-                e.target.setAttribute("placedtier", -1);
+                save.setActiveSaveFile(activeSaveFile => ({...activeSaveFile, [`${e.target.id.split('-')[0]}Id`]: -1}));
             }
         }
 
@@ -135,22 +143,23 @@ export function PCBuild() {
         document.body.addEventListener('mousedown', mousedownEvent);
         document.body.addEventListener('mousemove', mousemoveEvent);
         document.body.addEventListener('mouseup', mouseupEvent);
-    })
+    });
     return (
         <div id="pc-build">
             <inventoryContext.Provider value={setInventoryPage}>
                 <PauseMenu />
             </inventoryContext.Provider>
             <button id="pc-back" onClick={() => {
+                localStorage.setItem("activeSaveFile", JSON.stringify({...save.activeSaveFile, cpuId: save.activeSaveFile.cpuId, gpuId: save.activeSaveFile.gpuId, ramId: save.activeSaveFile.ramId, stgId: save.activeSaveFile.stgId}));
                 window.location.href = "/game/tableView?return=pc";
             }}>Desktop</button>
             <div id="target-container">
-                <div id="cpu-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
-                <div id="gpu-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
-                <div id="ram-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
-                <div id="stg-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
+                <div id="cpu-target" className="hardware-target" placedtier={save.activeSaveFile.cpuId}></div>
+                <div id="gpu-target" className="hardware-target" placedtier={save.activeSaveFile.gpuId}></div>
+                <div id="ram-target" className="hardware-target" placedtier={save.activeSaveFile.ramId}></div>
+                <div id="stg-target" className="hardware-target" placedtier={save.activeSaveFile.stgId}></div>
             </div>
-            <img id="inventory-icon" src={inventoryIcon} onClick={() => {
+            <img alt="" id="inventory-icon" src={inventoryIcon} onClick={() => {
                 setInventoryPage(x => (x !== "") ? "" : "cpu");
             }}/>
             <div id="inventory-contents" style={{display: (inventoryPage !== "") ? "flex" : "none"}}>
@@ -169,7 +178,7 @@ export function PCBuild() {
                     }}>Storage</li>
                 </ul>
                 <div id="inventory-item-container">
-                    {inventoryItems(save.activeSaveFile.lastBought, inventoryPage)}
+                    {inventoryItems(save.activeSaveFile.lastBought, inventoryPage, save.activeSaveFile)}
                 </div>
             </div>
             

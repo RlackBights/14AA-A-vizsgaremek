@@ -1698,12 +1698,18 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 .hardware-target {
   position: absolute;
-  display: block;
+  display: none;
   width: 100vw;
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
-  filter: brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2) opacity(0.25);
+  filter: brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2);
+}
+
+.hardware-target:not([placedtier="-1"])
+{
+  display: block;
+  filter: none !important;
 }
 
 #cpu-target {
@@ -1928,6 +1934,12 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 .inventory-button:hover {
   color: var(--theme-color);
+}
+
+.inventory-button:disabled, .inventory-button:disabled:hover {
+  cursor: default;
+  border-color: gray;
+  color: gray;
 }
 
 /*

@@ -54,7 +54,7 @@ export default function PauseMenu() {
 
     document.body.addEventListener('keydown', keydownEvent);
     document.body.addEventListener('keyup', keyupEvent);
-  }, [])
+  })
 
   return (
     <div id='pause-menu' style={{display: 'none'}}>
@@ -71,12 +71,17 @@ export default function PauseMenu() {
 
         }}>Options</button>
         <button className='pause-button' onClick={() => {
-          const sendSave = saves.activeSaveFile;
+          let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
+          if (localStorage.getItem("activeHardwareItems") !== null)
+          {
+            const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
+            sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
+          }
           console.log(sendSave);
-          updateSave(user.currUser, sendSave).then((res) => {
-            window.location.href = "../../";
-          });
+          //updateSave(user.currUser, sendSave).then((res) => {
+          //  window.location.href = "../../";
+          //});
         }}>Save and Quit</button>
     </div>
   )
