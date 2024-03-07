@@ -16,32 +16,34 @@ import { saveContext } from "../App";
 <img className="draggable-item stg-hardware" hardware={"stg"} draggable={false} src={stg} alt=""/>
 */
 
+function generateDraggableItem(page, i)
+{
+    const img = document.createElement('img');
+    img.className = `draggable-item ${page}-hardware`;
+    img.setAttribute("key", `${page}${i}`);
+    img.setAttribute("hardware", page);
+    img.setAttribute("tier", i);
+    img.draggable = false;
+    img.src = {cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page];
+    img.alt = "";
+    document.getElementById("pc-build").appendChild(img);
+    return img;
+}
+
 function inventoryItems(lastBought, page)
 {
     if (page === "") return [];
     let output = []
 
-    console.log(lastBought[page])
     const availableHardware = JSON.parse(localStorage.getItem("availableHardware"));
     for (let i = 0; i < lastBought[page] + 1; i++) {
         output.push(
-            <div className="inventory-item" onClick={(e) => {
-                // <img className={`draggable-item ${page}-hardware`} key={`${page}${i}`} hardware={page} draggable={false} src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]} alt=""/>
-                //console.log({hardwareType: page, hardwareTier: i});
-                const img = document.createElement('img');
-                img.className = `draggable-item ${page}-hardware`;
-                img.setAttribute("key", `${page}${i}`);
-                img.setAttribute("hardware", page);
-                img.draggable = false;
-                img.src = {cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page];
-                img.alt = "";
-                document.getElementById("pc-build").appendChild(img);
-            }}>
+            <div className="inventory-item">
                 <img src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
                 <p className="inventory-company-name">{availableHardware[page][i].company}</p>
                 <p className="inventory-hardware-name">{availableHardware[page][i].name}</p>
                 <p className="inventory-hardware-desc">{availableHardware[page][i].description}</p>
-                <button className="inventory-button">Add component</button>
+                <button onClick={() => {generateDraggableItem(page, i)}} className="inventory-button">Add component</button>
             </div>
         )
     }
@@ -84,7 +86,7 @@ export function PCBuild() {
             const hardwareTarget = document.getElementById(`${attachedImage.getAttribute("hardware")}-target`);
             if (hardwareTarget !== null) {
                 if (checkMouseInside(hardwareTarget.clientWidth, hardwareTarget.clientHeight, hardwareTarget.offsetTop, hardwareTarget.offsetLeft, e.clientX, e.clientY)) {
-                    attachedImage.style.display = "none";
+                    attachedImage.parentElement.removeChild(attachedImage);
                     hardwareTarget.style.filter = "opacity(1)";
                 } else {
                     hardwareTarget.style.display = "none";
@@ -102,6 +104,17 @@ export function PCBuild() {
                 const hardwareTarget = document.getElementById(`${e.target.classList[1].split('-')[0]}-target`);
                 hardwareTarget.style.display = "block";
                 setInventoryPage("");
+            } else if (e.target.classList.contains("hardware-target"))
+            {
+                e.target.style.display = "none";
+                console.log(document.getElementById("pc-build").querySelector(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedTier")}\"]`));
+                if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedTier")}\"]`).length === 0)
+                {
+                    const img = generateDraggableItem(e.target.id.split('-')[0], e.target.getAttribute("placedTier"));
+                    img.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
+                    img.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
+                    img.classList.add('hold-item');
+                }
             }
         }
 
@@ -121,10 +134,10 @@ export function PCBuild() {
                 window.location.href = "/game/tableView?return=pc";
             }}>Desktop</button>
             <div id="target-container">
-                <div id="cpu-target" className="hardware-target" style={{display: "none"}}></div>
-                <div id="gpu-target" className="hardware-target" style={{display: "none"}}></div>
-                <div id="ram-target" className="hardware-target" style={{display: "none"}}></div>
-                <div id="stg-target" className="hardware-target" style={{display: "none"}}></div>
+                <div id="cpu-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
+                <div id="gpu-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
+                <div id="ram-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
+                <div id="stg-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
             </div>
             <img id="inventory-icon" src={inventoryIcon} onClick={() => {
                 setInventoryPage(x => (x !== "") ? "" : "cpu");

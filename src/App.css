@@ -1699,7 +1699,6 @@ Y88b  d88P  d8888888888 888   "   888 888
 .hardware-target {
   position: absolute;
   display: block;
-  pointer-events: none;
   width: 100vw;
   height: 100vh;
   background-position: center;
