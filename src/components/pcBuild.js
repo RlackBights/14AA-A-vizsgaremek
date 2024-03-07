@@ -38,7 +38,7 @@ function inventoryItems(lastBought, page)
     const availableHardware = JSON.parse(localStorage.getItem("availableHardware"));
     for (let i = 0; i < lastBought[page] + 1; i++) {
         output.push(
-            <div className="inventory-item">
+            <div className="inventory-item" key={`market-${page}${i}`}>
                 <img src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]}/>
                 <p className="inventory-company-name">{availableHardware[page][i].company}</p>
                 <p className="inventory-hardware-name">{availableHardware[page][i].name}</p>
@@ -68,12 +68,16 @@ export function PCBuild() {
             const attachedImage = (document.querySelector(".hold-item") !== null) ? document.querySelector(".hold-item") : undefined;
             if (attachedImage === undefined) return;
             const hardwareTarget = document.getElementById(`${attachedImage.getAttribute("hardware")}-target`);
-            if (hardwareTarget !== null) {
+            if (hardwareTarget !== null && hardwareTarget.getAttribute("placedtier") === "-1") {
                 if (checkMouseInside(hardwareTarget.clientWidth, hardwareTarget.clientHeight, hardwareTarget.offsetTop, hardwareTarget.offsetLeft, e.clientX, e.clientY)) {
                     hardwareTarget.style.filter = "brightness(0) invert(0.5) sepia(1) hue-rotate(80deg) saturate(2) opacity(0.25)";
                 } else {
                     hardwareTarget.style.filter = "brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2) opacity(0.25)";
                 }
+            }
+            const inventoryIcon = document.getElementById('inventory-icon');
+            if (checkMouseInside(inventoryIcon.clientWidth, inventoryIcon.clientHeight, inventoryIcon.offsetTop, inventoryIcon.offsetLeft, e.clientX, e.clientY)) {
+                console.log("over inventory icon");
             }
             attachedImage.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
             attachedImage.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
@@ -84,10 +88,11 @@ export function PCBuild() {
             const attachedImage = (document.querySelector(".hold-item") !== null) ? document.querySelector(".hold-item") : undefined;
             if (attachedImage === undefined) return;
             const hardwareTarget = document.getElementById(`${attachedImage.getAttribute("hardware")}-target`);
-            if (hardwareTarget !== null) {
+            if (hardwareTarget !== null && hardwareTarget.getAttribute("placedtier") === "-1") {
                 if (checkMouseInside(hardwareTarget.clientWidth, hardwareTarget.clientHeight, hardwareTarget.offsetTop, hardwareTarget.offsetLeft, e.clientX, e.clientY)) {
                     attachedImage.parentElement.removeChild(attachedImage);
                     hardwareTarget.style.filter = "opacity(1)";
+                    hardwareTarget.setAttribute("placedtier", attachedImage.getAttribute("tier"));
                 } else {
                     hardwareTarget.style.display = "none";
                 }
@@ -101,20 +106,26 @@ export function PCBuild() {
                 e.target.classList.add("hold-item");
                 e.target.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
                 e.target.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
+                
                 const hardwareTarget = document.getElementById(`${e.target.classList[1].split('-')[0]}-target`);
-                hardwareTarget.style.display = "block";
+                if (hardwareTarget.getAttribute("placedtier") === "-1")
+                {
+                    hardwareTarget.style.display = "block";
+                }
                 setInventoryPage("");
             } else if (e.target.classList.contains("hardware-target"))
             {
                 e.target.style.display = "none";
-                console.log(document.getElementById("pc-build").querySelector(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedTier")}\"]`));
-                if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedTier")}\"]`).length === 0)
+                console.log(document.getElementById("pc-build").querySelector(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedtier")}\"]`));
+                if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier=\"${e.target.getAttribute("placedtier")}\"]`).length === 0)
                 {
-                    const img = generateDraggableItem(e.target.id.split('-')[0], e.target.getAttribute("placedTier"));
+                    if (e.target.getAttribute("placedtier") === "-1") return;
+                    const img = generateDraggableItem(e.target.id.split('-')[0], e.target.getAttribute("placedtier"));
                     img.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
                     img.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
                     img.classList.add('hold-item');
                 }
+                e.target.setAttribute("placedtier", -1);
             }
         }
 
@@ -134,10 +145,10 @@ export function PCBuild() {
                 window.location.href = "/game/tableView?return=pc";
             }}>Desktop</button>
             <div id="target-container">
-                <div id="cpu-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
-                <div id="gpu-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
-                <div id="ram-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
-                <div id="stg-target" className="hardware-target" placedTier={0} style={{display: "none"}}></div>
+                <div id="cpu-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
+                <div id="gpu-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
+                <div id="ram-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
+                <div id="stg-target" className="hardware-target" placedtier={-1} style={{display: "none"}}></div>
             </div>
             <img id="inventory-icon" src={inventoryIcon} onClick={() => {
                 setInventoryPage(x => (x !== "") ? "" : "cpu");
