@@ -1664,10 +1664,124 @@ Y88b  d88P  d8888888888 888   "   888 888
   position: absolute;
   top: 6.5vh;
   right: 0;
-  height: 87vh;
-  width: 90% !important;
+  height: 86.6vh;
+  width: 85% !important;
 }
 
+#code-preview {
+  position: absolute;
+  bottom: -0.1vh;
+  left: 0;
+  margin-left: 15%;
+  height: 0;
+  width: 0;
+  padding: 0;
+  background-color: white;
+  outline: none;
+  border: none;
+  transition: 0.25s all;
+  opacity: 0;
+}
+
+#code-preview.open {
+  height: 93.1%;
+  width: 85%;
+  opacity: 1;
+}
+
+#file-list {
+  background-color: #181818;
+  position: absolute;
+  top: 6.5vh;
+  left: 0;
+  width: 15%;
+  height: 86.6vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#file-list li {
+  padding: 0.25vmin 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  color: lightgray;
+}
+
+#file-list li:not(:first-of-type) {
+  margin-left: 2vmin;
+  padding-left: 0.75vmin;
+  border-left: lightgray 1px solid;
+}
+
+#file-list li:not(:first-of-type):before {
+  position: relative;
+  display: block;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: fit-content;
+  height: fit-content;
+  margin: 0 0.25vmin;
+  font-size: 1vmin;
+  padding: 0.25vmin;
+  font-weight: bold;
+  border-radius: 50%;
+  border: 0.25vmin solid;
+}
+
+#file-list li[language="js"]::before
+{
+  content: "JS";
+  color: yellow;
+  font-family: Arial, Helvetica, sans-serif;
+  border-color: yellow;
+}
+
+#file-list li[language="html"]::before
+{
+  content: "<>";
+  color: orange;
+  font-family: Arial, Helvetica, sans-serif;
+  border-color: orange;
+}
+
+#file-list li[language="css"]::before
+{
+  content: "#";
+  color: rgb(34, 91, 214);
+  font-size: 1vmin;
+  width: 1vmin;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  border-color: rgb(34, 91, 214);
+}
+
+#test-btn {
+  position: absolute;
+  pointer-events: all;
+  bottom: 0;
+  width: 100%;
+  height: 6vh;
+  border: 0.5vmin solid var(--accent-color);
+  outline: none;
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 3vmin;
+  font-family: 'Pixel Font';
+  background-color: #007045;
+  cursor: pointer;
+  transition: 0.25s all;
+}
+
+#test-btn:hover {
+  filter: brightness(0.75);
+}
 
 /*
 8888888b.   .d8888b.       888888b.   888     888 8888888 888      8888888b.  

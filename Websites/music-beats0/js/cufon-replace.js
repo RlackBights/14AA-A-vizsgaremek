@@ -1,1 +1,0 @@
-Cufon.replace('header nav ul li, h2', { fontFamily: 'ITC Busorama', textShadow:'0 0 #fff' });

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { overlayContext, saveContext, userContext } from "../App"
 import { finaliseNewSave, getHardwareElements, requestSaveFileCreation } from "./requests";
 import { saveFile } from "./saveFileManager";

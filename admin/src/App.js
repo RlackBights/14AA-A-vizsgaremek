@@ -1,6 +1,6 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MainPage } from './components/mainPage';
+import { MainPage } from './components/mainpage';
 import { createContext, useState } from 'react';
 import PasswordReset from './components/passwordReset';
 import { AdminPage } from './components/adminpage';

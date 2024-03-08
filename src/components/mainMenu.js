@@ -2,9 +2,8 @@ import { LoginPage } from "./loginPage";
 import '../App.css';
 import { SaveContainer } from "./saveContainer";
 import { useContext } from "react";
-import { backend, optionsContext, overlayContext, saveContext, userContext } from "../App";
-import { getHardwareElements, getPlayerSaves, requestSaveFileCreation } from "./requests";
-import { saveFile } from "./saveFileManager";
+import { optionsContext, overlayContext, saveContext, userContext } from "../App";
+import { getHardwareElements, getPlayerSaves } from "./requests";
 import OptionsPage from "./optionsPage";
 import { NewSave } from "./newSave";
 
