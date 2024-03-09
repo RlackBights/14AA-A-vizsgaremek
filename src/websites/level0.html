@@ -1,82 +1,91 @@
 <html>
-    <head>
-        <style>
+<head>
+    <style>
+        body {
+            background-image: url('https://w.forfun.com/fetch/fb/fb3f5e89e666993d478e7b7f2201a947.jpeg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+            color: #5e3218;
+        }
 
-            body {
-                background-color: forestgreen;
-            }
+        #title {
+            width: 100%;
+            text-align: center;
+            font-size: 4vmin;
+            padding: 2vmin 0;
+        }
 
-            #icon {
-                width: 100%;
-                text-align: center;
-                font-size: 10vmin;
-            }
+        #about-us, #positives {
+            background-color: #5e3218;
+            border: 2vmin solid #000;
+            border-radius: 1rem;
+            padding: 2vmin;
+            box-sizing: border-box;
+            width: 46%;
+            height: 55%;
+            margin: 5% 2%;
+        }
 
-            #about-us {
-                background-color: rgb(94, 50, 24);
-                border: 1vmin solid black;
-                padding: 1vmin;
-                width: 42.5%;
-                height: 60%;
-                float: left;
-                margin: 0 0 0 5%;
-                box-sizing: border-box;
-            }
+        #about-us {
+            float: left;
+        }
 
-            #about-us h1 {
-                text-decoration: underline;
-                color: lightgray;
-            }
+        #positives {
+            float: right;
+        }
+        
+        .section-title {
+            text-decoration: underline;
+            color: #d3d3d3;
+        }
+        
+        #about-us p, #positives li {
+            text-align: justify;
+            font-size: 2vmin;
+            line-height: 1.5;
+            margin: 0 0 1vmin 0;
+            color: #d3d3d3;
+        }
 
-            #positives {
-                background-color: rgb(94, 50, 24);
-                border: 1vmin solid black;
-                padding: 1vmin;
-                width: 42.5%;
-                height: 60%;
-                float: right;
-                margin: 0 5% 0 0;
-                box-sizing: border-box;
-            }
-
-            #counter {
-                width: 30%;
-                text-align: center;
-                margin: auto;
-                margin-top: 47%;
-                float: initial;
-                font-style: italic;
-            }
-
-
-
-        </style>
-        <script>
-            
-        </script>
-        <title>Camping</title>
-    </head>
-    <body>
-        <h1 id="icon">Camping at Blue-Forest Lake ⛺</h1>
-        <div id="about-us">
-            <h1>About the camping site:</h1>
-            <p>Discover the charm of Blue-Forest Lake, your go-to camping spot for pure joy and untouched nature! Surrounded by tall trees and a crystal-clear lake, it's the ultimate escape. But here's the scoop: we take fun seriously, so no bear shenanigans here. Our local bears are on a vacation from scaring campers – they're probably practicing their fish-catching techniques. Rest assured, your camping experience is bear-free and full of laughter. Gather 'round the campfire, toast some marshmallows, and enjoy the simplicity of Blue-Forest Lake, where the only growls you'll hear are from your stomach after a hearty meal. Come for the tranquility, stay for the bear-free comedy – it's camping with a side of giggles!</p>
-        </div>
-        <div id="positives">
-            <h2>Reasons to choose us:</h2>
-            <ul>
-                <li><strong>Bear-Free Bliss:</strong> No bear worries, just forest fashion shows and tranquility.</li>
-                <li><strong>Nighttime Serenades:</strong> Owl lullabies and real-life bedtime tales under the stars.</li>
-                <li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>
-                <li><strong>Quiet Hideaway:</strong> Escape the chaos, find peace in our secret forest clubhouse.</li>
-                <li><strong>Kid-Friendly Fun:</strong> Nature walks, marshmallow hide-and-seek – even bears join games!</li>
-                <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs – nature's morning perfection.</li>
-                <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling – for peaceful nights.</li>
-                <li><strong>Fire Laughter:</strong> Surprise comedy nights, bear-approved jokes (think bear-y puns).</li>
-                <li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>
-                <li><strong>Budget Adventures:</strong> Affordable fun – spend wisely, maybe on more marshmallows?</li>
-            </ul>
-        </div>
-        <p id="counter">Number of bear attacks (since the big bang): 126378</p>
-    </body>
+        #counter {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            padding: 1vmin;
+            font-style: italic;
+        }
+    </style>
+    <script>
+        
+    </script>
+    <title>Camping</title>
+</head>
+<body>
+    <h1 id="title">Camping at Blue-Forest Lake ⛺</h1>
+    <section id="about-us">
+        <h1 class="section-title">About the camping site:</h1>
+        <p>Discover the charm of Blue-Forest Lake, your go-to camping spot for pure joy and untouched nature! Surrounded by tall trees and a crystal-clear lake, it's the ultimate escape. But here's the scoop: we take fun seriously, so no bear shenanigans here. Our local bears are on a vacation from scaring campers – they're probably practicing their fish-catching techniques. Rest assured, your camping experience is bear-free and full of laughter. Gather 'round the campfire, toast some marshmallows, and enjoy the simplicity of Blue-Forest Lake, where the only growls you'll hear are from your stomach after a hearty meal. Come for the tranquility, stay for the bear-free comedy – it's camping with a side of giggles!</p>
+    </section>
+    <section id="positives">
+        <h2 class="section-title">Reasons to choose us:</h2>
+        <ul>
+            <li><strong>Bear-Free Bliss:</strong> No bear worries, just forest fashion shows and tranquility.</li>
+            <li><strong>Nighttime Serenades:</strong> Owl lullabies and real-life bedtime tales under the stars.</li>
+            <li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>
+            <li><strong>Quiet Hideaway:</strong> Escape the chaos, find peace in our secret forest clubhouse.</li>
+            <li><strong>Kid-Friendly Fun:</strong> Nature walks, marshmallow hide-and-seek – even bears join games!</li>
+            <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs – nature's morning perfection.</li>
+            <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling – for peaceful nights.</li>
+            <li><strong>Fire Laughter:</strong> Surprise comedy nights, bear-approved jokes (think bear-y puns).</li>
+            <li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>
+            <li><strong>Budget Adventures:</strong> Affordable fun – spend wisely, maybe on more marshmallows?</li>
+        </ul>
+    </section>
+    <p id="counter">Number of bear attacks (since the big bang): 126378</p>
+</body>
 </html>
