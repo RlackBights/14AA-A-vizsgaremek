@@ -11,8 +11,9 @@ import userIcon from '../assets/user-icon.svg';
 import { useContext } from 'react';
 import { saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
-import Market from './market';
+import MarketPage from './marketPage';
 import CodePage from './codePage';
+import { JobsPage } from './jobsPage';
 
 let currInterval;
 
@@ -268,12 +269,10 @@ export function Desktop() {
                 <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
                     <p className='blocked-feature'>Feature not included in demo version</p>
                 </div>
-                <div id='jobs-page' className='pages' style={{display: (window === "jobs") ? "flex" : "none"}}>
-
-                </div>
                 <windowContext.Provider value={window}>
+                    <JobsPage />
                     <CodePage />
-                    <Market />
+                    <MarketPage />
                 </windowContext.Provider>
                 <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
                     <p className='blocked-feature'>Feature not included in demo version</p>

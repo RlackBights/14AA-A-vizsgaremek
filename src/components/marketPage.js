@@ -44,7 +44,7 @@ function displayMarketItems(tab, saveFile, setSaveFile)
     return output;
 }
 
-export default function Market()
+export default function MarketPage()
 {
     const [marketTab, setMarketTab] = useState("cpu");
     const save = useContext(saveContext);
