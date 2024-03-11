@@ -3,6 +3,10 @@
   --accent-color: #E6C79C;
 }
 
+::-webkit-scrollbar {
+  display: none !important;
+}
+
 /*
 888b     d888        d8888 8888888 888b    888      888b     d888 8888888888 888b    888 888     888 
 8888b   d8888       d88888   888   8888b   888      8888b   d8888 888        8888b   888 888     888 
@@ -1474,10 +1478,6 @@ Y88b  d88P  d8888888888 888   "   888 888
   row-gap: 3vmin;
 }
 
-#market-items::-webkit-scrollbar {
-  display: none;
-}
-
 .pages#settings-page {
   background: linear-gradient(#292a30 6vh, black 6vh);
 }
@@ -1783,14 +1783,94 @@ Y88b  d88P  d8888888888 888   "   888 888
   filter: brightness(0.75);
 }
 
+#jobs-page {
+  width: 100%;
+}
+
 #jobs-sidebar {
-  background-color: white;
-  height: 93.5%;
+  background-color: #661000;
+  color: var(--accent-color);
+  height: 87vh;
   margin-top: 6vh;
-  width: 10%;
+  width: 25%;
   list-style-type: none;
   padding: 0;
+  border-right: 0.5vmin solid var(--accent-color);
+  box-sizing: border-box;
+  overflow-y: scroll;
 }
+
+.job-item {
+  width: 100%;
+  height: fit-content;
+  padding: 0.5vh 1vw;
+  box-sizing: border-box;
+  border-bottom: 0.5vmin solid var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+}
+
+.job-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.job-item:first-of-type {
+  margin-top: 0.5vh;
+}
+
+.job-item p {
+  margin: 0;
+}
+
+.job-timestamp {
+  color: gray;
+  font-style: italic;
+  width: fit-content;
+}
+
+.job-item > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.job-item > div > section {
+  width: 100%;
+  display: flex;
+  column-gap: 1vmin;
+}
+
+.job-item > div > section > div {
+  display: flex;
+  flex-direction: column;
+} 
+
+.job-item > div > div > p {
+  font-style: italic;
+  float: right;
+  text-align: right;
+  height: fit-content;
+}
+
+#jobs-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 87vh;
+  margin-top: 6vh;
+  background-color: lightgray;
+}
+
+#jobs-content > ul {
+  list-style-type: none;
+}
+
+#jobs-content > ul > li::before {
+    content: "\2610";
+    margin-right:5px;
+}
+
 
 /*
 8888888b.   .d8888b.       888888b.   888     888 8888888 888      8888888b.  
@@ -2004,10 +2084,6 @@ Y88b  d88P  d8888888888 888   "   888 888
   padding: 2vmin;
   overflow-y: scroll;
   gap: 1.75vmin;
-}
-
-#inventory-item-container::-webkit-scrollbar {
-  display: none;
 }
 
 .inventory-item {

@@ -1,3 +1,5 @@
+const pageTitle = "Blue-Lake Forest";
+
 const sourceCode = (`<html>
 <head>
     <style>
@@ -111,7 +113,7 @@ const faulty = [
     `<h3 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h3>`,
     `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`];
 
-export function getFaultyCode(faultyList)
+function getFaultyCode(faultyList)
 {
     let tempCode = sourceCode;
     for (let i = 0; i < solutions.length; i++) {
@@ -126,7 +128,7 @@ export function getFaultyCode(faultyList)
     return tempCode;
 }
 
-export function checkCorrectCode(input)
+function checkCorrectCode(input)
 {
     const cleanInputCode = input.replace(/ /g,'');
     let cleanSourceCode = sourceCode;
@@ -138,6 +140,9 @@ export function checkCorrectCode(input)
     console.log(cleanInputCode, cleanSourceCode);
     return (cleanSourceCode === cleanInputCode);
 }
+
+export default {pageTitle, getFaultyCode, checkCorrectCode};
+
 // %%FIX_SPOT%%
 
 // <h2 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h2>
