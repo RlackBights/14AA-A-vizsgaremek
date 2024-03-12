@@ -70,7 +70,6 @@ const sourceCode = (`<html>
             position: fixed;
             bottom: 0;
             padding: 1vmin;
-            font-style: italic;
             font-weight: bold;
         }
     </style>
@@ -82,7 +81,7 @@ const sourceCode = (`<html>
 <body>
     <h1 id="title">Camping at Blue-Lake Forest ⛺</h1>
     %0%
-    <section id="about-us">
+    %3%
         <h1 class="section-title">About the camping site:</h1>
         <p>Discover the charm of Blue-Lake Forest, your go-to camping spot for pure joy and untouched nature! Surrounded by tall trees and a crystal-clear lake, it's the ultimate escape. But here's the scoop: we take fun seriously, so no bear shenanigans here. Our local bears are on a vacation from scaring campers – they're probably practicing their fish-catching techniques. Rest assured, your camping experience is bear-free and full of laughter. Gather 'round the campfire, toast some marshmallows, and enjoy the simplicity of Blue-Lake Forest, where the only growls you'll hear are from your stomach after a hearty meal. Come for the tranquility, stay for the bear-free comedy – it's camping with a side of giggles!</p>
     </section>
@@ -97,28 +96,44 @@ const sourceCode = (`<html>
             <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs – nature's morning perfection.</li>
             <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling – for peaceful nights.</li>
             <li><strong>Fire Laughter:</strong> Surprise comedy nights, bear-approved jokes (think bear-y puns).</li>
-            <li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>
+            %4%
             <li><strong>Budget Adventures:</strong> Affordable fun – spend wisely, maybe on more marshmallows?</li>
         </ul>
     </section>
-    <p id="counter">Number of bear attacks (since the big bang): 126378</p>
+    %2%
 </body>
 </html>`)
 
 const solutions = [
     `<h2 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h2>`,
-    `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`];
+    `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`,
+    `<p id="counter"><i>Number of bear attacks (since the big bang): 126378</i></p>`,
+    `<section id="about-us">`,
+    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`
+];
 
-const faulty = [
+const tasks = [
     `<h3 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h3>`,
-    `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`];
+    `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`,
+    `<p id="counter">Number of bear attacks (since the big bang): 126378</p>`,
+    `<section id="">`,
+    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`
+];
+
+const verboseTasks = [
+    `Change the subtitle's element to make it one size bigger`,
+    `Fix the mistyped list item's HTML tag`,
+    `Make the bottom text italic, using an HTML tag`,
+    `The about-us section is missing the "about-us" style tag`,
+    `The seconds to last list item's "Nature's Pals" text should be bold using an HTML tag`
+]
 
 function getFaultyCode(faultyList)
 {
     let tempCode = sourceCode;
     for (let i = 0; i < solutions.length; i++) {
         if (faultyList.includes(i)) {
-            tempCode = tempCode.replace(`%${i}%`, faulty[i]);
+            tempCode = tempCode.replace(`%${i}%`, tasks[i]);
         } else {
             tempCode = tempCode.replace(`%${i}%`, solutions[i]);
         }
@@ -141,7 +156,7 @@ function checkCorrectCode(input)
     return (cleanSourceCode === cleanInputCode);
 }
 
-export default {pageTitle, getFaultyCode, checkCorrectCode};
+export default {pageTitle, getFaultyCode, checkCorrectCode, verboseTasks};
 
 // %%FIX_SPOT%%
 

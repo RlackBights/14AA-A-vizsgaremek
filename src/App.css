@@ -468,7 +468,7 @@
 
 #login-btn, #register-btn, #forgot-back-btn {
   color: var(--accent-color);
-  text-wrap: nowrap;
+  word-wrap: nowrap;
   text-decoration: underline;
   transition: all 0.25s;
 }
@@ -1296,7 +1296,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   min-width: 23vw;
   width: fit-content;
   border-radius: 1rem;
-  background-color: #782b5150;
+  background-color: #471a31e7;
   border: 0.5vmin solid var(--theme-color);
   bottom: 0;
   left: 0;
@@ -1348,7 +1348,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 #start-menu p {
   width: 100%;
   text-align: center;
-  text-wrap: nowrap;
+  word-wrap: nowrap;
   margin: 0;
 }
 
@@ -1853,22 +1853,121 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #jobs-content {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
   height: 87vh;
   margin-top: 6vh;
   background-color: lightgray;
+  width: 95%;
+  padding: 0 2vw;
 }
 
 #jobs-content > ul {
   list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-style: italic;
 }
 
 #jobs-content > ul > li::before {
-    content: "\2610";
-    margin-right:5px;
+  content: "\2610";
+  margin-right: 5px;
+  font-style: normal;
+}
+
+#jobs-content > ul > li[completed="true"]::before {
+  content: "\2611";
+}
+
+#jobs-content > div:first-of-type {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 2vw;
+  border-bottom: 0.5vmin solid black;
+}
+
+#jobs-content > div:first-of-type h1 {
+  width: 100%;
+  margin: 0;
+  text-align: left;
+  font-weight: bold;
+}
+
+#jobs-content > div:first-of-type > p {
+  color: gray;
+  font-style: italic;
+}
+
+#jobs-content > h2 {
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  margin-top: 1vh;
+  padding-left: 2vw;
+}
+
+#jobs-content > p {
+  width: 100%;
+  text-align: justify;
+}
+
+#jobs-content > h1 {
+  position: absolute;
+  bottom: 10vh;
+  left: 8vw;
+  width: fit-content;
+  border: 0.5vmin solid black;
+  padding: 2vmin;
+  border-radius: 1rem;
+  line-height: 3.5vmin;
+  background-color: #661000;
+  color: var(--accent-color);
+}
+
+#jobs-content > button {
+  position: absolute; 
+  right: 8vw;
+  bottom: 20vh;
+  background-color: #661000;
+  outline: none;
+  color: var(--accent-color);
+  border: 0.5vmin solid black;
+  border-radius: 1rem;
+  font-family: 'Pixel Font';
+  padding: 2vmin;
+  font-size: 2.5vmin;
+  cursor: pointer;
+  transition: 0.25s all;
+}
+
+#jobs-content > button:hover {
+  filter: brightness(0.75);
+}
+
+#jobs-content > button::after {
+  position: absolute;
+  display: block;
+  content: "";
+  width: 100%;
+  height: 0.5vmin;
+  border-bottom: 0.5vmin dashed black;
+  bottom: -3vh;
+  left: 0;
+}
+
+#jobs-content > h3 {
+  position: absolute;
+  width: 15.5vw;
+  bottom: 12vh;
+  right: 8vw;
+  text-align: center;
 }
 
 

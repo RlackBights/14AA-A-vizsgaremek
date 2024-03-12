@@ -266,20 +266,20 @@ export function Desktop() {
                 <button style={{display : window !== "" ? "block" : "none"}} onClick={() => {
                     setWindow("");
                 }}>Close</button>
-                <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
-                    <p className='blocked-feature'>Feature not included in demo version</p>
-                </div>
+                
                 <windowContext.Provider value={window}>
+                    <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
+                        <p className='blocked-feature'>Feature not included in demo version</p>
+                    </div>
                     <JobsPage />
                     <CodePage />
-                    <MarketPage />
+                    <MarketPage />    <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
+                        <p className='blocked-feature'>Feature not included in demo version</p>
+                    </div>
+                    <div id='settings-page' className='pages' style={{display: (window === "settings") ? "flex" : "none"}}>
+                        <p className='blocked-feature'>Feature not included in demo version</p>
+                    </div>
                 </windowContext.Provider>
-                <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
-                    <p className='blocked-feature'>Feature not included in demo version</p>
-                </div>
-                <div id='settings-page' className='pages' style={{display: (window === "settings") ? "flex" : "none"}}>
-                    <p className='blocked-feature'>Feature not included in demo version</p>
-                </div>
             </div>
             
         </div>

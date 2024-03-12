@@ -6,7 +6,7 @@ import level0 from '../websites/level0';
 export default function CodePage()
 {
     const window = useContext(windowContext);
-    const [codeContent, setCodeContent] = useState(level0.getFaultyCode([0, 1]));
+    const [codeContent, setCodeContent] = useState(level0.getFaultyCode([0, 3, 4]));
     return (
         <div id='code-page' className='pages' style={{display: (window === "code") ? "flex" : "none"}}>
             <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {

@@ -5,6 +5,8 @@ import { saveContext } from '../App';
 import { windowContext } from './desktop';
 import { inventoryContext } from './pcBuild';
 
+sessionStorage.setItem("attachedPauseHandlers", "false");
+
 export default function PauseMenu() {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
@@ -12,14 +14,22 @@ export default function PauseMenu() {
   const setInventoryPage = useContext(inventoryContext);
 
   useEffect(() => {
+
+    if (sessionStorage.getItem("attachedPauseHandlers") === "true") return;
+
+    const pauseMenu = document.getElementById('pause-menu');
+
     const keydownEvent = (e) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
+      {
+        console.log('!')
         let isPageActive = false;
         let hasWindows = document.getElementById('windows') !== null;
         if (hasWindows) {
           document.getElementById('windows').childNodes.forEach(child => {
             if (child.className !== "pages") return;
             if (child.style.display === "none") return;
+            setWindow("");
             isPageActive = true;
           });
         }
@@ -31,30 +41,32 @@ export default function PauseMenu() {
           isPageActive = true;
         }
 
-        const pauseMenu = document.getElementById('pause-menu');
-        if (pauseMenu.getAttribute("locked") === "true") return;
-        if (hasWindows) {
-          setWindow("");
+        console.log(isPageActive);
+        if (!isPageActive) {
+          pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
+          sessionStorage.setItem("pauseMenuLocked", "true");
         }
-        if (isPageActive) return;
-        pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
-        pauseMenu.setAttribute("locked", "true");
       }
-      };
+    }
 
     const keyupEvent = (e) => {
-      if (e.key === "Escape") {
-          const pauseMenu = document.getElementById('pause-menu');
-          pauseMenu.setAttribute("locked", "false");
-        }
-      };
+      if (e.key === "Escape")
+      {
+          sessionStorage.setItem("pauseMenuLocked", "false");
+      }
+    }
+
 
     document.body.removeEventListener('keyup', keyupEvent);
     document.body.removeEventListener('keydown', keydownEvent);
 
+    sessionStorage.setItem("attachedPauseHandlers", "false");
+
     document.body.addEventListener('keydown', keydownEvent);
     document.body.addEventListener('keyup', keyupEvent);
-  })
+
+    sessionStorage.setItem("attachedPauseHandlers", "true");
+  });
 
   return (
     <div id='pause-menu' style={{display: 'none'}}>
