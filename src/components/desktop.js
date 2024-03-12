@@ -17,7 +17,7 @@ import { JobsPage } from './jobsPage';
 
 let currInterval;
 
-function normalizeTime(num) {
+export function normalizeTime(num) {
     return num > 9 ? num : `0${num}`
 }
 

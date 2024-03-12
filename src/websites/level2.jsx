@@ -4,7 +4,7 @@ const sourceCode = (`<html>
 <head>
     <style>
         body {
-            background-image: url('https://w.forfun.com/fetch/fb/fb3f5e89e666993d478e7b7f2201a947.jpeg');
+            background-color: #b03030;
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -79,7 +79,7 @@ const sourceCode = (`<html>
     <title>Camping</title>
 </head>
 <body>
-    <h1 id="title">Camping at Blue-Lake Forest ⛺</h1>
+    <h1 id="title">STAGE3</h1>
     %0%
     %3%
         <h1 class="section-title">About the camping site:</h1>

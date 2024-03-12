@@ -82,6 +82,19 @@ export default function PauseMenu() {
         <button className='pause-button' onClick={() => {
 
         }}>Options</button>
+        <button className='pause-button' onClick={(e) => {
+          let sendSave = saves.activeSaveFile;
+          sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
+          if (localStorage.getItem("activeHardwareItems") !== null)
+          {
+            const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
+            sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
+          }
+          updateSave(user.currUser, sendSave).then((res) => {
+            e.target.parentElement.style.display = "none";
+            localStorage.setItem("currTime", Date.now().toString());
+          });
+        }}>Quicksave</button>
         <button className='pause-button' onClick={() => {
           let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
