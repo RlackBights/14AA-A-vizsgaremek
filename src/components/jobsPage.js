@@ -5,13 +5,13 @@ import { saveContext } from "../App";
 
 export function JobsPage()
 {
-    const [jobs, setJobs] = useState([]);
     const save = useContext(saveContext);
+    console.log(save.activeSaveFile);
+    const [jobs, setJobs] = useState([]);
     const window = useContext(windowContext);
 
     useEffect(()=> {
         setJobs(generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile)));
-        console.log(save.activeSaveFile);
     }, [save.activeSaveFile])
 
     return (

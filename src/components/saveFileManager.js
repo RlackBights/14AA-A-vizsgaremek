@@ -86,10 +86,11 @@ export function parseSaves(input, isArray = true)
   if (isArray) {
     output = [];
     input.forEach(save => {
-      output.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, save.lastBought))
+      output.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, save.lastBought, `${save.encryptedJobs}`));
     });
   } else {
-    return new saveFile(input.saveId, input.lvl, input.time, input.money, input.cpuId, input.gpuId, input.ramId, input.stgId, input.lastBought);
+    console.log(input.jobs);
+    return new saveFile(input.saveId, input.lvl, input.time, input.money, input.cpuId, input.gpuId, input.ramId, input.stgId, input.lastBought, input.jobs);
   }
 
   return output;

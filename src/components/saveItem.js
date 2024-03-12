@@ -9,7 +9,6 @@ export function SaveItem(props)
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
-    console.log(props.save);
 
     return (
             <div className="save-item-container">
@@ -18,7 +17,6 @@ export function SaveItem(props)
                     onClick={() => {
                         let save = props.save;
                         save.lastBought = JSON.parse(save.lastBought)
-                        console.log(save.lastBought);
                         saves.setActiveSaveFile(save);
                         localStorage.setItem("activeSaveFile", JSON.stringify(save));
                         localStorage.setItem("currTime", Date.now().toString());

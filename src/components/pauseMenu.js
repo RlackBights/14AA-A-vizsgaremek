@@ -93,6 +93,7 @@ export default function PauseMenu() {
           updateSave(user.currUser, sendSave).then((res) => {
             e.target.parentElement.style.display = "none";
             localStorage.setItem("currTime", Date.now().toString());
+            console.log(saves.activeSaveFile);
           });
         }}>Quicksave</button>
         <button className='pause-button' onClick={() => {

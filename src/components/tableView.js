@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 export function TableView() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
+    console.log(save.activeSaveFile);
     if (localStorage.getItem("userAuthCode") === "" || user.currUser === "") window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     useEffect(() => {
         if (new URLSearchParams(window.location.search).get("return") === "monitor") 

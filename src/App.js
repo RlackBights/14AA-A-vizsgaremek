@@ -50,6 +50,7 @@ export const optionsContext = createContext();
 
 // Entry point
 export function App() {
+  console.log(parseSaves(JSON.parse(localStorage.getItem("activeSaveFile")), false));
   const [activeSaveFile, setActiveSaveFile] = useState(parseSaves(JSON.parse(localStorage.getItem("activeSaveFile")), false));
   const [currUser, setCurrUser] = useState(localStorage.getItem("userAuthCode"));
   const [optionValues, setOptionValues] = useState(JSON.parse(localStorage.getItem("gameOptions")));

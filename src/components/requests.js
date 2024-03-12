@@ -113,13 +113,12 @@ export async function deleteSave(user, saveId)
 
 export async function updateSave(user, saveData)
 {
-    saveData.lastBought = JSON.stringify(saveData.lastBought);
     const fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-save-type": "update"},
         body: JSON.stringify({
             authCode: user,
-            data: [saveData]
+            data: [{...saveData, lastBought: JSON.stringify(saveData.lastBought)}]
         })
     }
 

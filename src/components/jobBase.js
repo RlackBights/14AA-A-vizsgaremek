@@ -51,23 +51,23 @@ function generateJob()
 {
     const jobId = Math.floor(Math.random() * 3);
     const pay = Math.floor(Math.random() * 10000);
-    const tasks = [];
+    const tasks = [0];
     const timestamp = `${normalizeTime(Math.floor(Math.random() * 24))}:${normalizeTime(Math.floor(Math.random() * 60))}`;
 
     return new Job(jobId, pay, tasks, timestamp);
 }
 
-export function parseJobs(save, saveSetter)
+export function parseJobs(saveFile, saveSetter)
 {
     let output = [];
     let indexer = 0;
-    const jobs = save.jobs;
+    const jobs = saveFile.jobs;
     jobs.split("-").forEach(job => {
         if (job === "#") {
             const randomJob = generateJob();
             output.push(randomJob);
+            localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`}));
             saveSetter(save => ({...save, jobs: save.jobs.replace(/#/, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
-            localStorage.setItem("activeSaveFile", JSON.stringify(save));
         } else {
             const values = job.split(".");
             output.push(new Job(values[0], values[1], values[2].split(":"), values[3]));
@@ -75,6 +75,10 @@ export function parseJobs(save, saveSetter)
         indexer++;
     });
     return output;
+}
+
+export function encodeJobs(save) {
+    let output = save.jobs;
 }
 
 export function generateJobItems(jobs)
