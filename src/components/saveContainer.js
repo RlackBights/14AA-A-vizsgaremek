@@ -16,13 +16,13 @@ function displaySaves(saveFiles, user){
 }
 
 export const saveOffsetContext = createContext();
+export const clamp = (input, min, max) => {return Math.min(max, Math.max(input, min))}
 
 export function SaveContainer() {
     const overlay = useContext(overlayContext);
     const saves = useContext(saveContext);
     const user = useContext(userContext);
     const [saveOffset, setSaveOffset] = useState(0);
-    const clamp = (input, min, max) => {return Math.min(max, Math.max(input, min))}
 
     return (
         <div id="save-page" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>

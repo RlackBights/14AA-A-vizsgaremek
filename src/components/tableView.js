@@ -1,15 +1,18 @@
-import React, { useContext } from 'react'
-import { saveContext, userContext } from '../App'
+import React, { useContext } from 'react';
+import { saveContext, userContext } from '../App';
+import { useNavigate, useLocation } from 'react-router-dom';
 import PauseMenu from './pauseMenu';
 import { useEffect } from 'react';
 
 export function TableView() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
-    console.log(save.activeSaveFile);
-    if (localStorage.getItem("userAuthCode") === "" || user.currUser === "") window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    if (localStorage.getItem("userAuthCode") === "" || user.currUser === "") navigate("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     useEffect(() => {
-        if (new URLSearchParams(window.location.search).get("return") === "monitor") 
+        if (location.search.includes("return") && location.search.includes("monitor")) 
         {
             const room = document.getElementById("room");
             const monitorClick = document.getElementById("monitor");
@@ -24,7 +27,7 @@ export function TableView() {
             }, 1000);
         }
 
-        if (new URLSearchParams(window.location.search).get("return") === "pc") 
+        if (location.search.includes("return") && location.search.includes("pc")) 
         {
             const room = document.getElementById("room");
             const monitorClick = document.getElementById("monitor");
@@ -44,7 +47,7 @@ export function TableView() {
         <div id='room'>
             <PauseMenu/>
             <div id='monitor' onClick={() => {
-                if([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1)) return;
+                if([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1) || save.activeSaveFile.gpuId > save.activeSaveFile.cpuId || save.activeSaveFile.ramId > save.activeSaveFile.cpuId || save.activeSaveFile.stgId > save.activeSaveFile.cpuId) return;
                 const room = document.getElementById("room");
                 const monitorClick = document.getElementById("monitor");
                 const computerClick = document.getElementById("computer");
@@ -52,7 +55,7 @@ export function TableView() {
                 computerClick.style.display = "none";
                 room.classList.add("monitor-zoom");
                 setTimeout(() => {
-                    window.location.href = "/game/desktop";
+                    navigate("/game/desktop");
                 }, 1100);
             }}>
 
@@ -65,7 +68,7 @@ export function TableView() {
                 computerClick.style.display = "none";
                 room.classList.add("pc-zoom");
                 setTimeout(() => {
-                    window.location.href = "/game/pcbuild";
+                    navigate("/game/pcbuild");
                 }, 700);
             }}>
 

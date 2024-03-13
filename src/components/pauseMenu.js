@@ -3,26 +3,25 @@ import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
 import { windowContext } from './desktop';
-import { inventoryContext } from './pcBuild';
+import { useNavigate } from 'react-router-dom';
 
 sessionStorage.setItem("attachedPauseHandlers", "false");
 
-export default function PauseMenu() {
+export default function PauseMenu(params) {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
   const setWindow = useContext(windowContext);
-  const setInventoryPage = useContext(inventoryContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
 
     if (sessionStorage.getItem("attachedPauseHandlers") === "true") return;
 
-    const pauseMenu = document.getElementById('pause-menu');
 
     const keydownEvent = (e) => {
+      const pauseMenu = document.getElementById('pause-menu');
       if (e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
       {
-        console.log('!')
         let isPageActive = false;
         let hasWindows = document.getElementById('windows') !== null;
         if (hasWindows) {
@@ -37,11 +36,10 @@ export default function PauseMenu() {
         let hasInventory = (document.getElementById('inventory-contents') !== null && document.getElementById('inventory-contents').style.display === "flex");
         if (hasInventory)
         {
-          setInventoryPage("");
+          params.setters.setInventoryPage("");
           isPageActive = true;
         }
 
-        console.log(isPageActive);
         if (!isPageActive) {
           pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
           sessionStorage.setItem("pauseMenuLocked", "true");
@@ -105,7 +103,7 @@ export default function PauseMenu() {
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
           updateSave(user.currUser, sendSave).then((res) => {
-            window.location.href = "../../";
+            navigate("/");
           });
         }}>Save and Quit</button>
     </div>

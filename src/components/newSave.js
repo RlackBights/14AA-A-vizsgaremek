@@ -1,16 +1,12 @@
 import { useContext } from "react"
 import { overlayContext, saveContext, userContext } from "../App"
 import { finaliseNewSave, getHardwareElements, requestSaveFileCreation } from "./requests";
+import { useNavigate } from 'react-router-dom';
 import { saveFile } from "./saveFileManager";
 
 function loadIntoNewSave(saveFile)
 {
-    localStorage.setItem("activeSaveFile", JSON.stringify(saveFile));
-    localStorage.setItem("currTime", Date.now().toString());
-
-    setTimeout(() => {
-        window.location.href = "/game/tableView";
-    }, 250);
+    
 }
 
 export function NewSave()
@@ -18,6 +14,7 @@ export function NewSave()
     const user = useContext(userContext);
     const overlay = useContext(overlayContext);
     const saves = useContext(saveContext);
+    const navigate = useNavigate();
 
     return (
         <div id="new-save" style={{display: overlay.currOverlay === "newSave" ? "flex" : "none"}}>
@@ -44,7 +41,12 @@ export function NewSave()
 
                                 const emptySave = new saveFile(saveInput.value);
                                 saves.setActiveSaveFile(emptySave);
-                                loadIntoNewSave(emptySave);
+                                localStorage.setItem("activeSaveFile", JSON.stringify(saveFile));
+                                localStorage.setItem("currTime", Date.now().toString());
+
+                                setTimeout(() => {
+                                    navigate("/game/tableView");
+                                }, 250);
 
                             } else {
                                 const saveExists = document.getElementById("save-exists");

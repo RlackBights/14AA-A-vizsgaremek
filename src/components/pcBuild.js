@@ -7,6 +7,7 @@ import inventoryIcon from "../assets/inventory.svg";
 import PauseMenu from "./pauseMenu";
 import { useContext } from "react";
 import { saveContext } from "../App";
+import { useNavigate } from 'react-router-dom';
 
 /*
 <img className={`draggable-item ${page}-hardware`} key={`${page}${i}`} hardware={page} draggable={false} src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]} alt=""/>
@@ -64,6 +65,7 @@ export const inventoryContext = createContext();
 export function PCBuild() {
     const save = useContext(saveContext);
     const [inventoryPage, setInventoryPage] = useState("");
+    const navigate = useNavigate();
     useEffect(() => {
         console.log(save.activeSaveFile);
         const mousemoveEvent = (e) => {
@@ -146,12 +148,10 @@ export function PCBuild() {
     });
     return (
         <div id="pc-build">
-            <inventoryContext.Provider value={setInventoryPage}>
-                <PauseMenu />
-            </inventoryContext.Provider>
+            <PauseMenu setters={{setInventoryPage}} />
             <button id="pc-back" onClick={() => {
                 localStorage.setItem("activeSaveFile", JSON.stringify({...save.activeSaveFile, cpuId: save.activeSaveFile.cpuId, gpuId: save.activeSaveFile.gpuId, ramId: save.activeSaveFile.ramId, stgId: save.activeSaveFile.stgId}));
-                window.location.href = "/game/tableView?return=pc";
+                navigate("/game/tableView?return=pc");
             }}>Desktop</button>
             <div id="target-container">
                 <div id="cpu-target" className="hardware-target" placedtier={save.activeSaveFile.cpuId}></div>

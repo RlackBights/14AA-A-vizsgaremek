@@ -2,6 +2,7 @@ import level0 from "../websites/level0";
 import level1 from "../websites/level1";
 import level2 from "../websites/level2";
 import { normalizeTime } from "./desktop";
+import { clamp } from "./saveContainer";
 
 const jobs = { level0, level1, level2 };
 export class Job {
@@ -47,11 +48,38 @@ export class Job {
     }
 }
 
-function generateJob()
+function generateJob(stgId, cpuId, gpuId)
 {
-    const jobId = Math.floor(Math.random() * 3);
-    const pay = Math.floor(Math.random() * 10000);
-    const tasks = [0];
+    const jobId = clamp(Math.floor(Math.random() * (cpuId)), 0, 2);
+    let tasks = [];
+    let pay = 0;
+    for (let i = 0; i < [Math.round(Math.random()) + 2, Math.round(Math.random() * 3) + 3, Math.round(Math.random() * 4) + 4, Math.round(Math.random() * 4) + 6][stgId]; i++) {
+        let randomTask;
+        pay += Math.floor((Math.floor(Math.random() * 5) + 5) * [1, 1.25, 1.5, 2][gpuId]);
+        switch (cpuId) {
+            case 1:
+                randomTask = Math.round(Math.random() * 4) + 5;
+                while (tasks.includes(randomTask)) randomTask = ((randomTask + 1) % 5) + 5;
+                tasks.push(randomTask);
+                break;
+            case 2:
+                randomTask = Math.round(Math.random() * 4) + 10;
+                while (tasks.includes(randomTask)) randomTask = ((randomTask + 1) % 5) + 10;
+                tasks.push(randomTask);
+                break;
+            case 3:
+                randomTask = Math.round(Math.random() * 14);
+                while (tasks.includes(randomTask)) randomTask = (randomTask + 1) % 15;
+                tasks.push(randomTask);
+                break;
+            default:
+                randomTask = Math.round(Math.random() * 4);
+                while (tasks.includes(randomTask)) randomTask = (randomTask + 1) % 5;
+                tasks.push(randomTask);
+                break;
+        }
+    }
+
     const timestamp = `${normalizeTime(Math.floor(Math.random() * 24))}:${normalizeTime(Math.floor(Math.random() * 60))}`;
 
     return new Job(jobId, pay, tasks, timestamp);
@@ -63,25 +91,22 @@ export function parseJobs(saveFile, saveSetter)
     let indexer = 0;
     const jobs = saveFile.jobs;
     jobs.split("-").forEach(job => {
+        if (indexer > saveFile.ramId) return;
         if (job === "#") {
-            const randomJob = generateJob();
+            const randomJob = generateJob(saveFile.stgId, saveFile.cpuId, saveFile.gpuId);
             output.push(randomJob);
-            localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`}));
+            localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: saveFile.jobs.replace(/#/, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
             saveSetter(save => ({...save, jobs: save.jobs.replace(/#/, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
         } else {
             const values = job.split(".");
-            output.push(new Job(values[0], values[1], values[2].split(":"), values[3]));
+            output.push(new Job(values[0], values[1], values[2].split(":").map(str => parseInt(str)), values[3]));
         }
         indexer++;
     });
     return output;
 }
 
-export function encodeJobs(save) {
-    let output = save.jobs;
-}
-
-export function generateJobItems(jobs)
+export function generateJobItems(jobs, username)
 {
     let output = [];
 
@@ -103,7 +128,7 @@ export function generateJobItems(jobs)
                 <p>${jobs[i].signoff}</p>
                 <h1>Payment:<br/>$${jobs[i].pay}</h1>
                 <button>Complete job</button>
-                <h3>PlayerNameasdasdasd</h3>`;
+                <h3>${username}</h3>`;
 
             }}>
                 <div>

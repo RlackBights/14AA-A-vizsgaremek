@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react';
 import browser from '../assets/browser-icon.svg';
 import editor from '../assets/editor-icon.svg';
 import jobs from '../assets/jobs-icon.svg';
@@ -14,6 +14,7 @@ import PauseMenu from './pauseMenu';
 import MarketPage from './marketPage';
 import CodePage from './codePage';
 import { JobsPage } from './jobsPage';
+import { useNavigate } from 'react-router-dom';
 
 let currInterval;
 
@@ -50,12 +51,16 @@ export function Desktop() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const time = 2500 + Math.random(Math.random() * 1500);
         setTimeout(() => {
-            document.getElementById("loading-screen").style.pointerEvents = "none";
-            document.getElementById("loading-screen").className = "cube-wrapper fade-out";
+            if (document.getElementById("loading-screen") !== null)
+            {
+                document.getElementById("loading-screen").style.pointerEvents = "none";
+                document.getElementById("loading-screen").className = "cube-wrapper fade-out";
+            }
         }, time);
 
         if (currInterval !== undefined) clearInterval(currInterval);
@@ -168,7 +173,7 @@ export function Desktop() {
                     <li onClick={() => {
                         document.getElementById("desktop").style.filter = "brightness(0)";
                         setTimeout(() => {
-                            document.location.href = "/game/tableView?return=monitor";
+                            navigate("/game/tableView?return=monitor");
                         }, 250);
                     }}>
                         <img alt="" draggable={false} src={power}></img>

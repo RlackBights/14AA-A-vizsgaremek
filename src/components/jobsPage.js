@@ -1,17 +1,18 @@
 import { useContext, useEffect, useState } from "react"
 import { windowContext } from "./desktop"
 import { generateJobItems, parseJobs } from "./jobBase";
-import { saveContext } from "../App";
+import { saveContext, userContext } from "../App";
 
 export function JobsPage()
 {
     const save = useContext(saveContext);
-    console.log(save.activeSaveFile);
     const [jobs, setJobs] = useState([]);
     const window = useContext(windowContext);
+    const user = useContext(userContext);
 
     useEffect(()=> {
-        setJobs(generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile)));
+        setJobs(generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0]));
+    //eslint-disable-next-line
     }, [save.activeSaveFile])
 
     return (

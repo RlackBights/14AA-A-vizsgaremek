@@ -1,5 +1,5 @@
 // Imports
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import "./App.css";
 import { useState, createContext } from "react";
 import { MainMenu } from "./components/mainMenu";
@@ -12,7 +12,7 @@ import { PCBuild } from "./components/pcBuild";
 
 
 // Router
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <MainMenu />
@@ -50,7 +50,6 @@ export const optionsContext = createContext();
 
 // Entry point
 export function App() {
-  console.log(parseSaves(JSON.parse(localStorage.getItem("activeSaveFile")), false));
   const [activeSaveFile, setActiveSaveFile] = useState(parseSaves(JSON.parse(localStorage.getItem("activeSaveFile")), false));
   const [currUser, setCurrUser] = useState(localStorage.getItem("userAuthCode"));
   const [optionValues, setOptionValues] = useState(JSON.parse(localStorage.getItem("gameOptions")));

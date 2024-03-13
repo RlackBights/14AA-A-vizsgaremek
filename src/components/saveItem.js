@@ -3,12 +3,14 @@ import { overlayContext, saveContext } from '../App';
 import '../App.css'
 import { saveOffsetContext } from './saveContainer';
 import { deleteSave } from './requests';
+import { useNavigate } from 'react-router-dom';
 
 export function SaveItem(props)
 {
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
+    const navigate = useNavigate();
 
     return (
             <div className="save-item-container">
@@ -21,7 +23,7 @@ export function SaveItem(props)
                         localStorage.setItem("activeSaveFile", JSON.stringify(save));
                         localStorage.setItem("currTime", Date.now().toString());
                         setTimeout(() => {
-                            window.location.href = "/game/tableView";
+                            navigate("game/tableView/");
                         }, 250);
                     }}
                 >
