@@ -82,7 +82,7 @@ export function Desktop() {
                 <p>Item added to storage</p>
             </div>
             <windowContext.Provider value={setWindow}>
-                <PauseMenu/>
+                <PauseMenu place="desktop"/>
             </windowContext.Provider>
             <div className="cube-wrapper" id='loading-screen'>
                 <div className="cube-folding">

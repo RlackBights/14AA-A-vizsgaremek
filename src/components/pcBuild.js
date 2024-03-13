@@ -148,7 +148,9 @@ export function PCBuild() {
     });
     return (
         <div id="pc-build">
-            <PauseMenu setters={{setInventoryPage}} />
+            <inventoryContext.Provider value={setInventoryPage}>
+                <PauseMenu place={"pcBuild"}/>
+            </inventoryContext.Provider>
             <button id="pc-back" onClick={() => {
                 localStorage.setItem("activeSaveFile", JSON.stringify({...save.activeSaveFile, cpuId: save.activeSaveFile.cpuId, gpuId: save.activeSaveFile.gpuId, ramId: save.activeSaveFile.ramId, stgId: save.activeSaveFile.stgId}));
                 navigate("/game/tableView?return=pc");

@@ -47,6 +47,7 @@ export default function CodePage()
         <div id='code-page' className='pages' style={{display: (window === "code") ? "flex" : "none"}}>
             <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
                 //console.log(level0.checkCorrectCode(e));
+                window.electron.sendFile("asd");
                 setCodeContent(e);
             }}/>
             <ul id="file-list">

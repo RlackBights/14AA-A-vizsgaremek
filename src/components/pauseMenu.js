@@ -4,6 +4,7 @@ import { userContext } from '../App';
 import { saveContext } from '../App';
 import { windowContext } from './desktop';
 import { useNavigate } from 'react-router-dom';
+import { inventoryContext } from './pcBuild';
 
 sessionStorage.setItem("attachedPauseHandlers", "false");
 
@@ -11,6 +12,7 @@ export default function PauseMenu(params) {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
   const setWindow = useContext(windowContext);
+  const setInventoryPage = useContext(inventoryContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,28 +24,8 @@ export default function PauseMenu(params) {
       const pauseMenu = document.getElementById('pause-menu');
       if (e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
       {
-        let isPageActive = false;
-        let hasWindows = document.getElementById('windows') !== null;
-        if (hasWindows) {
-          document.getElementById('windows').childNodes.forEach(child => {
-            if (child.className !== "pages") return;
-            if (child.style.display === "none") return;
-            setWindow("");
-            isPageActive = true;
-          });
-        }
-
-        let hasInventory = (document.getElementById('inventory-contents') !== null && document.getElementById('inventory-contents').style.display === "flex");
-        if (hasInventory)
-        {
-          params.setters.setInventoryPage("");
-          isPageActive = true;
-        }
-
-        if (!isPageActive) {
-          pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
-          sessionStorage.setItem("pauseMenuLocked", "true");
-        }
+        pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
+        sessionStorage.setItem("pauseMenuLocked", "true");
       }
     }
 
