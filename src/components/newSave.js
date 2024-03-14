@@ -4,11 +4,6 @@ import { finaliseNewSave, getHardwareElements, requestSaveFileCreation } from ".
 import { useNavigate } from 'react-router-dom';
 import { saveFile } from "./saveFileManager";
 
-function loadIntoNewSave(saveFile)
-{
-    
-}
-
 export function NewSave()
 {
     const user = useContext(userContext);
@@ -36,12 +31,12 @@ export function NewSave()
                         const hardwareElements = await getHardwareElements();
                         localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await requestSaveFileCreation(user.currUser, saveInput.value).then((res) => {
-                            
+                            console.log(res);
                             if (Object.keys(res).includes("message")) {
 
                                 const emptySave = new saveFile(saveInput.value);
                                 saves.setActiveSaveFile(emptySave);
-                                localStorage.setItem("activeSaveFile", JSON.stringify(saveFile));
+                                localStorage.setItem("activeSaveFile", JSON.stringify(emptySave));
                                 localStorage.setItem("currTime", Date.now().toString());
 
                                 setTimeout(() => {
@@ -73,9 +68,15 @@ export function NewSave()
                         localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await finaliseNewSave(user.currUser, saveInput.value).then(() => {
 
+                            console.log("Finalised");
                             const emptySave = new saveFile(saveInput.value);
                             saves.setActiveSaveFile(emptySave);
-                            loadIntoNewSave(emptySave);
+                            localStorage.setItem("activeSaveFile", JSON.stringify(emptySave));
+                            localStorage.setItem("currTime", Date.now().toString());
+
+                            setTimeout(() => {
+                                navigate("/game/tableView");
+                            }, 250);
 
                         });
                     }}>Overwrite</button>

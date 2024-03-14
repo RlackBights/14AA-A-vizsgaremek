@@ -6,11 +6,12 @@ import { clamp } from "./saveContainer";
 
 const jobs = { level0, level1, level2 };
 export class Job {
-    constructor(jobId, pay, tasks, timestamp) {
+    constructor(jobId, pay, tasks, timestamp, cooldown=0) {
         this.timestamp = timestamp;
         this.jobId = jobId;
         this.pay = pay;
         this.tasks = tasks;
+        this.cooldown = cooldown;
     }
 
     get jobName() {
@@ -41,7 +42,6 @@ export class Job {
     getVerboseTasks(e) {
         let output = "";
         let solutionArray = jobs[`level${this.jobId}`].checkCorrectCode(e, this.tasks);
-        console.log(solutionArray);
         for (let i = 0; i < this.tasks.length; i++) {
             output += `<li completed="${solutionArray[i]}">${jobs[`level${this.jobId}`].verboseTasks[this.tasks[i]]}</li>`;
         }
@@ -92,6 +92,7 @@ export function parseJobs(saveFile, saveSetter)
     let output = [];
     let indexer = 0;
     const jobs = saveFile.jobs;
+    console.log(jobs);
     jobs.split("-").forEach(job => {
         if (indexer > saveFile.ramId) return;
         if (job === "#") {
@@ -99,32 +100,47 @@ export function parseJobs(saveFile, saveSetter)
             output.push(randomJob);
             localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: saveFile.jobs.replace(/#/, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
             saveSetter(save => ({...save, jobs: save.jobs.replace(/#/, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
-        } else {
+        } else if (job.includes(".")) {
             const values = job.split(".");
             output.push(new Job(values[0], values[1], values[2].split(":").map(str => parseInt(str)), values[3]));
+        } else if (job === parseInt(job).toString()) {
+            if (parseInt(job) - Date.now() <= 0) {
+                const randomJob = generateJob(saveFile.stgId, saveFile.cpuId, saveFile.gpuId);
+                output.push(randomJob);
+                localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: saveFile.jobs.replace(job, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
+                saveSetter(save => ({...save, jobs: save.jobs.replace(job, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));
+            } else {
+                output.push(new Job(0, 0, [], 0, parseInt(job)));
+            }
+            
         }
         indexer++;
     });
     return output;
 }
 
-export async function generateJobItems(jobs, username)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs)
 {
     let output = [];
     let outcontent = "";
 
+    console.log(jobs);
+
     for (let i = 0; i < jobs.length; i++)
     {
+        console.log(jobs[i] === parseInt(jobs[i]).toString());
+        // eslint-disable-next-line
         await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
             outcontent = fileContent.toString();
         });
 
-        console.log(outcontent);
-
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent, jobs[i].tasks).includes(false);
-
+        const isOnCooldown = jobs[i].cooldown > 0;
+        
         output.push(
-            <li key={`job-${i}`} className="job-item" onClick={(e) => {
+            // eslint-disable-next-line
+            <li key={`job-${i}`} id={`job-item-${i}`} className="job-item" completed={isOnCooldown ? "true" : "false"} onClick={(e) => {
+                if (isOnCooldown) return;
                 const jobsContent = document.getElementById("jobs-content");
 
                 jobsContent.innerHTML = `<div>
@@ -142,7 +158,16 @@ export async function generateJobItems(jobs, username)
 
                 const completeButton = document.createElement("button");
                 completeButton.innerHTML = "Complete job";
-                completeButton.onclick = () => {};
+                completeButton.disabled = !isComplete;
+                completeButton.onclick = (e) => {
+                    addMoney(jobs[i].pay);
+                    if (gpuId < 3) {
+                        setSaveJobs(Date.now() + [600000, 450000, 300000][gpuId], i);
+                    } else {
+                        setSaveJobs("#", i);
+                    }
+                    e.target.parentElement.innerHTML = "";
+                }
                 jobsContent.appendChild(completeButton);
 
             }}>
@@ -150,13 +175,13 @@ export async function generateJobItems(jobs, username)
                     <section>
                         <img style={{backgroundColor: "red", width: "4vmin", height: "4vmin", borderRadius: "50%"}} src="https://i.imgur.com/x850292.png" alt="job-icon"/>
                         <div>
-                            <p>{jobs[i].company}</p>
-                            <p>{jobs[i].jobName}</p>
+                            <p>{isOnCooldown ? "----" : jobs[i].company}</p>
+                            <p>{isOnCooldown ? `Until next job: ${normalizeTime(Math.floor((jobs[i].cooldown - Date.now()) / 60000) + (Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60 === 0) ? 1 : 0)}:${normalizeTime(Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60)}` : jobs[i].jobName}</p>
                         </div>
                     </section>
                     <div>
-                        <p className="job-timestamp">{jobs[i].timestamp}<br/></p>
-                        <p>${jobs[i].pay}</p>
+                        <p className="job-timestamp">{isOnCooldown ? "--:--" :jobs[i].timestamp}<br/></p>
+                        <p>${isOnCooldown ? "-" : jobs[i].pay}</p>
                     </div>
                 </div>
             </li>

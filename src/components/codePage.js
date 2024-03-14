@@ -87,26 +87,31 @@ export default function CodePage()
 
     useEffect(() => {
         setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor));
+        // eslint-disable-next-line
     }, [save.activeSaveFile]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-0")) return;
         document.getElementById("job-file-0").setAttribute("edited", "true");
+        // eslint-disable-next-line
     }, [jobContents[0]]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-1")) return;
         document.getElementById("job-file-1").setAttribute("edited", "true");
+        // eslint-disable-next-line
     }, [jobContents[1]]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-2")) return;
         document.getElementById("job-file-2").setAttribute("edited", "true");
+        // eslint-disable-next-line
     }, [jobContents[2]]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-3")) return;
         document.getElementById("job-file-3").setAttribute("edited", "true");
+        // eslint-disable-next-line
     }, [jobContents[3]]);
 
     if (document.querySelector(".code-editor")) {

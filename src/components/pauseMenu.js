@@ -2,17 +2,13 @@ import React, { useContext, useEffect } from 'react'
 import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
-import { windowContext } from './desktop';
 import { useNavigate } from 'react-router-dom';
-import { inventoryContext } from './pcBuild';
 
 sessionStorage.setItem("attachedPauseHandlers", "false");
 
 export default function PauseMenu(params) {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
-  const setWindow = useContext(windowContext);
-  const setInventoryPage = useContext(inventoryContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +18,7 @@ export default function PauseMenu(params) {
 
     const keydownEvent = (e) => {
       const pauseMenu = document.getElementById('pause-menu');
-      if (e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
+      if (pauseMenu && e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
       {
         pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
         sessionStorage.setItem("pauseMenuLocked", "true");

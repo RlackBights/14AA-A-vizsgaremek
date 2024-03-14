@@ -52,6 +52,7 @@ function createWindow() {
     resizable: false,
     fullscreen: true,
     autoHideMenuBar: true,
+    icon: path.join(__dirname, "assets/icon.ico"),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "electron-preload.js"),

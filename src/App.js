@@ -1,5 +1,5 @@
 // Imports
-import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
+import { RouterProvider, createHashRouter } from "react-router-dom";
 import "./App.css";
 import { useState, createContext } from "react";
 import { MainMenu } from "./components/mainMenu";
@@ -37,7 +37,7 @@ const router = createHashRouter([
 
 // Backend location
 if (localStorage.getItem("userAuthCode") === null) localStorage.setItem("userAuthCode", "")
-if (localStorage.getItem("activeSaveFile") === null) localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile(-1)));
+if (localStorage.getItem("activeSaveFile") === null || localStorage.getItem("activeSaveFile") === "undefined") localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile(-1)));
 if (localStorage.getItem("gameOptions") === null) localStorage.setItem("gameOptions", JSON.stringify({specialEffects: true}));
 //export const backend = 'https://backend-learnthebasics.koyeb.app';
 export const backend = 'http://localhost:8000';

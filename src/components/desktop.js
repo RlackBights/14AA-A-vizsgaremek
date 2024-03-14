@@ -43,6 +43,7 @@ function selectIcon(window)
 }
 
 export const windowContext = createContext();
+export const clockContext = createContext();
 
 export function Desktop() {
     const [window, setWindow] = useState("");
@@ -80,7 +81,9 @@ export function Desktop() {
                 <p>Item added to storage</p>
             </div>
             <windowContext.Provider value={setWindow}>
-                <PauseMenu place="desktop"/>
+                <clockContext.Provider value={clock}>
+                    <PauseMenu place="desktop"/>
+                </clockContext.Provider>
             </windowContext.Provider>
             <div className="cube-wrapper" id='loading-screen'>
                 <div className="cube-folding">

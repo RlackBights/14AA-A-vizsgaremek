@@ -41,6 +41,7 @@ export function TableView() {
                 room.classList.remove("pc-leave");
             }, 1000);
         }
+        // eslint-disable-next-line
     }, [])
 
     return (
