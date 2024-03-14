@@ -56,7 +56,7 @@ function createWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "electron-preload.js"),
-      devTools: true,
+      devTools: false,
       nodeIntegration: true,
       sandbox: false,
     },
