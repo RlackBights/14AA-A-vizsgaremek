@@ -27,16 +27,15 @@ async function handleFileCreation(fileName)
   });
 
   writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
-    if (err.code === "EEXISTS") console.log("File already exists, nothing to do");
+    console.log(err);
   });
 }
 
 async function writeToFile(fileName, fileContent)
 {
-  writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent, {flag: "wx"}, (err) => {
-    if (err.code === "EEXISTS") console.log("File already exists, nothing to do");
-  });
+  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent);
 }
+
 
 handleFileCreation("jobContent0");
 handleFileCreation("jobContent1");
@@ -95,7 +94,7 @@ app.on("window-all-closed", function () {
 
 ipcMain.on('send-file', async (e, fileInfo) => {
   const { fileName, fileContent } = fileInfo;
-  console.log(fileName, fileContent);
+  await writeToFile(fileName, fileContent);
 });
 
 ipcMain.handle('get-file', async (e, fileName) => {

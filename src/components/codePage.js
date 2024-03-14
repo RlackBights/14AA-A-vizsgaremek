@@ -52,6 +52,27 @@ export default function CodePage()
                 });
                 setCodeContent(e);
             }}/>
+            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
+                //console.log(level0.checkCorrectCode(e));
+                window.electron.getFile("jobContent0").then((fileContent) => {
+                    console.log(fileContent);
+                });
+                setCodeContent(e);
+            }}/>}
+            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
+                //console.log(level0.checkCorrectCode(e));
+                window.electron.getFile("jobContent0").then((fileContent) => {
+                    console.log(fileContent);
+                });
+                setCodeContent(e);
+            }}/>}
+            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
+                //console.log(level0.checkCorrectCode(e));
+                window.electron.getFile("jobContent0").then((fileContent) => {
+                    console.log(fileContent);
+                });
+                setCodeContent(e);
+            }}/>}
             <ul id="file-list">
                 <li>⯆ jobs</li>
                 {jobFiles}
