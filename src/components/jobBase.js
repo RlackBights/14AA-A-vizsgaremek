@@ -92,7 +92,6 @@ export function parseJobs(saveFile, saveSetter)
     let output = [];
     let indexer = 0;
     const jobs = saveFile.jobs;
-    console.log(jobs);
     jobs.split("-").forEach(job => {
         if (indexer > saveFile.ramId) return;
         if (job === "#") {
@@ -124,11 +123,8 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
     let output = [];
     let outcontent = "";
 
-    console.log(jobs);
-
     for (let i = 0; i < jobs.length; i++)
     {
-        console.log(jobs[i] === parseInt(jobs[i]).toString());
         // eslint-disable-next-line
         await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
             outcontent = fileContent.toString();
@@ -162,7 +158,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.onclick = (e) => {
                     addMoney(jobs[i].pay);
                     if (gpuId < 3) {
-                        setSaveJobs(Date.now() + [600000, 450000, 300000][gpuId], i);
+                        setSaveJobs(Date.now() + [Math.round(Math.random() * 150000) + 30000, Math.round(Math.random() * 100000) + 20000, Math.round(Math.random() * 50000) + 10000][gpuId], i);
                     } else {
                         setSaveJobs("#", i);
                     }
@@ -176,7 +172,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                         <img style={{backgroundColor: "red", width: "4vmin", height: "4vmin", borderRadius: "50%"}} src="https://i.imgur.com/x850292.png" alt="job-icon"/>
                         <div>
                             <p>{isOnCooldown ? "----" : jobs[i].company}</p>
-                            <p>{isOnCooldown ? `Until next job: ${normalizeTime(Math.floor((jobs[i].cooldown - Date.now()) / 60000) + (Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60 === 0) ? 1 : 0)}:${normalizeTime(Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60)}` : jobs[i].jobName}</p>
+                            <p>{isOnCooldown ? `Until next job: ${normalizeTime(Math.floor((jobs[i].cooldown - Date.now() + 1000) / 60000))}:${normalizeTime(Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60)}` : jobs[i].jobName}</p>
                         </div>
                     </section>
                     <div>

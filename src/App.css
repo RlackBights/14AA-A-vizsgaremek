@@ -1741,7 +1741,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   border: 0.25vmin solid;
 }
 
-#file-list li:not(:first-of-type)[edited="true"]::after {
+#file-list li:not(:first-of-type)[edited="true"][cooldown="false"]::after {
   position: relative;
   display: block;
   top: 50%;
@@ -1753,6 +1753,12 @@ Y88b  d88P  d8888888888 888   "   888 888
   border-radius: 50%;
   background-color: white;
   content: "";
+}
+
+#file-list li:not(:first-of-type)[cooldown="true"], #file-list li:not(:first-of-type)[cooldown="true"]:hover {
+  cursor: default !important;
+  color: gray !important;
+  background: none !important;
 }
 
 #file-list li[language="js"]::before

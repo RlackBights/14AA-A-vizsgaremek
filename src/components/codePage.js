@@ -8,20 +8,21 @@ import { parseJobs } from "./jobBase";
 import { saveContext } from "../App";
 
 const levels = [level0, level1, level2];
-function generateJobFiles(jobs, setActiveEditor)
+function generateJobFiles(jobs, setActiveEditor, save)
 {
     let output = [];
     for (let i = 0; i < jobs.length; i++) {
         let job = jobs[i];
+        const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
         output.push(
-            <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" onClick={(e) => {
+            <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" cooldown={isDisabled ? "true" : "false"} onClick={isDisabled ? () => {} : (e) => {
                 e.target.parentElement.childNodes.forEach(item =>{
                     if (item.getAttribute("language") === null || item === e.target) return;
                     item.className = "";
                 })
                 e.target.className = (e.target.className === "active") ? "" : "active";
                 setActiveEditor(curr => curr === i? -1 : i);
-            }}>{ levels[job.jobId].pageTitle }</li>
+            }}>{ isDisabled ? "No related jobs" : levels[job.jobId].pageTitle }</li>
         );
     }
 
@@ -59,6 +60,19 @@ export default function CodePage()
     const [jobFiles, setJobFiles] = useState([]);
 
     useEffect(() => {
+        for (let i = 0; i < 4; i++) {
+            const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
+            if (isDisabled) setJobContents(prev => {
+                window.electron.saveFile(`jobContent${i}`, "");
+                activeEditor === i? setActiveEditor(-1) : setActiveEditor(i);
+                let newContents = prev;
+                newContents[i] = "";
+                return newContents;
+            })
+        }
+    })
+
+    useEffect(() => {
 
         const setContents = async () => setJobContents([await getJobContent(0, save), await getJobContent(1, save), await getJobContent(2, save), await getJobContent(3, save)]);
         setContents();
@@ -86,7 +100,7 @@ export default function CodePage()
     }, [save])
 
     useEffect(() => {
-        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor));
+        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save));
         // eslint-disable-next-line
     }, [save.activeSaveFile]);
 
