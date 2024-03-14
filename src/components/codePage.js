@@ -8,79 +8,153 @@ import { parseJobs } from "./jobBase";
 import { saveContext } from "../App";
 
 const levels = [level0, level1, level2];
-function generateJobFiles(jobs, setCodeContent)
+function generateJobFiles(jobs, setActiveEditor)
 {
     let output = [];
-
-    jobs.forEach(job => {
+    for (let i = 0; i < jobs.length; i++) {
+        let job = jobs[i];
         output.push(
-            <li key={JSON.stringify(job)} language="html" onClick={(e) => {
+            <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" onClick={(e) => {
                 e.target.parentElement.childNodes.forEach(item =>{
-                    if (item.getAttribute("language") === null) return;
+                    if (item.getAttribute("language") === null || item === e.target) return;
                     item.className = "";
                 })
-                e.target.className = "active";
-                
-                setCodeContent(levels[job.jobId].getFaultyCode(job.tasks));
+                e.target.className = (e.target.className === "active") ? "" : "active";
+                setActiveEditor(curr => curr === i? -1 : i);
             }}>{ levels[job.jobId].pageTitle }</li>
         );
-    });
+    }
 
     return output;
 }
 
+async function getJobContent(jobId, save) {
+    let outcontent = "";
+    await window.electron.getFile(`jobContent${jobId}`).then((fileContent) => {
+        outcontent = fileContent.toString();
+    });
+
+    if (outcontent === "") {
+        if (parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].jobId !== undefined) {
+            outcontent = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].tasks);
+        } else {
+            outcontent = "";
+        }
+    }
+    return outcontent;
+}
+
 export default function CodePage()
 {
+    /*
+    window.electron.getFile("jobContent0").then((fileContent) => {
+        console.log(fileContent);
+    });
+    */
+
     const windowState = useContext(windowContext);
     const save = useContext(saveContext);
-    const [codeContent, setCodeContent] = useState("");
+    const [activeEditor, setActiveEditor] = useState(-1);
+    const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
 
     useEffect(() => {
-        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setCodeContent));
-    }, [save.activeSaveFile])
+
+        const setContents = async () => setJobContents([await getJobContent(0, save), await getJobContent(1, save), await getJobContent(2, save), await getJobContent(3, save)]);
+        setContents();
+
+        const saveFunction = (e) => {
+            if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
+                window.electron.saveFile(`jobContent${document.getElementById("code-preview").getAttribute("editorId")}`, document.getElementById("code-preview").getAttribute("srcdoc"));
+                document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorId")}`).setAttribute("edited", "false");
+                e.preventDefault();
+                sessionStorage.setItem("saved", "true");
+            }
+        };
+
+        const lockSaveFunction = (e) => {
+            if (e.ctrlKey && e.key === "s") {
+                sessionStorage.setItem("saved", "false");
+            }
+        };
+
+        document.body.removeEventListener('keydown', saveFunction);
+        document.body.removeEventListener('keyup', lockSaveFunction);
+
+        document.body.addEventListener('keydown', saveFunction);
+        document.body.addEventListener('keyup', lockSaveFunction);
+    }, [save])
+
+    useEffect(() => {
+        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor));
+    }, [save.activeSaveFile]);
+
+    useEffect(() => {
+        if (!document.getElementById("job-file-0")) return;
+        document.getElementById("job-file-0").setAttribute("edited", "true");
+    }, [jobContents[0]]);
+
+    useEffect(() => {
+        if (!document.getElementById("job-file-1")) return;
+        document.getElementById("job-file-1").setAttribute("edited", "true");
+    }, [jobContents[1]]);
+
+    useEffect(() => {
+        if (!document.getElementById("job-file-2")) return;
+        document.getElementById("job-file-2").setAttribute("edited", "true");
+    }, [jobContents[2]]);
+
+    useEffect(() => {
+        if (!document.getElementById("job-file-3")) return;
+        document.getElementById("job-file-3").setAttribute("edited", "true");
+    }, [jobContents[3]]);
 
     if (document.querySelector(".code-editor")) {
         document.querySelector(".code-editor").setAttribute("empty", (document.querySelectorAll("span.mtk1").length === 0).toString());
     }
     return (
         <div id='code-page' className='pages' style={{display: (windowState === "code") ? "flex" : "none"}}>
-            <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
-                //console.log(level0.checkCorrectCode(e));
-                window.electron.getFile("jobContent0").then((fileContent) => {
-                    console.log(fileContent);
-                });
-                setCodeContent(e);
-            }}/>
-            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
-                //console.log(level0.checkCorrectCode(e));
-                window.electron.getFile("jobContent0").then((fileContent) => {
-                    console.log(fileContent);
-                });
-                setCodeContent(e);
+            { (activeEditor === 0) && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={jobContents[0]} onChange={(e) => {
+                setJobContents(jobs => {
+                    const newJobs = [...jobs];
+                    newJobs[0] = e;
+                    return newJobs;
+                })
+                return;
             }}/>}
-            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
-                //console.log(level0.checkCorrectCode(e));
-                window.electron.getFile("jobContent0").then((fileContent) => {
-                    console.log(fileContent);
-                });
-                setCodeContent(e);
+            { (activeEditor === 1) && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={jobContents[1]} onChange={(e) => {
+                setJobContents(jobs => {
+                    const newJobs = [...jobs];
+                    newJobs[1] = e;
+                    return newJobs;
+                })
+                return;
             }}/>}
-            { false && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
-                //console.log(level0.checkCorrectCode(e));
-                window.electron.getFile("jobContent0").then((fileContent) => {
-                    console.log(fileContent);
-                });
-                setCodeContent(e);
+            { (activeEditor === 2) && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={jobContents[2]} onChange={(e) => {
+                setJobContents(jobs => {
+                    const newJobs = [...jobs];
+                    newJobs[2] = e;
+                    return newJobs;
+                })
+                return;
+            }}/>}
+            { (activeEditor === 3) && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={jobContents[3]} onChange={(e) => {
+                setJobContents(jobs => {
+                    const newJobs = [...jobs];
+                    newJobs[3] = e;
+                    return newJobs;
+                })
+                return;
             }}/>}
             <ul id="file-list">
                 <li>⯆ jobs</li>
                 {jobFiles}
                 <button id="test-btn" onClick={() => {
+                    if (!document.getElementById("code-preview")) return;
                     document.getElementById("code-preview").classList.toggle("open");
                 }}>Test code</button>
             </ul>
-            <iframe title="Preview" id="code-preview" srcDoc={codeContent}></iframe>
+            { (activeEditor !== -1) && <iframe title="Preview" id="code-preview" editorId={activeEditor} srcDoc={jobContents[activeEditor]}></iframe>}
         </div>
     )
     

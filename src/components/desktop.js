@@ -42,8 +42,6 @@ function selectIcon(window)
     }
 }
 
-
-
 export const windowContext = createContext();
 
 export function Desktop() {
@@ -125,6 +123,7 @@ export function Desktop() {
                         setTimeout(() => {
                             startMenu.style.display = "none";
                         }, 250);
+                        document.getElementById("jobs-content").innerHTML = "";
                         setWindow("jobs");
                     }}>
                         <img alt="" draggable={false} src={jobs}></img>
@@ -244,6 +243,7 @@ export function Desktop() {
                             startMenu.style.display = "none";
                         }, 250);
 
+                        document.getElementById("jobs-content").innerHTML = "";
                         setWindow(window === "jobs" ? "" : "jobs");
                     }}>
                         <img alt="" draggable={false}  src={jobs}></img>

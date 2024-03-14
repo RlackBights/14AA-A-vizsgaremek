@@ -6,10 +6,6 @@ import reportWebVitals from './reportWebVitals';
 
 document.body.addEventListener('keydown', (e) => {
   if (e.altKey || e.key === "F11") e.preventDefault();
-  if (e.ctrlKey && e.key === "s") {
-    console.log("saved!");
-    e.preventDefault();
-  }
 })
 
 ReactDOM.createRoot(document.getElementById('root'))

@@ -38,10 +38,12 @@ export class Job {
         ""][this.jobId];
     }
 
-    get getVerboseTasks() {
+    getVerboseTasks(e) {
         let output = "";
+        let solutionArray = jobs[`level${this.jobId}`].checkCorrectCode(e, this.tasks);
+        console.log(solutionArray);
         for (let i = 0; i < this.tasks.length; i++) {
-            output += `<li>${jobs[`level${this.jobId}`].verboseTasks[this.tasks[i]]}</li>`;
+            output += `<li completed="${solutionArray[i]}">${jobs[`level${this.jobId}`].verboseTasks[this.tasks[i]]}</li>`;
         }
 
         return output
@@ -106,12 +108,21 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export function generateJobItems(jobs, username)
+export async function generateJobItems(jobs, username)
 {
     let output = [];
+    let outcontent = "";
 
     for (let i = 0; i < jobs.length; i++)
     {
+        await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
+            outcontent = fileContent.toString();
+        });
+
+        console.log(outcontent);
+
+        let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent, jobs[i].tasks).includes(false);
+
         output.push(
             <li key={`job-${i}`} className="job-item" onClick={(e) => {
                 const jobsContent = document.getElementById("jobs-content");
@@ -123,12 +134,16 @@ export function generateJobItems(jobs, username)
                 <h2>${jobs[i].company}</h2>
                 <p>${jobs[i].description}</p>
                 <ul>                 
-                    ${jobs[i].getVerboseTasks}
+                    ${jobs[i].getVerboseTasks(outcontent)}
                 </ul>
                 <p>${jobs[i].signoff}</p>
                 <h1>Payment:<br/>$${jobs[i].pay}</h1>
-                <button>Complete job</button>
                 <h3>${username}</h3>`;
+
+                const completeButton = document.createElement("button");
+                completeButton.innerHTML = "Complete job";
+                completeButton.onclick = () => {};
+                jobsContent.appendChild(completeButton);
 
             }}>
                 <div>

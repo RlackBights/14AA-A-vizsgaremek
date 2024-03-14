@@ -23,17 +23,19 @@ async function handleFileCreation(fileName)
   let output = null;
 
   mkdir(path.join(app.getPath('appData'), gamePath), (err) => {
-    if (err.code === "EEXISTS") console.log("Directory already exists, nothing to do");
+    if (err && err.code === "EEXISTS") console.log("Directory already exists, nothing to do");
   });
 
   writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
-    console.log(err);
+    if (err && err.code === "EEXISTS") console.log("File already exists, nothing to do");
   });
 }
 
 async function writeToFile(fileName, fileContent)
 {
-  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent);
+  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent, (err) => {
+    if (err) console.log(err);
+  });
 }
 
 
@@ -105,7 +107,6 @@ ipcMain.handle('get-file', async (e, fileName) => {
         reject(err);
         return;
       }
-      
       resolve(data);
     });
 

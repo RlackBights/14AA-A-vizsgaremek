@@ -1414,7 +1414,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .pages#code-page {
-  background: linear-gradient(#007045 6vh, black 6vh);
+  background: linear-gradient(#007045 6vh, #1e1e1e 6vh);
 }
 
 .pages#jobs-page {
@@ -1668,17 +1668,6 @@ Y88b  d88P  d8888888888 888   "   888 888
   width: 85% !important;
 }
 
-.code-editor[empty="true"]::after {
-  display: block;
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: #1e1e1e;
-  left: 0;
-  top: 0;
-}
-
 #code-preview {
   position: absolute;
   bottom: -0.1vh;
@@ -1736,7 +1725,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   background-color: #007045;
 }
 
-#file-list li:not(:first-of-type):before {
+#file-list li:not(:first-of-type)::before {
   position: relative;
   display: block;
   top: 50%;
@@ -1750,6 +1739,20 @@ Y88b  d88P  d8888888888 888   "   888 888
   font-weight: bold;
   border-radius: 50%;
   border: 0.25vmin solid;
+}
+
+#file-list li:not(:first-of-type)[edited="true"]::after {
+  position: relative;
+  display: block;
+  top: 50%;
+  right: -5%;
+  transform: translateY(-50%);
+  width: 0.75vmin;
+  height: 0.75vmin;
+  font-weight: bold;
+  border-radius: 50%;
+  background-color: white;
+  content: "";
 }
 
 #file-list li[language="js"]::before
@@ -1880,7 +1883,11 @@ Y88b  d88P  d8888888888 888   "   888 888
   align-items: center;
   height: 87vh;
   margin-top: 6vh;
-  background-color: lightgray;
+  background-image: url('./assets/mail-icon.svg');
+  background-position: center;
+  background-size: 40vw 40vh;
+  background-repeat: no-repeat;
+  background-color: rgb(211, 211, 211);
   width: 95%;
   padding: 0 2vw;
 }

@@ -143,17 +143,16 @@ function getFaultyCode(faultyList)
     return tempCode;
 }
 
-function checkCorrectCode(input)
+function checkCorrectCode(input, faultyList)
 {
     const cleanInputCode = input.replace(/ /g,'');
-    let cleanSourceCode = sourceCode;
-    for (let i = 0; i < solutions.length; i++) {
-        cleanSourceCode = cleanSourceCode.replace(`%${i}%`, solutions[i]);
-        
+    let output = [];
+
+    for (let i = 0; i < faultyList.length; i++) {
+         output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
     }
-    cleanSourceCode = cleanSourceCode.replace(/ /g,'');
-    console.log(cleanInputCode, cleanSourceCode);
-    return (cleanSourceCode === cleanInputCode);
+
+    return output;
 }
 
 // eslint-disable-next-line
