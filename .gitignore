@@ -8,6 +8,8 @@
 /electron/build
 /electron/app
 /electron/out
+/password-reset
+/electron
 /node_modules
 /server
 /android
