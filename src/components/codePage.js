@@ -31,7 +31,7 @@ function generateJobFiles(jobs, setCodeContent)
 
 export default function CodePage()
 {
-    const window = useContext(windowContext);
+    const windowState = useContext(windowContext);
     const save = useContext(saveContext);
     const [codeContent, setCodeContent] = useState("");
     const [jobFiles, setJobFiles] = useState([]);
@@ -44,10 +44,12 @@ export default function CodePage()
         document.querySelector(".code-editor").setAttribute("empty", (document.querySelectorAll("span.mtk1").length === 0).toString());
     }
     return (
-        <div id='code-page' className='pages' style={{display: (window === "code") ? "flex" : "none"}}>
+        <div id='code-page' className='pages' style={{display: (windowState === "code") ? "flex" : "none"}}>
             <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={codeContent} onChange={(e) => {
                 //console.log(level0.checkCorrectCode(e));
-                window.electron.sendFile("asd");
+                window.electron.getFile("jobContent0").then((fileContent) => {
+                    console.log(fileContent);
+                });
                 setCodeContent(e);
             }}/>
             <ul id="file-list">

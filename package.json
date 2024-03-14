@@ -1,6 +1,6 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "learnthebasics",
+  "version": "1.0.0",
   "private": true,
   "browser": {
     "fs": false,
@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "react-scripts build && electron ."
+    "electron": "react-scripts build && electron electron-main.js"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +49,7 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "electron-main.js",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@electron-forge/cli": "^7.2.0",
     "@iconify/react": "^4.1.1",
     "electron": "^29.1.2",

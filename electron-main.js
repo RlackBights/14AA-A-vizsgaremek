@@ -3,6 +3,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
+const { readFile, mkdir, writeFile } = require("fs");
 const localServerApp = express();
 const PORT = 8088;
 const startLocalServer = (done) => {
@@ -14,6 +15,33 @@ const startLocalServer = (done) => {
     done();
   });
 };
+
+const gamePath = `../Local/learnthebasics/`
+
+async function handleFileCreation(fileName)
+{
+  let output = null;
+
+  mkdir(path.join(app.getPath('appData'), gamePath), (err) => {
+    if (err.code === "EEXISTS") console.log("Directory already exists, nothing to do");
+  });
+
+  writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
+    if (err.code === "EEXISTS") console.log("File already exists, nothing to do");
+  });
+}
+
+async function writeToFile(fileName, fileContent)
+{
+  writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent, {flag: "wx"}, (err) => {
+    if (err.code === "EEXISTS") console.log("File already exists, nothing to do");
+  });
+}
+
+handleFileCreation("jobContent0");
+handleFileCreation("jobContent1");
+handleFileCreation("jobContent2");
+handleFileCreation("jobContent3");
 
 function createWindow() {
   // Create the browser window.
@@ -63,6 +91,24 @@ app.on("window-all-closed", function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on('send-file', async (e, args) => {
-  console.log(e, args);
+
+
+ipcMain.on('send-file', async (e, fileInfo) => {
+  const { fileName, fileContent } = fileInfo;
+  console.log(fileName, fileContent);
+});
+
+ipcMain.handle('get-file', async (e, fileName) => {
+  return new Promise((resolve, reject) => {
+    readFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "utf-8", (err, data) => {
+      if (err) {
+        console.log(err);
+        reject(err);
+        return;
+      }
+      
+      resolve(data);
+    });
+
+  }) 
 });
