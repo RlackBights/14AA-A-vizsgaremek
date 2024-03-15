@@ -27,7 +27,6 @@ function displayMarketItems(tab, saveFile, setSaveFile)
                 <p className='market-item-price'>{finalPrice}$</p>
                 <button
                     onClick={() => {
-                    console.log(saveFile);
                     const newSave = {...saveFile, money: saveFile.money - finalPrice, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
                     setSaveFile(newSave);
                     localStorage.setItem("activeSaveFile", JSON.stringify(newSave));

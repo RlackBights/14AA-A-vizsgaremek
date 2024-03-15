@@ -47,11 +47,6 @@ async function getJobContent(jobId, save) {
 
 export default function CodePage()
 {
-    /*
-    window.electron.getFile("jobContent0").then((fileContent) => {
-        console.log(fileContent);
-    });
-    */
 
     const windowState = useContext(windowContext);
     const save = useContext(saveContext);
@@ -62,18 +57,18 @@ export default function CodePage()
     useEffect(() => {
         for (let i = 0; i < 4; i++) {
             const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
-            if (isDisabled) setJobContents(prev => {
-                window.electron.saveFile(`jobContent${i}`, "");
+            if (isDisabled &&activeEditor === i) {
+                setJobContents(prev => {
                 activeEditor === i? setActiveEditor(-1) : setActiveEditor(i);
                 let newContents = prev;
                 newContents[i] = "";
                 return newContents;
+                
             })
-        }
+        }}
     })
 
     useEffect(() => {
-
         const setContents = async () => setJobContents([await getJobContent(0, save), await getJobContent(1, save), await getJobContent(2, save), await getJobContent(3, save)]);
         setContents();
 

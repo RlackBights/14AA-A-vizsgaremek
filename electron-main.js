@@ -56,7 +56,7 @@ function createWindow() {
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "electron-preload.js"),
-      devTools: false,
+      devTools: true,
       nodeIntegration: true,
       sandbox: false,
     },
@@ -93,21 +93,28 @@ app.on("window-all-closed", function () {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-
+let blockGetFile = false;
+let blockSetFile = false;
 
 ipcMain.on('send-file', async (e, fileInfo) => {
+  if (blockSetFile) return;
+  blockSetFile = true;
   const { fileName, fileContent } = fileInfo;
-  await writeToFile(fileName, fileContent);
+  await writeToFile(fileName, fileContent).then(() => {
+    blockSetFile = false;
+  });
 });
 
 ipcMain.handle('get-file', async (e, fileName) => {
+  blockGetFile = true;
   return new Promise((resolve, reject) => {
     readFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "utf-8", (err, data) => {
       if (err) {
-        console.log(err);
-        reject(err);
+        reject();
+        blockGetFile = false;
         return;
       }
+      blockGetFile = false;
       resolve(data);
     });
 

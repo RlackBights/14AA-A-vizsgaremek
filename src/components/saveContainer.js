@@ -28,7 +28,6 @@ export function SaveContainer() {
         <div id="save-page" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
             { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{left: "1vw"}} onClick={() => {
                 setSaveOffset((save) => clamp(save - 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
-                console.log(saveOffset);
             }}><i className="arrow arrow-left"></i></button>}
             { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{right: "1vw"}} onClick={() => {
                 setSaveOffset((save) => clamp(save + 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));

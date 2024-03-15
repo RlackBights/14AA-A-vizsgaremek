@@ -90,7 +90,6 @@ export async function sendRecoveryEmail(email)
                 return { success: true, data: "Password reset email successfully sent!"};
             default:
                 return res.json().then((errorRes) => {
-                    console.log(errorRes);
                     return {success: false, data: errorRes.error};
                 });
               
@@ -108,7 +107,7 @@ export async function deleteSave(user, saveId)
           saveId: saveId
         }),
       };
-    fetch(backend + '/game/deleteSave', fetchParams).then((res) => res.json()).then((res) => console.log(res));
+    fetch(backend + '/game/deleteSave', fetchParams).then((res) => res.json());
 }
 
 export async function updateSave(user, saveData)

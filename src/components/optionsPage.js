@@ -16,7 +16,6 @@ export default function OptionsPage() {
               <input id='special-effects-cbx' type="checkbox" checked={JSON.parse(localStorage.getItem("gameOptions")).specialEffects} onChange={(e) => {
                 options.setOptionValues({specialEffects: e.target.checked});
                 const opt = JSON.parse(localStorage.getItem("gameOptions"));
-                console.log(opt);
                 opt.specialEffects = e.target.checked;
                 localStorage.setItem("gameOptions", JSON.stringify(opt));
               }}/>

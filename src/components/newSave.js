@@ -25,13 +25,11 @@ export function NewSave()
                         Back
                     </button>
                     <button onClick={async () => {
-                        console.log("new save");
                         const saveInput = document.getElementById("save-input");
                         if (saveInput.value === "") return;
                         const hardwareElements = await getHardwareElements();
                         localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await requestSaveFileCreation(user.currUser, saveInput.value).then((res) => {
-                            console.log(res);
                             if (Object.keys(res).includes("message")) {
 
                                 const emptySave = new saveFile(saveInput.value);
@@ -62,13 +60,11 @@ export function NewSave()
                         e.target.parentNode.parentNode.style.display = "none";
                     }}>Cancel</button>
                     <button onClick={async (e) => {
-                        console.log("overwrite yes");
                         const saveInput = document.getElementById("save-input");
                         const hardwareElements = await getHardwareElements();
                         localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                         await finaliseNewSave(user.currUser, saveInput.value).then(() => {
 
-                            console.log("Finalised");
                             const emptySave = new saveFile(saveInput.value);
                             saves.setActiveSaveFile(emptySave);
                             localStorage.setItem("activeSaveFile", JSON.stringify(emptySave));

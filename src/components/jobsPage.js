@@ -25,15 +25,16 @@ export function JobsPage()
     }
 
     useEffect(() => {
-        const generateJobs = async () => {
+        const generateJobs = async (currWindow) => {
+            if (currWindow !== "jobs") return;
             setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs));
         }
         
-        generateJobs();
+        generateJobs(window);
         
         if(currInterval) clearInterval(currInterval);
         currInterval = setInterval(() => {
-            generateJobs();
+            generateJobs(window);
         }, 1000)
 
     }, [save.activeSaveFile, window]);

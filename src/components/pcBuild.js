@@ -67,7 +67,6 @@ export function PCBuild() {
     const [inventoryPage, setInventoryPage] = useState("");
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(save.activeSaveFile);
         const mousemoveEvent = (e) => {
             const attachedImage = (document.querySelector(".hold-item") !== null) ? document.querySelector(".hold-item") : undefined;
             if (attachedImage === undefined) return;

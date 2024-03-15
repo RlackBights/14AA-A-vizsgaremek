@@ -125,13 +125,17 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
 
     for (let i = 0; i < jobs.length; i++)
     {
-        // eslint-disable-next-line
-        await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
-            outcontent = fileContent.toString();
-        });
+        const isOnCooldown = jobs[i].cooldown > 0;
+        
+        if (!isOnCooldown) {
+            await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
+                outcontent = fileContent.toString();
+            });
+        } 
 
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent, jobs[i].tasks).includes(false);
-        const isOnCooldown = jobs[i].cooldown > 0;
+        // eslint-disable-next-line
+
         
         output.push(
             // eslint-disable-next-line
