@@ -114,6 +114,7 @@
   position: absolute;
   top: 0;
 }
+
 .button-container button:hover {
   margin-left: -1vw;
   border: 0.6vmin solid var(--theme-color);
@@ -2413,14 +2414,10 @@ d88P     888 888    Y888 8888888 888       888 d88P     888     888     8888888 
 .crt {
   width: 100vw;
   height: 200vh;
-  background-image: linear-gradient(
-    #000000,
-    var(--theme-color)
-  );
+  background-image: url('./assets/scanlineEffect.png');
   background-repeat: repeat;
   background-size: 100vw 50vh;
   transform: scaleY(200%);
-  filter: opacity(0.4) brightness(0.5);
   animation: bgscroll 1.25s linear infinite;
 }
 
