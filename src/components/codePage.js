@@ -66,7 +66,7 @@ export default function CodePage()
                 
             })
         }}
-    })
+    }, [setJobContents, activeEditor, save.activeSaveFile.jobs]);
 
     useEffect(() => {
         const setContents = async () => setJobContents([await getJobContent(0, save), await getJobContent(1, save), await getJobContent(2, save), await getJobContent(3, save)]);
@@ -92,7 +92,7 @@ export default function CodePage()
 
         document.body.addEventListener('keydown', saveFunction);
         document.body.addEventListener('keyup', lockSaveFunction);
-    }, [save])
+    }, [save, save.activeSaveFile.jobs, activeEditor])
 
     useEffect(() => {
         setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save));

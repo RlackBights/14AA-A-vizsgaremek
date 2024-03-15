@@ -1,5 +1,5 @@
 import { useContext,  useEffect,  useState } from "react";
-import { clockContext, windowContext } from "./desktop";
+import { windowContext } from "./desktop";
 import { generateJobItems, parseJobs } from "./jobBase";
 import { saveContext, userContext } from "../App";
 
@@ -12,19 +12,20 @@ export function JobsPage()
     const window = useContext(windowContext);
     const user = useContext(userContext);
 
-    const addMoney = (amount) => {
-        save.setActiveSaveFile(saveFile => ({...saveFile, money: parseInt(saveFile.money) + parseInt(amount)}));
-    }
-
-    const setSaveJobs = (newJob, jobIndex) => {
-        save.setActiveSaveFile(saveFile => {
-            let saveJobs = saveFile.jobs.split("-");
-            saveJobs[jobIndex] = newJob;
-            return {...saveFile, jobs: saveJobs.join('-')};
-        })
-    }
-
     useEffect(() => {
+
+        const addMoney = (amount) => {
+            save.setActiveSaveFile(saveFile => ({...saveFile, money: parseInt(saveFile.money) + parseInt(amount)}));
+        }
+    
+        const setSaveJobs = (newJob, jobIndex) => {
+            save.setActiveSaveFile(saveFile => {
+                let saveJobs = saveFile.jobs.split("-");
+                saveJobs[jobIndex] = newJob;
+                return {...saveFile, jobs: saveJobs.join('-')};
+            })
+        }
+
         const generateJobs = async (currWindow) => {
             if (currWindow !== "jobs") return;
             setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs));
@@ -37,7 +38,7 @@ export function JobsPage()
             generateJobs(window);
         }, 1000)
 
-    }, [save.activeSaveFile, window]);
+    }, [save.activeSaveFile, window, save, user.currUser]);
 
     return (
         <div id='jobs-page' className='pages' style={{display: (window === "jobs") ? "flex" : "none"}}>

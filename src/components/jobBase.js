@@ -128,9 +128,11 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         const isOnCooldown = jobs[i].cooldown > 0;
         
         if (!isOnCooldown) {
-            await window.electron.getFile(`jobContent${i}`).then((fileContent) => {
-                outcontent = fileContent.toString();
+            let fileContent = "";
+            await window.electron.getFile(`jobContent${i}`).then((res) => {
+                fileContent = res.toString();
             });
+            outcontent = fileContent;
         } 
 
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent, jobs[i].tasks).includes(false);
