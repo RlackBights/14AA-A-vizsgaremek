@@ -39,10 +39,13 @@ async function writeToFile(fileName, fileContent)
 }
 
 
-handleFileCreation("jobContent0");
-handleFileCreation("jobContent1");
-handleFileCreation("jobContent2");
-handleFileCreation("jobContent3");
+handleFileCreation("jobContent0").then(async () => {
+  await handleFileCreation("jobContent1").then(async () => {
+    await handleFileCreation("jobContent2").then(async () => {
+      await handleFileCreation("jobContent3");
+    });
+  });
+});
 
 function createWindow() {
   // Create the browser window.

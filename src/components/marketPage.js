@@ -32,7 +32,9 @@ function displayMarketItems(tab, saveFile, setSaveFile)
                     localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
                     document.getElementById("alert").classList.add("active");
                     setTimeout(() => {
-                        document.getElementById("alert").classList.remove("active");
+                        if (document.getElementById("alert")) {
+                            document.getElementById("alert").classList.remove("active");
+                        }
                     }, 5000);
                 }} disabled={((tab === "cpu" && (element.hardwareId * 3 > saveFile.lvl || element.hardwareId <= saveFile.lastBought.cpu)) || (tab !== "cpu" && (element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId)) || finalPrice > saveFile.money) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId || (tab === "cpu" && element.hardwareId * 3 <= saveFile.lvl)) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}
                 </button>

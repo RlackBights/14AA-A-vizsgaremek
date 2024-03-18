@@ -134,10 +134,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
             });
             outcontent = fileContent;
         } 
-
-        let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent, jobs[i].tasks).includes(false);
-        // eslint-disable-next-line
-
+        let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
         
         output.push(
             // eslint-disable-next-line
@@ -171,6 +168,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     e.target.parentElement.innerHTML = "";
                 }
                 jobsContent.appendChild(completeButton);
+                window.electron.saveFile(`jobContent${i}`, "");
 
             }}>
                 <div>

@@ -149,7 +149,7 @@ function checkCorrectCode(input, faultyList)
     let output = [];
 
     for (let i = 0; i < faultyList.length; i++) {
-         output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
+        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
     }
 
     return output;

@@ -1,5 +1,5 @@
 export class saveFile {
-  constructor(saveId="", lvl=0, time=0, money=0, cpuId=0, gpuId=0, ramId=0, stgId=0, lastBought={cpu:0,gpu:0,ram:0,stg:0}, jobs="#-#-#-#") {
+  constructor(saveId="", lvl=0, time=0, money=0, cpuId=-1, gpuId=-1, ramId=-1, stgId=-1, lastBought={cpu:0,gpu:0,ram:0,stg:0}, jobs="#-#-#-#") {
     this.saveId = saveId;
     this.lvl = lvl;
     this.time = time;
@@ -83,6 +83,7 @@ export class saveFile {
 export function parseSaves(input, isArray = true)
 {
   let output;
+  console.log(input);
   if (isArray) {
     output = [];
     input.forEach(save => {
