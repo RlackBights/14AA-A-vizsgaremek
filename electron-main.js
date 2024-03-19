@@ -20,13 +20,11 @@ const gamePath = `../Local/learnthebasics/`
 
 async function handleFileCreation(fileName)
 {
-  let output = null;
-
-  mkdir(path.join(app.getPath('appData'), gamePath), (err) => {
+  await mkdir(path.join(app.getPath('appData'), gamePath), (err) => {
     if (err && err.code === "EEXISTS") console.log("Directory already exists, nothing to do");
   });
 
-  writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
+  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
     if (err && err.code === "EEXISTS") console.log("File already exists, nothing to do");
   });
 }

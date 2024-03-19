@@ -29,15 +29,15 @@ function generateJobFiles(jobs, setActiveEditor, save)
     return output;
 }
 
-async function getJobContent(jobId, save) {
+async function getJobContent(id, save) {
     let outcontent = "";
-    await window.electron.getFile(`jobContent${jobId}`).then((fileContent) => {
+    await window.electron.getFile(`jobContent${id}`).then((fileContent) => {
         outcontent = fileContent.toString();
     });
 
     if (outcontent === "") {
-        if (parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].jobId !== undefined) {
-            outcontent = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[0].tasks);
+        if (parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id] !== undefined) {
+            outcontent = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].tasks);
         } else {
             outcontent = "";
         }
@@ -53,6 +53,7 @@ export default function CodePage()
     const [activeEditor, setActiveEditor] = useState(-1);
     const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
+    
 
     useEffect(() => {
         for (let i = 0; i < 4; i++) {

@@ -136,11 +136,15 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         } 
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
         
+        console.log([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks));
+
         output.push(
             // eslint-disable-next-line
             <li key={`job-${i}`} id={`job-item-${i}`} className="job-item" completed={isOnCooldown ? "true" : "false"} onClick={(e) => {
                 if (isOnCooldown) return;
                 const jobsContent = document.getElementById("jobs-content");
+
+                console.log(outcontent);
 
                 jobsContent.innerHTML = `<div>
                 <h1>${jobs[i].jobName}</h1>
