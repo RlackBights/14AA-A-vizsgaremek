@@ -41,9 +41,10 @@ export class Job {
 
     getVerboseTasks(e) {
         let output = "";
-        let solutionArray = jobs[`level${this.jobId}`].checkCorrectCode(e, this.tasks);
+        let solutionArray = [level0, level1, level2][this.jobId].checkCorrectCode(e + " ", this.tasks);
+        console.log(solutionArray);
         for (let i = 0; i < this.tasks.length; i++) {
-            output += `<li completed="${solutionArray[i]}">${jobs[`level${this.jobId}`].verboseTasks[this.tasks[i]]}</li>`;
+            output += `<li completed="${solutionArray[i]}">${[level0, level1, level2][this.jobId].verboseTasks[this.tasks[i]]}</li>`;
         }
 
         return output
@@ -130,21 +131,25 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         if (!isOnCooldown) {
             let fileContent = "";
             await window.electron.getFile(`jobContent${i}`).then((res) => {
-                fileContent = res.toString();
+                outcontent = res.toString();
             });
-            outcontent = fileContent;
         } 
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
-        
-        console.log([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks));
+
+        let indexer = 0;
+        let verboseTasks = "";
+        [level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).map(isComplete =>
+            {
+                verboseTasks += `<li completed="${isComplete}">${[level0, level1, level2][jobs[i].jobId].verboseTasks[jobs[i].tasks[indexer]]}</li>\n`;
+                indexer++;
+            }
+        )
 
         output.push(
             // eslint-disable-next-line
             <li key={`job-${i}`} id={`job-item-${i}`} className="job-item" completed={isOnCooldown ? "true" : "false"} onClick={(e) => {
                 if (isOnCooldown) return;
                 const jobsContent = document.getElementById("jobs-content");
-
-                console.log(outcontent);
 
                 jobsContent.innerHTML = `<div>
                 <h1>${jobs[i].jobName}</h1>
@@ -153,7 +158,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 <h2>${jobs[i].company}</h2>
                 <p>${jobs[i].description}</p>
                 <ul>                 
-                    ${jobs[i].getVerboseTasks(outcontent)}
+                    ${verboseTasks}
                 </ul>
                 <p>${jobs[i].signoff}</p>
                 <h1>Payment:<br/>$${jobs[i].pay}</h1>
@@ -163,6 +168,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
+                    window.electron.saveFile(`jobContent${i}`, "");
                     addMoney(jobs[i].pay);
                     if (gpuId < 3) {
                         setSaveJobs(Date.now() + [Math.round(Math.random() * 150000) + 30000, Math.round(Math.random() * 100000) + 20000, Math.round(Math.random() * 50000) + 10000][gpuId], i);
@@ -172,7 +178,6 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     e.target.parentElement.innerHTML = "";
                 }
                 jobsContent.appendChild(completeButton);
-                window.electron.saveFile(`jobContent${i}`, "");
 
             }}>
                 <div>
