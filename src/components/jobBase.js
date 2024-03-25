@@ -119,7 +119,7 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId)
 {
     let output = [];
     let outcontent = "";
@@ -130,7 +130,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         
         if (!isOnCooldown) {
             let fileContent = "";
-            await window.electron.getFile(`jobContent${i}`).then((res) => {
+            await window.electron.getFile(i, username, saveId).then((res) => {
                 outcontent = res.toString();
             });
         } 
@@ -168,7 +168,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
-                    window.electron.saveFile(`jobContent${i}`, "");
+                    window.electron.saveFile(i, username, saveId, "");
                     addMoney(jobs[i].pay);
                     if (gpuId < 3) {
                         setSaveJobs(Date.now() + [Math.round(Math.random() * 150000) + 30000, Math.round(Math.random() * 100000) + 20000, Math.round(Math.random() * 50000) + 10000][gpuId], i);

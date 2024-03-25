@@ -26,7 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "react-scripts build && electron electron-main.js"
+    "electron": "react-scripts build && electron --trace-warnings electron-main.js"
   },
   "eslintConfig": {
     "extends": [

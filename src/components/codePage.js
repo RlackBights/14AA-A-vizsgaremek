@@ -5,7 +5,7 @@ import level0 from '../websites/level0';
 import level1 from "../websites/level1";
 import level2 from "../websites/level2";
 import { parseJobs } from "./jobBase";
-import { saveContext } from "../App";
+import { saveContext, userContext } from "../App";
 
 const levels = [level0, level1, level2];
 function generateJobFiles(jobs, setActiveEditor, save)
@@ -29,9 +29,10 @@ function generateJobFiles(jobs, setActiveEditor, save)
     return output;
 }
 
-async function getJobContent(id, save) {
+async function getJobContent(id, username, save) {
     let outcontent = "";
-    await window.electron.getFile(`jobContent${id}`).then((fileContent) => {
+    console.log(username, save.activeSaveFile.saveId)
+    await window.electron.getFile(id, username, save.activeSaveFile.saveId).then((fileContent) => {
         outcontent = fileContent.toString();
     });
 
@@ -50,6 +51,7 @@ export default function CodePage()
 
     const windowState = useContext(windowContext);
     const save = useContext(saveContext);
+    const user = useContext(userContext);
     const [activeEditor, setActiveEditor] = useState(-1);
     const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
@@ -70,12 +72,12 @@ export default function CodePage()
     }, [setJobContents, activeEditor, save.activeSaveFile.jobs]);
 
     useEffect(() => {
-        const setContents = async () => setJobContents([await getJobContent(0, save), await getJobContent(1, save), await getJobContent(2, save), await getJobContent(3, save)]);
+        const setContents = async () => setJobContents([await getJobContent(0, user.currUser.split(' ')[0], save), await getJobContent(1, user.currUser.split(' ')[0],save), await getJobContent(2, user.currUser.split(' ')[0],save), await getJobContent(3, user.currUser.split(' ')[0],save)]);
         setContents();
 
         const saveFunction = (e) => {
             if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
-                window.electron.saveFile(`jobContent${document.getElementById("code-preview").getAttribute("editorId")}`, document.getElementById("code-preview").getAttribute("srcdoc"));
+                window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorId"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
                 document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorId")}`).setAttribute("edited", "false");
                 e.preventDefault();
                 sessionStorage.setItem("saved", "true");
@@ -93,7 +95,7 @@ export default function CodePage()
 
         document.body.addEventListener('keydown', saveFunction);
         document.body.addEventListener('keyup', lockSaveFunction);
-    }, [save, save.activeSaveFile.jobs, activeEditor])
+    }, [save.activeSaveFile, user.currUser, activeEditor])
 
     useEffect(() => {
         setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save));

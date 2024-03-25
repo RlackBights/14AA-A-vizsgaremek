@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
-const { readFile, mkdir, writeFile } = require("fs");
+const { readFile, mkdir, writeFile, mkdirSync, writeFileSync, existsSync } = require("fs");
 const localServerApp = express();
 const PORT = 8088;
 const startLocalServer = (done) => {
@@ -18,32 +18,27 @@ const startLocalServer = (done) => {
 
 const gamePath = `../Local/learnthebasics/`
 
-async function handleFileCreation(fileName)
+function handleFileCreation(username, saveId)
 {
-  await mkdir(path.join(app.getPath('appData'), gamePath), (err) => {
+
+  mkdirSync(path.join(app.getPath('appData'), gamePath, username, saveId), { recursive: true }, (err) => {
     if (err && err.code === "EEXISTS") console.log("Directory already exists, nothing to do");
   });
 
-  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "", {flag: "wx"} , (err) => {
-    if (err && err.code === "EEXISTS") console.log("File already exists, nothing to do");
-  });
-}
-
-async function writeToFile(fileName, fileContent)
-{
-  await writeFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), fileContent, (err) => {
-    if (err) console.log(err);
-  });
-}
-
-
-handleFileCreation("jobContent0").then(async () => {
-  await handleFileCreation("jobContent1").then(async () => {
-    await handleFileCreation("jobContent2").then(async () => {
-      await handleFileCreation("jobContent3");
+  for (let i = 0; i < 4; i++) {
+    writeFileSync(path.join(app.getPath('appData'), gamePath, username, saveId, `jobContent${i}.txt`), "", {flag: "wx"} , (err) => {
+      if (err && err.code === "EEXISTS") console.log("File already exists, nothing to do");
     });
+  }
+  
+}
+
+function writeToFile(fileId, username, saveId, fileContent)
+{
+  writeFileSync(path.join(app.getPath('appData'), gamePath, username, saveId, `jobContent${fileId}.txt`), fileContent, (err) => {
+    if (err) console.log("👌👌👌");
   });
-});
+}
 
 function createWindow() {
   // Create the browser window.
@@ -97,21 +92,21 @@ app.on("window-all-closed", function () {
 let blockGetFile = false;
 let blockSetFile = false;
 
-ipcMain.on('send-file', async (e, fileInfo) => {
+ipcMain.on('send-file', (e, fileInfo) => {
   if (blockSetFile) return;
   blockSetFile = true;
-  const { fileName, fileContent } = fileInfo;
-  await writeToFile(fileName, fileContent).then(() => {
+  const { fileId, username, saveId, fileContent } = fileInfo;
+  writeToFile( fileId, username, saveId, fileContent ).then(() => {
     blockSetFile = false;
   });
 });
 
-ipcMain.handle('get-file', async (e, fileName) => {
+ipcMain.handle('get-file', async (e, data) => {
   blockGetFile = true;
   return new Promise((resolve, reject) => {
-    readFile(path.join(app.getPath('appData'), gamePath, `${fileName}.txt`), "utf-8", (err, data) => {
+    readFile(path.join(app.getPath('appData'), gamePath, data.username, data.saveId, `jobContent${data.fileId}.txt`), "utf-8", (err, data) => {
       if (err) {
-        reject();
+        reject("File exists");
         blockGetFile = false;
         return;
       }
@@ -121,3 +116,7 @@ ipcMain.handle('get-file', async (e, fileName) => {
 
   }) 
 });
+
+ipcMain.on('create-file', async (e, data) => {
+  handleFileCreation(data.username, data.saveId);
+})

@@ -1,8 +1,9 @@
 process.once('loaded', () => {
     const { contextBridge, ipcRenderer, ipcMain } = require("electron");
     const electronHandler = {
-        saveFile: (fileName, fileContent) => ipcRenderer.send('send-file', {fileName, fileContent}),
-        getFile: async (fileName) => await ipcRenderer.invoke('get-file', fileName)
+        saveFile: (fileId, username, saveId, fileContent) => ipcRenderer.send('send-file', {fileId, username, saveId, fileContent}),
+        getFile: async (fileId, username, saveId) => await ipcRenderer.invoke('get-file', {fileId, username, saveId}),
+        createSaveFiles: async (username, saveId) => await ipcRenderer.send('create-file', {username, saveId})
     }
     
     contextBridge.exposeInMainWorld('electron', electronHandler);
