@@ -96,9 +96,8 @@ ipcMain.on('send-file', (e, fileInfo) => {
   if (blockSetFile) return;
   blockSetFile = true;
   const { fileId, username, saveId, fileContent } = fileInfo;
-  writeToFile( fileId, username, saveId, fileContent ).then(() => {
-    blockSetFile = false;
-  });
+  writeToFile( fileId, username, saveId, fileContent )
+  blockSetFile = false;
 });
 
 ipcMain.handle('get-file', async (e, data) => {

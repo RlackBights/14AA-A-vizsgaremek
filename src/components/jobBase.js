@@ -42,7 +42,6 @@ export class Job {
     getVerboseTasks(e) {
         let output = "";
         let solutionArray = [level0, level1, level2][this.jobId].checkCorrectCode(e + " ", this.tasks);
-        console.log(solutionArray);
         for (let i = 0; i < this.tasks.length; i++) {
             output += `<li completed="${solutionArray[i]}">${[level0, level1, level2][this.jobId].verboseTasks[this.tasks[i]]}</li>`;
         }
@@ -119,7 +118,7 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats)
 {
     let output = [];
     let outcontent = "";
@@ -169,6 +168,11 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
                     window.electron.saveFile(i, username, saveId, "");
+                    setStats(curr => {
+                        const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(jobs[i].pay)};
+                        localStorage.setItem("stats", JSON.stringify(statsValue));
+                        return statsValue;
+                    });
                     addMoney(jobs[i].pay);
                     if (gpuId < 3) {
                         setSaveJobs(Date.now() + [Math.round(Math.random() * 150000) + 30000, Math.round(Math.random() * 100000) + 20000, Math.round(Math.random() * 50000) + 10000][gpuId], i);

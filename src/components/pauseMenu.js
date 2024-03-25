@@ -66,7 +66,7 @@ export default function PauseMenu(params) {
             const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
-          updateSave(user.currUser, sendSave).then((res) => {
+          updateSave(user.currUser, sendSave, saves.stats).then((res) => {
             e.target.parentElement.style.display = "none";
             localStorage.setItem("currTime", Date.now().toString());
           });
@@ -79,7 +79,7 @@ export default function PauseMenu(params) {
             const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
-          updateSave(user.currUser, sendSave).then((res) => {
+          updateSave(user.currUser, sendSave, saves.stats).then((res) => {
             navigate("/");
           });
         }}>Save and Quit</button>

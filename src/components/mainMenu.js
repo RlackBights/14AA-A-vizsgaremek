@@ -42,7 +42,8 @@ export function MainMenu() {
                   const hardwareElements = await getHardwareElements();
                   localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                   getPlayerSaves(user.currUser).then((res) => {
-                    saves.setSaveFiles(res);
+                    saves.setSaveFiles(res[0]);
+                    saves.setStats(res[1]);
                     overlay.setCurrOverlay("savePage");
                   })
                 }}

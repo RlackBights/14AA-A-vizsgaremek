@@ -83,7 +83,6 @@ export class saveFile {
 export function parseSaves(input, isArray = true)
 {
   let output;
-  console.log(input);
   if (isArray) {
     output = [];
     input.forEach(save => {

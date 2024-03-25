@@ -22,6 +22,7 @@ export function SaveItem(props)
                         saves.setActiveSaveFile(save);
                         localStorage.setItem("activeSaveFile", JSON.stringify(save));
                         localStorage.setItem("currTime", Date.now().toString());
+                        localStorage.setItem("stats", JSON.stringify(saves.stats));
                         setTimeout(() => {
                             navigate("game/tableView/");
                         }, 250);

@@ -4,12 +4,13 @@ import { SaveItem } from "./saveItem";
 import '../App.css';
 import { useState } from "react";
 
-function displaySaves(saveFiles, user){
+function displaySaves(saveFiles, user, stats){
 
     let output = [];
 
     for (let i = 0; i < saveFiles.length; i++) {
-        output.push(<SaveItem key={i} user={user} save={saveFiles[i]}/>)
+        console.log(saveFiles[i]);
+        output.push(<SaveItem key={i} user={user} save={saveFiles[i]} stats={stats}/>)
     }
     
     return (output);
@@ -45,7 +46,7 @@ export function SaveContainer() {
             <div className="save-container" style={{ transform: `translateX(calc(-${saveOffset} * 100vw))`, width: `${Math.ceil(clamp(saves.saveFiles.length, 1, 99) / 3)*100}vw`}}>
                 {saves.saveFiles.length === 0 && <h1 id="missing-save-text">No save files found</h1>}
                 <saveOffsetContext.Provider value={{setSaveOffset}}>
-                    {displaySaves(saves.saveFiles, user.currUser)}
+                    {displaySaves(saves.saveFiles, user.currUser, saves.stats)}
                 </saveOffsetContext.Provider>
             </div>
         </div>

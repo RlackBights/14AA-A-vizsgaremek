@@ -4,7 +4,7 @@ const sourceCode = (`<html>
 <head>
     <style>
         body {
-            background-color: #b03030;
+            background-image: url('https://w.forfun.com/fetch/fb/fb3f5e89e666993d478e7b7f2201a947.jpeg');
             background-size: cover;
             font-family: Arial, sans-serif;
             margin: 0;
@@ -79,7 +79,7 @@ const sourceCode = (`<html>
     <title>Camping</title>
 </head>
 <body>
-    <h1 id="title">STAGE3</h1>
+    <h1 id="title">Camping at Blue-Lake Forest ⛺</h1>
     %0%
     %3%
         <h1 class="section-title">About the camping site:</h1>
@@ -143,17 +143,16 @@ function getFaultyCode(faultyList)
     return tempCode;
 }
 
-function checkCorrectCode(input)
+function checkCorrectCode(input, faultyList)
 {
     const cleanInputCode = input.replace(/ /g,'');
-    let cleanSourceCode = sourceCode;
-    for (let i = 0; i < solutions.length; i++) {
-        cleanSourceCode = cleanSourceCode.replace(`%${i}%`, solutions[i]);
-        
+    let output = [];
+
+    for (let i = 0; i < faultyList.length; i++) {
+        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
     }
-    cleanSourceCode = cleanSourceCode.replace(/ /g,'');
-    console.log(cleanInputCode, cleanSourceCode);
-    return (cleanSourceCode === cleanInputCode);
+
+    return output;
 }
 
 // eslint-disable-next-line

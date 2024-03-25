@@ -31,7 +31,6 @@ function generateJobFiles(jobs, setActiveEditor, save)
 
 async function getJobContent(id, username, save) {
     let outcontent = "";
-    console.log(username, save.activeSaveFile.saveId)
     await window.electron.getFile(id, username, save.activeSaveFile.saveId).then((fileContent) => {
         outcontent = fileContent.toString();
     });

@@ -1,5 +1,6 @@
 import { backend } from "../App";
 import { parseSaves } from "./saveFileManager";
+import { GameStats } from "./statsManager";
 
 export async function getPlayerSaves(authCode)
 {
@@ -14,7 +15,7 @@ export async function getPlayerSaves(authCode)
     return await fetch(backend + "/game/getPlayerSaves", fetchParams).then((res) => res.json()).then((res) => {
         if (res.data !== undefined) {
             console.log(res.data);
-            return parseSaves(res.data);
+            return [parseSaves(res.data), new GameStats(res.data.completedJobs, res.data.totalIncome, res.data.fastestCompletion)];
         }
         return [];
     })
@@ -111,14 +112,14 @@ export async function deleteSave(user, saveId)
     fetch(backend + '/game/deleteSave', fetchParams).then((res) => res.json());
 }
 
-export async function updateSave(user, saveData)
+export async function updateSave(user, saveData, stats)
 {
     const fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-save-type": "update"},
         body: JSON.stringify({
             authCode: user,
-            data: [{...saveData, lastBought: JSON.stringify(saveData.lastBought)}]
+            data: [{...saveData, lastBought: JSON.stringify(saveData.lastBought), fastestCompletion: stats.fastestCompletion, completedJobs: stats.completedJobs, totalIncome: stats.totalIncome}]
         })
     }
 
