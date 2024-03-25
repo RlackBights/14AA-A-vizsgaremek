@@ -576,6 +576,8 @@ input:checked + .slider::before {
 }
 
 #stats-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
   width: 100% !important;
   background-color: transparent !important;
   height: 100% !important;

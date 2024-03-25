@@ -5,12 +5,13 @@ import { createContext, useState } from 'react';
 import PasswordReset from './components/passwordReset';
 import { AdminPage } from './components/adminpage';
 
-export const backend = "https://backend-learnthebasics.koyeb.app";
+//export const backend = "https://backend-learnthebasics.koyeb.app";
+export const backend = "http://localhost:8000";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainPage/>
+    element: <MainPage />
   },
   {
     path: "/admin-page",
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/password-reset/*",
-    element: <PasswordReset/>
+    element: <PasswordReset />
   }
 ], {
   basename: "/learnthebasics"
@@ -34,9 +35,11 @@ export const userContext = createContext();
 function App() {
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const [isAdmin, setIsAdmin] = useState(false);
+  const [stats, setStats] = useState(localStorage.getItem("stats"));
+
   return (
     <div className="App">
-      <userContext.Provider value={{authToken, setAuthToken, isAdmin, setIsAdmin}}>
+      <userContext.Provider value={{ authToken, setAuthToken, isAdmin, setIsAdmin, stats, setStats }}>
         <RouterProvider router={router} />
       </userContext.Provider>
     </div>

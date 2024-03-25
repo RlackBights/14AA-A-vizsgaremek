@@ -12,7 +12,7 @@ export function MainPage() {
 
   useEffect(() => {
     if (user.authToken === "") return;
-      
+
     let fetchParams = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -20,9 +20,9 @@ export function MainPage() {
         authCode: user.authToken
       }),
     };
-  
+
     fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
-        user.setIsAdmin(res.data[0].isAdmin);
+      user.setIsAdmin(res.data[0].isAdmin);
     });
   })
 
@@ -31,8 +31,8 @@ export function MainPage() {
       <div className="navbar">
         <img className="logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt=""></img>
         <ul className="navbar-items">
-          <li id="navbar-admin" style={{display: user.authToken === "" ? "none" : "flex"}}>
-            <button className="navbar-links" style={{display: user.isAdmin ? "block" : "none"}} onClick={() => {
+          <li id="navbar-admin" style={{ display: user.authToken === "" ? "none" : "flex" }}>
+            <button className="navbar-links" style={{ display: user.isAdmin ? "block" : "none" }} onClick={() => {
               window.location.href = "/learnthebasics/admin-page";
             }}>Admin page</button>
           </li>
@@ -43,16 +43,16 @@ export function MainPage() {
       </div>
       <div id="main-content">
         <div id="about-us">
-            <p id="about-us-title">About the project</p>
-            <div className="about-us-text">
+          <p id="about-us-title">About the project</p>
+          <div className="about-us-text">
             <p>Our game's main purpose is to teach beginners the basics of building a PC, and Web Development</p>
             <p>The application was made using the React.js framework, with a Node.js backend server</p>
-            </div>
-            <button className="btn">Download Our Game Now!</button>
+          </div>
+          <button className="btn">Download Our Game Now!</button>
         </div>
         <div id="user-container">
 
-            {(user.authToken === "") ? <Login/> : <Statistics/>}
+          {(user.authToken === "") ? <Login /> : <Statistics />}
         </div>
       </div>
     </div>
