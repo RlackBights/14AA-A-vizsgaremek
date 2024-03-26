@@ -7,6 +7,9 @@
     "path": false,
     "os": false
   },
+  "build": {
+    "appId": "com.learnthebasics.app"
+  },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -26,7 +29,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "react-scripts build && electron --trace-warnings electron-main.js"
+    "electron": "react-scripts build && electron ./public/electron.js --dev",
+    "pack": "react-scripts build && electron-builder --dir && xcopy /s .\\build .\\dist\\win-unpacked\\resources"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +50,7 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "A game that teaches people the basics of webdev and pc building",
   "main": "electron-main.js",
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
@@ -56,6 +60,6 @@
     "electron-builder": "^24.13.3",
     "electron-is-dev": "^3.0.1"
   },
-  "author": "BNH",
+  "author": "LtB Team",
   "license": "ISC"
 }

@@ -6,10 +6,12 @@ const cors = require("cors");
 const { readFile, mkdir, writeFile, mkdirSync, writeFileSync, existsSync } = require("fs");
 const localServerApp = express();
 const PORT = 8088;
+const isDev = process.argv[2] == '--dev';
+
 const startLocalServer = (done) => {
   localServerApp.use(express.json({ limit: "100mb" }));
   localServerApp.use(cors());
-  localServerApp.use(express.static('./build/'));
+  localServerApp.use(express.static(isDev ? './build/' : './resources/'));
   localServerApp.listen(PORT, async () => {
     console.log("Server Started on PORT ", PORT);
     done();
@@ -48,10 +50,10 @@ function createWindow() {
     resizable: false,
     fullscreen: true,
     autoHideMenuBar: true,
-    icon: path.join(__dirname, "assets/icon.ico"),
+    icon: path.join(__dirname, "/logo.png"),
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, "electron-preload.js"),
+      preload: path.join(__dirname, "preload.js"),
       devTools: true,
       nodeIntegration: true,
       sandbox: false,
