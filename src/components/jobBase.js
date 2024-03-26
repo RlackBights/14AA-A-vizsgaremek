@@ -129,9 +129,9 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         
         if (!isOnCooldown) {
             let fileContent = "";
-            await window.electron.getFile(i, username, saveId).then((res) => {
-                outcontent = res.toString();
-            });
+            //await window.electron.getFile(i, username, saveId).then((res) => {
+            //    outcontent = res.toString();
+            //});
         } 
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
 
@@ -167,7 +167,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
-                    window.electron.saveFile(i, username, saveId, "");
+                    //window.electron.saveFile(i, username, saveId, "");
                     setStats(curr => {
                         const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(jobs[i].pay)};
                         localStorage.setItem("stats", JSON.stringify(statsValue));

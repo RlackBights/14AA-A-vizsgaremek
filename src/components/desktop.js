@@ -15,6 +15,7 @@ import MarketPage from './marketPage';
 import CodePage from './codePage';
 import { JobsPage } from './jobsPage';
 import { useNavigate } from 'react-router-dom';
+import { BrowserPage } from './browserPage';
 
 let currInterval;
 
@@ -276,12 +277,11 @@ export function Desktop() {
                 }}>Close</button>
                 
                 <windowContext.Provider value={window}>
-                    <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
-                        <p className='blocked-feature'>Feature not included in demo version</p>
-                    </div>
+                    <BrowserPage />
                     <JobsPage />
                     <CodePage />
-                    <MarketPage />    <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
+                    <MarketPage />
+                    <div id='thispc-page' className='pages' style={{display: (window === "thispc") ? "flex" : "none"}}>
                         <p className='blocked-feature'>Feature not included in demo version</p>
                     </div>
                     <div id='settings-page' className='pages' style={{display: (window === "settings") ? "flex" : "none"}}>

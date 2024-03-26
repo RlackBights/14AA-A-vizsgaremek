@@ -1412,6 +1412,8 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 .pages#browser-page {
   background: linear-gradient(var(--theme-color) 6vh, black 6vh);
+  display: flex;
+  flex-direction: column;
 }
 
 .pages#code-page {
@@ -2015,6 +2017,75 @@ Y88b  d88P  d8888888888 888   "   888 888
   text-align: center;
 }
 
+#browser-tabs {
+  width: 100%;
+  height: 4vh;
+  margin: 0;
+  margin-top: 6.5vh;
+  background-color: #0c0c0c;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 0.5vmin solid var(--accent-color);
+}
+
+#browser-tabs li {
+  cursor: pointer;
+  background-color: var(--theme-color);
+  padding: 1.1vmin;
+  border-right: 0.5vmin solid var(--accent-color);
+  text-align: center;
+  color: var(--accent-color);
+  transition: 0.25s all;
+}
+
+#browser-tabs li:hover {
+  background-color: var(--accent-color);
+  color: var(--theme-color);
+}
+
+#browser-content {
+  width: 100%;
+  height: 100%;
+  background-color: #0c0c0c;
+}
+
+#doc-sidebar {
+  width: 20%;
+  height: 100%;
+  background-color: black;
+  margin: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  padding: 0;
+  color: var(--accent-color);
+}
+
+#doc-sidebar li:first-of-type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+#doc-sidebar li p {
+  margin: 0;
+  padding: 0.7vmin 0;
+  width: 100%;
+  text-align: center;
+  color: var(--accent-color);
+  cursor: pointer;
+  transition: 0.25s all;
+  
+}
+
+#doc-sidebar li p:hover, #doc-sidebar li p.active {
+  background-color: #0077B6 !important;
+  color: black !important;
+}
 
 /*
 8888888b.   .d8888b.       888888b.   888     888 8888888 888      8888888b.  
