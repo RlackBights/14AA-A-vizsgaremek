@@ -3,6 +3,7 @@ import { Login } from "./login";
 import { Statistics } from "./statistics";
 import { useContext, useEffect } from "react";
 import { backend, userContext } from "../App";
+import installer from '../LearnTheBasics_Installer.exe';
 
 
 export function MainPage() {
@@ -37,7 +38,7 @@ export function MainPage() {
             }}>Admin page</button>
           </li>
           <li>
-            <button className="btn">Download</button>
+            <a target="_blank" href={installer} download={"LearnTheBasics_Installer.exe"}><button className="btn">Download</button></a>
           </li>
         </ul>
       </div>
@@ -48,7 +49,7 @@ export function MainPage() {
             <p>Our game's main purpose is to teach beginners the basics of building a PC, and Web Development</p>
             <p>The application was made using the React.js framework, with a Node.js backend server</p>
           </div>
-          <button className="btn">Download Our Game Now!</button>
+          <a target="_blank" href={installer} download={"LearnTheBasics_Installer.exe"}><button className="btn">Download our game now!</button></a>
         </div>
         <div id="user-container">
 
