@@ -1,131 +1,255 @@
-const pageTitle = "Blue-Lake Forest";
+const pageTitle = "Sunny Side Up";
 
-const sourceCode = (`<html>
+const sourceCode = (`<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-image: url('https://w.forfun.com/fetch/fb/fb3f5e89e666993d478e7b7f2201a947.jpeg');
-            background-size: cover;
+            background-color: #dbe9f5;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-size: 100vw 100vh;
-            box-sizing: border-box;
-            overflow: hidden;
-            color: #000000;
+            scroll-behavior: smooth;
         }
 
-        #title {
-            width: 100%;
-            text-align: center;
-            font-size: 4vmin;
-            padding: 2vmin 0;
-            margin: 0;
+        #navbar {
+            background-color: #4d97af;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
         }
 
-        #subtitle {
-            width: 100%;
-            text-align: center;
-            font-size: 2vmin;
-            padding: 2vmin 0;
-            margin: 0;
-            font-style: italic;
+        #navbar img {
+            height: 50px;
         }
 
-        #about-us, #positives {
-            background-color: #5e3218;
-            border: 2vmin solid #000;
-            border-radius: 1rem;
-            padding: 2vmin;
-            box-sizing: border-box;
-            width: 46%;
-            height: 55%;
-            margin: 5% 2%;
+        #navbar ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        #navbar ul li {
+            margin-right: 20px;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        #navbar ul li a:hover {
+            color: #c7a68f;
+        }
+
+        #about-us, #our-work, #contact-us {
+            padding: 50px 20px;
+            color: #333;
         }
 
         #about-us {
-            float: left;
+            padding-top: 0;
         }
 
-        #positives {
-            float: right;
-        }
-        
-        .section-title {
-            text-decoration: underline;
-            color: #d3d3d3;
-        }
-        
-        #about-us p, #positives li {
-            text-align: justify;
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin: 0 0 1vmin 0;
-            color: #d3d3d3;
+        #weather-england {
+            padding: 0 20px 50px 20px;
         }
 
-        #counter {
+        #banner {
             width: 100%;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            padding: 1vmin;
+            height: 50vh;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #5e422d;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 50px 0;
+        }
+
+        #about-us div {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        #about-us div img {
+            width: 45%;
+            border-radius: 10px;
+        }
+    
+        .weather-data {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    
+        .weather-data h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #5e422d;
+        }
+    
+        .weather-data p {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+    
+        .weather-data .temperature {
+            font-size: 20px;
             font-weight: bold;
+            color: #333;
+        }
+
+        #our-work {
+            background-image: url("https://media.gettyimages.com/id/454413422/video/storm-clouds.jpg?s=640x640&k=20&c=46ojMFje7xE1Xn014zMpP-sHAMsekT6dRoDulLd397Y=");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: rgba(255, 0, 0, 1);
+        }
+
+        #services {
+            margin-top: 30px;
+        }
+
+        #services h2 {
+            margin-bottom: 15px;
+            color: #5e422d;
+        }
+
+        #services ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        #services ul li {
+            margin-bottom: 10px;
+        }
+
+        #contact-us ul {
+            display: flex;
+            justify-content: space-around;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #contact-us ul li {
+            text-align: center;
+            margin-right: 30px;
+        }
+
+        #contact-us ul li:last-child {
+            margin-right: 0;
+        }
+
+        #contact-us h3 {
+            margin-bottom: 10px;
+            color: #5e422d;
+        }
+
+        #contact-us p {
+            margin: 0;
         }
     </style>
-    <script>
-        
-    </script>
-    <title>Camping</title>
+    <title>Sunny Side Up</title>
 </head>
 <body>
-    <h1 id="title">Camping at Blue-Lake Forest ⛺</h1>
-    %0%
-    %3%
-        <h1 class="section-title">About the camping site:</h1>
-        <p>Discover the charm of Blue-Lake Forest, your go-to camping spot for pure joy and untouched nature! Surrounded by tall trees and a crystal-clear lake, it's the ultimate escape. But here's the scoop: we take fun seriously, so no bear shenanigans here. Our local bears are on a vacation from scaring campers – they're probably practicing their fish-catching techniques. Rest assured, your camping experience is bear-free and full of laughter. Gather 'round the campfire, toast some marshmallows, and enjoy the simplicity of Blue-Lake Forest, where the only growls you'll hear are from your stomach after a hearty meal. Come for the tranquility, stay for the bear-free comedy – it's camping with a side of giggles!</p>
-    </section>
-    <section id="positives">
-        <h2 class="section-title">Reasons to choose us:</h2>
+    <section id="navbar">
+        %2%
         <ul>
-            <li><strong>Bear-Free Bliss:</strong> No bear worries, just forest fashion shows and tranquility.</li>
-            <li><strong>Nighttime Serenades:</strong> Owl lullabies and real-life bedtime tales under the stars.</li>
-            %1%
-            <li><strong>Quiet Hideaway:</strong> Escape the chaos, find peace in our secret forest clubhouse.</li>
-            <li><strong>Kid-Friendly Fun:</strong> Nature walks, marshmallow hide-and-seek – even bears join games!</li>
-            <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs – nature's morning perfection.</li>
-            <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling – for peaceful nights.</li>
-            <li><strong>Fire Laughter:</strong> Surprise comedy nights, bear-approved jokes (think bear-y puns).</li>
-            %4%
-            <li><strong>Budget Adventures:</strong> Affordable fun – spend wisely, maybe on more marshmallows?</li>
+            <li><a href="#about-us">About us</a></li>
+            <li><a href="#our-work">Our Work</a></li>
+            <li><a href="#contact-us">Contact us</a></li>
         </ul>
     </section>
-    %2%
+    <section id="about-us">
+        <h1>Sunny Side Up!</h1>
+        <h3>Welcome to our weather forecast service, where you can get accurate weather updates for your location. We provide comprehensive weather information to help you plan your day effectively.</h3>
+    </section>
+    %1%
+            <h2>Current Weather in England</h2>
+            <p><strong>Location:</strong> London, England</p>
+            <p><strong>Temperature:</strong> 15°C</p>
+            <p><strong>Weather:</strong> Mostly Cloudy</p>
+            <p><strong>Wind:</strong> 10 km/h</p>
+            <p><strong>Humidity:</strong> 75%</p>
+        </div>
+    </section>
+    <section id="our-work">
+        <h1>Our Weather Services</h1>
+        <div id="services">
+            <h2>Forecast:</h2>
+            <p>Get accurate weather forecasts for today and the upcoming days, including temperature, humidity, wind speed, and more.</p>
+            <h2>Current Conditions:</h2>
+            <p>Check the current weather conditions in your area, including temperature, humidity, and wind speed.</p>
+            %0%
+        </div>
+    %4%
+    <section id="contact-us">
+        <h1>Contact Us</h1>
+        <ul>
+            <li>
+                <h3>Address</h3>
+                <p>Sunny Side Up<br>
+                    123 Weather Street <br>
+                    Anytown, USA 12345
+                </p>
+            </li>
+            <li>
+                <h3>Phone</h3>
+                <p>(555) 123-4567</p>
+            </li>
+            <li>
+                <h3>Email</h3>
+                %3%
+            </li>
+        </ul>
+    </section>
 </body>
-</html>`)
+</html>
+`)
 
 const solutions = [
-    `<h2 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h2>`,
-    `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`,
-    `<p id="counter"><i>Number of bear attacks (since the big bang): 126378</i></p>`,
-    `<section id="about-us">`,
-    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`
+    `<h2>Radar:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>\n<h2>Alerts:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>`,
+    `<section id="weather-england">\n\t<div class="weather-data">`,
+    `<img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
+    `<p>info@sunnysideup.com</p>`,
+    `</section>`
 ];
 
 const tasks = [
-    `<h3 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h3>`,
-    `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`,
-    `<p id="counter">Number of bear attacks (since the big bang): 126378</p>`,
-    `<section id="">`,
-    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`
+    `<h2>Radar:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>\n<h2>Alerts:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>`,
+    `<section id="weather-data">\n\t<div class="weather-england">`,
+    `<img url="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
+    `<a>info@sunnysideup.com</a>`,
+    ``
 ];
 
 const verboseTasks = [
-    `Change the subtitle's element to make it one size bigger`,
-    `Fix the mistyped list item's HTML tag`,
-    `Make the bottom text italic, using an HTML tag`,
-    `The about-us section is missing the "about-us" style tag`,
-    `The seconds to last list item's "Nature's Pals" text should be bold using an HTML tag`
+    `The description of "Radar" and "Alerts" have been swapped on accident`,
+    `The section containing the England weather data and the div under it have their style tags swapped`,
+    `The logo in the navbar isn't showing up, make sure it's linked correctly`,
+    `The email address in the contact us section seems to be miscolored, even though it should be a paragraph element`,
+    `The "Our Work" section isn't closed off, which it should be right before the "Contact Us" section`,
 ]
 
 function getFaultyCode(faultyList)
@@ -149,7 +273,7 @@ function checkCorrectCode(input, faultyList)
     let output = [];
 
     for (let i = 0; i < faultyList.length; i++) {
-        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
+        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'').replace(/[\r\n]+/g, '')));
     }
 
     return output;
