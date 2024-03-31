@@ -36,8 +36,10 @@ export function Statistics() {
             <button className="btn"
                 onClick={() => {
                     localStorage.setItem("authToken", "");
+                    localStorage.setItem("stats", JSON.stringify({"tips":{"HTML_tips":"","CSS_tips":"","JavaScript_tips":""}}));
                     user.setAuthToken("");
                     user.setIsAdmin(false);
+                    user.setStats(JSON.stringify({"tips":{"HTML_tips":"","CSS_tips":"","JavaScript_tips":""}}));
                 }
                 }>Log Out</button>
         </div>
