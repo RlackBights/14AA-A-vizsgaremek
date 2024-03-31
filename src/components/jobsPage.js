@@ -12,6 +12,8 @@ export function JobsPage()
     const window = useContext(windowContext);
     const user = useContext(userContext);
 
+    console.log(save.activeSaveFile.xp);
+
     useEffect(() => {
 
         const addMoney = (amount) => {
@@ -26,9 +28,13 @@ export function JobsPage()
             })
         }
 
+        const addXp = (amount) => {
+            save.setActiveSaveFile(saveFile => ({...saveFile, xp: parseInt(saveFile.xp) + parseInt(amount), lvl: Math.floor((-5 + Math.sqrt(25 + 12 * (parseInt(saveFile.xp) + parseInt(amount)))) / 6)}));
+        }
+
         const generateJobs = async (currWindow) => {
             if (currWindow !== "jobs") return;
-            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats));
+            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp));
         }
         
         generateJobs(window);

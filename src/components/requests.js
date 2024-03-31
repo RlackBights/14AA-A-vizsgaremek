@@ -114,6 +114,7 @@ export async function deleteSave(user, saveId)
 
 export async function updateSave(user, saveData, stats)
 {
+    console.log(saveData);
     const fetchParams = {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-save-type": "update"},

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-color: #dbe9f5;
+            background-color: #333;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -45,12 +45,12 @@
         }
 
         #navbar ul li a:hover {
-            color: #c7a68f;
+            color: #da9c70;
         }
 
         #about-us, #our-work, #contact-us {
             padding: 50px 20px;
-            color: #333;
+            color: #fff;
         }
 
         #about-us {
@@ -70,11 +70,11 @@
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
-            color: #5e422d;
+            color: #fff;
         }
 
         p {
-            font-size: 18px;
+            font-size: 1.8px;
             margin-bottom: 20px;
             line-height: 1.6;
         }
@@ -95,7 +95,7 @@
         }
     
         .weather-data {
-            background-color: #fff;
+            background-color: rgba(255, 0, 255, 0.3);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -104,12 +104,13 @@
         .weather-data h2 {
             font-size: 24px;
             margin-bottom: 10px;
-            color: #5e422d;
+            color: #fff;
         }
     
         .weather-data p {
             font-size: 16px;
             margin-bottom: 5px;
+            color: #fff;
         }
     
         .weather-data .temperature {
@@ -120,9 +121,8 @@
 
         #our-work {
             background-image: url("https://media.gettyimages.com/id/454413422/video/storm-clouds.jpg?s=640x640&k=20&c=46ojMFje7xE1Xn014zMpP-sHAMsekT6dRoDulLd397Y=");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: rgba(255, 0, 0, 1);
+            background-repeat: inherit;
+            background-size: auto;
         }
 
         #services {
@@ -131,7 +131,7 @@
 
         #services h2 {
             margin-bottom: 15px;
-            color: #5e422d;
+            color: #fff;
         }
 
         #services ul {
@@ -161,7 +161,7 @@
 
         #contact-us h3 {
             margin-bottom: 10px;
-            color: #5e422d;
+            color: #fff;
         }
 
         #contact-us p {
@@ -174,9 +174,9 @@
     <section id="navbar">
         <img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">
         <ul>
-            <li><a href="#about-us">About us</a></li>
-            <li><a href="#our-work">Our Work</a></li>
-            <li><a href="#contact-us">Contact us</a></li>
+            <li><a>About us</a></li>
+            <li><a>Our Work</a></li>
+            <li><a>Contact us</a></li>
         </ul>
     </section>
     <section id="about-us">
@@ -184,7 +184,7 @@
         <h3>Welcome to our weather forecast service, where you can get accurate weather updates for your location. We provide comprehensive weather information to help you plan your day effectively.</h3>
     </section>
     <section id="weather-england">
-        <div class="weather-data">
+            <div class="weather-data">
             <h2>Current Weather in England</h2>
             <p><strong>Location:</strong> London, England</p>
             <p><strong>Temperature:</strong> 15°C</p>
@@ -222,7 +222,7 @@
             </li>
             <li>
                 <h3>Email</h3>
-                <a>info@sunnysideup.com</a>
+                <p>info@sunnysideup.com</p>
             </li>
         </ul>
     </section>

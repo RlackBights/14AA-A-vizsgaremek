@@ -1,13 +1,12 @@
-const pageTitle = "Sunny Side Up";
+const pageTitle = "Sunny Side Down";
 
-const sourceCode = (`<!DOCTYPE html>
-<html lang="en">
+const sourceCode = (`<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-color: #dbe9f5;
+            background-color: #333;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -21,7 +20,7 @@ const sourceCode = (`<!DOCTYPE html>
             justify-content: space-between;
             align-items: center;
             padding: 10px 20px;
-            position: sticky;
+            position: %7%;
             top: 0;
             z-index: 999;
         }
@@ -47,12 +46,12 @@ const sourceCode = (`<!DOCTYPE html>
         }
 
         #navbar ul li a:hover {
-            color: #c7a68f;
+            color: #da9c70;
         }
 
         #about-us, #our-work, #contact-us {
             padding: 50px 20px;
-            color: #333;
+            color: #fff;
         }
 
         #about-us {
@@ -60,7 +59,7 @@ const sourceCode = (`<!DOCTYPE html>
         }
 
         #weather-england {
-            padding: 0 20px 50px 20px;
+            %5%
         }
 
         #banner {
@@ -72,11 +71,11 @@ const sourceCode = (`<!DOCTYPE html>
         h1 {
             font-size: 36px;
             margin-bottom: 20px;
-            color: #5e422d;
+            color: #fff;
         }
 
         p {
-            font-size: 18px;
+            font-size: %6%px;
             margin-bottom: 20px;
             line-height: 1.6;
         }
@@ -97,7 +96,7 @@ const sourceCode = (`<!DOCTYPE html>
         }
     
         .weather-data {
-            background-color: #fff;
+            background-color: rgba(255, %9%, 255, 0.3);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -106,12 +105,13 @@ const sourceCode = (`<!DOCTYPE html>
         .weather-data h2 {
             font-size: 24px;
             margin-bottom: 10px;
-            color: #5e422d;
+            color: #fff;
         }
     
         .weather-data p {
             font-size: 16px;
             margin-bottom: 5px;
+            color: #fff;
         }
     
         .weather-data .temperature {
@@ -122,9 +122,7 @@ const sourceCode = (`<!DOCTYPE html>
 
         #our-work {
             background-image: url("https://media.gettyimages.com/id/454413422/video/storm-clouds.jpg?s=640x640&k=20&c=46ojMFje7xE1Xn014zMpP-sHAMsekT6dRoDulLd397Y=");
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: rgba(255, 0, 0, 1);
+            %8%
         }
 
         #services {
@@ -133,7 +131,7 @@ const sourceCode = (`<!DOCTYPE html>
 
         #services h2 {
             margin-bottom: 15px;
-            color: #5e422d;
+            color: #fff;
         }
 
         #services ul {
@@ -163,26 +161,26 @@ const sourceCode = (`<!DOCTYPE html>
 
         #contact-us h3 {
             margin-bottom: 10px;
-            color: #5e422d;
+            color: #fff;
         }
 
         #contact-us p {
             margin: 0;
         }
     </style>
-    <title>Sunny Side Up</title>
+    <title>Sunny Side Down</title>
 </head>
 <body>
     <section id="navbar">
         %2%
         <ul>
-            <li><a href="#about-us">About us</a></li>
-            <li><a href="#our-work">Our Work</a></li>
-            <li><a href="#contact-us">Contact us</a></li>
+            <li><a>About us</a></li>
+            <li><a>Our Work</a></li>
+            <li><a>Contact us</a></li>
         </ul>
     </section>
     <section id="about-us">
-        <h1>Sunny Side Up!</h1>
+        <h1>Sunny Side Down!</h1>
         <h3>Welcome to our weather forecast service, where you can get accurate weather updates for your location. We provide comprehensive weather information to help you plan your day effectively.</h3>
     </section>
     %1%
@@ -209,7 +207,7 @@ const sourceCode = (`<!DOCTYPE html>
         <ul>
             <li>
                 <h3>Address</h3>
-                <p>Sunny Side Up<br>
+                <p>Sunny Side Down<br>
                     123 Weather Street <br>
                     Anytown, USA 12345
                 </p>
@@ -225,31 +223,45 @@ const sourceCode = (`<!DOCTYPE html>
         </ul>
     </section>
 </body>
-</html>
-`)
+</html>`)
 
 const solutions = [
     `<h2>Radar:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>\n<h2>Alerts:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>`,
     `<section id="weather-england">\n\t<div class="weather-data">`,
     `<img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
-    `<p>info@sunnysideup.com</p>`,
-    `</section>`
+    `<p>info@sunnysidedown.com</p>`,
+    `</section>`,
+    `padding: 0 20px 50px 20px;`,
+    `18`,
+    `sticky`,
+    `background-repeat: no-repeat;\nbackground-size: cover;`,
+    `255`
 ];
 
 const tasks = [
     `<h2>Radar:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>\n<h2>Alerts:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>`,
     `<section id="weather-data">\n\t<div class="weather-england">`,
     `<img url="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
-    `<a>info@sunnysideup.com</a>`,
-    ``
+    `<a>info@sunnysidedown.com</a>`,
+    ``,
+    `padding: 0`,
+    `1.8`,
+    `fixed`,
+    `background-repeat: inherit;\nbackground-size: auto;`,
+    `0`
 ];
 
 const verboseTasks = [
-    `The description of "Radar" and "Alerts" have been swapped on accident`,
-    `The section containing the England weather data and the div under it have their style tags swapped`,
-    `The logo in the navbar isn't showing up, make sure it's linked correctly`,
-    `The email address in the contact us section seems to be miscolored, even though it should be a paragraph element`,
-    `The "Our Work" section isn't closed off, which it should be right before the "Contact Us" section`,
+    `[HTML] The description of "Radar" and "Alerts" have been swapped on accident`,
+    `[HTML] The section containing the England weather data and the div under it have their style tags swapped`,
+    `[HTML] The logo in the navbar isn't showing up, make sure it's linked correctly`,
+    `[HTML] The email address in the contact us section seems to be miscolored, even though it should be a paragraph element`,
+    `[HTML] The "Our Work" section isn't closed off, which it should be right before the "Contact Us" section`,
+    `[CSS] Add a bottom padding of 50px and a side padding of 20px to the section containing the England weather data, using one 'padding' tag. Leave the top padding at 0`,
+    `[CSS] The font size of the paragraph elements in the CSS was mistyped to be 10x smaller than it should be, please scale it back up to 18 pixels`,
+    `[CSS] Make the navbar sticky, so that it stays at the top of the page when you scroll down`,
+    `[CSS] Make the background image of the services not repeat itself, and make it cover the entire element`,
+    `[CSS] The background color of the england weather section should be white with the current transparency, but it's miscolored`
 ]
 
 function getFaultyCode(faultyList)
@@ -269,11 +281,15 @@ function getFaultyCode(faultyList)
 
 function checkCorrectCode(input, faultyList)
 {
-    const cleanInputCode = input.replace(/ /g,'');
+    const cleanInputCode = input.replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '');
     let output = [];
 
     for (let i = 0; i < faultyList.length; i++) {
-        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'').replace(/[\r\n]+/g, '')));
+        try {
+            output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '')));
+        } catch {
+            output.push(false);
+        }
     }
 
     return output;

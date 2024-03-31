@@ -51,6 +51,7 @@ function createWindow() {
     fullscreen: true,
     autoHideMenuBar: true,
     icon: path.join(__dirname, "/logo.png"),
+    title: "LearnTheBasics",
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),

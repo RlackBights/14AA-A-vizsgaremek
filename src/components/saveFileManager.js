@@ -1,6 +1,7 @@
 export class saveFile {
-  constructor(saveId="", lvl=0, time=0, money=0, cpuId=-1, gpuId=-1, ramId=-1, stgId=-1, lastBought={cpu:0,gpu:0,ram:0,stg:0}, jobs="#-#-#-#") {
+  constructor(saveId="", lvl=0, xp=0, time=0, money=0, cpuId=-1, gpuId=-1, ramId=-1, stgId=-1, lastBought={cpu:0,gpu:0,ram:0,stg:0}, jobs="#-#-#-#") {
     this.saveId = saveId;
+    this.xp = xp;
     this.lvl = lvl;
     this.time = time;
     this.money = money;
@@ -10,6 +11,13 @@ export class saveFile {
     this.stgId = stgId;
     this.lastBought = lastBought;
     this.jobs = jobs;
+  }
+
+  getLevelPercentage() {
+    if (this.lvl < 10) {
+      return this.xp / ( 3 * Math.pow(this.lvl + 1, 2) + 5 * this.lvl + 1 );
+    }
+    return 1;
   }
 
   getCPU() {
@@ -86,10 +94,10 @@ export function parseSaves(input, isArray = true)
   if (isArray) {
     output = [];
     input.forEach(save => {
-      output.push(new saveFile(save.saveId, save.lvl, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, save.lastBought, save.encryptedJobs));
+      output.push(new saveFile(save.saveId, save.lvl, save.xp, save.time, save.money, save.cpuId, save.gpuId, save.ramId, save.stgId, save.lastBought, save.encryptedJobs));
     });
   } else {
-    return new saveFile(input.saveId, input.lvl, input.time, input.money, input.cpuId, input.gpuId, input.ramId, input.stgId, input.lastBought, input.jobs);
+    return new saveFile(input.saveId, input.lvl, input.xp, input.time, input.money, input.cpuId, input.gpuId, input.ramId, input.stgId, input.lastBought, input.jobs);
   }
 
   return output;

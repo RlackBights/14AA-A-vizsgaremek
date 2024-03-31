@@ -33,9 +33,9 @@ const sourceCode = (`<html>
         }
 
         #about-us, #positives {
-            background-color: #5e3218;
+            background-color: %5%;
             border: 2vmin solid #000;
-            border-radius: 1rem;
+            %6%
             padding: 2vmin;
             box-sizing: border-box;
             width: 46%;
@@ -43,21 +43,10 @@ const sourceCode = (`<html>
             margin: 5% 2%;
         }
 
-        #about-us {
-            float: left;
-        }
-
-        #positives {
-            float: right;
-        }
-        
-        .section-title {
-            text-decoration: underline;
-            color: #d3d3d3;
-        }
+        %8%
         
         #about-us p, #positives li {
-            text-align: justify;
+            text-align: %7%;
             font-size: 1.1rem;
             line-height: 1.5;
             margin: 0 0 1vmin 0;
@@ -72,6 +61,8 @@ const sourceCode = (`<html>
             padding: 1vmin;
             font-weight: bold;
         }
+        
+        %9%
     </style>
     <script>
         
@@ -109,7 +100,12 @@ const solutions = [
     `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`,
     `<p id="counter"><i>Number of bear attacks (since the big bang): 126378</i></p>`,
     `<section id="about-us">`,
-    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`
+    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`,
+    `#5e3218`,
+    `border-radius: 1rem;`,
+    `justify`,
+    `#about-us {\n\tfloat: left;\n}\n\n#positives {\n\tfloat: right;\n}`,
+    `.section-title {\n\tcolor: #d3d3d3;\n}`
 ];
 
 const tasks = [
@@ -117,15 +113,25 @@ const tasks = [
     `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`,
     `<p id="counter">Number of bear attacks (since the big bang): 126378</p>`,
     `<section id="">`,
-    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`
+    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`,
+    `brown`,
+    ``,
+    `center`,
+    `#about-us {\n\tfloat: none;\n}\n\n#positives {\n\tfloat: none;\n}`,
+    ``
 ];
 
 const verboseTasks = [
-    `Change the subtitle's element to make it one size bigger`,
-    `Fix the mistyped list item's HTML tag`,
-    `Make the bottom text italic, using an HTML tag`,
-    `The about-us section is missing the "about-us" style tag`,
-    `The seconds to last list item's "Nature's Pals" text should be bold using an HTML tag`
+    `[HTML] Change the subtitle's element to make it one size bigger`,
+    `[HTML] Fix the mistyped list item's HTML tag`,
+    `[HTML] Make the bottom text italic, using an HTML tag`,
+    `[HTML] The about-us section is missing the "about-us" style tag`,
+    `[HTML] The seconds to last list item's "Nature's Pals" text should be bold using an HTML tag`,
+    `[CSS] The brown background isn't quite right, please find it and change it to #5e3218`,
+    `[CSS] The border radius of the sections should be 1rem`,
+    `[CSS] The section texts should be justified, not centered`,
+    `[CSS] Using the already existing code, make the About Us section float left, and the Positives section float right`,
+    `[CSS] Add a class selector for the section titles to the end of the style, and change their color to #d3d3d3`
 ]
 
 function getFaultyCode(faultyList)
@@ -145,11 +151,16 @@ function getFaultyCode(faultyList)
 
 function checkCorrectCode(input, faultyList)
 {
-    const cleanInputCode = input.replace(/ /g,'');
+    const cleanInputCode = input.replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '');
     let output = [];
 
     for (let i = 0; i < faultyList.length; i++) {
-        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
+        try {
+            output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '')));
+        } catch {
+            output.push(false);
+        }
+        
     }
 
     return output;

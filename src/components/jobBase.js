@@ -4,7 +4,6 @@ import level2 from "../websites/level2";
 import { normalizeTime } from "./desktop";
 import { clamp } from "./saveContainer";
 
-const jobs = { level0, level1, level2 };
 export class Job {
     constructor(jobId, pay, tasks, timestamp, cooldown=0) {
         this.timestamp = timestamp;
@@ -16,27 +15,27 @@ export class Job {
 
     get jobName() {
         return ["Blue-Lake Forest",
-        "",
-        ""][this.jobId];
+        "Cam's Coffee",
+        "Sunny Side Down"][this.jobId];
     }
 
     get company() {
         return ["BLF Camping Ltd.",
-        "",
-        ""][this.jobId];
+        "CCoffee LLC.",
+        "Weather People corp."][this.jobId];
     }
 
     get description() {
         return [
             `Greetings!<br/><br/>We are looking for a developer who could help us out with the website we're building for our camping place! The Blue-Lake Forest camping site has been a staple of the summer holidays for several families since it opened in 2003. We'd like fast and precise work to be done, according to the tasks below:`,
-            ``,
-            ``][this.jobId];
+            `Hello,<br/><br/>We're seeking a talented web developer for a one-time project at Cam's Coffee! As we enhance our online presence, your skills could make a big impact. Interested? Here are the tasks that need to be carried out:`,
+            `We, from Weather People™, are seeking a proficient web developer for a pivotal one-time project. This initiative aims to enhance our digital infrastructure for disseminating meteorological insights. Below are your tasks:`][this.jobId];
     }
 
     get signoff() {
         return ["Best regards,<br/>The BLF Camping Team",
-        "",
-        ""][this.jobId];
+        "Have a nice one!<br/>Cam and the Crew©",
+        "Cordially,<br/>The Weather People™"][this.jobId];
     }
 
     getVerboseTasks(e) {
@@ -65,15 +64,34 @@ function generateJob(stgId, cpuId, gpuId)
                 tasks.push(randomTask);
                 break;
             case 2:
+                /*
                 randomTask = Math.round(Math.random() * 4) + 10;
                 while (tasks.includes(randomTask)) randomTask = ((randomTask + 1) % 5) + 10;
                 tasks.push(randomTask);
                 break;
+                */
+
+                // there are no JS jobs as of yet
+
+                randomTask = Math.round(Math.random() * 9) ;
+                while (tasks.includes(randomTask)) randomTask = ((randomTask + 1) % 10);
+                tasks.push(randomTask);
+                break;
             case 3:
+                /*
                 randomTask = Math.round(Math.random() * 14);
                 while (tasks.includes(randomTask)) randomTask = (randomTask + 1) % 15;
                 tasks.push(randomTask);
                 break;
+                */
+
+                // there are no JS jobs as of yet
+
+                randomTask = Math.round(Math.random() * 9) ;
+                while (tasks.includes(randomTask)) randomTask = ((randomTask + 1) % 10);
+                tasks.push(randomTask);
+                break;
+                
             default:
                 randomTask = Math.round(Math.random() * 4);
                 while (tasks.includes(randomTask)) randomTask = (randomTask + 1) % 5;
@@ -118,7 +136,7 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats, addXp)
 {
     let output = [];
     let outcontent = "";
@@ -132,8 +150,9 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
             await window.electron.getFile(i, username, saveId).then((res) => {
                 outcontent = res.toString();
             });
-        } 
-        let isComplete = (![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false));
+        }
+        console.log(outcontent);
+        let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
 
         let indexer = 0;
         let verboseTasks = "";
@@ -168,6 +187,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
                     window.electron.saveFile(i, username, saveId, "");
+                    addXp(jobs[i].tasks.length * 3);
                     setStats(curr => {
                         const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(jobs[i].pay)};
                         localStorage.setItem("stats", JSON.stringify(statsValue));

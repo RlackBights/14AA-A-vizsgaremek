@@ -36,7 +36,7 @@ const sourceCode = (`<html>
             font-size: 2.5vmin;
         }
         #navbar ul li a:hover {
-            color: #c7a68f;
+            %5%
         }
         #about-us, #our-work {
             box-sizing: border-box;
@@ -44,13 +44,13 @@ const sourceCode = (`<html>
             color: #c7a68f;
         }
         #banner {
-            height: 50vh;
+            height: 50v%8%;
             width: 100%;
         }
         #about-us h1, #our-work h1 {
             box-sizing: border-box;
             font-size: 5vmin;
-            margin: auto;
+            margin: %9%;
             width: 12%;
             padding-top: 7vh;
             padding-bottom: 3vh;
@@ -65,7 +65,7 @@ const sourceCode = (`<html>
         }
         #about-us div {
             width: 80%;
-            display: flex;
+            display: %7%;
             margin: auto;
             padding-top: 7vh;
             justify-content: space-evenly;
@@ -111,9 +111,9 @@ const sourceCode = (`<html>
             height: 80%;
             background-color: rgba(0, 0, 0, 0.2);
             justify-content: space-evenly;
-            list-style-type: none;
             border-radius: 1rem;
             color: rgb(159, 124, 86);
+            %6%
         }
         #contact-us ul li {
             text-align: center;
@@ -129,16 +129,16 @@ const sourceCode = (`<html>
 </head>
 <body>
     <section id="navbar">
-        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/628/609/small/coffee-shop-logo-design-png.png" alt="logo">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/023/628/609/small/coffee-shop-logo-design-png.png" alt="%1%">
         <ul>
-            <li><a href="#about-us">About us</a></li>
-            <li><a href="#our-work">Our Work</a></li>
-            <li><a href="#contact-us">Contact us</a></li>
+            <li><a>About us</a></li>
+            <li><a>Our Work</a></li>
+            <li><a>Contact us</a></li>
         </ul>
     </section>
-    <img id="banner" src="https://thumbs.dreamstime.com/b/coffee-banner-ads-d-illustratin-latte-woodcut-style-decorations-kraft-paper-background-141918114.jpg" alt="">
+    <%4% id="banner" src="https://thumbs.dreamstime.com/b/coffee-banner-ads-d-illustratin-latte-woodcut-style-decorations-kraft-paper-background-141918114.jpg" alt="">
     <section id="about-us">
-        <h1>About Us</h1>
+        %2%
         <p>Welcome to Cam's Coffee, where our passion for coffee transcends borders, connecting people through the shared experience of exceptional brews.
             At Cam's, we don't just sell coffee; we curate moments of warmth, inspiration, and joy.
         </p>
@@ -164,7 +164,6 @@ const sourceCode = (`<html>
         <h1>Our Work</h1>
         <div id="products">
             <h2>Signature Blends:</h2>
-            <p>
             <ul>
                 <li><strong>Cam's Classic Blend:</strong> A balanced blend of medium-roasted beans, perfect for everyday
                     enjoyment.</li>
@@ -173,17 +172,13 @@ const sourceCode = (`<html>
                 <li><strong>Sunset Blend:</strong> A smooth and mellow blend, ideal for winding down after a long day.
                 </li>
             </ul>
-            </p>
             <h2>Single-Origin Coffees:</h2>
-            <p>
             <ul>
                 <li><strong>Colombian Supremo:</strong> Rich and full-bodied with notes of chocolate and caramel.</li>
                 <li><strong>Ethiopian Yirgacheffe:</strong> Bright and floral with hints of citrus and jasmine.</li>
                 <li><strong>Brazilian Santos:</strong> Nutty and sweet with a smooth finish.</li>
             </ul>
-            </p>
             <h2>Specialty Roasts:</h2>
-            <p>
             <ul>
                 <li><strong>French Roast:</strong> Bold and intense with a smoky aroma and dark chocolate undertones.
                 </li>
@@ -192,34 +187,20 @@ const sourceCode = (`<html>
                 <li><strong>Decaf Blend:</strong> All the flavor without the caffeine, perfect for late-night
                     indulgence.</li>
             </ul>
-            </p>
             <h2>Flavored Coffees:</h2>
-            <p>
             <ul>
                 <li><strong>Vanilla Nut:</strong> A creamy blend of vanilla and roasted nuts for a sweet treat.</li>
                 <li><strong>Caramel Macchiato:</strong> Indulge in the rich flavors of caramel and creamy milk.</li>
                 <li><strong>Hazelnut Delight:</strong> A nutty and aromatic blend that's both comforting and delicious.
                 </li>
             </ul>
-            </p>
             <h2>Cold Brew Concentrate:</h2>
-            <p>
             <ul>
                 <li><strong>Cold Brew Concentrate:</strong> A concentrated brew perfect for creating your own refreshing
                     cold brew at home. Just add water or milk and enjoy!</li>
             </ul>
-            </p>
             <h2>Accessories:</h2>
-            <p>
-            <ul>
-                <li><strong>Cam's Coffee Mug:</strong> Start your day right with our stylish and durable ceramic mug,
-                    perfect for enjoying your favorite brew.</li>
-                <li><strong>Coffee Grinder:</strong> Take control of your coffee experience with our premium grinder,
-                    ensuring a fresh grind every time.</li>
-                <li><strong>Pour Over Set:</strong> Elevate your brewing method with our pour-over set, designed for a
-                    smooth and flavorful cup of coffee.</li>
-            </ul>
-            </p>
+            %0%
 
         </div>
     </section>
@@ -238,7 +219,7 @@ const sourceCode = (`<html>
             </li>
             <li>
                 <h3>Email</h3>
-                <p>info@camcoffee.com</p>
+                %3%
             </li>
         </ul>
     </section>
@@ -246,27 +227,42 @@ const sourceCode = (`<html>
 </html>`)
 
 const solutions = [
-    `<h2 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h2>`,
-    `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`,
-    `<p id="counter"><i>Number of bear attacks (since the big bang): 126378</i></p>`,
-    `<section id="about-us">`,
-    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`
+    `<ul>\n<li><strong>Cam's Coffee Mug:</strong> Start your day right with our stylish and durable ceramic mug, perfect for enjoying your favorite brew.</li>\n<li><strong>Coffee Grinder:</strong> Take control of your coffee experience with our premium grinder, ensuring a fresh grind every time.</li>\n<li><strong>Pour Over Set:</strong> Elevate your brewing method with our pour-over set, designed for a smooth and flavorful cup of coffee.</li>\n</ul>`,
+    `logo`,
+    `<h1>About Us</h1>`,
+    `<p>info@camcoffee.com</p>`,
+    `img`,
+    `cursor: pointer;\ncolor: #c7a68f;`,
+    `list-style-type: none;`,
+    `flex`,
+    `h`,
+    `auto`
 ];
 
 const tasks = [
-    `<h3 id="subtitle">"Fun in Nature, Where Bears Take a Break!"</h3>`,
-    `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`,
-    `<p id="counter">Number of bear attacks (since the big bang): 126378</p>`,
-    `<section id="">`,
-    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`
+    `<ol>\n<li><strong>Cam's Coffee Mug:</strong> Start your day right with our stylish and durable ceramic mug, perfect for enjoying your favorite brew.</li>\n<li><strong>Coffee Grinder:</strong> Take control of your coffee experience with our premium grinder, ensuring a fresh grind every time.</li>\n<li><strong>Pour Over Set:</strong> Elevate your brewing method with our pour-over set, designed for a smooth and flavorful cup of coffee.</li>\n</ol>`,
+    ``,
+    ``,
+    ``,
+    `pic`,
+    ``,
+    ``,
+    `block`,
+    `w`,
+    `none`
 ];
 
 const verboseTasks = [
-    `Change the subtitle's element to make it one size bigger`,
-    `Fix the mistyped list item's HTML tag`,
-    `Make the bottom text italic, using an HTML tag`,
-    `The about-us section is missing the "about-us" style tag`,
-    `The seconds to last list item's "Nature's Pals" text should be bold using an HTML tag`
+    `[HTML] The last list on the products section should also be unordered, like the others`,
+    `[HTML] Add the "logo" backup text to the image in the navbar`,
+    `[HTML] Add the largest header to the start of the about us section, labeled "About Us"`,
+    `[HTML] We forgot to add out business email to the contacts, please add it under the email header as a paragraph`,
+    `[HTML] One of the images isn't showing up, please make sure it's formatted correctly`,
+    `[CSS] Make the navbar links change the cursor to a pointer, and their texts' color to #c7a68f`,
+    `[CSS] Remove the bullet points from the contacts section (edit it after the color)`,
+    `[CSS] Change the display of the div containing the images under the About Us section, to flex`,
+    `[CSS] The banner element's height isn't defined correctly, it should scale based on the viewport height`,
+    `[CSS] The titles aren't centered thanks to a margin error, make sure they are set to "auto"`
 ]
 
 function getFaultyCode(faultyList)
@@ -286,11 +282,15 @@ function getFaultyCode(faultyList)
 
 function checkCorrectCode(input, faultyList)
 {
-    const cleanInputCode = input.replace(/ /g,'');
+    const cleanInputCode = input.replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '');
     let output = [];
 
     for (let i = 0; i < faultyList.length; i++) {
-        output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'')));
+        try {
+            output.push(cleanInputCode.includes(solutions[faultyList[i]].replace(/ /g,'').replace(/[\r\n]+/g, '').replace(/[\t]+/g, '')));
+        } catch {
+            output.push(false);
+        }
     }
 
     return output;
