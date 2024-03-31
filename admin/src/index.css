@@ -645,3 +645,9 @@ input:checked + .slider::before {
     background-image: url('LearnTheBasicsLogo.svg');
   }
 }
+
+@media (max-width: 850px) {
+  .block-mobile {
+    display: none;
+  }
+}
