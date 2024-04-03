@@ -186,7 +186,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
-                    window.electron.saveFile(i, username, saveId, "");
+                 //   window.electron.saveFile(i, username, saveId, "");
                     addXp(jobs[i].tasks.length * 3);
                     setStats(curr => {
                         const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(jobs[i].pay)};

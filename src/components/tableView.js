@@ -12,7 +12,7 @@ export function TableView() {
     const location = useLocation();
 
     useEffect(() =>{
-        window.electron.createSaveFiles(user.currUser.split(' ')[0], save.activeSaveFile.saveId);
+     //   window.electron.createSaveFiles(user.currUser.split(' ')[0], save.activeSaveFile.saveId);
     });
     
     if (localStorage.getItem("userAuthCode") === "" || user.currUser === "") navigate("https://www.youtube.com/watch?v=dQw4w9WgXcQ");

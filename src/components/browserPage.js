@@ -1,5 +1,18 @@
 import { useContext, useState } from "react"
 import { windowContext } from "./desktop"
+import { BrowserItem } from "./browserItem";
+
+const HTMLDocs = [
+    new BrowserItem("ASDASD HTML TEXT", "SHORT DESC", "EXAMPLEEEEEEEEEEEE", "DETAILED DESC")
+];
+
+const CSSDocs = [
+    new BrowserItem("ASDASD CSS TEXT", "SHORT DESC", "EXAMPLEEEEEEEEEEEE", "DETAILED DESC")
+];
+
+const JSDocs = [
+    new BrowserItem("Unavailable in demo", "JS is not supported in the demo", "", "")
+]
 
 export function BrowserPage() {
     const window = useContext(windowContext);
@@ -20,25 +33,35 @@ export function BrowserPage() {
                         <p className={filter[2] ? "active" : ""} onClick={() => setFilter(curr => [curr[0], curr[1], !curr[2]])}>JS</p>
                     </li>
                     {filter[0] && 
-                    <li>
-                        ASDASD HTML TEXT
-                    </li>
+                        <div>
+                            <h1 style={{margin: 0}}>HTML</h1>
+                            {HTMLDocs.map(e => <li onClick={() => {}}>{e.title}</li>)}
+                        </div>
                     }
                     {filter[1] && 
-                    <li>
-                        ASDASD CSS TEXT
-                    </li>
+                        <div>
+                            <h1 style={{margin: 0}}>CSS</h1>
+                            {CSSDocs.map(e => <li>{e.title}</li>)}
+                        </div>
                     }
                     {filter[2] && 
-                    <li>
-                        ASDASD JS TEXT
-                    </li>
+                        <div>
+                            <h1 style={{margin: 0}}>JS</h1>
+                            {JSDocs.map(e => <li>{e.title}</li>)}
+                        </div>
                     }
                     {!filter.includes(true) &&
                         <li>No languages selected for filter</li>
                     }
                 </ul>
-                <div id="doc-content"></div>
+                <div id="doc-content">
+                    <h1>TITLE OF DOCUMENT</h1>
+                    <h2>SHORT DESCRIPTION</h2>
+                    <div>
+                        EXAMPLE
+                    </div>
+                    <p>DETAILED DESCRIPTION</p>
+                </div>
             </div>
             }
             {page === "pc" && 

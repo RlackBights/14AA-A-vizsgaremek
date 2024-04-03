@@ -76,7 +76,7 @@ export default function CodePage()
 
         const saveFunction = (e) => {
             if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
-                window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorId"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
+             //   window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorId"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
                 document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorId")}`).setAttribute("edited", "false");
                 e.preventDefault();
                 sessionStorage.setItem("saved", "true");

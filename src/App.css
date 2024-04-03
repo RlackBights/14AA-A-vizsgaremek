@@ -2032,7 +2032,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 #browser-tabs li {
   cursor: pointer;
-  background-color: var(--theme-color);
+  background-color: #292a30;
   padding: 1.1vmin;
   border-right: 0.5vmin solid var(--accent-color);
   text-align: center;
@@ -2042,10 +2042,11 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 #browser-tabs li:hover {
   background-color: var(--accent-color);
-  color: var(--theme-color);
+  color: #292a30;
 }
 
 #browser-content {
+  display: flex;
   width: 100%;
   height: 100%;
   background-color: #0c0c0c;
@@ -2062,7 +2063,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   color: var(--accent-color);
 }
 
-#doc-sidebar li:first-of-type {
+#doc-sidebar > li:first-of-type {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -2077,12 +2078,48 @@ Y88b  d88P  d8888888888 888   "   888 888
   color: var(--accent-color);
   cursor: pointer;
   transition: 0.25s all;
-  
+}
+
+#doc-sidebar > div > li {
+  margin-left: 3vmin;
+  transition: all 0.25s;
+}
+
+#doc-sidebar > div > li:hover {
+  cursor: pointer;
+  color: white;
 }
 
 #doc-sidebar li p:hover, #doc-sidebar li p.active {
-  background-color: #0077B6 !important;
+  background-color: #292a30 !important;
   color: black !important;
+}
+
+#doc-sidebar li p.active {
+  color: white !important;
+}
+
+#doc-content {
+  width: 100%;
+  text-align: center;
+  color: white;
+}
+
+#doc-content h1 {
+  font-size: 5vmin;
+  margin: 1vh 0 2vh 0;
+}
+
+#doc-content h2 {
+  font-style: italic;
+  margin: 0 0 5vh 0;
+}
+
+#doc-content div {
+  width: 60%;
+  height: 40vh;
+  background-color: #080808;
+  margin: auto;
 }
 
 /*
