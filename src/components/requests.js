@@ -14,10 +14,9 @@ export async function getPlayerSaves(authCode)
     
     return await fetch(backend + "/game/getPlayerSaves", fetchParams).then((res) => res.json()).then((res) => {
         if (res.data !== undefined) {
-            console.log(res.data);
             return [parseSaves(res.data), new GameStats(res.data.completedJobs, res.data.totalIncome, res.data.fastestCompletion)];
         }
-        return [];
+        return [[], new GameStats()];
     })
 }
 

@@ -64,9 +64,6 @@ const sourceCode = (`<html>
         
         %9%
     </style>
-    <script>
-        
-    </script>
     <title>Camping</title>
 </head>
 <body>
@@ -104,8 +101,8 @@ const solutions = [
     `#5e3218`,
     `border-radius: 1rem;`,
     `justify`,
-    `#about-us {\n\tfloat: left;\n}\n\n#positives {\n\tfloat: right;\n}`,
-    `.section-title {\n\tcolor: #d3d3d3;\n}`
+    `#about-us {\n\t\t\tfloat: left;\n\t\t}\n\n\t\t#positives {\n\t\t\tfloat: right;\n\t\t}`,
+    `.section-title {\n\t\t\tcolor: #d3d3d3;\n\t\t}`
 ];
 
 const tasks = [
@@ -117,7 +114,7 @@ const tasks = [
     `brown`,
     ``,
     `center`,
-    `#about-us {\n\tfloat: none;\n}\n\n#positives {\n\tfloat: none;\n}`,
+    `#about-us {\n\t\t\tfloat: none;\n\t\t}\n\n\t\t#positives {\n\t\t\tfloat: none;\n\t\t}`,
     ``
 ];
 

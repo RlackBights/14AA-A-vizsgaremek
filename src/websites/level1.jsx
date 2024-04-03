@@ -122,9 +122,6 @@ const sourceCode = (`<html>
             text-align: justify;
         }
     </style>
-    <script>
-        
-    </script>
     <title>Cam's Coffee</title>
 </head>
 <body>

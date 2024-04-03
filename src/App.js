@@ -8,6 +8,7 @@ import { parseSaves, saveFile } from "./components/saveFileManager";
 import { Desktop } from "./components/desktop";
 import { PCBuild } from "./components/pcBuild";
 import { GameStats, parseStats } from "./components/statsManager";
+import { Notification } from "./components/notification";
 
 // Block refresh
 
@@ -65,6 +66,7 @@ export function App() {
       <overlayContext.Provider value={{currOverlay, setCurrOverlay}}>
         <userContext.Provider value={{currUser, setCurrUser}}>
           <optionsContext.Provider value={{optionValues, setOptionValues}}>
+            <Notification />
             <RouterProvider router={router}/>
           </optionsContext.Provider>
         </userContext.Provider>

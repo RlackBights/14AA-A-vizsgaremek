@@ -3,6 +3,7 @@ import { saveContext, userContext } from '../App';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PauseMenu from './pauseMenu';
 import { useEffect } from 'react';
+import { displayMessage } from './notification';
 
 export function TableView() {
     const user = useContext(userContext);
@@ -52,7 +53,13 @@ export function TableView() {
         <div id='room'>
             <PauseMenu/>
             <div id='monitor' onClick={() => {
-                if([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1) || save.activeSaveFile.gpuId > save.activeSaveFile.cpuId || save.activeSaveFile.ramId > save.activeSaveFile.cpuId || save.activeSaveFile.stgId > save.activeSaveFile.cpuId) return;
+                if ([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1)) {
+                    displayMessage("Missing hardware element/elements", "error");
+                    return;
+                } else if(save.activeSaveFile.gpuId > save.activeSaveFile.cpuId || save.activeSaveFile.ramId > save.activeSaveFile.cpuId || save.activeSaveFile.stgId > save.activeSaveFile.cpuId) {
+                    displayMessage("The CPU's level is too low for other elements", "error");
+                    return;
+                }
                 const room = document.getElementById("room");
                 const monitorClick = document.getElementById("monitor");
                 const computerClick = document.getElementById("computer");

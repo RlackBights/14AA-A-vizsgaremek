@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { useContext } from "react";
 import { overlayContext, userContext } from "../App";
 import { loginUser, registerUser, sendRecoveryEmail } from "./requests";
+import { displayMessage } from "./notification";
 
 export function LoginPage() {
 
@@ -38,7 +39,7 @@ export function LoginPage() {
         [Log out]
       </button>}
 
-      <p id="error-message">ERROR PLACEHOLDER</p>
+      
       <div id="login-page" style={{ display: overlay.currOverlay === "loginPage" ? "flex" : "none" }}>
         <form className="form-container" onSubmit={(e) => {e.preventDefault()}}>
           <p
@@ -58,7 +59,6 @@ export function LoginPage() {
               onClick={() => {
                 const usernameInput = document.getElementById("name-input");
                 const passwordInput = document.getElementById("password-input");
-                const errorMessage = document.getElementById("error-message");
 
                 loginUser(usernameInput.value, passwordInput.value).then((res) => {
                   if (res.success) {
@@ -68,11 +68,7 @@ export function LoginPage() {
                     user.setCurrUser(res.data);
                     overlay.setCurrOverlay("")
                   } else {
-                    errorMessage.innerHTML = res.data;
-                    errorMessage.className = "show-error";
-                    setTimeout(() => {
-                      errorMessage.className = "";
-                    }, 4000);
+                      displayMessage(res.data, "error")
                   }
                 });
               }}
@@ -132,7 +128,6 @@ export function LoginPage() {
                 const registerName = document.getElementById("name2-input");
                 const registerPassword1 = document.getElementById("password2-input");
                 const registerPassword2 = document.getElementById("password3-input");
-                const errorMessage = document.getElementById("error-message");
 
                 registerUser(emailAddress.value, registerName.value, registerPassword1.value, registerPassword2.value).then((res) => {
                   if (res.success) {
@@ -144,11 +139,7 @@ export function LoginPage() {
                     user.setCurrUser(res.data);
                     overlay.setCurrOverlay("")
                   } else {
-                    errorMessage.innerHTML = res.data;
-                    errorMessage.className = "show-error";
-                    setTimeout(() => {
-                      errorMessage.className = "";
-                    }, 4000);
+                    displayMessage(res.data, "error");
                   }
                 })
                 
@@ -188,23 +179,14 @@ export function LoginPage() {
               className="form-btn"
               onClick={() => {
                 const emailAddress = document.getElementById("forgot-email-input");
-                const errorMessage = document.getElementById("error-message");
 
                 sendRecoveryEmail(emailAddress.value).then((res) => {
                   if (res.success) {
                     emailAddress.value = "";
-                    errorMessage.innerHTML = "Password reset email sent!";
-                    errorMessage.className = "show-error";
-                    setTimeout(() => {
-                      errorMessage.className = "";
-                    }, 4000);
+                    displayMessage("Password reset email sent!");
                     overlay.setCurrOverlay("")
                   } else {
-                    errorMessage.innerHTML = res.data;
-                    errorMessage.className = "show-error";
-                    setTimeout(() => {
-                      errorMessage.className = "";
-                    }, 4000);
+                    displayMessage(res.data, "error");
                   }
                 });
               }}>

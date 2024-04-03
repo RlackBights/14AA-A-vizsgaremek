@@ -208,7 +208,7 @@ const sourceCode = (`<html lang="en">
             <li>
                 <h3>Address</h3>
                 <p>Sunny Side Down<br>
-                    123 Weather Street <br>
+                    123 Weather Street<br>
                     Anytown, USA 12345
                 </p>
             </li>
@@ -226,7 +226,7 @@ const sourceCode = (`<html lang="en">
 </html>`)
 
 const solutions = [
-    `<h2>Radar:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>\n<h2>Alerts:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>`,
+    `<h2>Radar:</h2>\n\t\t\t<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>\n\t\t\t<h2>Alerts:</h2>\n\t\t\t<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>`,
     `<section id="weather-england">\n\t<div class="weather-data">`,
     `<img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
     `<p>info@sunnysidedown.com</p>`,
@@ -234,12 +234,12 @@ const solutions = [
     `padding: 0 20px 50px 20px;`,
     `18`,
     `sticky`,
-    `background-repeat: no-repeat;\nbackground-size: cover;`,
+    `background-repeat: no-repeat;\n\t\t\tbackground-size: cover;`,
     `255`
 ];
 
 const tasks = [
-    `<h2>Radar:</h2>\n<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>\n<h2>Alerts:</h2>\n<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>`,
+    `<h2>Radar:</h2>\n\t\t\t<p>Receive weather alerts and notifications for severe weather conditions, such as storms, hurricanes, and tornadoes.</p>\n\t\t\t<h2>Alerts:</h2>\n\t\t\t<p>View live radar images to track precipitation, storms, and other weather patterns in real-time.</p>`,
     `<section id="weather-data">\n\t<div class="weather-england">`,
     `<img url="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
     `<a>info@sunnysidedown.com</a>`,
@@ -247,7 +247,7 @@ const tasks = [
     `padding: 0`,
     `1.8`,
     `fixed`,
-    `background-repeat: inherit;\nbackground-size: auto;`,
+    `background-repeat: inherit;\n\t\t\tbackground-size: auto;`,
     `0`
 ];
 

@@ -558,22 +558,34 @@
   color: var(--theme-color);
 }
 
-#error-message {
+#notification {
   position: absolute;
   width: fit-content;
   margin: 0;
   padding: 0.5rem 1rem;
-  top: -100%;
+  top: -10%;
   left: 50%;
   transform: translateX(-50%);
   display: block;
-  background-color: rgba(255, 0, 0, 0.6);
   border: 1px solid white;
   border-radius: 1rem;
   color: white;
   font-size: 3vmin;
   z-index: 9999;
   text-align: center;
+  transition: all 0.25s ease-in-out;
+}
+
+#notification.show {
+  top: 5%;
+}
+
+#notification.show-notification {
+  background-color: rgba(0, 0, 255, 0.6);
+}
+
+#notification.show-error {
+  background-color: rgba(255, 0, 0, 0.6);
 }
 
 .close-image {
@@ -1017,20 +1029,6 @@ input:checked + .slider::before {
   }
 }
 
-.show-error {
-  animation-name: showErrorMessage;
-  animation-duration: 4s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
-}
-
-@keyframes showErrorMessage {
-  0% {top: -10%}
-  10% {top: 5%}
-  90% {top: 5%}
-  100% {top: -10%}
-}
-
 /*
  .d8888b.         d8888 888b     d888 8888888888 
 d88P  Y88b       d88888 8888b   d8888 888        
@@ -1411,7 +1409,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .pages#browser-page {
-  background: linear-gradient(var(--theme-color) 6vh, black 6vh);
+  background: linear-gradient(#292a30 6vh, black 6vh);
   display: flex;
   flex-direction: column;
 }
@@ -1482,7 +1480,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 .pages#settings-page {
-  background: linear-gradient(#292a30 6vh, black 6vh);
+  background: linear-gradient(var(--theme-color) 6vh, black 6vh);
 }
 
 .pages#thispc-page {

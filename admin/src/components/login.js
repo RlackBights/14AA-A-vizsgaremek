@@ -8,7 +8,7 @@ export function Login() {
 
     return (
         <form id="form-container" onSubmit={(e) => { e.preventDefault() }}>
-            <p id="error-message">asasdasd</p>
+            <p id="error-message"></p>
             <h3 id="login-title">Login</h3>
             <p>Username</p>
             <input type="text" id="name-input"></input>

@@ -116,7 +116,7 @@ ipcMain.handle('get-file', async (e, data) => {
       resolve(data);
     });
 
-  }) 
+  }).catch(); 
 });
 
 ipcMain.on('create-file', async (e, data) => {
