@@ -31,10 +31,11 @@ function generateJobFiles(jobs, setActiveEditor, save)
 
 async function getJobContent(id, username, save) {
     let outcontent = "";
+    /*
     await window.electron.getFile(id, username, save.activeSaveFile.saveId).then((fileContent) => {
         outcontent = fileContent.toString();
     });
-
+    */
     if (outcontent === "") {
         if (parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id] !== undefined) {
             outcontent = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].tasks);

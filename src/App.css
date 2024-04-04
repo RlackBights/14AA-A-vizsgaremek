@@ -2115,11 +2115,41 @@ Y88b  d88P  d8888888888 888   "   888 888
   margin: 0 0 5vh 0;
 }
 
-#doc-content div {
-  width: 60%;
-  height: 40vh;
+#doc-content > section {
+  width: 60% !important;
   background-color: #080808;
+  padding: 0 !important;
   margin: auto;
+  border-radius: 1rem;
+  box-sizing: border-box;
+}
+
+#doc-content > section > div {
+  position: absolute;
+  display: block;
+  width: 100% !important;
+  height: 100%;
+  top: 0;
+  border: 3px solid #fff;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+#doc-content p {
+  margin: auto;
+  margin-top: 4vh;
+  width: 60%;
+  text-align: justify;
+}
+
+#doc-content .invisible.scrollbar.vertical.fade {
+  display: none !important;
+}
+
+#doc-content .decorationsOverviewRuler {
+  display: none !important;
 }
 
 /*
@@ -2165,6 +2195,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
+  background-size: 100% 100%;
   filter: brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2);
 }
 

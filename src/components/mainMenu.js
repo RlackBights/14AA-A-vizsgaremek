@@ -6,6 +6,7 @@ import { optionsContext, overlayContext, saveContext, userContext } from "../App
 import { getHardwareElements, getPlayerSaves } from "./requests";
 import OptionsPage from "./optionsPage";
 import { NewSave } from "./newSave";
+import { displayMessage } from "./notification";
 
 export function MainMenu() {
 
@@ -38,7 +39,11 @@ export function MainMenu() {
             <div className="button-container">
               <button
                 onClick={async () => {
-                  if (localStorage.getItem("userAuthCode") === "") return;
+                  if (localStorage.getItem("userAuthCode") === "") 
+                  {
+                    displayMessage("You must log in to play!", "error")
+                    return;
+                  }
                   const hardwareElements = await getHardwareElements();
                   localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));
                   getPlayerSaves(user.currUser).then((res) => {
@@ -52,7 +57,11 @@ export function MainMenu() {
               </button>
               <button
                 onClick={() => {
-                  if (localStorage.getItem("userAuthCode") === "") return;
+                  if (localStorage.getItem("userAuthCode") === "")
+                  {
+                    displayMessage("You must log in to play!", "error")
+                    return;
+                  }
                   overlay.setCurrOverlay("newSave");
                 }}
               >
