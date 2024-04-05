@@ -1,8 +1,13 @@
 import level0 from "../websites/level0";
 import level1 from "../websites/level1";
 import level2 from "../websites/level2";
+import icon1 from "../assets/BLFLogo.png";
+import icon2 from "../assets/CamsCoffeeLogo.png";
+import icon3 from "../assets/WeatherPeopleLogo.png";
 import { normalizeTime } from "./desktop";
 import { clamp } from "./saveContainer";
+
+const userIcons = [icon1, icon2, icon3];
 
 export class Job {
     constructor(jobId, pay, tasks, timestamp, cooldown=0) {
@@ -210,7 +215,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
             }}>
                 <div>
                     <section>
-                        <img style={{backgroundColor: "red", width: "4vmin", height: "4vmin", borderRadius: "50%"}} src="https://i.imgur.com/x850292.png" alt="job-icon"/>
+                        <img style={{backgroundColor: "transparent", width: "4vmin", height: "4vmin", borderRadius: "50%"}} src={userIcons[jobs[i].jobId]} alt="job-icon"/>
                         <div>
                             <p>{isOnCooldown ? "----" : jobs[i].company}</p>
                             <p>{isOnCooldown ? `Until next job: ${normalizeTime(Math.floor((jobs[i].cooldown - Date.now() + 1000) / 60000))}:${normalizeTime(Math.ceil((jobs[i].cooldown - Date.now()) / 1000) % 60)}` : jobs[i].jobName}</p>
