@@ -152,13 +152,11 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         
         if (!isOnCooldown) {
             let fileContent = "";
-            /*
             await window.electron.getFile(i, username, saveId).then((res) => {
                 outcontent = res.toString();
             });
-            */
         }
-        console.log(outcontent);
+        const paidMoney = Math.floor(([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).filter(isCorrect => isCorrect).length / jobs[i].tasks.length) * jobs[i].pay);
         let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
 
         let indexer = 0;
@@ -187,24 +185,23 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     ${verboseTasks}
                 </ul>
                 <p>${jobs[i].signoff}</p>
-                <h1>Payment:<br/>$${jobs[i].pay}</h1>
+                <h1>Payment:<br/>$${paidMoney}</h1>
                 <h3>${username}</h3>`;
 
                 const completeButton = document.createElement("button");
-                completeButton.innerHTML = "Complete job";
-                completeButton.disabled = !isComplete;
+                completeButton.innerHTML = "Sign job" + (paidMoney === parseInt(jobs[i].pay) ? "" : " (unfinished)");
                 completeButton.onclick = (e) => {
                     sign();
-                 //   window.electron.saveFile(i, username, saveId, "");
-                    addXp(jobs[i].tasks.length * 3);
+                    window.electron.saveFile(i, username, saveId, "");
+                    addXp([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).filter(isCorrect => isCorrect).length * 3);
                     setStats(curr => {
-                        const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(jobs[i].pay)};
+                        const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(paidMoney)};
                         localStorage.setItem("stats", JSON.stringify(statsValue));
                         return statsValue;
                     });
-                    addMoney(jobs[i].pay);
+                    addMoney(paidMoney);
                     if (gpuId < 3) {
-                        setSaveJobs(Date.now() + [Math.round(Math.random() * 150000) + 30000, Math.round(Math.random() * 100000) + 20000, Math.round(Math.random() * 50000) + 10000][gpuId], i);
+                        setSaveJobs(Date.now() + [Math.round(Math.random() * 60000) + 30000, Math.round(Math.random() * 40000) + 20000, Math.round(Math.random() * 20000) + 10000][gpuId], i);
                     } else {
                         setSaveJobs("#", i);
                     }
@@ -223,7 +220,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     </section>
                     <div>
                         <p className="job-timestamp">{isOnCooldown ? "--:--" :jobs[i].timestamp}<br/></p>
-                        <p>${isOnCooldown ? "-" : jobs[i].pay}</p>
+                        <p>${isOnCooldown ? "-" : paidMoney}</p>
                     </div>
                 </div>
             </li>
