@@ -737,6 +737,17 @@ Y88b  d88P d8888888888    Y888P    888       Y88b  d88P d8888888888 888  T88b  8
   margin: 0;
 }
 
+.save-bottom > div {
+  height: 0.75vmin;
+  width: 60%;
+  border-radius: 1rem;
+  border: 0.5vmin solid var(--accent-color); 
+}
+
+.save-bottom > section {
+  font-size: 2vmin;
+}
+
 #playtime {
   color: lightgray;
   font-size: 2.5vmin;

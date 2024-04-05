@@ -1,16 +1,25 @@
 import { useContext } from 'react';
 import { overlayContext, saveContext } from '../App';
 import '../App.css'
-import { saveOffsetContext } from './saveContainer';
+import { clamp, saveOffsetContext } from './saveContainer';
 import { deleteSave } from './requests';
 import { useNavigate } from 'react-router-dom';
 
-export function SaveItem(props)
-{
+function progressPercentage(currXp, currLevel) {
+    let targetLevel = clamp(currLevel + 1, 1, 10);
+    let requiredXp = (Math.pow(targetLevel * 6 + 5, 2) / 12 - 25 / 12) - (Math.pow(currLevel * 6 + 5, 2) / 12 - 25 / 12);
+    let actualXp = currXp - (Math.pow(currLevel * 6 + 5, 2) / 12 - 25 / 12);
+    let percentage = (actualXp / requiredXp) * 100;
+    return Math.floor(percentage);
+}
+
+export function SaveItem(props) {
     const overlay = useContext(overlayContext);
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
     const navigate = useNavigate();
+
+    console.log(props.save);
 
     return (
             <div className="save-item-container">
@@ -50,6 +59,8 @@ export function SaveItem(props)
                     <div className="grid-item save-bottom">
                         <p>{props.save.saveId}</p>
                         <p>LvL: {props.save.lvl}</p>
+                        <div style={{ background: `linear-gradient(to right, var(--accent-color) ${progressPercentage(props.save.xp, props.save.lvl)}%, #00000000 ${progressPercentage(props.save.xp, props.save.lvl)}%)` }}></div>
+                        <section>{progressPercentage(props.save.xp, props.save.lvl)}%</section>
                         <p>{props.save.money}$</p>
                         <p id="playtime">
                             { props.save.getParsedTime()}
