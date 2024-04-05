@@ -27,7 +27,7 @@ PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=.\
 OutputBaseFilename=LearnTheBasics_Installer
-SetupIconFile=logo.ico
+SetupIconFile=./logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -39,7 +39,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "dist\win-unpacled\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "dist\win-unpacked\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "dist\win-unpacked\chrome_100_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
 Source: "dist\win-unpacked\chrome_200_percent.pak"; DestDir: "{app}"; Flags: ignoreversion
 Source: "dist\win-unpacked\d3dcompiler_47.dll"; DestDir: "{app}"; Flags: ignoreversion

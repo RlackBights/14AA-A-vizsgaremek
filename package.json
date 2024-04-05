@@ -8,7 +8,10 @@
     "os": false
   },
   "build": {
-    "appId": "com.learnthebasics.app"
+    "appId": "com.learnthebasics.app",
+    "win": {
+      "icon": "build/logo.ico"
+    }
   },
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
