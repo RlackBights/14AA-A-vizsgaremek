@@ -1,8 +1,10 @@
 import { useContext,  useEffect,  useState } from "react";
 import { windowContext } from "./desktop";
 import { generateJobItems, parseJobs } from "./jobBase";
-import { saveContext, userContext } from "../App";
+import { optionsContext, saveContext, userContext } from "../App";
+import signSound from "../assets/finish-job.mp3";
 import { soundContext } from '../App';
+import useSound from "use-sound";
 
 let currInterval;
 
@@ -12,6 +14,8 @@ export function JobsPage()
     const [jobs, setJobs] = useState([]);
     const window = useContext(windowContext);
     const user = useContext(userContext);
+    const options = useContext(optionsContext);
+    const [sign] = useSound(signSound, { volume: options.optionValues.volume[0] });
     const play = useContext(soundContext).uiClick;
 
     console.log(save.activeSaveFile.xp);
@@ -36,7 +40,7 @@ export function JobsPage()
 
         const generateJobs = async (currWindow) => {
             if (currWindow !== "jobs") return;
-            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp, play));
+            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp, play, sign));
         }
         
         generateJobs(window);

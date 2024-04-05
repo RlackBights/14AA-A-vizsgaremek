@@ -136,7 +136,7 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats, addXp, play)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats, addXp, play, sign)
 {
     let output = [];
     let outcontent = "";
@@ -189,7 +189,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
-                    play();
+                    sign();
                  //   window.electron.saveFile(i, username, saveId, "");
                     addXp(jobs[i].tasks.length * 3);
                     setStats(curr => {

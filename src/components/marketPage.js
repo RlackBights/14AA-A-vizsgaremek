@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { saveContext } from "../App";
+import { optionsContext, saveContext } from "../App";
 import { useContext } from "react";
 import cpu from '../assets/cpu.png';
 import gpu from '../assets/gpu.png';
@@ -7,10 +7,12 @@ import ram from '../assets/ram.png';
 import stg from '../assets/hdd.png';
 import { windowContext } from "./desktop";
 import { displayMessage } from "./notification";
+import purchaseSound from "../assets/purchase-sound.mp3";
 import { soundContext } from '../App';
+import useSound from "use-sound";
 
 const images = {cpu, gpu, ram, stg};
-function displayMarketItems(tab, saveFile, setSaveFile, play)
+function displayMarketItems(tab, saveFile, setSaveFile, buySound)
 {
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
@@ -29,7 +31,7 @@ function displayMarketItems(tab, saveFile, setSaveFile, play)
                 <p className='market-item-price'>{finalPrice}$</p>
                 <button
                     onClick={() => {
-                        play();
+                        buySound();
                         const newSave = {...saveFile, money: saveFile.money - finalPrice, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
                         setSaveFile(newSave);
                         localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
@@ -48,6 +50,8 @@ export default function MarketPage()
     const [marketTab, setMarketTab] = useState("cpu");
     const save = useContext(saveContext);
     const window = useContext(windowContext);
+    const options = useContext(optionsContext);
+    const [buySound] = useSound(purchaseSound, { volume: options.optionValues.volume[0] });
     const play = useContext(soundContext).uiClick;
 
     return (
@@ -72,7 +76,7 @@ export default function MarketPage()
                 <p>{save.activeSaveFile.money}$</p>
             </div>
             <div id='market-items'>
-                {displayMarketItems(marketTab, save.activeSaveFile, save.setActiveSaveFile, play)}
+                {displayMarketItems(marketTab, save.activeSaveFile, save.setActiveSaveFile, buySound)}
             </div>
         </div>
     )
