@@ -7,6 +7,7 @@ import { getHardwareElements, getPlayerSaves } from "./requests";
 import OptionsPage from "./optionsPage";
 import { NewSave } from "./newSave";
 import { displayMessage } from "./notification";
+import { soundContext } from '../App';
 
 export function MainMenu() {
 
@@ -14,6 +15,7 @@ export function MainMenu() {
     const user = useContext(userContext);
     const saves = useContext(saveContext);
     const options = useContext(optionsContext);
+    const play = useContext(soundContext).uiClick;
 
     document.body.addEventListener('keydown', (e) => {
       if (e.key === "Escape") {
@@ -39,6 +41,7 @@ export function MainMenu() {
             <div className="button-container">
               <button
                 onClick={async () => {
+                  play();
                   if (localStorage.getItem("userAuthCode") === "") 
                   {
                     displayMessage("You must log in to play!", "error")
@@ -57,6 +60,7 @@ export function MainMenu() {
               </button>
               <button
                 onClick={() => {
+                  play();
                   if (localStorage.getItem("userAuthCode") === "")
                   {
                     displayMessage("You must log in to play!", "error")
@@ -68,10 +72,12 @@ export function MainMenu() {
                 New Game
               </button>
               <button onClick={() => {
+                play();
                 overlay.setCurrOverlay("optionsPage");
               }}>Options</button>
               <button
                 onClick={() => {
+                  play();
                   window.close();
                 }}
               >

@@ -6,9 +6,10 @@ import level1 from "../websites/level1";
 import level2 from "../websites/level2";
 import { parseJobs } from "./jobBase";
 import { saveContext, userContext } from "../App";
+import { soundContext } from '../App';
 
 const levels = [level0, level1, level2];
-function generateJobFiles(jobs, setActiveEditor, save)
+function generateJobFiles(jobs, setActiveEditor, save, play)
 {
     let output = [];
     for (let i = 0; i < jobs.length; i++) {
@@ -16,6 +17,7 @@ function generateJobFiles(jobs, setActiveEditor, save)
         const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
         output.push(
             <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" cooldown={isDisabled ? "true" : "false"} onClick={isDisabled ? () => {} : (e) => {
+                play();
                 e.target.parentElement.childNodes.forEach(item =>{
                     if (item.getAttribute("language") === null || item === e.target) return;
                     item.className = "";
@@ -55,6 +57,7 @@ export default function CodePage()
     const [activeEditor, setActiveEditor] = useState(-1);
     const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
+    const play = useContext(soundContext).uiClick;
 
     useEffect(() => {
         for (let i = 0; i < 4; i++) {
@@ -73,6 +76,8 @@ export default function CodePage()
     useEffect(() => {
         const setContents = async () => setJobContents([await getJobContent(0, user.currUser.split(' ')[0], save), await getJobContent(1, user.currUser.split(' ')[0],save), await getJobContent(2, user.currUser.split(' ')[0],save), await getJobContent(3, user.currUser.split(' ')[0],save)]);
         setContents();
+
+        if (windowState !== "code") return;
 
         const saveFunction = (e) => {
             if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
@@ -97,7 +102,7 @@ export default function CodePage()
     }, [save, user, activeEditor])
 
     useEffect(() => {
-        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save));
+        setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save, play));
         // eslint-disable-next-line
     }, [save.activeSaveFile]);
 
@@ -167,6 +172,7 @@ export default function CodePage()
                 <li>⯆ jobs</li>
                 {jobFiles}
                 <button id="test-btn" onClick={() => {
+                    play();
                     if (!document.getElementById("code-preview")) return;
                     document.getElementById("code-preview").classList.toggle("open");
                 }}>Test code</button>

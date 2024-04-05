@@ -3,6 +3,7 @@ import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import { soundContext } from '../App';
 
 sessionStorage.setItem("attachedPauseHandlers", "false");
 
@@ -10,6 +11,7 @@ export default function PauseMenu(params) {
   const user = useContext(userContext);
   const saves = useContext(saveContext);
   const navigate = useNavigate();
+  const play = useContext(soundContext).uiClick;
 
   useEffect(() => {
 
@@ -56,9 +58,11 @@ export default function PauseMenu(params) {
             Basics
         </h1>
         <button className='pause-button' onClick={() => {
-
+          play();
+          // TODO
         }}>Options</button>
         <button className='pause-button' onClick={(e) => {
+          play();
           let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
           if (localStorage.getItem("activeHardwareItems") !== null)
@@ -72,6 +76,7 @@ export default function PauseMenu(params) {
           });
         }}>Quicksave</button>
         <button className='pause-button' onClick={() => {
+          play();
           let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
           if (localStorage.getItem("activeHardwareItems") !== null)

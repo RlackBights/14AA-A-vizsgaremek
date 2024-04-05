@@ -7,9 +7,10 @@ import ram from '../assets/ram.png';
 import stg from '../assets/hdd.png';
 import { windowContext } from "./desktop";
 import { displayMessage } from "./notification";
+import { soundContext } from '../App';
 
 const images = {cpu, gpu, ram, stg};
-function displayMarketItems(tab, saveFile, setSaveFile)
+function displayMarketItems(tab, saveFile, setSaveFile, play)
 {
     const hardwareItems = JSON.parse(localStorage.getItem("availableHardware"));
     let output = [];
@@ -28,18 +29,11 @@ function displayMarketItems(tab, saveFile, setSaveFile)
                 <p className='market-item-price'>{finalPrice}$</p>
                 <button
                     onClick={() => {
-                    const newSave = {...saveFile, money: saveFile.money - finalPrice, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
-                    setSaveFile(newSave);
-                    localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
-                    displayMessage("Item added to storage!")
-                    /*
-                    document.getElementById("alert").classList.add("active");
-                    setTimeout(() => {
-                        if (document.getElementById("alert")) {
-                            document.getElementById("alert").classList.remove("active");
-                        }
-                    }, 5000);
-                    */
+                        play();
+                        const newSave = {...saveFile, money: saveFile.money - finalPrice, lastBought: {...saveFile.lastBought, [tab]: element.hardwareId} };
+                        setSaveFile(newSave);
+                        localStorage.setItem("activeSaveFile", JSON.stringify(newSave));
+                        displayMessage("Item added to storage!")
                 }} disabled={((tab === "cpu" && (element.hardwareId * 3 > saveFile.lvl || element.hardwareId <= saveFile.lastBought.cpu)) || (tab !== "cpu" && (element.hardwareId <= saveFile.lastBought[tab] || saveFile.lastBought.cpu < element.hardwareId)) || finalPrice > saveFile.money) ? true : false}>{(saveFile.lastBought.cpu >= element.hardwareId || (tab === "cpu" && element.hardwareId * 3 <= saveFile.lvl)) ? (saveFile.lastBought[tab] >= element.hardwareId ? "Owned" : "Buy") : "Unavailable"}
                 </button>
             </div>
@@ -54,26 +48,31 @@ export default function MarketPage()
     const [marketTab, setMarketTab] = useState("cpu");
     const save = useContext(saveContext);
     const window = useContext(windowContext);
+    const play = useContext(soundContext).uiClick;
 
     return (
         <div id='market-page' className='pages' style={{display: (window === "market") ? "flex" : "none"}}>
             <div id='market-tabs'>
                 <p onClick={() => {
+                    play();
                     setMarketTab("cpu");
                 }}>Processors</p>
                 <p onClick={() => {
+                    play();
                     setMarketTab("gpu");
                 }}>Graphics Cards</p>
                 <p onClick={() => {
+                    play();
                     setMarketTab("ram");
                 }}>Memory</p>
                 <p onClick={() => {
+                    play();
                     setMarketTab("stg");
                 }}>Storage</p>
                 <p>{save.activeSaveFile.money}$</p>
             </div>
             <div id='market-items'>
-                {displayMarketItems(marketTab, save.activeSaveFile, save.setActiveSaveFile)}
+                {displayMarketItems(marketTab, save.activeSaveFile, save.setActiveSaveFile, play)}
             </div>
         </div>
     )

@@ -6,8 +6,11 @@ import stg from "../assets/hdd.png";
 import inventoryIcon from "../assets/inventory.svg";
 import PauseMenu from "./pauseMenu";
 import { useContext } from "react";
-import { saveContext } from "../App";
+import { optionsContext, saveContext } from "../App";
 import { useNavigate } from 'react-router-dom';
+import hwInteract from '../assets/hardware-interact.mp3'
+import { soundContext } from '../App';
+import useSound from "use-sound";
 
 /*
 <img className={`draggable-item ${page}-hardware`} key={`${page}${i}`} hardware={page} draggable={false} src={{cpu: cpu, gpu: gpu, ram: ram, stg: stg}[page]} alt=""/>
@@ -66,7 +69,14 @@ export function PCBuild() {
     const save = useContext(saveContext);
     const [inventoryPage, setInventoryPage] = useState("");
     const navigate = useNavigate();
+    const play = useContext(soundContext).uiClick;
+    const options = useContext(optionsContext).optionValues;
+    console.log(options);
+    const [interact] = useSound(hwInteract, { interrupt: true, volume: options.volume[0] });
+
+
     useEffect(() => {
+        interact();
         const mousemoveEvent = (e) => {
             const attachedImage = (document.querySelector(".hold-item") !== null) ? document.querySelector(".hold-item") : undefined;
             if (attachedImage === undefined) return;
@@ -111,8 +121,9 @@ export function PCBuild() {
         }
 
         const mousedownEvent = (e) => {
-            if (e.target.classList[0] === "draggable-item") 
-            {
+
+            if (e.target.classList[0] === "draggable-item") {
+                interact();
                 e.target.classList.add("hold-item");
                 e.target.style.top = `${(e.clientY / window.innerHeight) * 100}vh`;
                 e.target.style.left = `${(e.clientX / window.innerWidth) * 100}vw`;
@@ -123,8 +134,14 @@ export function PCBuild() {
                     hardwareTarget.style.display = "block";
                 }
                 setInventoryPage("");
-            } else if (e.target.classList.contains("hardware-target"))
-            {
+            } else if (e.target.classList.contains("hardware-target")) {
+                if (e.target !== null && e.target.getAttribute("placedtier") === "-1") {
+                    if (checkMouseInside(e.target.clientWidth, e.target.clientHeight, e.target.offsetTop, e.target.offsetLeft, e.clientX, e.clientY)) {
+                        e.target.style.filter = "brightness(0) invert(0.5) sepia(1) hue-rotate(80deg) saturate(2) opacity(0.25)";
+                    } else {
+                        e.target.style.filter = "brightness(0) invert(0.5) sepia(1) hue-rotate(250deg) saturate(2) opacity(0.25)";
+                    }
+                }
                 e.target.style.display = "none";
                 if (document.getElementById("pc-build").querySelectorAll(`.draggable-item.${e.target.id.split('-')[0]}-hardware[tier="${e.target.getAttribute("placedtier")}"]`).length === 0)
                 {
@@ -144,13 +161,16 @@ export function PCBuild() {
         document.body.addEventListener('mousedown', mousedownEvent);
         document.body.addEventListener('mousemove', mousemoveEvent);
         document.body.addEventListener('mouseup', mouseupEvent);
-    });
+
+    }, [save]);
+
     return (
         <div id="pc-build">
             <inventoryContext.Provider value={setInventoryPage}>
                 <PauseMenu place={"pcBuild"}/>
             </inventoryContext.Provider>
             <button id="pc-back" onClick={() => {
+                play();
                 localStorage.setItem("activeSaveFile", JSON.stringify({...save.activeSaveFile, cpuId: save.activeSaveFile.cpuId, gpuId: save.activeSaveFile.gpuId, ramId: save.activeSaveFile.ramId, stgId: save.activeSaveFile.stgId}));
                 navigate("/game/tableView?return=pc");
             }}>Desktop</button>
@@ -161,20 +181,25 @@ export function PCBuild() {
                 <div id="stg-target" className="hardware-target" placedtier={save.activeSaveFile.stgId}></div>
             </div>
             <img alt="" id="inventory-icon" src={inventoryIcon} onClick={() => {
+                play();
                 setInventoryPage(x => (x !== "") ? "" : "cpu");
             }}/>
             <div id="inventory-contents" style={{display: (inventoryPage !== "") ? "flex" : "none"}}>
                 <ul>
                     <li onClick={() => {
+                        play();
                         setInventoryPage("cpu");
                     }}>Processors</li>
                     <li onClick={() => {
+                        play();
                         setInventoryPage("gpu");
                     }}>Graphics Cards</li>
                     <li onClick={() => {
+                        play();
                         setInventoryPage("ram");
                     }}>Memory</li>
                     <li onClick={() => {
+                        play();
                         setInventoryPage("stg");
                     }}>Storage</li>
                 </ul>

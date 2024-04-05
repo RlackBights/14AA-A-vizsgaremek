@@ -5,11 +5,13 @@ import { useContext } from "react";
 import { overlayContext, userContext } from "../App";
 import { loginUser, registerUser, sendRecoveryEmail } from "./requests";
 import { displayMessage } from "./notification";
+import { soundContext } from '../App';
 
 export function LoginPage() {
 
   const overlay = useContext(overlayContext);
   const user = useContext(userContext);
+  const play = useContext(soundContext).uiClick;
 
   return (
     <div id="login-container" style={{ pointerEvents: (["loginPage", "registerPage"].includes(overlay.currOverlay)) ? "all" : "none"}}>
@@ -17,6 +19,7 @@ export function LoginPage() {
         id="user-icon"
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={() => {
+          play();
           overlay.setCurrOverlay("loginPage");
         }}
       >
@@ -33,6 +36,7 @@ export function LoginPage() {
         id="logoutBtn"
         style={{display: overlay.currOverlay === "" ? "flex" : "none"}}
         onClick={ () => {
+          play();
           localStorage.setItem("userAuthCode", "");
           user.setCurrUser("")
         }}>
@@ -45,6 +49,7 @@ export function LoginPage() {
           <p
             className="close-image"
             onClick={() => {
+              play();
               overlay.setCurrOverlay("");
             }}
           >Close</p>
@@ -57,6 +62,7 @@ export function LoginPage() {
             <button
               className="form-btn"
               onClick={() => {
+                play();
                 const usernameInput = document.getElementById("name-input");
                 const passwordInput = document.getElementById("password-input");
 
@@ -83,6 +89,7 @@ export function LoginPage() {
                 id="register-btn"
                 href="#/"
                 onClick={() => {
+                  play();
                   overlay.setCurrOverlay("registerPage");
                 }}
               >
@@ -94,6 +101,7 @@ export function LoginPage() {
                 id="register-btn"
                 href="#/"
                 onClick={() => {
+                  play();
                   overlay.setCurrOverlay("forgotPassword");
                 }}
               >
@@ -108,6 +116,7 @@ export function LoginPage() {
           <p
             className="close-image"
             onClick={() => {
+              play();
               overlay.setCurrOverlay("");
             }}
           >Close</p>
@@ -124,6 +133,7 @@ export function LoginPage() {
             <button
               className="form-btn"
               onClick={() => {
+                play();
                 const emailAddress = document.getElementById("email-input")
                 const registerName = document.getElementById("name2-input");
                 const registerPassword1 = document.getElementById("password2-input");
@@ -154,6 +164,7 @@ export function LoginPage() {
                 id="login-btn"
                 href="#/"
                 onClick={() => {
+                  play();
                   overlay.setCurrOverlay("loginPage");
                 }}
               >
@@ -168,6 +179,7 @@ export function LoginPage() {
           <p
             className="close-image"
             onClick={() => {
+              play();
               overlay.setCurrOverlay("");
             }}
           >Close</p>
@@ -178,6 +190,7 @@ export function LoginPage() {
             <button
               className="form-btn"
               onClick={() => {
+                play();
                 const emailAddress = document.getElementById("forgot-email-input");
 
                 sendRecoveryEmail(emailAddress.value).then((res) => {
@@ -198,6 +211,7 @@ export function LoginPage() {
                 id="forgot-back-btn"
                 href="#/"
                 onClick={() => {
+                  play();
                   overlay.setCurrOverlay("loginPage");
                 }}
               >

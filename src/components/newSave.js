@@ -3,6 +3,7 @@ import { overlayContext, saveContext, userContext } from "../App"
 import { finaliseNewSave, getHardwareElements, requestSaveFileCreation } from "./requests";
 import { useNavigate } from 'react-router-dom';
 import { saveFile } from "./saveFileManager";
+import { soundContext } from '../App';
 
 export function NewSave()
 {
@@ -10,6 +11,7 @@ export function NewSave()
     const overlay = useContext(overlayContext);
     const saves = useContext(saveContext);
     const navigate = useNavigate();
+    const play = useContext(soundContext).uiClick;
 
     return (
         <div id="new-save" style={{display: overlay.currOverlay === "newSave" ? "flex" : "none"}}>
@@ -20,11 +22,13 @@ export function NewSave()
                 <input type="text" id="save-input"></input>
                 <div>
                     <button type="button" onClick={() => {
+                        play();
                         overlay.setCurrOverlay("");
                     }}>
                         Back
                     </button>
                     <button onClick={async () => {
+                        play();
                         const saveInput = document.getElementById("save-input");
                         if (saveInput.value === "") return;
                         const hardwareElements = await getHardwareElements();
@@ -57,9 +61,11 @@ export function NewSave()
                 <h1>This save already exists, would you like to overwrite it?</h1>
                 <div>
                     <button onClick={(e) => {
+                        play();
                         e.target.parentNode.parentNode.style.display = "none";
                     }}>Cancel</button>
                     <button onClick={async (e) => {
+                        play();
                         const saveInput = document.getElementById("save-input");
                         const hardwareElements = await getHardwareElements();
                         localStorage.setItem("availableHardware", JSON.stringify(hardwareElements));

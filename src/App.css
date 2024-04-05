@@ -574,6 +574,7 @@
   z-index: 9999;
   text-align: center;
   transition: all 0.25s ease-in-out;
+  pointer-events: none;
 }
 
 #notification.show {
@@ -1031,6 +1032,7 @@ input:checked + .slider::before {
 .slider.round:before {
   border-radius: 50%;
 }
+
 @keyframes slideUp {
   0% {
     transform: translateY(0);
@@ -1038,6 +1040,34 @@ input:checked + .slider::before {
   100% {
     transform: translateY(-100%);
   }
+}
+
+input[type=range]{
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 300px;
+  height: 5px;
+  background: var(--theme-color);
+  border: none;
+  border-radius: 1rem;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  margin-top: -5px;
+}
+
+input[type=range]:focus, input[type=range]:hover {
+  outline: none;
+  cursor: pointer;
 }
 
 /*

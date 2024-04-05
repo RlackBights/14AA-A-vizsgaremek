@@ -9,13 +9,17 @@ import settings from '../assets/settings-icon.svg';
 import pc from '../assets/thispc-icon.svg';
 import userIcon from '../assets/user-icon.svg';
 import { useContext } from 'react';
-import { saveContext, userContext } from '../App';
+import { optionsContext, saveContext, userContext } from '../App';
 import PauseMenu from './pauseMenu';
 import MarketPage from './marketPage';
 import CodePage from './codePage';
 import { JobsPage } from './jobsPage';
 import { useNavigate } from 'react-router-dom';
 import { BrowserPage } from './browserPage';
+import boot from '../assets/pc-boot.mp3';
+import shutdown from '../assets/pc-shutdown.mp3';
+import { soundContext } from '../App';
+import useSound from 'use-sound';
 
 let currInterval;
 
@@ -43,6 +47,8 @@ function selectIcon(window)
     }
 }
 
+console.log("test");
+
 export const windowContext = createContext();
 export const clockContext = createContext();
 
@@ -52,9 +58,14 @@ export function Desktop() {
     const save = useContext(saveContext);
     const [clock, setClock] = useState({date: new Date(), playtime: ""});
     const navigate = useNavigate();
+    const play = useContext(soundContext).uiClick;
+    const options = useContext(optionsContext).optionValues;
+    const [startup] = useSound(boot, { volume: options.volume[0] });
+    const [exit] = useSound(shutdown, { volume: options.volume[0] });
 
     useEffect(() => {
-        const time = 2500 + Math.random(Math.random() * 1500);
+        const time = 3000;
+        console.log("Loading screen fading out...");
         setTimeout(() => {
             if (document.getElementById("loading-screen") !== null)
             {
@@ -74,7 +85,14 @@ export function Desktop() {
                 playtime: `${hours === 0 ? "" : `${hours}:`}${normalizeTime(minutes)}:${normalizeTime(seconds)}`
             });
         }, 1000);
-    })
+
+
+    }, [])
+
+    useEffect(() => {
+        startup();
+    }, [startup])
+
 
     return (
         <div id='desktop'>
@@ -100,6 +118,7 @@ export function Desktop() {
             <div id='icons'>
                 <ul>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -111,6 +130,7 @@ export function Desktop() {
                         <p>Browser</p>
                     </li>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -122,6 +142,7 @@ export function Desktop() {
                         <p>Code</p>
                     </li>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -134,6 +155,7 @@ export function Desktop() {
                         <p>Jobs</p>
                     </li>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -152,6 +174,7 @@ export function Desktop() {
             <div id='start-menu' style={{opacity: 0}}>
                 <ul>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -163,6 +186,7 @@ export function Desktop() {
                         <p>This PC</p>
                     </li>
                     <li onClick={() => {
+                        play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -174,6 +198,8 @@ export function Desktop() {
                         <p>Settings</p>
                     </li>
                     <li onClick={() => {
+                        play();
+                        exit();
                         document.getElementById("desktop").style.filter = "brightness(0)";
                         setTimeout(() => {
                             navigate("/game/tableView?return=monitor");
@@ -197,6 +223,7 @@ export function Desktop() {
                 <ul id='taskbar-icons'>
                     <li>
                         <button onClick={() => {
+                            play();
                             const startMenu = document.getElementById("start-menu");
                             if (startMenu.style.display === "flex")
                             {
@@ -217,30 +244,33 @@ export function Desktop() {
                     </li>
                     <li className={window === "browser" ? "focused" : ""}
                         onClick={() => {
-                        const startMenu = document.getElementById("start-menu");
-                        startMenu.style.opacity = 0;
-                        setTimeout(() => {
-                            startMenu.style.display = "none";
-                        }, 250);
+                            play();
+                            const startMenu = document.getElementById("start-menu");
+                            startMenu.style.opacity = 0;
+                            setTimeout(() => {
+                                startMenu.style.display = "none";
+                            }, 250);
 
-                        setWindow(window === "browser" ? "" : "browser");
+                            setWindow(window === "browser" ? "" : "browser");
                     }}>
                         <img alt="" draggable={false} src={browser}></img>
                     </li>
                     <li className={window === "code" ? "focused" : ""}
                         onClick={() => {
-                        const startMenu = document.getElementById("start-menu");
-                        startMenu.style.opacity = 0;
-                        setTimeout(() => {
-                            startMenu.style.display = "none";
-                        }, 250);
+                            play();
+                            const startMenu = document.getElementById("start-menu");
+                            startMenu.style.opacity = 0;
+                            setTimeout(() => {
+                                startMenu.style.display = "none";
+                            }, 250);
 
-                        setWindow(window === "code" ? "" : "code");
+                            setWindow(window === "code" ? "" : "code");
                     }}>
                         <img alt="" draggable={false} src={editor}></img>
                     </li>
                     <li className={window === "jobs" ? "focused" : ""}
                         onClick={() => {
+                            play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -254,6 +284,7 @@ export function Desktop() {
                     </li>
                     <li className={window === "market" ? "focused" : ""}
                         onClick={() => {
+                            play();
                         const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
@@ -273,6 +304,7 @@ export function Desktop() {
                 <img alt="" draggable={false} src={selectIcon(window)}></img>
                 <p id='window-title'>{window}</p>
                 <button style={{display : window !== "" ? "block" : "none"}} onClick={() => {
+                    play();
                     setWindow("");
                 }}>Close</button>
                 

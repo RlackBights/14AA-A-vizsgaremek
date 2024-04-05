@@ -4,6 +4,7 @@ import '../App.css'
 import { clamp, saveOffsetContext } from './saveContainer';
 import { deleteSave } from './requests';
 import { useNavigate } from 'react-router-dom';
+import { soundContext } from '../App';
 
 function progressPercentage(currXp, currLevel) {
     let targetLevel = clamp(currLevel + 1, 1, 10);
@@ -18,6 +19,7 @@ export function SaveItem(props) {
     const saveOffset = useContext(saveOffsetContext);
     const saves = useContext(saveContext);
     const navigate = useNavigate();
+    const play = useContext(soundContext).uiClick;
 
     console.log(props.save);
 
@@ -26,6 +28,7 @@ export function SaveItem(props) {
                 <div
                     className="save-item"
                     onClick={() => {
+                        play();
                         let save = props.save;
                         save.lastBought = JSON.parse(save.lastBought)
                         saves.setActiveSaveFile(save);
@@ -71,6 +74,7 @@ export function SaveItem(props) {
                     tabIndex="-1"
                     className="delete-button"
                     onClick={() => {
+                        play();
                         deleteSave(props.user, props.save.saveId).then(() => {
                             saveOffset.setSaveOffset(0);
                             overlay.setCurrOverlay("");

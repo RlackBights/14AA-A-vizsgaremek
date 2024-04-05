@@ -136,7 +136,7 @@ export function parseJobs(saveFile, saveSetter)
     return output;
 }
 
-export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats, addXp)
+export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJobs, saveId, setStats, addXp, play)
 {
     let output = [];
     let outcontent = "";
@@ -169,6 +169,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
             // eslint-disable-next-line
             <li key={`job-${i}`} id={`job-item-${i}`} className="job-item" completed={isOnCooldown ? "true" : "false"} onClick={(e) => {
                 if (isOnCooldown) return;
+                play();
                 const jobsContent = document.getElementById("jobs-content");
 
                 jobsContent.innerHTML = `<div>
@@ -188,6 +189,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Complete job";
                 completeButton.disabled = !isComplete;
                 completeButton.onclick = (e) => {
+                    play();
                  //   window.electron.saveFile(i, username, saveId, "");
                     addXp(jobs[i].tasks.length * 3);
                     setStats(curr => {

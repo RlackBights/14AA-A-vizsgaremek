@@ -2,6 +2,7 @@ import { useContext,  useEffect,  useState } from "react";
 import { windowContext } from "./desktop";
 import { generateJobItems, parseJobs } from "./jobBase";
 import { saveContext, userContext } from "../App";
+import { soundContext } from '../App';
 
 let currInterval;
 
@@ -11,6 +12,7 @@ export function JobsPage()
     const [jobs, setJobs] = useState([]);
     const window = useContext(windowContext);
     const user = useContext(userContext);
+    const play = useContext(soundContext).uiClick;
 
     console.log(save.activeSaveFile.xp);
 
@@ -34,7 +36,7 @@ export function JobsPage()
 
         const generateJobs = async (currWindow) => {
             if (currWindow !== "jobs") return;
-            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp));
+            setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp, play));
         }
         
         generateJobs(window);

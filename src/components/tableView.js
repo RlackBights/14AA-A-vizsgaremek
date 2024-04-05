@@ -4,12 +4,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import PauseMenu from './pauseMenu';
 import { useEffect } from 'react';
 import { displayMessage } from './notification';
+import { soundContext } from '../App';
 
 export function TableView() {
     const user = useContext(userContext);
     const save = useContext(saveContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const play = useContext(soundContext).uiClick;
 
     useEffect(() =>{
      //   window.electron.createSaveFiles(user.currUser.split(' ')[0], save.activeSaveFile.saveId);
@@ -53,6 +55,7 @@ export function TableView() {
         <div id='room'>
             <PauseMenu/>
             <div id='monitor' onClick={() => {
+                play();
                 if ([save.activeSaveFile.cpuId, save.activeSaveFile.gpuId, save.activeSaveFile.ramId, save.activeSaveFile.stgId].includes(-1)) {
                     displayMessage("Missing hardware element/elements", "error");
                     return;
@@ -73,6 +76,7 @@ export function TableView() {
 
             </div>
             <div id='computer' onClick={() => {
+                play();
                 const room = document.getElementById("room");
                 const monitorClick = document.getElementById("monitor");
                 const computerClick = document.getElementById("computer");

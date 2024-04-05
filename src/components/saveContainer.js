@@ -3,6 +3,7 @@ import { overlayContext, saveContext, userContext } from "../App";
 import { SaveItem } from "./saveItem";
 import '../App.css';
 import { useState } from "react";
+import { soundContext } from '../App';
 
 function displaySaves(saveFiles, user, stats){
 
@@ -24,17 +25,21 @@ export function SaveContainer() {
     const saves = useContext(saveContext);
     const user = useContext(userContext);
     const [saveOffset, setSaveOffset] = useState(0);
+    const play = useContext(soundContext).uiClick;
 
     return (
         <div id="save-page" style={{ display: overlay.currOverlay === "savePage" ? "flex" : "none"}}>
             { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{left: "1vw"}} onClick={() => {
+                play();
                 setSaveOffset((save) => clamp(save - 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
             }}><i className="arrow arrow-left"></i></button>}
             { saves.saveFiles.length !== 0 && <button className="save-nav-button" style={{right: "1vw"}} onClick={() => {
+                play();
                 setSaveOffset((save) => clamp(save + 1, 0, Math.ceil(saves.saveFiles.length / 3) - 1));
             }}><i className="arrow arrow-right"></i></button>}
             <button
                 onClick={() => {
+                    play();
                     overlay.setCurrOverlay("")
                     setSaveOffset(0);
                 }}
