@@ -31,7 +31,7 @@ export class saveFile {
       case 3:
         return "Z9";
       default:
-        return "ERROR";
+        return "---";
     }
   }
 
@@ -46,7 +46,7 @@ export class saveFile {
       case 3:
         return "ETX 4490";
       default:
-        return "ERROR";
+        return "---";
     }
   }
 
@@ -61,7 +61,7 @@ export class saveFile {
       case 3:
         return "64GB";
       default:
-        return "ERROR";
+        return "---";
     }
   }
 
@@ -76,7 +76,7 @@ export class saveFile {
       case 3:
         return "1TB SSD";
       default:
-        return "ERROR";
+        return "---";
     }
   }
 

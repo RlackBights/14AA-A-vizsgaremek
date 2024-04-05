@@ -2053,7 +2053,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #doc-sidebar {
-  width: 20%;
+  width: 25%;
   height: 100%;
   background-color: black;
   margin: 0;
@@ -2081,13 +2081,15 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #doc-sidebar > div > li {
-  margin-left: 3vmin;
+  padding: 0.25vmin 0 0.25vmin 3vmin;
   transition: all 0.25s;
+  background: linear-gradient(to right, #202020, #000);
 }
 
 #doc-sidebar > div > li:hover {
   cursor: pointer;
   color: white;
+  background: #202020;
 }
 
 #doc-sidebar li p:hover, #doc-sidebar li p.active {
@@ -2116,7 +2118,10 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #doc-content > section {
-  width: 60% !important;
+  width: 60%;
+  position: relative;
+  text-align: initial;
+  display: none;
   background-color: #080808;
   padding: 0 !important;
   margin: auto;
@@ -2142,6 +2147,8 @@ Y88b  d88P  d8888888888 888   "   888 888
   margin-top: 4vh;
   width: 60%;
   text-align: justify;
+  font-weight: lighter;
+  white-space: pre-wrap;
 }
 
 #doc-content .invisible.scrollbar.vertical.fade {

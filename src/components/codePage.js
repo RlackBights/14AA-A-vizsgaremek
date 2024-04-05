@@ -55,12 +55,11 @@ export default function CodePage()
     const [activeEditor, setActiveEditor] = useState(-1);
     const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
-    
 
     useEffect(() => {
         for (let i = 0; i < 4; i++) {
             const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
-            if (isDisabled &&activeEditor === i) {
+            if (isDisabled && activeEditor === i) {
                 setJobContents(prev => {
                 activeEditor === i? setActiveEditor(-1) : setActiveEditor(i);
                 let newContents = prev;
@@ -77,8 +76,8 @@ export default function CodePage()
 
         const saveFunction = (e) => {
             if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
-             //   window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorId"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
-                document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorId")}`).setAttribute("edited", "false");
+             //   window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorid"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
+                document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorid")}`).setAttribute("edited", "false");
                 e.preventDefault();
                 sessionStorage.setItem("saved", "true");
             }
@@ -129,6 +128,7 @@ export default function CodePage()
     if (document.querySelector(".code-editor")) {
         document.querySelector(".code-editor").setAttribute("empty", (document.querySelectorAll("span.mtk1").length === 0).toString());
     }
+
     return (
         <div id='code-page' className='pages' style={{display: (windowState === "code") ? "flex" : "none"}}>
             { (activeEditor === 0) && <Editor className="code-editor" defaultLanguage="html" theme="vs-dark" defaultValue="" value={jobContents[0]} onChange={(e) => {
@@ -171,7 +171,7 @@ export default function CodePage()
                     document.getElementById("code-preview").classList.toggle("open");
                 }}>Test code</button>
             </ul>
-            { (activeEditor !== -1) && <iframe title="Preview" id="code-preview" editorId={activeEditor} srcDoc={jobContents[activeEditor]}></iframe>}
+            { (activeEditor !== -1) && <iframe title="Preview" id="code-preview" editorid={activeEditor} srcDoc={jobContents[activeEditor]}></iframe>}
         </div>
     )
     
