@@ -43,6 +43,8 @@ if (localStorage.getItem("activeSaveFile") === null || localStorage.getItem("act
 if (localStorage.getItem("gameOptions") === null) localStorage.setItem("gameOptions", JSON.stringify({specialEffects: true, volume: [1.0, 0.5]}));
 if (localStorage.getItem("stats") === null) localStorage.setItem("stats", JSON.stringify(new GameStats()));
 if (localStorage.getItem("volume") === null) localStorage.setItem("volume", JSON.stringify([1.0, 0.5]));
+if (sessionStorage.getItem("ingame") === null) sessionStorage.setItem("ingame", "false");
+if (sessionStorage.getItem("pauseMenuLocked") === null) sessionStorage.setItem("pauseMenuLocked", "false");
 export const backend = 'https://backend-learnthebasics.koyeb.app';
 //export const backend = 'http://localhost:8000';
 

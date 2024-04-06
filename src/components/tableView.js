@@ -53,6 +53,12 @@ export function TableView() {
 
     return (
         <div id='room'>
+            <button id='esc-btn' onClick={() => {
+                const pauseMenu = document.getElementById('pause-menu');
+                if (pauseMenu && sessionStorage.getItem("pauseMenuLocked") === "false") {
+                    pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
+                }
+            }}>ESC</button>
             <PauseMenu/>
             <div id='monitor' onClick={() => {
                 play();
@@ -70,6 +76,7 @@ export function TableView() {
                 computerClick.style.display = "none";
                 room.classList.add("monitor-zoom");
                 setTimeout(() => {
+                    sessionStorage.setItem("ingame", "true");
                     navigate("/game/desktop");
                 }, 1100);
             }}>

@@ -191,8 +191,7 @@ const sourceCode = (`<html lang="en">
             <p><strong>Wind:</strong> 10 km/h</p>
             <p><strong>Humidity:</strong> 75%</p>
         </div>
-    </section>
-    <section id="our-work">
+    %4%
         <h1>Our Weather Services</h1>
         <div id="services">
             <h2>Forecast:</h2>
@@ -230,8 +229,8 @@ const solutions = [
     `<section id="weather-england">\n\t<div class="weather-data">`,
     `<img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
     `<p>info@sunnysidedown.com</p>`,
-    `</section>`,
-    `padding: 0 20px 50px 20px;`,
+    `</section>\n\t<section id="our-work">`,
+    `padding: 0px 20px 50px 20px;`,
     `18`,
     `sticky`,
     `background-repeat: no-repeat;\n\t\t\tbackground-size: cover;`,
@@ -243,8 +242,8 @@ const tasks = [
     `<section id="weather-data">\n\t<div class="weather-england">`,
     `<img url="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="logo">`,
     `<a>info@sunnysidedown.com</a>`,
-    ``,
-    `padding: 0`,
+    `\n\t<section id="our-work">`,
+    `padding: 0px;`,
     `1.8`,
     `fixed`,
     `background-repeat: inherit;\n\t\t\tbackground-size: auto;`,

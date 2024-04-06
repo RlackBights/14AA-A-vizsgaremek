@@ -200,6 +200,7 @@ export function Desktop() {
                     <li onClick={() => {
                         play();
                         exit();
+                        sessionStorage.setItem("ingame", "false");
                         document.getElementById("desktop").style.filter = "brightness(0)";
                         setTimeout(() => {
                             navigate("/game/tableView?return=monitor");

@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { updateSave } from './requests'
 import { userContext } from '../App';
 import { saveContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { soundContext } from '../App';
+import OptionsPage from './optionsPage';
 
+export const pauseOptionsContext = createContext();
 sessionStorage.setItem("attachedPauseHandlers", "false");
 
 export default function PauseMenu(params) {
@@ -12,6 +14,7 @@ export default function PauseMenu(params) {
   const saves = useContext(saveContext);
   const navigate = useNavigate();
   const play = useContext(soundContext).uiClick;
+  const [pauseOptions, setPauseOptions] = useState("");
 
   useEffect(() => {
 
@@ -20,17 +23,15 @@ export default function PauseMenu(params) {
 
     const keydownEvent = (e) => {
       const pauseMenu = document.getElementById('pause-menu');
-      if (pauseMenu && e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false")
-      {
+      if (pauseMenu && e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false") {
         pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
         sessionStorage.setItem("pauseMenuLocked", "true");
       }
     }
 
     const keyupEvent = (e) => {
-      if (e.key === "Escape")
-      {
-          sessionStorage.setItem("pauseMenuLocked", "false");
+      if (e.key === "Escape") {
+        sessionStorage.setItem("pauseMenuLocked", "false");
       }
     }
 
@@ -48,6 +49,9 @@ export default function PauseMenu(params) {
 
   return (
     <div id='pause-menu' style={{display: 'none'}}>
+      <pauseOptionsContext.Provider value={{currOverlay: pauseOptions, setCurrOverlay: setPauseOptions}}>
+        <OptionsPage />
+      </pauseOptionsContext.Provider>
         <h1 id="title-text1" data-text="Learn" className="glitch">
             Learn
         </h1>
@@ -59,14 +63,14 @@ export default function PauseMenu(params) {
         </h1>
         <button className='pause-button' onClick={() => {
           play();
+          setPauseOptions("optionsPage");
           // TODO
         }}>Options</button>
         <button className='pause-button' onClick={(e) => {
           play();
           let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
-          if (localStorage.getItem("activeHardwareItems") !== null)
-          {
+          if (localStorage.getItem("activeHardwareItems") !== null) {
             const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
@@ -79,13 +83,13 @@ export default function PauseMenu(params) {
           play();
           let sendSave = saves.activeSaveFile;
           sendSave.time += Math.round((Date.now() - parseInt(localStorage.getItem("currTime"))) / 1000);
-          if (localStorage.getItem("activeHardwareItems") !== null)
-          {
+          if (localStorage.getItem("activeHardwareItems") !== null) {
             const {cpuId, gpuId, ramId, stgId} = JSON.parse(localStorage.getItem("activeHardwareItems"));
             sendSave = {...sendSave, cpuId, gpuId, ramId, stgId};
           }
           updateSave(user.currUser, sendSave, saves.stats).then((res) => {
             navigate("/");
+            sessionStorage.setItem("ingame", "false");
           });
         }}>Save and Quit</button>
     </div>

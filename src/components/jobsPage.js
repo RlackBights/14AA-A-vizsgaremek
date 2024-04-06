@@ -5,6 +5,8 @@ import { optionsContext, saveContext, userContext } from "../App";
 import signSound from "../assets/finish-job.mp3";
 import { soundContext } from '../App';
 import useSound from "use-sound";
+import { displayMessage } from "./notification";
+import { useLocation } from 'react-router-dom';
 
 let currInterval;
 
@@ -12,15 +14,16 @@ export function JobsPage()
 {
     const save = useContext(saveContext);
     const [jobs, setJobs] = useState([]);
-    const window = useContext(windowContext);
+    const windowState = useContext(windowContext);
     const user = useContext(userContext);
     const options = useContext(optionsContext);
     const [sign] = useSound(signSound, { volume: options.optionValues.volume[0] });
     const play = useContext(soundContext).uiClick;
-
-    console.log(save.activeSaveFile.xp);
+    const locationPath = useLocation();
 
     useEffect(() => {
+        console.log(JSON.parse(sessionStorage.getItem("ingame")));
+        if (!JSON.parse(sessionStorage.getItem("ingame"))) return;
 
         const addMoney = (amount) => {
             save.setActiveSaveFile(saveFile => ({...saveFile, money: parseInt(saveFile.money) + parseInt(amount)}));
@@ -35,25 +38,30 @@ export function JobsPage()
         }
 
         const addXp = (amount) => {
+            if (Math.floor((-5 + Math.sqrt(25 + 12 * (parseInt(save.activeSaveFile.xp) + parseInt(amount)))) / 6) > save.activeSaveFile.lvl) {
+                displayMessage("Level Up!");
+            }
             save.setActiveSaveFile(saveFile => ({...saveFile, xp: parseInt(saveFile.xp) + parseInt(amount), lvl: Math.floor((-5 + Math.sqrt(25 + 12 * (parseInt(saveFile.xp) + parseInt(amount)))) / 6)}));
         }
 
         const generateJobs = async (currWindow) => {
-            if (currWindow !== "jobs") return;
             setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp, play, sign));
         }
+
+        console.log("test");
         
-        generateJobs(window);
+        generateJobs(windowState);
         
         if(currInterval) clearInterval(currInterval);
         currInterval = setInterval(() => {
-            generateJobs(window);
+            if (!JSON.parse(sessionStorage.getItem("ingame"))) return;
+            generateJobs(windowState);
         }, 1000)
 
-    }, [save.activeSaveFile, window, save, user.currUser]);
+    }, [save.activeSaveFile, windowState, save, user.currUser]);
 
     return (
-        <div id='jobs-page' className='pages' style={{display: (window === "jobs") ? "flex" : "none"}}>
+        <div id='jobs-page' className='pages' style={{display: (windowState === "jobs") ? "flex" : "none"}}>
             <ul id="jobs-sidebar">
                 {jobs}
             </ul>

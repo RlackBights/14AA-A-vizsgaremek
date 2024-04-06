@@ -19,7 +19,7 @@ export function NewSave()
                 e.preventDefault();
                 }}>
                 <h1>Enter file name:</h1>
-                <input type="text" id="save-input"></input>
+                <input type="text" id="save-input" maxLength={20}></input>
                 <div>
                     <button type="button" onClick={() => {
                         play();
@@ -42,6 +42,7 @@ export function NewSave()
                                 localStorage.setItem("currTime", Date.now().toString());
 
                                 setTimeout(() => {
+                                    overlay.setCurrOverlay("");
                                     navigate("/game/tableView");
                                 }, 250);
 

@@ -6,6 +6,7 @@ import icon2 from "../assets/CamsCoffeeLogo.png";
 import icon3 from "../assets/WeatherPeopleLogo.png";
 import { normalizeTime } from "./desktop";
 import { clamp } from "./saveContainer";
+import { displayMessage } from "./notification";
 
 const userIcons = [icon1, icon2, icon3];
 
@@ -127,6 +128,7 @@ export function parseJobs(saveFile, saveSetter)
             output.push(new Job(values[0], values[1], values[2].split(":").map(str => parseInt(str)), values[3]));
         } else if (job === parseInt(job).toString()) {
             if (parseInt(job) - Date.now() <= 0) {
+                displayMessage("You've got a new job offer!");
                 const randomJob = generateJob(saveFile.stgId, saveFile.cpuId, saveFile.gpuId);
                 output.push(randomJob);
                 localStorage.setItem("activeSaveFile", JSON.stringify({...saveFile, jobs: saveFile.jobs.replace(job, `${randomJob.jobId}.${randomJob.pay}.${randomJob.tasks.join(":")}.${randomJob.timestamp}`)}));

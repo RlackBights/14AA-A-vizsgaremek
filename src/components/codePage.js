@@ -7,6 +7,7 @@ import level2 from "../websites/level2";
 import { parseJobs } from "./jobBase";
 import { saveContext, userContext } from "../App";
 import { soundContext } from '../App';
+import { useLocation } from 'react-router-dom';
 
 const levels = [level0, level1, level2];
 function generateJobFiles(jobs, setActiveEditor, save, play)
@@ -56,6 +57,7 @@ export default function CodePage()
     const [jobContents, setJobContents] = useState(["", "", "", ""]);
     const [jobFiles, setJobFiles] = useState([]);
     const play = useContext(soundContext).uiClick;
+    const locationPath = useLocation().pathname;
 
     useEffect(() => {
         for (let i = 0; i < 4; i++) {
@@ -69,7 +71,7 @@ export default function CodePage()
                 
             })
         }}
-    }, [setJobContents, activeEditor, save.activeSaveFile.jobs]);
+    }, [setJobContents, activeEditor, save.activeSaveFile.jobs, locationPath]);
 
     useEffect(() => {
         const setContents = async () => setJobContents([await getJobContent(0, user.currUser.split(' ')[0], save), await getJobContent(1, user.currUser.split(' ')[0],save), await getJobContent(2, user.currUser.split(' ')[0],save), await getJobContent(3, user.currUser.split(' ')[0],save)]);
@@ -97,36 +99,36 @@ export default function CodePage()
 
         document.body.addEventListener('keydown', saveFunction);
         document.body.addEventListener('keyup', lockSaveFunction);
-    }, [save, user, activeEditor])
+    }, [save, user, activeEditor, locationPath])
 
     useEffect(() => {
         setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save, play));
         // eslint-disable-next-line
-    }, [save.activeSaveFile]);
+    }, [save.activeSaveFile, locationPath]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-0")) return;
         document.getElementById("job-file-0").setAttribute("edited", "true");
         // eslint-disable-next-line
-    }, [jobContents[0]]);
+    }, [jobContents[0], locationPath]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-1")) return;
         document.getElementById("job-file-1").setAttribute("edited", "true");
         // eslint-disable-next-line
-    }, [jobContents[1]]);
+    }, [jobContents[1], locationPath]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-2")) return;
         document.getElementById("job-file-2").setAttribute("edited", "true");
         // eslint-disable-next-line
-    }, [jobContents[2]]);
+    }, [jobContents[2], locationPath]);
 
     useEffect(() => {
         if (!document.getElementById("job-file-3")) return;
         document.getElementById("job-file-3").setAttribute("edited", "true");
         // eslint-disable-next-line
-    }, [jobContents[3]]);
+    }, [jobContents[3], locationPath]);
 
     if (document.querySelector(".code-editor")) {
         document.querySelector(".code-editor").setAttribute("empty", (document.querySelectorAll("span.mtk1").length === 0).toString());

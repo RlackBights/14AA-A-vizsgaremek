@@ -6,11 +6,17 @@ import { deleteSave } from './requests';
 import { useNavigate } from 'react-router-dom';
 import { soundContext } from '../App';
 
-function progressPercentage(currXp, currLevel) {
+function progressPercentage(inXp, inLevel) {
+    let currLevel = parseInt(inLevel);
+    if (currLevel === 10) return 100;
+    let currXp = parseInt(inXp);
     let targetLevel = clamp(currLevel + 1, 1, 10);
     let requiredXp = (Math.pow(targetLevel * 6 + 5, 2) / 12 - 25 / 12) - (Math.pow(currLevel * 6 + 5, 2) / 12 - 25 / 12);
     let actualXp = currXp - (Math.pow(currLevel * 6 + 5, 2) / 12 - 25 / 12);
     let percentage = (actualXp / requiredXp) * 100;
+
+    console.log(actualXp, targetLevel, requiredXp, percentage);
+
     return Math.floor(percentage);
 }
 

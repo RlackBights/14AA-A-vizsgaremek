@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
 import { optionsContext, overlayContext, soundContext } from '../App'
+import { pauseOptionsContext } from './pauseMenu';
 
 export default function OptionsPage() {
-  const overlay = useContext(overlayContext);
+  const overlay = useContext((window.location.href.includes("game")) ? pauseOptionsContext : overlayContext);
   const options = useContext(optionsContext);
   const play = useContext(soundContext).uiClick;
 

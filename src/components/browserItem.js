@@ -193,63 +193,38 @@ In the example, both <h1> and <p> elements have the class "highlight", so they'l
 ];
 
 export const CSSDocs = [
-    new BrowserItem("background-image", "Sets the background image for an element.",
-        `<style>
-    body {
-        background-image: url('background.jpg');
-    }
-</style>`,
-        "`background-image` sets the background image of an element. You can specify a URL to an image file to be used as the background. It's commonly used in the body or container elements to style the background of a webpage."),
-
-    new BrowserItem("background-size", "Specifies the size of the background image.",
-    `<style>
-    body {
-        background-image: url('background.jpg');
-        background-size: cover;
-    }
-</style>`,
-        "`background-size` determines the size of the background image. Values like `cover`, `contain`, or specific dimensions can be used to control how the image fits the element's background area."),
-
     new BrowserItem("font-family", "Defines the font to be used for text.",
-    `<style>
+        `<style>
     body {
         font-family: Arial, sans-serif;
     }
 </style>`,
         "`font-family` specifies the typeface or font family for text within an element. Multiple font names can be listed as fallbacks in case the browser doesn't support the first choice."),
-
-    new BrowserItem("margin", "Sets the margin around an element.",
+        
+    new BrowserItem("font-size", "Sets the size of text.",
+        `<style>
+    p {
+        font-size: 16px;
+    }
+</style>`,
+        "`font-size` adjusts the size of the text within an element. It can be specified in various units like pixels, em, rem, or percentages."),
+    
+    new BrowserItem("font-style", "Specifies the style of text.",
+        `<style>
+    p {
+        font-style: italic;
+    }
+</style>`,
+        "`font-style` sets the style of the text such as normal, italic, or oblique."),
+        
+    new BrowserItem("font-weight", "Sets the weight (thickness) of a font.",
     `<style>
-    div {
-        margin: 20px;
+    p {
+        font-weight: bold;
     }
-</style>`,
-        "`margin` creates space around an element's border. It can be specified in various units like pixels, em, or percentages and can have different values for each side (top, right, bottom, left)."),
-
-    new BrowserItem("padding", "Specifies the padding within an element.",
-        `<style>
-    div {
-        padding: 10px;
-    }
-</style>`,
-        "`padding` sets the space between the content of an element and its border. Like margin, it can be specified in various units and can have different values for each side."),
-
-    new BrowserItem("box-sizing", "Defines how the total width and height of an element is calculated.",
-        `<style>
-    div {
-        box-sizing: border-box;
-    }
-</style>`,
-        "`box-sizing` determines whether an element's width and height include padding and borders. By default, the width and height exclude padding and borders, but `border-box` includes them in the calculation."),
-
-    new BrowserItem("overflow", "Controls what happens when content overflows its container.",
-        `<style>
-    div {
-        overflow: auto;
-    }
-</style>`,
-        "`overflow` specifies how content that overflows the element's box should be handled. It can be set to `auto`, `scroll`, `hidden`, or `visible`, among others."),
-
+</style>`, 
+    "`font-weight` sets the weight or thickness of a font. Values include `normal`, `bold`, `bolder`, `lighter`, or numeric values like 100, 200, etc."),
+    
     new BrowserItem("color", "Sets the color of text.",
         `<style>
     p {
@@ -265,71 +240,7 @@ export const CSSDocs = [
     }
 </style>`,
         "`text-align` determines how text is horizontally aligned within its container. Values include `left`, `right`, `center`, and `justify`."),
-
-    new BrowserItem("font-size", "Sets the size of text.",
-        `<style>
-    p {
-        font-size: 16px;
-    }
-</style>`,
-        "`font-size` adjusts the size of the text within an element. It can be specified in various units like pixels, em, rem, or percentages."),
-
-    new BrowserItem("font-style", "Specifies the style of text.",
-        `<style>
-    p {
-        font-style: italic;
-    }
-</style>`,
-        "`font-style` sets the style of the text such as normal, italic, or oblique."),
-
-    new BrowserItem("background-color", "Sets the background color of an element.",
-        `<style>
-    div {
-        background-color: lightgray;
-    }
-</style>`,
-        "`background-color` sets the background color of an element. You can use color names, hex codes, RGB, or HSL values to specify colors."),
-
-    new BrowserItem("border", "Defines a border around an element.",
-        `<style>
-    div {
-        border: 1px solid black;
-    }
-</style>`,
-        "`border` creates a border around an element. It can be specified with width, style, and color."),
-
-    new BrowserItem("border-radius", "Rounds the corners of an element's border.",
-    `<style>
-    div {
-        border-radius: 10px;
-    }
-</style>`, 
-    "`border-radius` rounds the corners of an element's border. It can be specified with a single value to round all corners equally, or separate values for each corner."),
-
-    new BrowserItem("height", "Sets the height of an element.",
-    `<style>
-    div {
-        height: 100px;
-    }
-</style>`, 
-    "`height` specifies the height of an element. It can be specified in various units like pixels, em, rem, or percentages."),
-
-    new BrowserItem("width", "Sets the width of an element.",
-    `<style>
-    div {
-        width: 200px;
-    }
-</style>`, 
-    "`width` specifies the width of an element. It can be specified in various units like pixels, em, rem, or percentages."),
-
-    new BrowserItem("float", "Specifies whether an element should float to the left, right, or none.",
-    `<style>
-    img {
-        float: left;
-    }
-</style>`, 
-    "`float` specifies whether an element should float to the left, right, or none. Floated elements are removed from the normal flow of the document and positioned to the left or right of their containing element."),
-
+        
     new BrowserItem("line-height", "Sets the height of a line of text.",
     `<style>
     p {
@@ -338,21 +249,119 @@ export const CSSDocs = [
 </style>`, 
     "`line-height` sets the height of a line of text within an element. It can be specified as a unitless number, a percentage, or a length."),
 
+    new BrowserItem("margin", "Sets the margin around an element.",
+    `<style>
+    div {
+        margin: 20px;
+    }
+</style>`,
+    "`margin` creates space around an element's border. It can be specified in various units like pixels, em, or percentages and can have different values for each side (top, right, bottom, left)."),
+
+    new BrowserItem("padding", "Specifies the padding within an element.",
+        `<style>
+    div {
+        padding: 10px;
+    }
+</style>`,
+    "`padding` sets the space between the content of an element and its border. Like margin, it can be specified in various units and can have different values for each side."),
+
+    new BrowserItem("border", "Defines a border around an element.",
+        `<style>
+    div {
+        border: 1px solid black;
+    }
+</style>`,
+    "`border` creates a border around an element. It can be specified with width, style, and color."),
+
+    new BrowserItem("border-radius", "Rounds the corners of an element's border.",
+    `<style>
+    div {
+        border-radius: 10px;
+    }
+</style>`, 
+"`border-radius` rounds the corners of an element's border. It can be specified with a single value to round all corners equally, or separate values for each corner."),
+
+    new BrowserItem("box-sizing", "Defines how the total width and height of an element is calculated.",
+    `<style>
+    div {
+        box-sizing: border-box;
+    }
+</style>`,
+"`box-sizing` determines whether an element's width and height include padding and borders. By default, the width and height exclude padding and borders, but `border-box` includes them in the calculation."),
+
+    new BrowserItem("width", "Sets the width of an element.",
+    `<style>
+    div {
+        width: 200px;
+    }
+</style>`, 
+"`width` specifies the width of an element. It can be specified in various units like pixels, em, rem, or percentages."),
+
+    new BrowserItem("height", "Sets the height of an element.",
+    `<style>
+    div {
+        height: 100px;
+    }
+</style>`, 
+"`height` specifies the height of an element. It can be specified in various units like pixels, em, rem, or percentages."),
+
+    new BrowserItem("background-color", "Sets the background color of an element.",
+    `<style>
+    div {
+        background-color: lightgray;
+    }
+</style>`,
+"`background-color` sets the background color of an element. You can use color names, hex codes, RGB, or HSL values to specify colors."),
+
+    new BrowserItem("background-image", "Sets the background image for an element.",
+    `<style>
+    body {
+        background-image: url('background.jpg');
+    }
+</style>`,
+"`background-image` sets the background image of an element. You can specify a URL to an image file to be used as the background. It's commonly used in the body or container elements to style the background of a webpage."),
+
+    new BrowserItem("background-size", "Specifies the size of the background image.",
+    `<style>
+    body {
+        background-image: url('background.jpg');
+        background-size: cover;
+    }
+</style>`,
+"`background-size` determines the size of the background image. Values like `cover`, `contain`, or specific dimensions can be used to control how the image fits the element's background area."),
+
+    new BrowserItem("background-repeat", "Defines how the background image of an element is repeated.",
+    `<style>
+    body {
+        background-image: url('background.jpg');
+        background-repeat: no-repeat;
+    }
+</style>`,
+"`background-repeat` determines the repetition rule of the background image. Values include `repeat`, `repeat-x`, `repeat-y`, `no-repeat`, `space` and `round`."),
+
     new BrowserItem("position", "Specifies the positioning method of an element.",
     `<style>
     div {
         position: relative;
     }
 </style>`, 
-    "`position` specifies the positioning method of an element. Values include `static`, `relative`, `absolute`, `fixed`, and `sticky`. It's commonly used in conjunction with top, right, bottom, and left properties to precisely place elements on the page."),
+"`position` specifies the positioning method of an element. Values include `static`, `relative`, `absolute`, `fixed`, and `sticky`. It's commonly used in conjunction with top, right, bottom, and left properties to precisely place elements on the page."),
 
-    new BrowserItem("font-weight", "Sets the weight (thickness) of a font.",
+    new BrowserItem("float", "Specifies whether an element should float to the left, right, or none.",
     `<style>
-    p {
-        font-weight: bold;
+    img {
+        float: left;
     }
 </style>`, 
-    "`font-weight` sets the weight or thickness of a font. Values include `normal`, `bold`, `bolder`, `lighter`, or numeric values like 100, 200, etc."),
+"`float` specifies whether an element should float to the left, right, or none. Floated elements are removed from the normal flow of the document and positioned to the left or right of their containing element."),
+
+    new BrowserItem("overflow", "Controls what happens when content overflows its container.",
+    `<style>
+    div {
+        overflow: auto;
+    }
+</style>`,
+"`overflow` specifies how content that overflows the element's box should be handled. It can be set to `auto`, `scroll`, `hidden`, or `visible`, among others."),
 ];
 
 export const JSDocs = [

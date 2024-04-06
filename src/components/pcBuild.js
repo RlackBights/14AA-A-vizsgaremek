@@ -180,7 +180,7 @@ export function PCBuild() {
                 <div id="ram-target" className="hardware-target" placedtier={save.activeSaveFile.ramId}></div>
                 <div id="stg-target" className="hardware-target" placedtier={save.activeSaveFile.stgId}></div>
             </div>
-            <img alt="" id="inventory-icon" src={inventoryIcon} onClick={() => {
+            <img alt="" id="inventory-icon" draggable={false} src={inventoryIcon} onClick={() => {
                 play();
                 setInventoryPage(x => (x !== "") ? "" : "cpu");
             }}/>
