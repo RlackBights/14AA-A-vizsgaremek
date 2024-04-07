@@ -15,8 +15,6 @@ export function progressPercentage(inXp, inLevel) {
     let actualXp = currXp - (Math.pow(currLevel * 6 + 5, 2) / 12 - 25 / 12);
     let percentage = (actualXp / requiredXp) * 100;
 
-    console.log(actualXp, targetLevel, requiredXp, percentage);
-
     return Math.floor(percentage);
 }
 
@@ -26,8 +24,6 @@ export function SaveItem(props) {
     const saves = useContext(saveContext);
     const navigate = useNavigate();
     const play = useContext(soundContext).uiClick;
-
-    console.log(props.save);
 
     return (
             <div className="save-item-container">

@@ -172,7 +172,11 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
             // eslint-disable-next-line
             <li key={`job-${i}`} id={`job-item-${i}`} className="job-item" completed={isOnCooldown ? "true" : "false"} onClick={(e) => {
                 if (isOnCooldown) return;
-                play();
+                sessionStorage.setItem("lastSelectedJob", i);
+                if(e.screenX !== 0 && e.screenY !== 0)
+                {
+                    play();
+                }
                 const jobsContent = document.getElementById("jobs-content");
 
                 jobsContent.innerHTML = `<div>
@@ -185,7 +189,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     ${verboseTasks}
                 </ul>
                 <p>${jobs[i].signoff}</p>
-                <h1>Payment:<br/>$${paidMoney}</h1>
+                <h1>Payment:<br/>$${jobs[i].pay}</h1>
                 <h3>${username}</h3>`;
 
                 const completeButton = document.createElement("button");

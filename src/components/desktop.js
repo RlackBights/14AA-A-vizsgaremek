@@ -21,6 +21,7 @@ import shutdown from '../assets/pc-shutdown.mp3';
 import { soundContext } from '../App';
 import useSound from 'use-sound';
 import { progressPercentage } from './saveItem';
+import { displayMessage } from './notification';
 
 let currInterval;
 
@@ -47,9 +48,6 @@ function selectIcon(window)
             return "";
     }
 }
-
-console.log("test");
-
 export const windowContext = createContext();
 export const clockContext = createContext();
 
@@ -66,7 +64,6 @@ export function Desktop() {
 
     useEffect(() => {
         const time = 3000;
-        console.log("Loading screen fading out...");
         setTimeout(() => {
             if (document.getElementById("loading-screen") !== null)
             {
@@ -169,14 +166,23 @@ export function Desktop() {
                     </li>
                 </ul>
             </div>
-            <div id='desktop-windows'>
-
-            </div>
             <div id='start-menu' style={{opacity: 0}}>
                 <ul>
                     <li onClick={() => {
-                        play();
                         const startMenu = document.getElementById("start-menu");
+                        let hasEdited = false;
+                        document.getElementById("file-list").childNodes.forEach(codeFile => {
+                            if (codeFile.getAttribute("language") === null) return;
+                            if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                        });
+                        if (hasEdited) {
+                            displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                            setTimeout(() => {
+                                startMenu.style.display = "none";
+                            }, 250);
+                            return;
+                        }
+                        play();
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
                             startMenu.style.display = "none";
@@ -187,8 +193,20 @@ export function Desktop() {
                         <p>This PC</p>
                     </li>
                     <li onClick={() => {
-                        play();
                         const startMenu = document.getElementById("start-menu");
+                        let hasEdited = false;
+                        document.getElementById("file-list").childNodes.forEach(codeFile => {
+                            if (codeFile.getAttribute("language") === null) return;
+                            if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                        });
+                        if (hasEdited) {
+                            displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                            setTimeout(() => {
+                                startMenu.style.display = "none";
+                            }, 250);
+                            return;
+                        }
+                        play();
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
                             startMenu.style.display = "none";
@@ -199,6 +217,19 @@ export function Desktop() {
                         <p>Settings</p>
                     </li>
                     <li onClick={() => {
+                        const startMenu = document.getElementById("start-menu");
+                        let hasEdited = false;
+                        document.getElementById("file-list").childNodes.forEach(codeFile => {
+                            if (codeFile.getAttribute("language") === null) return;
+                            if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                        });
+                        if (hasEdited) {
+                            displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                            setTimeout(() => {
+                                startMenu.style.display = "none";
+                            }, 250);
+                            return;
+                        }
                         play();
                         exit();
                         sessionStorage.setItem("ingame", "false");
@@ -220,8 +251,7 @@ export function Desktop() {
                     <p>Level {save.activeSaveFile.lvl}</p>
                     <div style={{ width: '100%', height: '0.75vmin', border: '3px solid var(--accent-color)', borderRadius: '1rem', margin: '0.5vmin 0vmin', background: `linear-gradient(to right, var(--accent-color) ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%, #00000000 ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%)` }}></div>
                     <p>{progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%</p>
-                    {/* xp bar*/}
-                    <p>{save.activeSaveFile}$</p>
+                    <p>{save.activeSaveFile.money}$</p>
                 </div>
             </div>
             <div id='taskbar'>
@@ -249,8 +279,20 @@ export function Desktop() {
                     </li>
                     <li className={window === "browser" ? "focused" : ""}
                         onClick={() => {
-                            play();
                             const startMenu = document.getElementById("start-menu");
+                            let hasEdited = false;
+                            document.getElementById("file-list").childNodes.forEach(codeFile => {
+                                if (codeFile.getAttribute("language") === null) return;
+                                if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                            });
+                            if (hasEdited) {
+                                displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                                setTimeout(() => {
+                                    startMenu.style.display = "none";
+                                }, 250);
+                                return;
+                            }
+                            play();
                             startMenu.style.opacity = 0;
                             setTimeout(() => {
                                 startMenu.style.display = "none";
@@ -262,8 +304,20 @@ export function Desktop() {
                     </li>
                     <li className={window === "code" ? "focused" : ""}
                         onClick={() => {
-                            play();
                             const startMenu = document.getElementById("start-menu");
+                            let hasEdited = false;
+                            document.getElementById("file-list").childNodes.forEach(codeFile => {
+                                if (codeFile.getAttribute("language") === null) return;
+                                if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                            });
+                            if (hasEdited) {
+                                displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                                setTimeout(() => {
+                                    startMenu.style.display = "none";
+                                }, 250);
+                                return;
+                            }
+                            play();
                             startMenu.style.opacity = 0;
                             setTimeout(() => {
                                 startMenu.style.display = "none";
@@ -275,8 +329,20 @@ export function Desktop() {
                     </li>
                     <li className={window === "jobs" ? "focused" : ""}
                         onClick={() => {
+                            const startMenu = document.getElementById("start-menu");
+                            let hasEdited = false;
+                            document.getElementById("file-list").childNodes.forEach(codeFile => {
+                                if (codeFile.getAttribute("language") === null) return;
+                                if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                            });
+                            if (hasEdited) {
+                                displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                                setTimeout(() => {
+                                    startMenu.style.display = "none";
+                                }, 250);
+                                return;
+                            }
                             play();
-                        const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
                             startMenu.style.display = "none";
@@ -289,8 +355,20 @@ export function Desktop() {
                     </li>
                     <li className={window === "market" ? "focused" : ""}
                         onClick={() => {
+                            const startMenu = document.getElementById("start-menu");
+                            let hasEdited = false;
+                            document.getElementById("file-list").childNodes.forEach(codeFile => {
+                                if (codeFile.getAttribute("language") === null) return;
+                                if(codeFile.getAttribute("edited") === "true") hasEdited = true;
+                            });
+                            if (hasEdited) {
+                                displayMessage("You have unsaved changes! Save with Ctrl + S", "error");
+                                setTimeout(() => {
+                                    startMenu.style.display = "none";
+                                }, 250);
+                                return;
+                            }
                             play();
-                        const startMenu = document.getElementById("start-menu");
                         startMenu.style.opacity = 0;
                         setTimeout(() => {
                             startMenu.style.display = "none";

@@ -21,8 +21,8 @@ export function JobsPage()
     const play = useContext(soundContext).uiClick;
     const locationPath = useLocation();
 
+
     useEffect(() => {
-        console.log(JSON.parse(sessionStorage.getItem("ingame")));
         if (!JSON.parse(sessionStorage.getItem("ingame"))) return;
 
         const addMoney = (amount) => {
@@ -47,10 +47,16 @@ export function JobsPage()
         const generateJobs = async (currWindow) => {
             setJobs(await generateJobItems(parseJobs(save.activeSaveFile, save.setActiveSaveFile), user.currUser.split(" ")[0], save.activeSaveFile.gpuId, addMoney, setSaveJobs, save.activeSaveFile.saveId, save.setStats, addXp, play, sign));
         }
-
-        console.log("test");
         
-        generateJobs(windowState);
+        generateJobs(windowState).then(() => {
+            if (!document.getElementById("jobs-sidebar").childNodes[JSON.parse(sessionStorage.getItem("lastSelectedJob"))]) {
+                if (!document.getElementById("jobs-sidebar").childNodes[0]) {
+                    return;
+                }
+                document.getElementById("jobs-sidebar").childNodes[0].click();
+            }
+            document.getElementById("jobs-sidebar").childNodes[JSON.parse(sessionStorage.getItem("lastSelectedJob"))].click();
+        });
         
         if(currInterval) clearInterval(currInterval);
         currInterval = setInterval(() => {
@@ -59,6 +65,10 @@ export function JobsPage()
         }, 1000)
 
     }, [save.activeSaveFile, windowState, save, user.currUser]);
+
+    useEffect(() => {
+        
+    }, [])
 
     return (
         <div id='jobs-page' className='pages' style={{display: (windowState === "jobs") ? "flex" : "none"}}>

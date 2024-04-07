@@ -3,7 +3,6 @@ let timeoutInfo;
 export function displayMessage(message, type = "notification") {
     const messageElement = document.getElementById("notification");
     messageElement.innerHTML = message;
-    console.log(timeoutInfo !== undefined);
     if (timeoutInfo !== undefined) {
         messageElement.className = "";
         clearTimeout(timeoutInfo);

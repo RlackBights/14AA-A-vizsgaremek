@@ -1862,7 +1862,7 @@ Y88b  d88P  d8888888888 888   "   888 888
   background-color: #0070458a;
 }
 
-#test-btn {
+#test-btn, #reset-btn {
   position: absolute;
   pointer-events: all;
   bottom: 0;
@@ -1879,8 +1879,14 @@ Y88b  d88P  d8888888888 888   "   888 888
   transition: 0.25s all;
 }
 
-#test-btn:hover {
+#test-btn:hover, #reset-btn:hover {
   filter: brightness(0.75);
+}
+
+#reset-btn {
+  right: 8.3vw;
+  width: 15%;
+  background-color: rgb(128, 14, 14);
 }
 
 #jobs-page {

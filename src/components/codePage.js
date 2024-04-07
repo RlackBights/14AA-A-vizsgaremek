@@ -17,8 +17,9 @@ function generateJobFiles(jobs, setActiveEditor, save, play)
         let job = jobs[i];
         const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
         output.push(
-            <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" cooldown={isDisabled ? "true" : "false"} onClick={isDisabled ? () => {} : (e) => {
+            <li key={JSON.stringify(job)} id={`job-file-${i}`} language="html" init="true" edited="false" cooldown={isDisabled ? "true" : "false"} onClick={isDisabled ? () => {} : (e) => {
                 play();
+                e.target.setAttribute("init", false);
                 e.target.parentElement.childNodes.forEach(item =>{
                     if (item.getAttribute("language") === null || item === e.target) return;
                     item.className = "";
@@ -27,6 +28,7 @@ function generateJobFiles(jobs, setActiveEditor, save, play)
                 setActiveEditor(curr => curr === i? -1 : i);
             }}>{ isDisabled ? "No related jobs" : levels[job.jobId].pageTitle }</li>
         );
+        
     }
 
     return output;
@@ -58,6 +60,8 @@ export default function CodePage()
     const [jobFiles, setJobFiles] = useState([]);
     const play = useContext(soundContext).uiClick;
     const locationPath = useLocation().pathname;
+
+    
 
     useEffect(() => {
         for (let i = 0; i < 4; i++) {
@@ -107,25 +111,25 @@ export default function CodePage()
     }, [save.activeSaveFile, locationPath]);
 
     useEffect(() => {
-        if (!document.getElementById("job-file-0")) return;
+        if (!document.getElementById("job-file-0") || document.getElementById("job-file-0").getAttribute("init") === "true") return;
         document.getElementById("job-file-0").setAttribute("edited", "true");
         // eslint-disable-next-line
     }, [jobContents[0], locationPath]);
 
     useEffect(() => {
-        if (!document.getElementById("job-file-1")) return;
+        if (!document.getElementById("job-file-1") || document.getElementById("job-file-1").getAttribute("init") === "true") return;
         document.getElementById("job-file-1").setAttribute("edited", "true");
         // eslint-disable-next-line
     }, [jobContents[1], locationPath]);
 
     useEffect(() => {
-        if (!document.getElementById("job-file-2")) return;
+        if (!document.getElementById("job-file-2") || document.getElementById("job-file-2").getAttribute("init") === "true") return;
         document.getElementById("job-file-2").setAttribute("edited", "true");
         // eslint-disable-next-line
     }, [jobContents[2], locationPath]);
 
     useEffect(() => {
-        if (!document.getElementById("job-file-3")) return;
+        if (!document.getElementById("job-file-3") || document.getElementById("job-file-3").getAttribute("init") === "true") return;
         document.getElementById("job-file-3").setAttribute("edited", "true");
         // eslint-disable-next-line
     }, [jobContents[3], locationPath]);
@@ -177,6 +181,14 @@ export default function CodePage()
                     document.getElementById("code-preview").classList.toggle("open");
                 }}>Test code</button>
             </ul>
+            <button id="reset-btn" onClick={() => {
+                play();
+                    setJobContents(jobs => {
+                    const newJobs = [...jobs];
+                    newJobs[activeEditor] = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[activeEditor].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[activeEditor].tasks);
+                    return newJobs;
+                });
+            }}>Reset code</button>
             { (activeEditor !== -1) && <iframe title="Preview" id="code-preview" editorid={activeEditor} srcDoc={jobContents[activeEditor]}></iframe>}
         </div>
     )

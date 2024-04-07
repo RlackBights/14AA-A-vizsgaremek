@@ -71,7 +71,6 @@ export function PCBuild() {
     const navigate = useNavigate();
     const play = useContext(soundContext).uiClick;
     const options = useContext(optionsContext).optionValues;
-    console.log(options);
     const [interact] = useSound(hwInteract, { interrupt: true, volume: options.volume[0] });
 
 

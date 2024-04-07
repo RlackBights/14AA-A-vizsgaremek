@@ -10,7 +10,6 @@ function displaySaves(saveFiles, user, stats){
     let output = [];
 
     for (let i = 0; i < saveFiles.length; i++) {
-        console.log(saveFiles[i]);
         output.push(<SaveItem key={i} user={user} save={saveFiles[i]} stats={stats}/>)
     }
     

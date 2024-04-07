@@ -45,6 +45,7 @@ if (localStorage.getItem("stats") === null) localStorage.setItem("stats", JSON.s
 if (localStorage.getItem("volume") === null) localStorage.setItem("volume", JSON.stringify([1.0, 0.5]));
 if (sessionStorage.getItem("ingame") === null) sessionStorage.setItem("ingame", "false");
 if (sessionStorage.getItem("pauseMenuLocked") === null) sessionStorage.setItem("pauseMenuLocked", "false");
+if (sessionStorage.getItem("lastSelectedJob") === null || sessionStorage.getItem("lastSelectedJob") === "undefined") sessionStorage.setItem("lastSelectedJob", "0");
 export const backend = 'https://backend-learnthebasics.koyeb.app';
 //export const backend = 'http://localhost:8000';
 
