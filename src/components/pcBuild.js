@@ -162,7 +162,7 @@ export function PCBuild() {
         document.body.addEventListener('mousemove', mousemoveEvent);
         document.body.addEventListener('mouseup', mouseupEvent);
 
-    }, [save]);
+    }, [save, interact]);
 
     return (
         <div id="pc-build">

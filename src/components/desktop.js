@@ -88,7 +88,7 @@ export function Desktop() {
         }, 1000);
 
 
-    }, [])
+    }, [save.activeSaveFile])
 
     useEffect(() => {
         startup();
@@ -221,7 +221,7 @@ export function Desktop() {
                     <div style={{ width: '100%', height: '0.75vmin', border: '3px solid var(--accent-color)', borderRadius: '1rem', margin: '0.5vmin 0vmin', background: `linear-gradient(to right, var(--accent-color) ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%, #00000000 ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%)` }}></div>
                     <p>{progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%</p>
                     {/* xp bar*/}
-                    <p>{save.activeSaveFile.money}$</p>
+                    <p>{save.activeSaveFile}$</p>
                 </div>
             </div>
             <div id='taskbar'>

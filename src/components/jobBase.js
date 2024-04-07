@@ -153,20 +153,18 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         const isOnCooldown = jobs[i].cooldown > 0;
         
         if (!isOnCooldown) {
-            let fileContent = "";
             //await window.electron.getFile(i, username, saveId).then((res) => {
             //    outcontent = res.toString();
             //});
         }
         const paidMoney = Math.floor(([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).filter(isCorrect => isCorrect).length / jobs[i].tasks.length) * jobs[i].pay);
-        let isComplete = ![level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).includes(false);
 
         let indexer = 0;
         let verboseTasks = "";
         [level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).map(isComplete =>
             {
                 verboseTasks += `<li completed="${isComplete}">${[level0, level1, level2][jobs[i].jobId].verboseTasks[jobs[i].tasks[indexer]]}</li>\n`;
-                indexer++;
+                return indexer++;
             }
         )
 

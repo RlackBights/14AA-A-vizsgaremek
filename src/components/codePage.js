@@ -99,7 +99,7 @@ export default function CodePage()
 
         document.body.addEventListener('keydown', saveFunction);
         document.body.addEventListener('keyup', lockSaveFunction);
-    }, [save, user, activeEditor, locationPath])
+    }, [save, user, activeEditor, locationPath, windowState])
 
     useEffect(() => {
         setJobFiles(generateJobFiles(parseJobs(save.activeSaveFile, save.setActiveSaveFile), setActiveEditor, save, play));
