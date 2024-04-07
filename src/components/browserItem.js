@@ -152,21 +152,17 @@ It can be found inside the <head> element of your site.`),
     
 You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
     
-new BrowserItem("<strong> Bold", "Inserts an image.",
+new BrowserItem("<strong> Bold", "Makes text bold.",
     `<body>
-    <img src="myFiles/image.jpg" alt="Description of the image">
+    <p><strong>This text is bold.</strong></p>
 </body>`,
-    `<img> is like a window into another world on your webpage. It lets you add pictures, making it more interesting and engaging.
-    
-You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
+    `Wrap the text with it to make it bold.`),
 
-    new BrowserItem("<i> Italic", "Inserts an image.",
+    new BrowserItem("<i> Italic", "Makes text italic.",
     `<body>
-    <img src="myFiles/image.jpg" alt="Description of the image">
+    <p><i>This text is italic.</i></p>
 </body>`,
-    `<img> is like a window into another world on your webpage. It lets you add pictures, making it more interesting and engaging.
-    
-You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
+    `Wrap the text with it to make it italic`),
     
     new BrowserItem("Attributes", "Provides options for elements",
     `<section id="content">
