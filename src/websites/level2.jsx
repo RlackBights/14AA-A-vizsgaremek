@@ -5,6 +5,11 @@ const sourceCode = (`<html lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        html {
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
         body {
             background-color: #333;
             font-family: Arial, sans-serif;

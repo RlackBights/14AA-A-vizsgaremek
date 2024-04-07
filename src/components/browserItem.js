@@ -152,6 +152,22 @@ It can be found inside the <head> element of your site.`),
     
 You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
     
+new BrowserItem("<strong> Bold", "Inserts an image.",
+    `<body>
+    <img src="myFiles/image.jpg" alt="Description of the image">
+</body>`,
+    `<img> is like a window into another world on your webpage. It lets you add pictures, making it more interesting and engaging.
+    
+You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
+
+    new BrowserItem("<i> Italic", "Inserts an image.",
+    `<body>
+    <img src="myFiles/image.jpg" alt="Description of the image">
+</body>`,
+    `<img> is like a window into another world on your webpage. It lets you add pictures, making it more interesting and engaging.
+    
+You use it with the 'src' attribute to specify the image file's location and the 'alt' attribute to provide a description of the image for people who can't see it, or in case it doesn't load. (More about attributes later on!)`),
+    
     new BrowserItem("Attributes", "Provides options for elements",
     `<section id="content">
     <h1 class="headers">Hello Internet!</h1>

@@ -6,7 +6,7 @@ import { deleteSave } from './requests';
 import { useNavigate } from 'react-router-dom';
 import { soundContext } from '../App';
 
-function progressPercentage(inXp, inLevel) {
+export function progressPercentage(inXp, inLevel) {
     let currLevel = parseInt(inLevel);
     if (currLevel === 10) return 100;
     let currXp = parseInt(inXp);

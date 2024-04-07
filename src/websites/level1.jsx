@@ -3,9 +3,11 @@ const pageTitle = "Cam's Coffee";
 const sourceCode = (`<html>
 <head>
     <style>
-        :root{
+        html {
+            overflow-y: scroll;
             scroll-behavior: smooth;
         }
+
         body {
             background-color: #412e20;
             box-sizing: border-box;

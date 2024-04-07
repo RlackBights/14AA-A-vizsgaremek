@@ -3,6 +3,10 @@ const pageTitle = "Blue-Lake Forest";
 const sourceCode = (`<html>
 <head>
     <style>
+        html {
+            overflow-y: scroll;
+        }
+
         body {
             background-image: url('https://w.forfun.com/fetch/fb/fb3f5e89e666993d478e7b7f2201a947.jpeg');
             background-size: cover;
@@ -126,7 +130,7 @@ const verboseTasks = [
     `[HTML] The second to last list item's "Nature's Pals" text should be bold using an HTML tag`,
     `[CSS] The brown background isn't quite right, please find it and change it to #5e3218`,
     `[CSS] The border radius of the sections should be 1rem`,
-    `[CSS] The section texts should be justified, not centered`,
+    `[CSS] Change the About Us paragraphs' and Positives list items' text alignment to be justified`,
     `[CSS] Using the already existing code, make the About Us section float left, and the Positives section float right`,
     `[CSS] Add a class selector for the section titles to the end of the style, and change their color to #d3d3d3`
 ]

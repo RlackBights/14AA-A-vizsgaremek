@@ -20,6 +20,7 @@ import boot from '../assets/pc-boot.mp3';
 import shutdown from '../assets/pc-shutdown.mp3';
 import { soundContext } from '../App';
 import useSound from 'use-sound';
+import { progressPercentage } from './saveItem';
 
 let currInterval;
 
@@ -217,6 +218,9 @@ export function Desktop() {
                     </div>
                     <p>{save.activeSaveFile.saveId}</p>
                     <p>Level {save.activeSaveFile.lvl}</p>
+                    <div style={{ width: '100%', height: '0.75vmin', border: '3px solid var(--accent-color)', borderRadius: '1rem', margin: '0.5vmin 0vmin', background: `linear-gradient(to right, var(--accent-color) ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%, #00000000 ${progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%)` }}></div>
+                    <p>{progressPercentage(save.activeSaveFile.xp, save.activeSaveFile.lvl)}%</p>
+                    {/* xp bar*/}
                     <p>{save.activeSaveFile.money}$</p>
                 </div>
             </div>
