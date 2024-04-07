@@ -85,11 +85,11 @@ const sourceCode = (`<html>
             %1%
             <li><strong>Quiet Hideaway:</strong> Escape the chaos, find peace in our secret forest clubhouse.</li>
             <li><strong>Kid-Friendly Fun:</strong> Nature walks, marshmallow hide-and-seek – even bears join games!</li>
-            <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs – nature's morning perfection.</li>
-            <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling – for peaceful nights.</li>
+            <li><strong>Wow-View Wakeups:</strong> Lake views, giant tree hugs - nature's morning perfection.</li>
+            <li><strong>Snug Sleep:</strong> Cozy camping without the bear wrestling - for peaceful nights.</li>
             <li><strong>Fire Laughter:</strong> Surprise comedy nights, bear-approved jokes (think bear-y puns).</li>
             %4%
-            <li><strong>Budget Adventures:</strong> Affordable fun – spend wisely, maybe on more marshmallows?</li>
+            <li><strong>Budget Adventures:</strong> Affordable fun - spend wisely, maybe on more marshmallows?</li>
         </ul>
     </section>
     %2%
@@ -101,7 +101,7 @@ const solutions = [
     `<li><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</li>`,
     `<p id="counter"><i>Number of bear attacks (since the big bang): 126378</i></p>`,
     `<section id="about-us">`,
-    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs – happy campers unite!</li>`,
+    `<li><strong>Nature's Pals:</strong> Keep it green, no litterbugs - happy campers unite!</li>`,
     `#5e3218`,
     `border-radius: 1rem;`,
     `justify`,
@@ -114,7 +114,7 @@ const tasks = [
     `<item><strong>S'more Joy:</strong> Starry skies, marshmallow delights, and growls of happy tummies.</item>`,
     `<p id="counter">Number of bear attacks (since the big bang): 126378</p>`,
     `<section id="">`,
-    `<li>Nature's Pals: Keep it green, no litterbugs – happy campers unite!</li>`,
+    `<li>Nature's Pals: Keep it green, no litterbugs - happy campers unite!</li>`,
     `brown`,
     ``,
     `center`,
