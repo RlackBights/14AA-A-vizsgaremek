@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6be33599.css",
+    "main.js": "/static/js/main.3d96474b.js",
+    "static/js/787.0f4c0e0c.chunk.js": "/static/js/787.0f4c0e0c.chunk.js",
+    "static/media/bg.webp": "/static/media/bg.1db049aa226504297314.webp",
+    "static/media/hdd.png": "/static/media/hdd.3a4aad575ad0988bdad8.png",
+    "static/media/gpu.png": "/static/media/gpu.c90d933e01621b4e20b7.png",
+    "static/media/pcSide.png": "/static/media/pcSide.d0e87051015859aeef6c.png",
+    "static/media/ram.png": "/static/media/ram.dfb1fc952d096d9f1faa.png",
+    "static/media/gameDrawing.jpg": "/static/media/gameDrawing.38bc34d452136b2815a1.jpg",
+    "static/media/desktop_bg.jpeg": "/static/media/desktop_bg.c8ebea291d76317a80a1.jpeg",
+    "static/media/cpu.png": "/static/media/cpu.12da252ed2af730bed33.png",
+    "static/media/gpuInside.png": "/static/media/gpuInside.bf8af34aa9d75a0655dc.png",
+    "static/media/cpuInside.png": "/static/media/cpuInside.d136b85c4d07e10d589d.png",
+    "static/media/hddInside.png": "/static/media/hddInside.ead218245302da932f01.png",
+    "static/media/trivial.otf": "/static/media/trivial.3a48828f53e700b6ad12.otf",
+    "static/media/scanlineEffect.png": "/static/media/scanlineEffect.dd49a9960d13748235d8.png",
+    "static/media/logo.svg": "/static/media/logo.096f3ffaf4200f69afab188f131da59a.svg",
+    "static/media/mail-icon.svg": "/static/media/mail-icon.bc60e99391265ff0151c.svg",
+    "static/media/settings-icon.svg": "/static/media/settings-icon.fb7a639b1db86a10cdcca24f55715d69.svg",
+    "static/media/shop-icon.svg": "/static/media/shop-icon.55f030fc5c543b9dec927ec6a87bd4a8.svg",
+    "static/media/jobs-icon.svg": "/static/media/jobs-icon.68ddb4b7fb3670a3cff53da491eaefa1.svg",
+    "static/media/thispc-icon.svg": "/static/media/thispc-icon.fd0f48fca47c9e69a6b539df45074b8f.svg",
+    "static/media/power-icon.svg": "/static/media/power-icon.13aa3582aab4ec86c3c0f1cd5a012b39.svg",
+    "static/media/browser-icon.svg": "/static/media/browser-icon.eebccdae520906a9563d5fc3c756cf33.svg",
+    "static/media/inventory.svg": "/static/media/inventory.32052d9d913da35d7a7352db4fea3040.svg",
+    "index.html": "/index.html",
+    "static/media/user-icon.svg": "/static/media/user-icon.167b9e322ff3e32a0cf1e170d4577695.svg",
+    "static/media/editor-icon.svg": "/static/media/editor-icon.4a053e603adbd0fb96dd7c3285a75be6.svg",
+    "main.6be33599.css.map": "/static/css/main.6be33599.css.map",
+    "main.3d96474b.js.map": "/static/js/main.3d96474b.js.map",
+    "787.0f4c0e0c.chunk.js.map": "/static/js/787.0f4c0e0c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6be33599.css",
+    "static/js/main.3d96474b.js"
+  ]
+}

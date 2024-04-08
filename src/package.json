@@ -17,6 +17,7 @@
     },
     "scripts": {
       "start": "react-scripts start",
+      "electron:start": "npm run build && npx cap add @capacitor-community/electron && npx cap copy @capacitor-community/electron && cd electron && npm install --save-dev @electron-forge/cli && npx electron-forge import && npm run electron:start-live && cd ..",
       "build": "react-scripts build",
       "test": "react-scripts test",
       "eject": "react-scripts eject",

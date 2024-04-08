@@ -576,9 +576,11 @@ input:checked + .slider::before {
 }
 
 #stats-container {
+  overflow-y: scroll;
+  scrollbar-width: none;
   width: 100% !important;
   background-color: transparent !important;
-  height: 100%;
+  height: 100% !important;
   color: var(--accent-color);
   padding: 2%;
 }
@@ -641,5 +643,11 @@ input:checked + .slider::before {
 
   .logo {
     background-image: url('LearnTheBasicsLogo.svg');
+  }
+}
+
+@media (max-width: 850px) {
+  .block-mobile {
+    display: none;
   }
 }

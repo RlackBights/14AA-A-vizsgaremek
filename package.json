@@ -1,21 +1,31 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "learnthebasics",
+  "version": "1.0.0",
   "private": true,
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
+  "build": {
+    "appId": "com.learnthebasics.app",
+    "win": {
+      "icon": "build/logo.ico"
+    }
+  },
   "dependencies": {
-    "@capacitor-community/electron": "^4.1.2",
-    "@capacitor/android": "^5.3.0",
-    "@capacitor/cli": "^5.3.0",
-    "@capacitor/core": "^5.3.0",
+    "@monaco-editor/react": "^4.6.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "capacitor-nodejs": "https://github.com/hampoelz/capacitor-nodejs/releases/download/v1.0.0-beta.4/capacitor-nodejs.tgz",
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
     "mysql": "^2.18.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.2",
     "react-scripts": "5.0.1",
+    "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -23,8 +33,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron:build": "npm run build && npx cap add @capacitor-community/electron && npx cap copy @capacitor-community/electron && cd electron && npm install --save-dev @electron-forge/cli && npx electron-forge import && npm run build && npx electron-forge package && cd ..",
-    "electron:start": "cd electron && npm run electron:start-live && cd .."
+    "electron": "react-scripts build && electron ./public/electron.js --dev",
+    "pack": "react-scripts build && electron-builder --dir && xcopy /s .\\build .\\dist\\win-unpacked\\resources"
   },
   "eslintConfig": {
     "extends": [
@@ -44,12 +54,16 @@
       "last 1 safari version"
     ]
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
+  "description": "A game that teaches people the basics of webdev and pc building",
+  "main": "electron-main.js",
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@electron-forge/cli": "^7.2.0",
-    "@iconify/react": "^4.1.1"
+    "@iconify/react": "^4.1.1",
+    "electron": "^29.1.2",
+    "electron-builder": "^24.13.3",
+    "electron-is-dev": "^3.0.1"
   },
-  "author": "BNH",
+  "author": "LtB Team",
   "license": "ISC"
 }

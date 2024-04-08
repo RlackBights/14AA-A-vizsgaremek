@@ -1,1 +1,0 @@
-INSERT INTO savedata (`id`, `userId`, `saveId`, `lvl`, `money`, `time`, `cpuId`, `gpuId`, `ramId`, `stgId`, `lastBought`) VALUES (0, 1, (SELECT count(saveId) FROM savedata AS `asdasd`), 0, 0, 0, 0, 0, 0, 0, "{\"cpu\":0,\"gpu\":0,\"ram\":0,\"stg\":0}")

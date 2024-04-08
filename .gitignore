@@ -8,9 +8,13 @@
 /electron/build
 /electron/app
 /electron/out
+/password-reset
+/electron
 /node_modules
 /server
 /android
+/server
+/dist
 
 # testing
 /coverage
@@ -28,3 +32,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+LearnTheBasics_Installer.exe

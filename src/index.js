@@ -4,13 +4,12 @@ import './index.css';
 import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 
+document.body.addEventListener('keydown', (e) => {
+  if ((e.altKey && e.key !== "F4") || e.key === "F11") e.preventDefault();
+})
 
 ReactDOM.createRoot(document.getElementById('root'))
 .render(
   <App />
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
