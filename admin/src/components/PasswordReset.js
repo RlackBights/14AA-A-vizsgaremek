@@ -4,8 +4,10 @@ import { backend, userContext } from '../App';
 
 export default function PasswordReset() {
   const [newPassword, setNewPassword] = useState('');
-  const { resetToken } = useParams(); // Extract reset token from URL
   const user = useContext(userContext);
+
+  const resetToken = window.location.href.split('password-reset/')[1];
+  console.log(resetToken);
 
   useEffect(() => {
       async function fetchData() {

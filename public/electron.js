@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const express = require("express");
 const cors = require("cors");
-const { readFile, mkdir, writeFile, mkdirSync, writeFileSync, existsSync } = require("fs");
+const { readFile, mkdirSync, writeFileSync } = require("fs");
 const localServerApp = express();
 const PORT = 8088;
 const isDev = process.argv[2] == '--dev';
@@ -121,4 +121,4 @@ ipcMain.handle('get-file', async (e, data) => {
 
 ipcMain.on('create-file', async (e, data) => {
   handleFileCreation(data.username, data.saveId);
-})
+});
