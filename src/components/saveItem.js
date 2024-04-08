@@ -32,11 +32,17 @@ export function SaveItem(props) {
                     onClick={() => {
                         play();
                         let save = props.save;
-                        save.lastBought = JSON.parse(save.lastBought)
+                        console.log(typeof save.lastBought);
+                        try {
+                            save.lastBought = JSON.parse(save.lastBought);
+                        } catch {
+                            save.lastBought = save.lastBought;
+                        }
                         saves.setActiveSaveFile(save);
                         localStorage.setItem("activeSaveFile", JSON.stringify(save));
                         localStorage.setItem("currTime", Date.now().toString());
                         localStorage.setItem("stats", JSON.stringify(saves.stats));
+                        overlay.setCurrOverlay("");
                         setTimeout(() => {
                             navigate("game/tableView/");
                         }, 250);

@@ -189,7 +189,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     ${verboseTasks}
                 </ul>
                 <p>${jobs[i].signoff}</p>
-                <h1>Payment:<br/>$${jobs[i].pay}</h1>
+                <h1>Payment:<br/>$${paidMoney}</h1>
                 <h3>${username}</h3>`;
 
                 const completeButton = document.createElement("button");
@@ -224,7 +224,7 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                     </section>
                     <div>
                         <p className="job-timestamp">{isOnCooldown ? "--:--" :jobs[i].timestamp}<br/></p>
-                        <p>${isOnCooldown ? "-" : paidMoney}</p>
+                        <p>${isOnCooldown ? "-" : jobs[i].pay}</p>
                     </div>
                 </div>
             </li>

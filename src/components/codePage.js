@@ -61,9 +61,8 @@ export default function CodePage()
     const play = useContext(soundContext).uiClick;
     const locationPath = useLocation().pathname;
 
-    
-
     useEffect(() => {
+        if (windowState !== "code") return;
         for (let i = 0; i < 4; i++) {
             const isDisabled = parseInt(save.activeSaveFile.jobs.split("-")[i]).toString() === save.activeSaveFile.jobs.split("-")[i];
             if (isDisabled && activeEditor === i) {
