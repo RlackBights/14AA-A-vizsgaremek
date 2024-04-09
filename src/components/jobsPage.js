@@ -6,7 +6,6 @@ import signSound from "../assets/finish-job.mp3";
 import { soundContext } from '../App';
 import useSound from "use-sound";
 import { displayMessage } from "./notification";
-import { useLocation } from 'react-router-dom';
 
 let currInterval;
 
@@ -19,7 +18,6 @@ export function JobsPage()
     const options = useContext(optionsContext);
     const [sign] = useSound(signSound, { volume: options.optionValues.volume[0] });
     const play = useContext(soundContext).uiClick;
-    const locationPath = useLocation();
 
 
     useEffect(() => {
@@ -64,7 +62,7 @@ export function JobsPage()
             generateJobs(windowState);
         }, 1000)
 
-    }, [save.activeSaveFile, windowState, save, user.currUser]);
+    }, [save.activeSaveFile, windowState, save, user.currUser, play, sign]);
 
     useEffect(() => {
         

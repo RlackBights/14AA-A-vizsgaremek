@@ -153,9 +153,13 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
         const isOnCooldown = jobs[i].cooldown > 0;
         
         if (!isOnCooldown) {
-            await window.electron.getFile(i, username, saveId).then((res) => {
-                outcontent = res.toString();
-            });
+            try {
+                outcontent = await window.electron.getFile(i, username, saveId).then((res) => {
+                    return res.toString();
+                });
+            } catch (e) {
+                console.log(e);
+            }
         }
         const paidMoney = Math.floor(([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).filter(isCorrect => isCorrect).length / jobs[i].tasks.length) * jobs[i].pay);
 
@@ -196,7 +200,11 @@ export async function generateJobItems(jobs, username, gpuId, addMoney, setSaveJ
                 completeButton.innerHTML = "Sign job" + (paidMoney === parseInt(jobs[i].pay) ? "" : " (unfinished)");
                 completeButton.onclick = (e) => {
                     sign();
-                    window.electron.saveFile(i, username, saveId, "");
+                    try {
+                        window.electron.saveFile(i, username, saveId, "");
+                    } catch (e) {
+                        console.log(e);
+                    }
                     addXp([level0, level1, level2][jobs[i].jobId].checkCorrectCode(outcontent + " ", jobs[i].tasks).filter(isCorrect => isCorrect).length * 3);
                     setStats(curr => {
                         const statsValue = {...curr, completedJobs: curr.completedJobs + 1, totalIncome: curr.totalIncome + parseInt(paidMoney)};

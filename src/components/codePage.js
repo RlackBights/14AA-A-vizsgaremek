@@ -36,9 +36,13 @@ function generateJobFiles(jobs, setActiveEditor, save, play)
 
 async function getJobContent(id, username, save) {
     let outcontent = "";
-    await window.electron.getFile(id, username, save.activeSaveFile.saveId).then((fileContent) => {
-        outcontent = fileContent.toString();
-    });
+    try {
+        await window.electron.getFile(id, username, save.activeSaveFile.saveId).then((fileContent) => {
+            outcontent = fileContent.toString();
+        });
+    } catch (e) {
+        console.log(e);
+    }
     if (outcontent === "") {
         if (parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id] !== undefined) {
             outcontent = levels[parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].jobId].getFaultyCode(parseJobs(save.activeSaveFile, save.setActiveSaveFile)[id].tasks);
@@ -74,17 +78,22 @@ export default function CodePage()
                 
             })
         }}
-    }, [setJobContents, activeEditor, save.activeSaveFile.jobs, locationPath]);
+    }, [setJobContents, activeEditor, save.activeSaveFile.jobs, locationPath, windowState]);
 
     useEffect(() => {
-        const setContents = async () => setJobContents([await getJobContent(0, user.currUser.split(' ')[0], save), await getJobContent(1, user.currUser.split(' ')[0],save), await getJobContent(2, user.currUser.split(' ')[0],save), await getJobContent(3, user.currUser.split(' ')[0],save)]);
-        setContents();
 
         if (windowState !== "code") return;
 
+        const setContents = async () => setJobContents([await getJobContent(0, user.currUser.split(' ')[0], save), await getJobContent(1, user.currUser.split(' ')[0],save), await getJobContent(2, user.currUser.split(' ')[0],save), await getJobContent(3, user.currUser.split(' ')[0],save)]);
+        setContents();
+
         const saveFunction = (e) => {
             if (e.ctrlKey && e.key === "s" && sessionStorage.getItem("saved") !== "true") {
-                window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorid"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
+                try {
+                    window.electron.saveFile(document.getElementById("code-preview").getAttribute("editorid"), user.currUser.split(' ')[0], save.activeSaveFile.saveId, document.getElementById("code-preview").getAttribute("srcdoc"));
+                } catch (e) {
+                    console.log(e);
+                }
                 document.getElementById(`job-file-${document.getElementById("code-preview").getAttribute("editorid")}`).setAttribute("edited", "false");
                 e.preventDefault();
                 sessionStorage.setItem("saved", "true");

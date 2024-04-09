@@ -13,11 +13,13 @@ import musicSource from './assets/game-music.mp3';
 import click from './assets/ui-click.mp3';
 import useSound from "use-sound";
 
+const version = "1.0.0";
+
 // Router
 const router = createHashRouter([
   {
     path: "/",
-    element: <MainMenu />
+    element: <MainMenu version={version} />
   },
   {
     path: "/game/tableView",
@@ -37,7 +39,12 @@ const router = createHashRouter([
   }
 ]);
 
-// Backend location
+if (localStorage.getItem("version") === null || localStorage.getItem("version") !== version) {
+  localStorage.clear();
+  sessionStorage.clear();
+  localStorage.setItem("version", version);
+}
+
 if (localStorage.getItem("userAuthCode") === null) localStorage.setItem("userAuthCode", "")
 if (localStorage.getItem("activeSaveFile") === null || localStorage.getItem("activeSaveFile") === "undefined") localStorage.setItem("activeSaveFile", JSON.stringify(new saveFile(-1)));
 if (localStorage.getItem("gameOptions") === null) localStorage.setItem("gameOptions", JSON.stringify({specialEffects: true, volume: [1.0, 0.5]}));
@@ -47,7 +54,6 @@ if (sessionStorage.getItem("ingame") === null) sessionStorage.setItem("ingame", 
 if (sessionStorage.getItem("pauseMenuLocked") === null) sessionStorage.setItem("pauseMenuLocked", "false");
 if (sessionStorage.getItem("lastSelectedJob") === null || sessionStorage.getItem("lastSelectedJob") === "undefined") sessionStorage.setItem("lastSelectedJob", "0");
 export const backend = 'https://backend-learnthebasics.koyeb.app';
-//export const backend = 'http://localhost:8000';
 
 // Contexts
 export const saveContext = createContext();
@@ -67,7 +73,7 @@ export function App() {
   const [saveFiles, setSaveFiles] = useState([]);
   const [currOverlay, setCurrOverlay] = useState("");
   const [music, musicData] = useSound(musicSource, { volume: optionValues.volume[1] });
-  const [uiClick, uiClickData] = useSound(click, { volume: optionValues.volume[0] });
+  const [uiClick] = useSound(click, { volume: optionValues.volume[0] });
 
   useEffect(() => {
     if (musicInterval !== null) clearInterval(musicInterval);
@@ -75,7 +81,7 @@ export function App() {
     musicInterval = setInterval(() => {
       music();
     }, musicData.duration)
-  }, [music]);
+  }, [music, musicData]);
 
   return (
     <saveContext.Provider value={{saveFiles, setSaveFiles, activeSaveFile, setActiveSaveFile, stats, setStats}}>

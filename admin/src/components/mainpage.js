@@ -1,18 +1,23 @@
 import "../App.css";
 import { Login } from "./login";
 import { Statistics } from "./statistics";
-import { useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { backend, userContext } from "../App";
 import installer from '../LearnTheBasics_Installer.exe';
+import { Register } from "./register";
 
+export const pagecontext = createContext();
 
 export function MainPage() {
 
   if (window.location.href.includes("password-reset")) window.location.href = "/learnthebasics";
   const user = useContext(userContext);
+  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     if (user.authToken === "") return;
+
+    console.log("asd");
 
     let fetchParams = {
       method: "POST",
@@ -22,10 +27,14 @@ export function MainPage() {
       }),
     };
 
+    fetch(backend + "/player/getStatistics", fetchParams).then((res) => res.json()).then((res) => {
+      user.setStats(res.data);
+    });
+
     fetch(backend + "/admin/isAdmin", fetchParams).then((res) => res.json()).then((res) => {
       user.setIsAdmin(res.data[0].isAdmin);
     });
-  })
+  }, [])
 
   return (
     <div id="mainpage">
@@ -52,8 +61,9 @@ export function MainPage() {
           <a target="_blank" className="block-mobile" href={installer} download={"LearnTheBasics_Installer.exe"}><button className="btn">Download our game now!</button></a>
         </div>
         <div id="user-container">
-
-          {(user.authToken === "") ? <Login /> : <Statistics />}
+          <pagecontext.Provider value={{setIsLogin}}>
+            {(user.authToken === "") ? ((isLogin) ? <Login /> : <Register />) : <Statistics />}
+          </pagecontext.Provider>
         </div>
       </div>
     </div>

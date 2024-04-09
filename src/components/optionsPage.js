@@ -35,7 +35,7 @@ export default function OptionsPage() {
             }} />
           </li>
           <li>
-            <p>Sound effect volume:</p>
+            <p>Sound effects:</p>
             <input className='volume-slider' type='range' min={0} max={100} defaultValue={options.optionValues.volume[0] * 100} onChange={(e) => {
               options.setOptionValues(currOptions => ({...currOptions, volume: [e.target.value / 100, currOptions.volume[1]]}));
               const opt = JSON.parse(localStorage.getItem("gameOptions"));

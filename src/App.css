@@ -175,6 +175,7 @@
   color: var(--accent-color);
   cursor: pointer;
   transition: 0.25s all;
+  white-space: nowrap;
 }
 
 #new-save button:hover {
@@ -184,8 +185,9 @@
 
 #new-save > form > div {
   display: flex;
-  width: 30%;
-  justify-content: space-evenly;
+  column-gap: 2vmin;
+  width: 100%;
+  justify-content: center;
   align-items: center;
 }
 
@@ -213,6 +215,14 @@
   width: 30%;
   align-items: center;
   justify-content: space-between;
+}
+
+#version-num {
+  position: absolute;
+  color: var(--accent-color);
+  right: 0;
+  bottom: 0;
+  margin-right: 1.25vmin;
 }
 
 /*------------------------------------------------------------*/
@@ -1867,12 +1877,13 @@ Y88b  d88P  d8888888888 888   "   888 888
   pointer-events: all;
   bottom: 0;
   width: 100%;
-  height: 6vh;
+  padding: 1vmin 0;
+  height: fit-content;
   border: 0.5vmin solid var(--accent-color);
   outline: none;
   color: var(--accent-color);
   font-weight: bold;
-  font-size: 3vmin;
+  font-size: 2.5vmin;
   font-family: 'Pixel Font';
   background-color: #007045;
   cursor: pointer;
@@ -2034,8 +2045,9 @@ Y88b  d88P  d8888888888 888   "   888 888
 
 #jobs-content > h1 {
   position: absolute;
-  bottom: 10vh;
-  left: 8vw;
+  bottom: 8vmin;
+  left: 26vmin;
+  margin: 0;
   width: fit-content;
   border: 0.5vmin solid black;
   padding: 2vmin;
@@ -2048,7 +2060,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 #jobs-content > button {
   position: absolute; 
   right: 8vw;
-  bottom: 20vh;
+  bottom: 12.25vh;
   background-color: #661000;
   outline: none;
   color: var(--accent-color);
@@ -2078,14 +2090,14 @@ Y88b  d88P  d8888888888 888   "   888 888
   width: 100%;
   height: 0.5vmin;
   border-bottom: 0.5vmin dashed black;
-  bottom: -3vh;
+  bottom: -2vh;
   left: 0;
 }
 
 #jobs-content > h3 {
   position: absolute;
   width: 15.5vw;
-  bottom: 12vh;
+  bottom: 6vh;
   right: 8vw;
   text-align: center;
 }
@@ -2198,7 +2210,7 @@ Y88b  d88P  d8888888888 888   "   888 888
 }
 
 #doc-content > section {
-  width: 60%;
+  width: 60% !important;
   position: relative;
   text-align: initial;
   display: none;

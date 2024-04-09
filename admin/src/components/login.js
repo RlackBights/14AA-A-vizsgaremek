@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import "../App.css";
 import { backend, userContext } from "../App";
+import { pagecontext } from "./mainpage";
 
 
 export function Login() {
     const user = useContext(userContext);
+    const formSwitch = useContext(pagecontext);
 
     return (
         <form id="form-container" onSubmit={(e) => { e.preventDefault() }}>
@@ -89,6 +91,8 @@ export function Login() {
                 >
                     Login
                 </button>
+                <br/><br/>
+                <p class="form-switch">Don't have an account yet?<br/><a onClick={() => formSwitch.setIsLogin(false)}>Register one here!</a></p>
             </div>
         </form>
     );

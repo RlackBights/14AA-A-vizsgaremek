@@ -31,6 +31,18 @@ export function BrowserPage() {
         document.getElementsByClassName("doc-example")[0].parentElement.style.cssText = "";
     }, [])
 
+    useEffect(() => {
+        setTimeout(() => {
+            if (document.getElementsByClassName("doc-example").length === 0) return;
+            document.getElementsByClassName("doc-example")[0].parentElement.style.cssText = "";
+            const lines = document.getElementsByClassName("view-lines monaco-mouse-cursor-text")[0].childElementCount;
+            document.getElementsByClassName("doc-example")[0].parentElement.style.height = `${lines * 19 + 6}px`;
+            console.log("swapped window");
+            document.getElementsByClassName("doc-example")[0].parentElement.style.display = "flex";
+        }, 50);
+        
+    }, [page])
+
     return (
         <div id='browser-page' className='pages' style={{display: window === "browser" ? "flex" : "none"}}>
             <ul id='browser-tabs'>

@@ -9,7 +9,7 @@ import { NewSave } from "./newSave";
 import { displayMessage } from "./notification";
 import { soundContext } from '../App';
 
-export function MainMenu() {
+export function MainMenu(props) {
 
     const overlay = useContext(overlayContext);
     const user = useContext(userContext);
@@ -85,6 +85,7 @@ export function MainMenu() {
               </button>
             </div>
             <div id="darken-bg" className={options.optionValues.specialEffects ? "crt" : ""}></div>
+            <p id="version-num">version: {props.version}</p>
           </div>
     )}
 

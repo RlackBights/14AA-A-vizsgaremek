@@ -24,6 +24,7 @@ export default function PauseMenu(params) {
     const keydownEvent = (e) => {
       const pauseMenu = document.getElementById('pause-menu');
       if (pauseMenu && e.key === "Escape" && sessionStorage.getItem("pauseMenuLocked") === "false") {
+        setPauseOptions("false");
         pauseMenu.style.display = (pauseMenu.style.display === "flex") ? "none" : "flex";
         sessionStorage.setItem("pauseMenuLocked", "true");
       }
@@ -31,6 +32,7 @@ export default function PauseMenu(params) {
 
     const keyupEvent = (e) => {
       if (e.key === "Escape") {
+        setPauseOptions("false");
         sessionStorage.setItem("pauseMenuLocked", "false");
       }
     }
