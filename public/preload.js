@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV === 'test') {
+    import('wdio-electron-service/preload');
+}
+
 process.once('loaded', () => {
     const { contextBridge, ipcRenderer, ipcMain } = require("electron");
     const electronHandler = {

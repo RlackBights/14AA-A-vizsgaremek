@@ -7,6 +7,11 @@ const { readFile, mkdirSync, writeFileSync } = require("fs");
 const localServerApp = express();
 const PORT = 8088;
 const isDev = process.argv[2] == '--dev';
+const isTest = process.env.NODE_ENV === 'test';
+
+if (isTest) {
+  import('wdio-electron-service/main');
+}
 
 const startLocalServer = (done) => {
   localServerApp.use(express.json({ limit: "100mb" }));
